@@ -1,19 +1,22 @@
 {
 	"name": "@leight-core/leight",
-	"version": "0.5.4",
+	"version": "0.5.5",
 	"description": "Component library for React and Ant Design.",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/leight-core/leight.git"
 	},
-	"main": "dist/index.js",
+	"source": "src/index.js",
+	"main": "dist/index.cjs.js",
+	"module": "dist/index.m.js",
+	"esmodule": "dist/index.modern.js",
 	"files": [
 		"dist"
 	],
 	"scripts": {
-		"start": "parcel watch src/index.js",
-		"build": "parcel build src/index.js --target node --global @leight-core/leight",
+		"start": "microbundle watch",
+		"build": "microbundle --strict --compress -f modern,es,cjs",
 		"flow": "flow",
 		"test": "jest",
 		"test:watch": "jest --watch"
@@ -27,24 +30,16 @@
 		"@ant-design/icons": ">=4.3.0",
 		"antd": ">=4.8.5",
 		"react-helmet": "^6.1.0",
-		"react-router-dom": "^5.2.0"
+		"react-router": "^6.0.0-beta.0",
+		"react-router-dom": "^5.2.0",
+		"react-i18next": "^11.7.3",
+		"arr-diff": "^4.0.0",
+		"omit-empty": "^1.0.0",
+		"isobject": "^4.0.0"
 	},
 	"devDependencies": {
-		"@babel/cli": "^7.12.8",
-		"@babel/core": "^7.12.8",
-		"@babel/plugin-proposal-object-rest-spread": "^7.12.1",
-		"@babel/plugin-transform-regenerator": "^7.12.1",
-		"@babel/plugin-transform-runtime": "^7.12.1",
-		"cross-env": "^7.0.2",
 		"flow-bin": "^0.138.0",
-		"parcel-bundler": "^1.12.4",
-		"react": "^17.0.1",
-		"react-dom": "^17.0.1",
-		"react-router": "^6.0.0-beta.0",
-		"react-i18next": "^11.7.3",
-		"prop-types": "^15.7.2",
-		"react-helmet": "^6.1.0",
-		"react-router-dom": "^5.2.0",
-		"node-forge": ">=0.10.0"
+		"microbundle": "^0.12.4",
+		"prop-types": "^15.7.2"
 	}
 }

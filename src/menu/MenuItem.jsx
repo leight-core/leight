@@ -2,7 +2,7 @@ import { Menu } from "antd";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { useCleverLink } from "../hook";
+import useCleverLink from "../hook/useCleverLink";
 
 const MenuItem = (props) => {
 	const {t}  = useTranslation();

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useDiscoveryContext } from "../discovery";
-import { Server } from "../server";
-import { Events } from "../utils";
+import useDiscoveryContext from "../discovery/useDiscoveryContext";
+import Server from "../server/Server";
+import Events from "../utils/Events";
 import ResolveSession from "./ResolveSession";
 import SessionContext from "./SessionContext";
 

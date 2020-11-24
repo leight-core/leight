@@ -5,8 +5,8 @@ import {
 	useState
 } from "react";
 import { useParams } from "react-router";
-import { useDiscoveryContext } from "../discovery";
-import { PageIndex } from "../utils";
+import useDiscoveryContext from "../discovery/useDiscoveryContext";
+import PageIndex from "../utils/PageIndex";
 
 const BaseList = (
 	{

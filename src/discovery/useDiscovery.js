@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Server } from "../server";
+import Server from "../server/Server";
 
 const useDiscovery = (
 	href,

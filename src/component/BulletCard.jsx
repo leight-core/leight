@@ -4,7 +4,7 @@ import {
 	Typography
 } from "antd";
 import { useTranslation } from "react-i18next";
-import { NumberRange } from "../utils";
+import NumberRange from "../utils/NumberRange";
 
 const BulletCard = (
 	{

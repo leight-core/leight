@@ -1,10 +1,8 @@
 import i18next from "i18next";
 import { useState } from "react";
-import { Events } from "../utils";
-import {
-	LanguageErrorView,
-	LoaderView
-} from "../view/";
+import Events from "../utils/Events";
+import LanguageErrorView from "../view/LanguageErrorView";
+import LoaderView from "../view/LoaderView";
 import useTranslation from "./useTranslation";
 
 const Translation = (
