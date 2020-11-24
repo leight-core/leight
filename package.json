@@ -13,7 +13,7 @@
 	],
 	"scripts": {
 		"start": "parcel watch src/index.js",
-		"build": "parcel build src/index.js --target node",
+		"build": "parcel build src/index.js --target node --global @leight-core/leight",
 		"flow": "flow",
 		"test": "jest",
 		"test:watch": "jest --watch"
