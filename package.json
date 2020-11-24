@@ -8,7 +8,7 @@
 		"url": "git://github.com/leight-core/leight.git"
 	},
 	"source": "src/index.js",
-	"main": "dist/index.modern.js",
+	"module": "dist/leight.modern.js",
 	"files": [
 		"dist"
 	],
