@@ -1,9 +1,7 @@
-import {
-	Events,
-	Server
-} from "@leight-core/leight-js";
 import { useState } from "react";
-import useDiscoveryContext from "../discovery/useDiscoveryContext";
+import { useDiscoveryContext } from "../discovery";
+import { Server } from "../server";
+import { Events } from "../utils";
 import ResolveSession from "./ResolveSession";
 import SessionContext from "./SessionContext";
 

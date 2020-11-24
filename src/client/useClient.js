@@ -1,5 +1,5 @@
-import { Server } from "@leight-core/leight-js";
 import { useEffect } from "react";
+import { Server } from "../server";
 
 const useClient = (
 	events,

@@ -1,8 +1,10 @@
-import { Events } from "@leight-core/leight-js";
 import { useState } from "react";
-import useClientContext from "../client/useClientContext";
-import DiscoveryErrorView from "../view/DiscoveryErrorView";
-import LoaderView from "../view/LoaderView";
+import { useClientContext } from "../client";
+import { Events } from "../utils";
+import {
+	DiscoveryErrorView,
+	LoaderView
+} from "../view";
 import DiscoveryContext from "./DiscoveryContext";
 import useDiscovery from "./useDiscovery";
 

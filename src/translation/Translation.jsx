@@ -1,11 +1,13 @@
-import { Events } from "@leight-core/leight-js";
 import i18next from "i18next";
 import { useState } from "react";
-import LanguageErrorView from "../view/LanguageErrorView";
-import LoaderView from "../view/LoaderView";
+import { Events } from "../utils";
+import {
+	LanguageErrorView,
+	LoaderView
+} from "../view/";
 import useTranslation from "./useTranslation";
 
-const Language = (
+const Translation = (
 	{
 		children,
 		link = "common.translation"
@@ -35,4 +37,4 @@ const Language = (
 	}
 };
 
-export default Language;
+export default Translation;

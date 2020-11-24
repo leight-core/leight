@@ -1,6 +1,6 @@
-import { Server } from "@leight-core/leight-js";
 import { useEffect } from "react";
-import useDiscoveryContext from "../discovery/useDiscoveryContext";
+import { useDiscoveryContext } from "../discovery";
+import { Server } from "../server";
 
 const useTranslation = (events, link = "common.translation") => {
 	const discoveryContext = useDiscoveryContext();

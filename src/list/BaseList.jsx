@@ -1,7 +1,3 @@
-import {
-	Events,
-	PageIndex
-} from "@leight-core/leight-js";
 import { List } from "antd";
 import PropTypes from "prop-types";
 import {
@@ -9,7 +5,8 @@ import {
 	useState
 } from "react";
 import { useParams } from "react-router";
-import useDiscoveryContext from "../discovery/useDiscoveryContext";
+import { useDiscoveryContext } from "../discovery";
+import { PageIndex } from "../utils";
 
 const BaseList = (
 	{

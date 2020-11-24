@@ -5,7 +5,7 @@ import {
 } from "antd";
 import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
-import useSessionContext from "../session/useSessionContext";
+import { useSessionContext } from "../session";
 
 const LockedUserView = () => {
 	const sessionContext = useSessionContext();

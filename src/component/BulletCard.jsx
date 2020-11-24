@@ -1,10 +1,10 @@
 import { RightCircleOutlined } from "@ant-design/icons";
-import { NumberRange } from "@leight-core/leight-js";
 import {
 	Result,
 	Typography
 } from "antd";
 import { useTranslation } from "react-i18next";
+import { NumberRange } from "../utils";
 
 const BulletCard = (
 	{

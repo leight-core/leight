@@ -4,7 +4,7 @@ import {
 	useEffect,
 	useState
 } from "react";
-import Loader from "../component/Loader";
+import { Loader } from "../component";
 import LayoutContext from "./LayoutContext";
 
 const BaseLayout = ({children}) => {

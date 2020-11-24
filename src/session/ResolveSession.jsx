@@ -1,5 +1,5 @@
-import { Events } from "@leight-core/leight-js";
 import { useState } from "react";
+import { Events } from "../utils";
 import LoaderView from "../view/LoaderView";
 import LockedUserView from "../view/LockedUserView";
 import useSessionCheck from "./useSessionCheck";
