@@ -17,7 +17,7 @@ export default {
 	decorators: [Story => {
 		const [form] = Form.useForm();
 		return (
-			<Form form={form} layout="inline" onFinish={() => alert("boo!")}>
+			<Form form={form} layout="inline">
 				<Form.Item
 					name={"username"}
 					rules={[
