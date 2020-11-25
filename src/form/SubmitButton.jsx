@@ -36,6 +36,10 @@ SubmitButton.propTypes = {
 	 * An Antd Form Instance used for validation checks and others.
 	 */
 	form: PropTypes.object.isRequired,
+	/**
+	 * Optional icon.
+	 */
+	icon: PropTypes.node,
 };
 
 export default SubmitButton;
