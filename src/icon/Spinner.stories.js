@@ -1,3 +1,4 @@
+import {Button} from "antd";
 import Spinner from "./Spinner";
 
 export default {
@@ -20,4 +21,6 @@ export default {
 
 const Template = (args) => <Spinner {...args}/>;
 
-export const SpinnerSandbox = Template.bind({});
+export const Sandbox = Template.bind({});
+
+export const ButtonExample = () => <Button size={"large"} type={"primary"} ghost icon={<Spinner/>} children={"Loading something"}/>;

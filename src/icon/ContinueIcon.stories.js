@@ -1,10 +1,12 @@
+import {Button} from "antd";
 import React from "react";
 import ContinueIcon from "./ContinueIcon";
 
 export default {
-	title: "Leight/Icon/Continue",
+	title: "Leight/Icon/Continue Icon",
 	component: ContinueIcon,
-	argTypes: {},
 };
 
-export const Continue = () => <ContinueIcon/>;
+export const Icon = () => <ContinueIcon/>;
+
+export const ButtonExample = () => <Button type={"primary"} ghost size={"large"} icon={<Icon/>} children={"Continue"}/>;
