@@ -11,4 +11,6 @@ const Template = _ => <DashboardIcon/>;
 
 export const Icon = Template.bind({});
 
-export const ButtonExample = () => <Button type={"primary"} ghost size={"large"} icon={<Icon/>} children={"Dashboard"}/>;
+export const ButtonExample = Template.bind({});
+
+ButtonExample.decorators = [Story => <Button type={"primary"} ghost size={"large"} icon={<Story/>} children={"Dashboard"}/>];

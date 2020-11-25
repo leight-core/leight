@@ -1,5 +1,6 @@
 import {Button} from "antd";
 import Spinner from "./Spinner";
+import SubmitIcon from "./SubmitIcon";
 
 export default {
 	title: "Leight/Icon/Spinner Sandbox",
@@ -23,4 +24,6 @@ const Template = args => <Spinner {...args}/>;
 
 export const Sandbox = Template.bind({});
 
-export const ButtonExample = () => <Button size={"large"} type={"primary"} ghost icon={<Spinner/>} children={"Loading something"}/>;
+export const ButtonExample = Template.bind({});
+ButtonExample.decorators = [Story => <Button size={"large"} type={"primary"} ghost icon={<Story/>} children={"Loading something"}/>];
+ButtonExample.args = {children: <SubmitIcon/>};
