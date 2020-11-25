@@ -1,4 +1,4 @@
-import { FormOutlined } from "@ant-design/icons";
+import {FormOutlined} from "@ant-design/icons";
 
 const SignUpIcon = (props) => <FormOutlined {...props}/>;
 

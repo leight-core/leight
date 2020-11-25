@@ -1,4 +1,4 @@
-import { PictureOutlined } from "@ant-design/icons";
+import {PictureOutlined} from "@ant-design/icons";
 
 const DashboardIcon = (props) => <PictureOutlined {...props}/>;
 

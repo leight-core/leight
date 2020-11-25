@@ -1,4 +1,4 @@
-import { Menu } from "antd";
+import {Menu} from "antd";
 import useLayoutContext from "../layout/useLayoutContext";
 
 const BaseMenu = ({children}) => {

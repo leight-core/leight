@@ -1,4 +1,4 @@
-import { PoweroffOutlined } from "@ant-design/icons";
+import {PoweroffOutlined} from "@ant-design/icons";
 
 const SignOutIcon = (props) => <PoweroffOutlined {...props}/>;
 

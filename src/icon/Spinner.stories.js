@@ -1,9 +1,9 @@
 import Spinner from "./Spinner";
 
 export default {
-	title:     "Leight/Icon/Spinner",
+	title: "Leight/Icon/Spinner",
 	component: Spinner,
-	argTypes:  {
+	argTypes: {
 		done: {control: "boolean"},
 		icon: {control: "string"},
 	}
@@ -12,13 +12,13 @@ export default {
 const Template = (args) => <Spinner {...args}/>;
 
 export const Spinning = Template.bind({});
-Spinning.args         = {
+Spinning.args = {
 	done: false,
 	icon: "This should not be visible."
 };
 
 export const Done = Template.bind({});
-Done.args         = {
+Done.args = {
 	done: true,
 	icon: "Showing Icon Prop"
 };

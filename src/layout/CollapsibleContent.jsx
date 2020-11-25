@@ -1,4 +1,4 @@
-import { Layout } from "antd";
+import {Layout} from "antd";
 import useLayoutContext from "./useLayoutContext";
 
 const CollapsibleContent = (
@@ -11,7 +11,7 @@ const CollapsibleContent = (
 	return (
 		<Layout.Content
 			style={{
-				minHeight:  "100vh",
+				minHeight: "100vh",
 				marginLeft: layoutContext.fullscreen ? 0 : (layoutContext.collapsed ? 80 : 220),
 			}}
 			children={children}

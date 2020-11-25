@@ -1,4 +1,4 @@
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import {ArrowLeftOutlined} from "@ant-design/icons";
 
 const BackIcon = (props) => <ArrowLeftOutlined {...props}/>;
 

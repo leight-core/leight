@@ -1,4 +1,4 @@
-import { DeleteOutlined } from "@ant-design/icons";
+import {DeleteOutlined} from "@ant-design/icons";
 
 const DeleteItemIcon = (props) => <DeleteOutlined {...props}/>;
 

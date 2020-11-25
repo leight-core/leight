@@ -1,4 +1,4 @@
-import { CloseOutlined } from "@ant-design/icons";
+import {CloseOutlined} from "@ant-design/icons";
 
 const CancelIcon = (props) => <CloseOutlined {...props}/>;
 

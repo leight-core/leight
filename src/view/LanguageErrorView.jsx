@@ -1,9 +1,6 @@
-import {
-	Button,
-	Result
-} from "antd";
-import { Helmet } from "react-helmet";
-import { useTranslation } from "react-i18next";
+import {Button, Result} from "antd";
+import {Helmet} from "react-helmet";
+import {useTranslation} from "react-i18next";
 
 const LanguageErrorView = () => {
 	const {t} = useTranslation();

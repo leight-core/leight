@@ -1,4 +1,4 @@
-import { Menu } from "antd";
+import {Menu} from "antd";
 
 const MenuDivider = (props) => {
 	return (

@@ -1,4 +1,4 @@
-import { ArrowRightOutlined } from "@ant-design/icons";
+import {ArrowRightOutlined} from "@ant-design/icons";
 
 const ContinueIcon = (props) => <ArrowRightOutlined {...props}/>;
 

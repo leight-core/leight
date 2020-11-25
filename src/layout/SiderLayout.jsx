@@ -1,7 +1,4 @@
-import {
-	Layout,
-	PageHeader
-} from "antd";
+import {Layout, PageHeader} from "antd";
 import BaseLayout from "./BaseLayout";
 import CollapsibleContent from "./CollapsibleContent";
 import Sider from "./Sider";
@@ -18,7 +15,7 @@ const SiderLayout = (
 			{header}
 			<Layout style={{
 				minHeight: "100vh",
-				padding:   "0 50px",
+				padding: "0 50px",
 				marginTop: 64
 			}}>
 				<Sider children={menu}/>

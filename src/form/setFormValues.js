@@ -6,7 +6,7 @@ const magic = (form, fields, name = []) => {
 	for (const [key, value] of
 		Object.entries(fields)) {
 		const current = [].concat(name, [key]);
-		keys          = keys.concat([current]);
+		keys = keys.concat([current]);
 		if (isArray(value)) {
 			for (let i = 0;
 				 i < value.length;
@@ -30,9 +30,9 @@ const setFormValues = (form, data) => {
 	form.setFieldsValue(data);
 	form.setFields(magic(form, data).map(name => ({
 		name,
-		errors:     [],
+		errors: [],
 		validating: false,
-		touched:    false
+		touched: false
 	})));
 };
 

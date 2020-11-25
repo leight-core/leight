@@ -1,9 +1,6 @@
-import { RightCircleOutlined } from "@ant-design/icons";
-import {
-	Result,
-	Typography
-} from "antd";
-import { useTranslation } from "react-i18next";
+import {RightCircleOutlined} from "@ant-design/icons";
+import {Result, Typography} from "antd";
+import {useTranslation} from "react-i18next";
 import NumberRange from "../utils/NumberRange";
 
 const BulletCard = (

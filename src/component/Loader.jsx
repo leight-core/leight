@@ -1,6 +1,6 @@
-import { SettingFilled } from "@ant-design/icons";
-import { Spin } from "antd";
-import { useTranslation } from "react-i18next";
+import {SettingFilled} from "@ant-design/icons";
+import {Spin} from "antd";
+import {useTranslation} from "react-i18next";
 
 const Loader = (
 	{

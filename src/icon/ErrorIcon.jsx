@@ -1,4 +1,4 @@
-import { CloseCircleOutlined } from "@ant-design/icons";
+import {CloseCircleOutlined} from "@ant-design/icons";
 
 const ErrorIcon = (props) => <CloseCircleOutlined {...props}/>;
 

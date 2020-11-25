@@ -2,9 +2,9 @@ import React from "react";
 import ContinueIcon from "./ContinueIcon";
 
 export default {
-	title:     "Leight/Icon/Continue",
+	title: "Leight/Icon/Continue",
 	component: ContinueIcon,
-	argTypes:  {},
+	argTypes: {},
 };
 
 export const Continue = () => <ContinueIcon/>;

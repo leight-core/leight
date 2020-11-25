@@ -1,9 +1,6 @@
-import { useState } from "react";
+import {useState} from "react";
 import Events from "../utils/Events";
-import {
-	ClientErrorView,
-	LoaderView
-} from "../view";
+import {ClientErrorView, LoaderView} from "../view";
 import ClientContext from "./ClientContext";
 import useClient from "./useClient";
 

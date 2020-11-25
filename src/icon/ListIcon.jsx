@@ -1,4 +1,4 @@
-import { DatabaseOutlined } from "@ant-design/icons";
+import {DatabaseOutlined} from "@ant-design/icons";
 
 const ListIcon = (props) => <DatabaseOutlined {...props}/>;
 

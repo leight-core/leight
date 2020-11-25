@@ -1,15 +1,12 @@
-import { LockOutlined } from "@ant-design/icons";
-import {
-	Button,
-	Result
-} from "antd";
-import { Helmet } from "react-helmet";
-import { useTranslation } from "react-i18next";
+import {LockOutlined} from "@ant-design/icons";
+import {Button, Result} from "antd";
+import {Helmet} from "react-helmet";
+import {useTranslation} from "react-i18next";
 import useSessionContext from "../session/useSessionContext";
 
 const LockedUserView = () => {
 	const sessionContext = useSessionContext();
-	const {t}            = useTranslation();
+	const {t} = useTranslation();
 
 	return (
 		<>

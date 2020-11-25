@@ -1,4 +1,4 @@
-import { LoginOutlined } from "@ant-design/icons";
+import {LoginOutlined} from "@ant-design/icons";
 
 const SignInIcon = (props) => <LoginOutlined {...props}/>;
 

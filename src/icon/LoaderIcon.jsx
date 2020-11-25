@@ -1,4 +1,4 @@
-import { SyncOutlined } from "@ant-design/icons";
+import {SyncOutlined} from "@ant-design/icons";
 
 const LoaderIcon = (props) => <SyncOutlined {...props}/>;
 

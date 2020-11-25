@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import {useEffect} from "react";
 import useDiscoveryContext from "../discovery/useDiscoveryContext";
 import Server from "../server/Server";
 

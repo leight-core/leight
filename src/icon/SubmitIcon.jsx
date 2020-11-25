@@ -1,4 +1,4 @@
-import { SmileOutlined } from "@ant-design/icons";
+import {SmileOutlined} from "@ant-design/icons";
 
 const SubmitIcon = (props) => <SmileOutlined {...props}/>;
 

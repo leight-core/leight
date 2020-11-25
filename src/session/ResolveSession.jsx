@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Events } from "../utils";
+import {useState} from "react";
+import {Events} from "../utils";
 import LoaderView from "../view/LoaderView";
 import LockedUserView from "../view/LockedUserView";
 import useSessionCheck from "./useSessionCheck";
@@ -11,7 +11,7 @@ const ResolveSession = (
 		link = "common.user.login"
 	}) => {
 	const [state, setState] = useState();
-	const sessionContext    = useSessionContext();
+	const sessionContext = useSessionContext();
 	useSessionCheck(
 		Events()
 			.on("success", user => {

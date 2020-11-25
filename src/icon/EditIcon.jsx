@@ -1,4 +1,4 @@
-import { EditOutlined } from "@ant-design/icons";
+import {EditOutlined} from "@ant-design/icons";
 
 const EditIcon = (props) => <EditOutlined {...props}/>;
 

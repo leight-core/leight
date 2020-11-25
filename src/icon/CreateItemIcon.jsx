@@ -1,4 +1,4 @@
-import { PlusCircleOutlined } from "@ant-design/icons";
+import {PlusCircleOutlined} from "@ant-design/icons";
 
 const CreateItemIcon = (props) => <PlusCircleOutlined {...props}/>;
 

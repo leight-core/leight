@@ -1,6 +1,6 @@
 class Stringable {
 	constructor(item, value = "id") {
-		this.item  = item;
+		this.item = item;
 		this.value = value;
 	}
 

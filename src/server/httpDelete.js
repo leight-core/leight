@@ -1,8 +1,5 @@
 import axios from "axios";
-import {
-	axiosError,
-	axiosSuccess
-} from "./events";
+import {axiosError, axiosSuccess} from "./events";
 
 /**
  * @param href

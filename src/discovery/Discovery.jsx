@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useClientContext } from "../client";
+import {useState} from "react";
+import {useClientContext} from "../client";
 import Events from "../utils/Events";
 import DiscoveryErrorView from "../view/DiscoveryErrorView";
 import LoaderView from "../view/LoaderView";
@@ -7,9 +7,9 @@ import DiscoveryContext from "./DiscoveryContext";
 import useDiscovery from "./useDiscovery";
 
 const Discovery = ({children}) => {
-	const [status, setStatus]       = useState();
+	const [status, setStatus] = useState();
 	const [discovery, setDiscovery] = useState();
-	const client                    = useClientContext();
+	const client = useClientContext();
 
 	if (!client) {
 		throw new Error(`Missing ClientContext (use Client component).`);
@@ -42,7 +42,7 @@ const Discovery = ({children}) => {
 						discovery,
 						link,
 						fetch: (id, uuid, replace) => link(id).replace(replace, uuid),
-						page:  (id, page, name = null, param = null) => name ? link(id).replace("{" + name + "}", param).replace("{page}", page) : link(id).replace("{page}", page),
+						page: (id, page, name = null, param = null) => name ? link(id).replace("{" + name + "}", param).replace("{page}", page) : link(id).replace("{page}", page),
 					}}
 					children={children}
 				/>

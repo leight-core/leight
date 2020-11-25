@@ -1,5 +1,5 @@
-import { SettingFilled } from "@ant-design/icons";
-import { Result } from "antd";
+import {SettingFilled} from "@ant-design/icons";
+import {Result} from "antd";
 
 const LoaderView = () =>
 	<Result

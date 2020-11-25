@@ -1,15 +1,12 @@
-import {
-	Button,
-	Result
-} from "antd";
-import { Helmet } from "react-helmet";
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import {Button, Result} from "antd";
+import {Helmet} from "react-helmet";
+import {useTranslation} from "react-i18next";
+import {Link} from "react-router-dom";
 import HomeIcon from "../icon/HomeIcon";
 import useLayoutContext from "../layout/useLayoutContext";
 
 const NotFoundView = () => {
-	const {t}           = useTranslation();
+	const {t} = useTranslation();
 	const layoutContext = useLayoutContext();
 	layoutContext.useEnableFullscreen();
 

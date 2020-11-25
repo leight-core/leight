@@ -1,7 +1,4 @@
-import {
-	Col,
-	Row
-} from "antd";
+import {Col, Row} from "antd";
 
 const Centered = ({
 					  children,
