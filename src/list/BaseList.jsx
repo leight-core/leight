@@ -6,6 +6,7 @@ import {
 } from "react";
 import { useParams } from "react-router";
 import useDiscoveryContext from "../discovery/useDiscoveryContext";
+import Events from "../utils/Events";
 import PageIndex from "../utils/PageIndex";
 
 const BaseList = (
