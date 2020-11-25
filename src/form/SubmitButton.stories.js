@@ -1,6 +1,6 @@
 import {action} from "@storybook/addon-actions";
 import {Form, Input} from "antd";
-import {useEffect, useState} from "react";
+import SubmitIcon from "../icon/SubmitIcon";
 import SubmitButton from "./SubmitButton";
 
 export default {
@@ -9,25 +9,18 @@ export default {
 	argTypes: {
 		title: {
 			control: {type: "string"},
-			description: "Title on the button; goes through react-i18next.",
 		},
 		form: {
 			control: {disable: true},
-			table: {disable: true},
 		}
 	},
 	args: {
 		title: "Submit!",
-	}
+	},
 };
 
 const Template = args => {
 	const [form] = Form.useForm();
-	const [, forceUpdate] = useState();
-	// To disable submit button at the beginning.
-	useEffect(() => {
-		forceUpdate({});
-	}, []);
 	return (
 		<Form form={form} layout="inline" onFinish={action("Done!")}>
 			<Form.Item
@@ -55,9 +48,17 @@ const Template = args => {
 					placeholder={"Password"}
 				/>
 			</Form.Item>
-			<SubmitButton {...args} form={form}/>
+			<SubmitButton {...args} form={form} icon={<SubmitIcon/>}/>
 		</Form>
 	);
 };
 
 export const Submit = Template.bind({});
+
+Submit.parameters = {
+	docs: {
+		source: {
+			code: "<SubmitButton title={'Submit!'} form={form}/>",
+		}
+	}
+};

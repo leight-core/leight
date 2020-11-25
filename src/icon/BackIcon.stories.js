@@ -7,6 +7,8 @@ export default {
 	component: BackIcon,
 };
 
-export const Icon = () => <BackIcon/>;
+const Template = _ => <BackIcon/>;
+
+export const Icon = Template.bind({});
 
 export const ButtonExample = () => <Button type={"primary"} ghost size={"large"} icon={<Icon/>} children={"Back"}/>;

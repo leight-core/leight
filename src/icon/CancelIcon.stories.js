@@ -7,6 +7,8 @@ export default {
 	component: CancelIcon,
 };
 
-export const Icon = () => <CancelIcon/>;
+const Template = _ => <CancelIcon/>;
+
+export const Icon = Template.bind({});
 
 export const ButtonExample = () => <Button type={"danger"} ghost size={"large"} icon={<Icon/>} children={"Cancel"}/>;

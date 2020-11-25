@@ -1,5 +1,6 @@
 import {Button} from "antd";
 import React from "react";
+import ContinueIcon from "./ContinueIcon";
 import CreateIcon from "./CreateIcon";
 
 export default {
@@ -7,6 +8,8 @@ export default {
 	component: CreateIcon,
 };
 
-export const Icon = () => <CreateIcon/>;
+const Template = _ => <ContinueIcon/>;
+
+export const Icon = Template.bind({});
 
 export const ButtonExample = () => <Button type={"primary"} ghost size={"large"} icon={<Icon/>} children={"Create"}/>;

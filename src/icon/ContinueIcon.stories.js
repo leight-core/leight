@@ -7,6 +7,8 @@ export default {
 	component: ContinueIcon,
 };
 
-export const Icon = () => <ContinueIcon/>;
+const Template = _ => <ContinueIcon/>;
+
+export const Icon = Template.bind({});
 
 export const ButtonExample = () => <Button type={"primary"} ghost size={"large"} icon={<Icon/>} children={"Continue"}/>;

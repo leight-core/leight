@@ -28,7 +28,13 @@ const SubmitButton = (props) => {
 };
 
 SubmitButton.propTypes = {
+	/**
+	 * Title on the button; goes through react-i18next.
+	 */
 	title: PropTypes.string.isRequired,
+	/**
+	 * An Antd Form Instance used for validation checks and others.
+	 */
 	form: PropTypes.object.isRequired,
 };
 

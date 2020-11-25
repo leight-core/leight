@@ -19,7 +19,7 @@ export default {
 	}
 };
 
-const Template = (args) => <Spinner {...args}/>;
+const Template = args => <Spinner {...args}/>;
 
 export const Sandbox = Template.bind({});
 

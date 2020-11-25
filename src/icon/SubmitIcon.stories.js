@@ -7,6 +7,8 @@ export default {
 	component: SubmitIcon,
 };
 
-export const Icon = () => <SubmitIcon/>;
+const Template = _ => <SubmitIcon/>;
+
+export const Icon = Template.bind({});
 
 export const ButtonExample = () => <Button type={"primary"} ghost size={"large"} icon={<Icon/>} children={"Submit"}/>;

@@ -7,6 +7,8 @@ export default {
 	component: DashboardIcon,
 };
 
-export const Icon = () => <DashboardIcon/>;
+const Template = _ => <DashboardIcon/>;
+
+export const Icon = Template.bind({});
 
 export const ButtonExample = () => <Button type={"primary"} ghost size={"large"} icon={<Icon/>} children={"Dashboard"}/>;
