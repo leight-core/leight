@@ -1,24 +1,23 @@
 import Spinner from "./Spinner";
 
 export default {
-	title: "Leight/Icon/Spinner",
+	title: "Leight/Icon/Spinner Sandbox",
 	component: Spinner,
 	argTypes: {
-		done: {control: "boolean"},
-		icon: {control: "string"},
+		done: {
+			control: {type: "boolean"},
+			description: "Any any truthy expression controlling if spinning or show children.",
+		},
+		children: {
+			control: {disable: true},
+			description: "When done, children will be directly shown.",
+		},
+	},
+	args: {
+		children: "We're done spinning!"
 	}
 };
 
 const Template = (args) => <Spinner {...args}/>;
 
-export const Spinning = Template.bind({});
-Spinning.args = {
-	done: false,
-	icon: "This should not be visible."
-};
-
-export const Done = Template.bind({});
-Done.args = {
-	done: true,
-	icon: "Showing Icon Prop"
-};
+export const SpinnerSandbox = Template.bind({});

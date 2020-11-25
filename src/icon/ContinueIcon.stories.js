@@ -8,7 +8,3 @@ export default {
 };
 
 export const Continue = () => <ContinueIcon/>;
-
-Continue.parameters = {
-	controls: {hideNoControlsWarning: true},
-};

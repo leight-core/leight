@@ -7,7 +7,3 @@ export default {
 };
 
 export const Back = () => <BackIcon/>;
-
-Back.parameters = {
-	controls: {hideNoControlsWarning: true},
-};

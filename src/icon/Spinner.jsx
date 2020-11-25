@@ -4,14 +4,14 @@ import LoaderIcon from "./LoaderIcon";
 const Spinner = (
 	{
 		done,
-		icon
+		children
 	}) => {
-	return (done ? icon : <LoaderIcon spin/>);
+	return (done ? children : <LoaderIcon spin/>);
 };
 
 Spinner.propTypes = {
 	done: PropTypes.any,
-	icon: PropTypes.element.isRequired,
+	children: PropTypes.element,
 };
 
 export default Spinner;

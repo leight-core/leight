@@ -8,7 +8,3 @@ export default {
 };
 
 export const Cancel = () => <CancelIcon/>;
-
-Cancel.parameters = {
-	controls: {hideNoControlsWarning: true},
-};
