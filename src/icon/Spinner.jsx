@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
 import LoaderIcon from "./LoaderIcon";
 
-const Spinner = ({
-					 done,
-					 icon
-				 }) => {
+const Spinner = (
+	{
+		done,
+		icon
+	}) => {
 	return (done ? icon : <LoaderIcon spin/>);
 };
 
