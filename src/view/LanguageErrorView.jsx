@@ -1,20 +1,20 @@
-import {Button, Result} from "antd";
-import {Helmet} from "react-helmet";
-import {useTranslation} from "react-i18next";
+import {
+	Button,
+	Result
+} from "antd";
+import { useTranslation } from "react-i18next";
+import { useAppContext } from "../AppContext";
 
 const LanguageErrorView = () => {
 	const {t} = useTranslation();
-
+	useAppContext().useTitle("error.language.title");
 	return (
-		<>
-			<Helmet title={t("error.language.title")}/>
-			<Result
-				status="500"
-				title={t("error.language.title")}
-				subTitle={t("error.language.body")}
-				extra={<Button type="primary" onClick={() => window.location.reload()}>{t("common.refresh")}</Button>}
-			/>
-		</>
+		<Result
+			status="500"
+			title={t("error.language.title")}
+			subTitle={t("error.language.body")}
+			extra={<Button type="primary" onClick={() => window.location.reload()}>{t("common.refresh")}</Button>}
+		/>
 	);
 };
 

@@ -1,5 +1,5 @@
-import {Menu} from "antd";
-import useLayoutContext from "../layout/useLayoutContext";
+import { Menu } from "antd";
+import { useLayoutContext } from "../layout/LayoutContext";
 
 const BaseMenu = ({children}) => {
 	const layoutContext = useLayoutContext();
