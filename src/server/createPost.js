@@ -1,4 +1,4 @@
-import Server from "./Server";
+import httpPost from "./httpPost";
 
 /**
  * @typedef {function} CreatePostType
@@ -19,7 +19,7 @@ const createPost = link => {
 		discovery,
 		data,
 		events,
-	) => Server.httpPost(
+	) => httpPost(
 		discovery.link(link),
 		data,
 		events,

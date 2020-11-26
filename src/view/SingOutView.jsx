@@ -7,7 +7,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { useLayoutContext } from "../layout/LayoutContext";
-import useSessionContext from "../session/useSessionContext";
+import { useSessionContext } from "../session/SessionContext";
 
 const SingOutView = ({id}) => {
 	const sessionContext = useSessionContext();

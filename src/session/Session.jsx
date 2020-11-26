@@ -3,7 +3,7 @@ import { useDiscoveryContext } from "../discovery/DiscoveryContext";
 import Server from "../server/Server";
 import Events from "../utils/Events";
 import ResolveSession from "./ResolveSession";
-import SessionContext from "./SessionContext";
+import { SessionContext } from "./SessionContext";
 
 const DefaultState = {
 	site: "common",

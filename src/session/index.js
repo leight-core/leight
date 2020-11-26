@@ -1,9 +1,13 @@
 import Session from "./Session";
+import {
+	SessionContext,
+	useSessionContext
+} from "./SessionContext";
 import useSessionCheck from "./useSessionCheck";
-import useSessionContext from "./useSessionContext";
 
 export {
 	Session,
-	useSessionCheck,
+	SessionContext,
 	useSessionContext,
+	useSessionCheck,
 };

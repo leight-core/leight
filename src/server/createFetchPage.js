@@ -1,4 +1,4 @@
-import Server from "./Server";
+import httpPost from "./httpPost";
 
 /**
  * @typedef {function} FetchPageCallbackType
@@ -25,7 +25,7 @@ const createFetchPage = (link, param = null) => {
 		limit,
 		params = null,
 		events,
-	) => Server.httpPost(
+	) => httpPost(
 		discovery.page(link, param, params ? params[param] : null),
 		{
 			page,

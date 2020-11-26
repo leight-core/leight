@@ -5,7 +5,7 @@ import {
 } from "antd";
 import { useTranslation } from "react-i18next";
 import { useAppContext } from "../AppContext";
-import useSessionContext from "../session/useSessionContext";
+import { useSessionContext } from "../session/SessionContext";
 
 const LockedUserView = () => {
 	const sessionContext = useSessionContext();
