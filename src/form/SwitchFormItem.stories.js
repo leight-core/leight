@@ -1,3 +1,4 @@
+import {Form} from "antd";
 import SwitchFormItem from "./SwitchFormItem";
 
 export default {
@@ -6,3 +7,8 @@ export default {
 };
 
 export const SwitchSandbox = () => <SwitchFormItem name={"switch"}/>;
+SwitchSandbox.decorators = [Story => (
+	<Form>
+		<Story/>
+	</Form>
+)];
