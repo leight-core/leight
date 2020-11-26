@@ -29,7 +29,6 @@ const createFetchHook = (link, replace = "{id}") => {
 				events,
 			);
 			return () => cancelToken.cancel();
-			// eslint-disable-next-line
 		}, [uuid]);
 	};
 };
