@@ -2,7 +2,7 @@ import {Form} from "antd";
 import PropTypes from "prop-types";
 import {useTranslation} from "react-i18next";
 
-const FormItem = ({name, required, children}) => {
+const FormItem = ({name, required, children, ...props}) => {
 	const {t} = useTranslation();
 	return (
 		<Form.Item
@@ -15,6 +15,7 @@ const FormItem = ({name, required, children}) => {
 				}
 			] : []}
 			children={children(t("form-item." + name + ".label"))}
+			{...props}
 		/>
 	);
 };

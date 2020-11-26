@@ -3,6 +3,7 @@ import hasFormErrors from "./hasFormErrors";
 import isButtonEnabled from "./isButtonEnabled";
 import setFormValues from "./setFormValues";
 import SubmitButton from "./SubmitButton";
+import SwitchFormItem from "./SwitchFormItem";
 
 export {
 	FormItem,
@@ -10,4 +11,5 @@ export {
 	isButtonEnabled,
 	setFormValues,
 	SubmitButton,
+	SwitchFormItem,
 };

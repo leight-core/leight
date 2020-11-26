@@ -1,8 +1,10 @@
+import {action} from "@storybook/addon-actions";
 import {Form, Input} from "antd";
 import SubmitIcon from "../icon/SubmitIcon";
 import Centered from "../layout/Centered";
 import FormItem from "./FormItem";
 import SubmitButton from "./SubmitButton";
+import SwitchFormItem from "./SwitchFormItem";
 
 export default {
 	title: "Leight/Form/Submit",
@@ -47,10 +49,11 @@ SubmitWithOptional.decorators = [Story => {
 	const [form] = Form.useForm();
 	return (
 		<Centered span={14}>
-			<Form form={form} layout={"vertical"}>
+			<Form form={form} layout={"vertical"} onFinish={action("boo")}>
 				<FormItem name={"some-value"} children={label => <Input placeholder={label}/>}/>
 				<FormItem required name={"required-value"} children={label => <Input placeholder={label}/>}/>
 				<FormItem name={"another-value"} children={label => <Input placeholder={label}/>}/>
+				<SwitchFormItem name={"switch"}/>
 				<Story form={form} icon={<SubmitIcon/>}/>
 			</Form>
 		</Centered>
