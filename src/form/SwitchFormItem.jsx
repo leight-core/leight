@@ -13,7 +13,7 @@ import FormItem from "./FormItem";
  */
 const SwitchFormItem = ({name, ...props}) => {
 	return (
-		<FormItem name={name} valuePropName={"checked"} children={_ => <Switch {...props}/>}/>
+		<FormItem name={name} valuePropName={"checked"} children={_ => <Switch checked {...props}/>}/>
 	);
 };
 
