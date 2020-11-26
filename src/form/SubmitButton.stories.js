@@ -1,5 +1,6 @@
 import {Form, Input} from "antd";
 import SubmitIcon from "../icon/SubmitIcon";
+import FormItem from "./FormItem";
 import SubmitButton from "./SubmitButton";
 
 export default {
@@ -18,31 +19,8 @@ export default {
 		const [form] = Form.useForm();
 		return (
 			<Form form={form} layout="inline">
-				<Form.Item
-					name={"username"}
-					rules={[
-						{
-							required: true,
-							message: "Please input your username!"
-						}
-					]}
-				>
-					<Input placeholder={"Username"}/>
-				</Form.Item>
-				<Form.Item
-					name={"password"}
-					rules={[
-						{
-							required: true,
-							message: "Please input your password!"
-						}
-					]}
-				>
-					<Input
-						type={"password"}
-						placeholder={"Password"}
-					/>
-				</Form.Item>
+				<FormItem name={"login"} children={label => <Input placeholder={label}/>}/>
+				<FormItem name={"password"} children={label => <Input type={"password"} placeholder={label}/>}/>
 				<Story form={form} icon={<SubmitIcon/>}/>
 			</Form>
 		);
