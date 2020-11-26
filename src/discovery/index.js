@@ -1,9 +1,13 @@
 import Discovery from "./Discovery";
+import {
+	DiscoveryContext,
+	useDiscoveryContext
+} from "./DiscoveryContext";
 import useDiscovery from "./useDiscovery";
-import useDiscoveryContext from "./useDiscoveryContext";
 
 export {
 	Discovery,
+	DiscoveryContext,
 	useDiscovery,
 	useDiscoveryContext,
 };

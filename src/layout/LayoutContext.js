@@ -26,7 +26,7 @@ import React, { useContext } from "react";
  * @property {boolean} fullscreen Is current layout switched to fullscreen mode (meant more like full-width mode).
  * @property {useEnableFullscreen} useEnableFullscreen Switch current fullscreen flag by an Effect.
  * @property {string[]} selectMenu Current selected menu item(s).
- * @property {useMenuSelect} useMenuSelect Select current menu item by an Effect.
+ * @property {useMenuSelect} useMenuSelect Select menu item using an Effect.
  * @property {boolean} collapsed Is the sider collapsed?
  * @property {setCollapsed} setCollapsed Directly set collapsed state of the layout.
  * @property {number} loading Direct access to loading state of the layout (**not a bool!**)

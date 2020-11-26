@@ -1,5 +1,5 @@
-import {useState} from "react";
-import useDiscoveryContext from "../discovery/useDiscoveryContext";
+import { useState } from "react";
+import { useDiscoveryContext } from "../discovery/DiscoveryContext";
 import Server from "../server/Server";
 import Events from "../utils/Events";
 import ResolveSession from "./ResolveSession";
@@ -15,12 +15,12 @@ const Session = (
 		link = "common.user.login"
 	}) => {
 	const [session, setSession] = useState(DefaultState);
-	const discoveryContext = useDiscoveryContext();
+	const discoveryContext      = useDiscoveryContext();
 	return (
 		<SessionContext.Provider
 			value={{
 				session,
-				open: session => setSession(session),
+				open:  session => setSession(session),
 				close: () => {
 					setSession(DefaultState);
 					Server.httpDelete(

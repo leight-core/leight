@@ -1,5 +1,5 @@
-import {useEffect} from "react";
-import useDiscoveryContext from "../discovery/useDiscoveryContext";
+import { useEffect } from "react";
+import { useDiscoveryContext } from "../discovery/DiscoveryContext";
 import Server from "../server/Server";
 
 const useSessionCheck = (events, link = "common.user.login") => {
