@@ -1,3 +1,4 @@
+import createFetchPage from "./createFetchPage";
 import httpDelete from "./httpDelete";
 import httpGet from "./httpGet";
 import httpPatch from "./httpPatch";
@@ -8,6 +9,7 @@ import httpPut from "./httpPut";
  * Server just covers basic http method with Axios under the hood.
  */
 const Server = {
+	createFetchPage,
 	httpGet,
 	httpPost,
 	httpPatch,
