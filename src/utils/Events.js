@@ -1,6 +1,6 @@
 /**
  * @typedef {function} EventsInstanceOnCallbackType
- * @param {...*} data If the call site sends some data, callback will get them.
+ * @param {...*} [data] If the call site sends some data, callback will get them.
  * @return {?boolean} If the event loop should be stopped, it's possible to return (boolean) `false`; any other values are ignored.
  */
 /**
@@ -13,7 +13,7 @@
 /**
  * @callback EventsInstanceCallType
  * @param {string} event Execute events with the given name.
- * @param {...*} data Pass any data to event handlers.
+ * @param {...*} [data] Pass any data to event handlers.
  */
 /**
  * @typedef {Object} EventType
