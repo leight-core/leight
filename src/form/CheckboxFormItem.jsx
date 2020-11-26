@@ -9,7 +9,7 @@ import FormItem from "./FormItem";
  *
  * Others:
  *
- * - https://ant.design/components/switch/
+ * - https://ant.design/components/checkbox/
  */
 const CheckboxFormItem = ({name, ...props}) => {
 	return (
