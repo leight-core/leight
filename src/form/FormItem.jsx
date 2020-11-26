@@ -2,7 +2,7 @@ import {Form} from "antd";
 import PropTypes from "prop-types";
 import {useTranslation} from "react-i18next";
 
-const FormItem = ({name, required = true, children, ...props}) => {
+const FormItem = ({name, required = true, children}) => {
 	const {t} = useTranslation();
 	return (
 		<Form.Item
@@ -22,7 +22,10 @@ FormItem.propTypes = {
 	/**
 	 * Field name; also used for translations.
 	 */
-	name: PropTypes.string.isRequired,
+	name: PropTypes.oneOfType(
+		PropTypes.string,
+		PropTypes.arrayOf(PropTypes.string)
+	).isRequired,
 	/**
 	 * Element being rendered as a form item value (Input, Datetime, ...)
 	 */
