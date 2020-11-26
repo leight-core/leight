@@ -1,15 +1,15 @@
 /**
- * @typedef {function} useTitle
+ * @typedef {function} useTitleType
  * @param {string} title
  */
 /**
- * @typedef {function} setTitle
+ * @typedef {function} setTitleType
  * @param {string} title
  */
 /**
- * @typedef {Object} AppContext
- * @property {setTitle} setTitle Directly modify title state of the application.
- * @property {useTitle} useTitle Change title as an effect.
+ * @typedef {Object} AppContextType
+ * @property {useTitleType} setTitle Directly modify title state of the application.
+ * @property {setTitleType} useTitle Change title as an effect; title goes through translation.
  */
 
 import React, { useContext } from "react";
@@ -24,6 +24,6 @@ export const AppContext = React.createContext(null);
 /**
  * Use the global application context (like title and so).
  *
- * @return {AppContext}
+ * @return {AppContextType}
  */
 export const useAppContext = () => useContext(AppContext);

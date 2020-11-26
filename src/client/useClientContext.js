@@ -1,8 +1,14 @@
-import {useContext} from "react";
+import { useContext } from "react";
 import ClientContext from "./ClientContext";
 
-const useClientContext = () => {
-	return useContext(ClientContext);
-};
+/**
+ * @typedef {*} ClientContextType
+ */
 
-export default useClientContext;
+/**
+ * Access to current client context containing configuration of the client
+ * application.
+ *
+ * @return {ClientContextType} Data in the context is the stuff directly returned by the server.
+ */
+export const useClientContext = () => useContext(ClientContext);
