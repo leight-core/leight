@@ -21,7 +21,6 @@
 		"build-storybook": "build-storybook"
 	},
 	"dependencies": {
-		"@storybook/preset-ant-design": "0.0.1",
 		"arr-diff": "^4.0.0",
 		"axios": "^0.21.0",
 		"i18next": "^19.8.4",
@@ -38,6 +37,7 @@
 		"@storybook/addon-essentials": "^6.1.6",
 		"@storybook/addon-links": "^6.1.6",
 		"@storybook/react": "^6.1.6",
+		"@storybook/preset-ant-design": "0.0.1",
 		"antd": ">=4.8.0",
 		"babel-loader": "^8.2.1",
 		"microbundle": "^0.12.4",
