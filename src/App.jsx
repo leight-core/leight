@@ -19,10 +19,6 @@ import Translation from "./translation/Translation";
  * - provides Discovery Index as a Context {@link useDiscoveryContext}
  * - uses server-side translations by default (with a setup of i18n)
  * - supports Session (with provided sites)
- *
- * @param {string} titleTemplate
- * @param {Object.<String, JSX>} sites
- * @param {string} [client]
  */
 export const App = (
 	{

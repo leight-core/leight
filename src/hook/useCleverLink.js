@@ -6,7 +6,7 @@ import {
 } from "react-router";
 import { useLayoutContext } from "../layout/LayoutContext";
 
-const useCleverLink = (to) => {
+const useCleverLink = to => {
 	const layoutContext = useLayoutContext();
 	const request       = to.params || [];
 	const params        = useParams();
