@@ -10,7 +10,8 @@
 	"source": "src/index.js",
 	"module": "dist/leight.modern.js",
 	"files": [
-		"dist"
+		"dist",
+		"src"
 	],
 	"scripts": {
 		"start": "microbundle watch",
