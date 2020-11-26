@@ -15,7 +15,7 @@
 	],
 	"scripts": {
 		"start": "microbundle watch",
-		"build": "microbundle --strict --compress -f modern --jsx React.createElement --jsxImportSource react",
+		"build": "microbundle --strict --no-compress -f modern --jsx React.createElement --jsxImportSource react",
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"storybook": "start-storybook -p 6006",
