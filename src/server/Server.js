@@ -1,4 +1,5 @@
 import createFetchPage from "./createFetchPage";
+import createPost from "./createPost";
 import httpDelete from "./httpDelete";
 import httpGet from "./httpGet";
 import httpPatch from "./httpPatch";
@@ -10,6 +11,7 @@ import httpPut from "./httpPut";
  */
 const Server = {
 	createFetchPage,
+	createPost,
 	httpGet,
 	httpPost,
 	httpPatch,
