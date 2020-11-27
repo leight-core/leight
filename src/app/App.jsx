@@ -1,5 +1,5 @@
 import {AntDesignOutlined} from "@ant-design/icons";
-import {Card, Result} from "antd";
+import {Result} from "antd";
 import PropTypes from "prop-types";
 import React, {useEffect, useState} from "react";
 import {Helmet} from "react-helmet";
@@ -29,7 +29,7 @@ export const App = (
 	{
 		titleTemplate,
 		sites,
-		clientHref,
+		clientHref = process.env.REACT_APP_CLIENT,
 		icon,
 	}) => {
 	const {t} = useTranslation();
@@ -84,18 +84,16 @@ export const App = (
 				{ready ?
 					(sites[session.site] || <LockedUserView/>) :
 					<Result icon={icon || <AntDesignOutlined/>}>
-						<Card>
-							<div style={{display: "flex", justifyContent: "center"}}>
-								<StepLoader steps={[
-									<InitialStep key={"initial"}/>,
-									<ClientStep key={"client"} href={clientHref}/>,
-									<DiscoveryStep key={"discovery"}/>,
-									<TranslationStep key={"translation"}/>,
-									<SessionStep key={"session"}/>,
-									<FinishStep key={"finish"}/>,
-								]}/>
-							</div>
-						</Card>
+						<div style={{display: "flex", justifyContent: "center"}}>
+							<StepLoader steps={[
+								<InitialStep key={"initial"}/>,
+								<ClientStep key={"client"} href={clientHref}/>,
+								<DiscoveryStep key={"discovery"}/>,
+								<TranslationStep key={"translation"}/>,
+								<SessionStep key={"session"}/>,
+								<FinishStep key={"finish"}/>,
+							]}/>
+						</div>
 					</Result>
 				}
 			</BrowserRouter>
@@ -110,6 +108,8 @@ App.propTypes = {
 	titleTemplate: PropTypes.string.isRequired,
 	/**
 	 * Url from where a client get it's configuration, for example "/client.json".
+	 *
+	 * Defaults to **`process.env.REACT_APP_CLIENT`**.
 	 */
 	clientHref: PropTypes.string,
 	/**
