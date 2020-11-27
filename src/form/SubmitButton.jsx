@@ -9,14 +9,13 @@ import {FormUtils} from "./FormUtils";
  *
  * Internally:
  *
- * - checks if all form fields are touched
+ * - checks all fields if they're required and filled up
  * - checks for validation errors on fields
  *
  * Some interesting props:
  *
  * - **form** as antd Form instance (usually as Form.useForm())
  * - **title** of the button (goes through translation as is)
- * - optionally **fields** which are used for button state check (enabled, when all fields are touched)
  * - other **props** goes to the underlying Antd Button
  *
  * Button props:
@@ -60,13 +59,6 @@ SubmitButton.propTypes = {
 	 * An Antd Form Instance used for validation checks and others.
 	 */
 	form: PropTypes.object.isRequired,
-	/**
-	 * Fields being checked to set button disabled state.
-	 */
-	fields: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.arrayOf(PropTypes.string),
-	]),
 	/**
 	 * Optional icon.
 	 */
