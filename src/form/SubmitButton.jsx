@@ -1,7 +1,8 @@
 import {Button, Form} from "antd";
 import PropTypes from "prop-types";
+import {useState} from "react";
 import {useTranslation} from "react-i18next";
-import isButtonEnabled from "./isButtonEnabled";
+import {FormUtils} from "./FormUtils";
 
 /**
  * Button used to submit a form in any way. All fields must be valid to enable this button.
@@ -28,19 +29,24 @@ import isButtonEnabled from "./isButtonEnabled";
  * - https://ant.design/components/button/
  * - https://ant.design/components/form/#API
  */
-const SubmitButton = ({form, title, fields = null, ...props}) => {
+const SubmitButton = ({form, title, ...props}) => {
 	const {t} = useTranslation();
+	const [disabled, setDisabled] = useState(true);
 	return (
 		<Form.Item shouldUpdate>
-			{() => (
-				<Button
+			{() => {
+				/**
+				 * Because we need to ensure all item forms are created, can submit works asynchronously.
+				 */
+				FormUtils.canSubmit(form).then(enabled => setDisabled(!enabled));
+				return <Button
 					type={"primary"}
 					htmlType={"submit"}
-					disabled={!isButtonEnabled(form, fields)}
+					disabled={disabled}
 					children={t(title)}
 					{...props}
-				/>
-			)}
+				/>;
+			}}
 		</Form.Item>
 	);
 };

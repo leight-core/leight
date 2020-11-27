@@ -1,5 +1,6 @@
 import {Form, Input} from "antd";
 import PropTypes from "prop-types";
+import * as React from "react";
 import {useTranslation} from "react-i18next";
 
 const FormItem = (
@@ -25,7 +26,7 @@ const FormItem = (
 					message: t("form-item." + name + ".required"),
 				}
 			] : []}
-			children={children(t("form-item." + name + ".label"))}
+			children={React.cloneElement(children(t("form-item." + name + ".label")), {required})}
 			{...props}
 		/>
 	);
@@ -37,7 +38,7 @@ FormItem.propTypes = {
 	 */
 	name: PropTypes.oneOfType([
 		PropTypes.string,
-		PropTypes.arrayOf(PropTypes.string)
+		PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string]))
 	]).isRequired,
 	/**
 	 * Element being rendered as a form item value (Input, Datetime, ...).

@@ -1,6 +1,8 @@
 import {action} from "@storybook/addon-actions";
-import {Form, Input} from "antd";
+import {Button, Card, Divider, Form, Input} from "antd";
 import {useEffect, useState} from "react";
+import CreateItemIcon from "../icon/CreateItemIcon";
+import DeleteItemIcon from "../icon/DeleteItemIcon";
 import Spinner from "../icon/Spinner";
 import SubmitIcon from "../icon/SubmitIcon";
 import Centered from "../layout/Centered";
@@ -55,15 +57,43 @@ SubmitWithOptional.decorators = [Story => {
 				<FormItem name={"some-value"} children={label => <Input placeholder={label}/>}/>
 				<FormItem required name={"required-value"} children={label => <Input placeholder={label}/>}/>
 				<FormItem name={"another-value"} children={label => <Input placeholder={label}/>}/>
+				<FormItem name={["foo", "bar"]}/>
+				<Form.List name={["some", "internal", "dynamic", "form"]}>
+					{(fields, {
+						add,
+						remove
+					}) => (
+						<Card>
+							{fields.map(field => (
+								<div key={field.key}>
+									<FormItem key={field.key + ".type"} name={[field.fieldKey, "type"]} fieldKey={[field.fieldKey, "type"]}/>
+									<FormItem required key={field.key + ".value"} name={[field.fieldKey, "value"]} fieldKey={[field.fieldKey, "value"]}/>
+									<Button
+										type="primary"
+										ghost
+										onClick={() => remove(field.name)}
+										children={"remove"}
+										icon={<DeleteItemIcon/>}
+									/>
+									<Divider type={"horizontal"}/>
+								</div>
+							))}
+							<Button
+								type="primary"
+								ghost
+								onClick={() => add()}
+								children={"add"}
+								icon={<CreateItemIcon/>}
+							/>
+						</Card>
+					)}
+				</Form.List>
 				<SwitchFormItem name={"switch"}/>
 				<Story form={form} icon={<SubmitIcon/>}/>
 			</Form>
 		</Centered>
 	);
 }];
-SubmitWithOptional.args = {
-	fields: ["required-value"],
-};
 
 export const SubmitWithPostInitials = Template.bind({});
 SubmitWithPostInitials.decorators = [Story => {
@@ -89,6 +119,3 @@ SubmitWithPostInitials.decorators = [Story => {
 		</Centered>
 	);
 }];
-SubmitWithPostInitials.args = {
-	fields: ["required-value"],
-};
