@@ -2,10 +2,10 @@ import httpPost from "./httpPost";
 
 /**
  * @typedef {function} FetchPageCallbackType
- * @param {DiscoveryContextType} discovery DiscoveryContext to get page link from.
  * @param {number} page Selected page.
  * @param {number} limit Limit number of items on the page.
- * @param {Object.<String, *>} [params=null] Params from routing.
+ * @param {Object.<String, String>} [params=null] Params from routing.
+ * @param {AppContextType} discovery DiscoveryContext to get page link from.
  * @param {EventsInstanceType} events Event handler.
  * @return {CancelTokenSource} cancel token from Axios
  */
@@ -14,19 +14,18 @@ import httpPost from "./httpPost";
  * Simple factory for making HTTP post for paging over resource support.
  *
  * @param {string} link Discovery Index link id
- * @param {string} [param] Name of the parameter from Router being used for link generation (for example `/user/{id}/invoices`).
  *
  * @return {FetchPageCallbackType}
  */
-const createFetchPage = (link, param = null) => {
+const createFetchPage = link => {
 	return (
-		discovery,
 		page,
 		limit,
 		params = null,
+		discovery,
 		events,
 	) => httpPost(
-		discovery.page(link, param, params ? params[param] : null),
+		discovery.link(link, params),
 		{
 			page,
 			limit,

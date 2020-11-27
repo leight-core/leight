@@ -2,15 +2,16 @@ import {Steps} from "antd";
 import React, {useState} from "react";
 import {StepLoaderContext} from "./StepLoaderContext";
 
-const StepLoader = props => {
-		const [current, setCurrent] = useState(0);
-		const [status, setStatus] = useState("process");
-		const next = () => setCurrent(current => current + 1);
-		return (
+const StepLoader = ({steps, children, ...props}) => {
+	const [current, setCurrent] = useState(0);
+	const [status, setStatus] = useState("process");
+	return (
+		current === steps.length ?
+			(children || null) :
 			<StepLoaderContext.Provider value={{
 				current,
 				setCurrent,
-				next,
+				next: () => setCurrent(current => current + 1),
 				status,
 				setStatus,
 			}}>
@@ -25,10 +26,10 @@ const StepLoader = props => {
 					}}
 					current={current}
 					status={status}
+					children={steps.map(step => step)}
 				/>
 			</StepLoaderContext.Provider>
-		);
-	}
-;
+	);
+};
 
 export default StepLoader;

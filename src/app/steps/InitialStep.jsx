@@ -7,11 +7,7 @@ import {Random} from "../../utils/Random";
 const InitialStep = props => {
 	const stepLoaderContext = useStepLoaderContext();
 	return (
-		<LoaderStep icon={<LoginOutlined/>} {...props} onStep={() => {
-			setTimeout(() => {
-				stepLoaderContext.next();
-			}, Random(500, 1200));
-		}}/>
+		<LoaderStep icon={<LoginOutlined/>} {...props} onStep={() => setTimeout(() => stepLoaderContext.next(), Random(100, 200))}/>
 	);
 };
 

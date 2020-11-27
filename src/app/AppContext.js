@@ -31,6 +31,7 @@ import React, {useContext} from "react";
 /**
  * @typedef {function} DiscoveryContextLinkType
  * @param {string} id Link name from the index; if does not exists, error is thrown.
+ * @param {Object.<String, String>} [params=null] Replace the given parameters in url.
  * @return {string}
  */
 /**
@@ -42,6 +43,10 @@ import React, {useContext} from "react";
  * @property {DiscoveryIndexType} discovery Access to discovery index.
  * @property {AppContextSetDiscoveryType} setDiscovery Set current discovery index.
  * @property {DiscoveryContextLinkType} link Requests a link from the Discovery; if does not exists, an error is thrown.
+ * @property {function(session): void} login Open new session in the application; makes no http request as this is an internal login (with data whatever comes from).
+ * @property {function(): void} logout Closes an application session (switches to public/non-session mode, clear all data); makes a delete request to user login in Discovery Index.
+ * @property {*} session Direct access to current session data; usually set to a response from server on login (or default login with public user).
+ * @property {function(): void} ready When called, application is switched to ready state (should be called once per full page load); everything needed for proper application run must be... ready!
  */
 
 /**

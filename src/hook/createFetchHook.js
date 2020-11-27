@@ -1,5 +1,5 @@
 import {useEffect} from "react";
-import {useDiscoveryContext} from "../discovery/DiscoveryContext";
+import {useAppContext} from "../app/AppContext";
 import Server from "../server/Server";
 
 /**
@@ -21,11 +21,11 @@ const createFetchHook = (link, replace = "{id}") => {
 		uuid,
 		events,
 	) => {
-		const discoveryContext = useDiscoveryContext();
+		const appContext = useAppContext();
 		useEffect(() => {
 			events.call("request", uuid);
 			const cancelToken = Server.httpGet(
-				discoveryContext.fetch(link, uuid, replace),
+				appContext.fetch(link, uuid, replace),
 				events,
 			);
 			return () => cancelToken.cancel();

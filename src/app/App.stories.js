@@ -3,13 +3,19 @@ import MockAdapter from "axios-mock-adapter";
 import {useEffect} from "react";
 import {Random} from "../utils/Random";
 import {App} from "./App";
+import {useAppContext} from "./AppContext";
 
 export default {
 	title: "Leight/App/App",
 	component: App,
 };
 
-const ExampleSite = () => <h1>Default Site!</h1>;
+const ExampleSite = () => {
+	const appContext = useAppContext();
+	return (
+		<h1>Default Site! Logged in: {appContext.session.login || "unknown"}</h1>
+	);
+};
 
 export const Default = () => {
 	return (
@@ -31,15 +37,16 @@ Default.decorators = [Story => {
 			.reply(() => new Promise(resolve => {
 				setTimeout(() => {
 					resolve([200, {discovery: "/api/discovery"}]);
-				}, Random(300, 1200));
+				}, Random(300, 600));
 			}))
 			.onGet("/api/discovery")
 			.reply(() => new Promise(resolve => {
 				setTimeout(() => {
 					resolve([200, {
 						"common.translation": {"link": "/api/common/translation"},
+						"common.user.login": {"link": "/api/common/user/login"},
 					}]);
-				}, Random(300, 1200));
+				}, Random(300, 600));
 			}))
 			.onGet("/api/common/translation")
 			.reply(() => new Promise(resolve => {
@@ -47,7 +54,16 @@ Default.decorators = [Story => {
 					resolve([200, {
 						translations: [],
 					}]);
-				}, Random(300, 1200));
+				}, Random(300, 600));
+			}))
+			.onGet("/api/common/user/login")
+			.reply(() => new Promise(resolve => {
+				setTimeout(() => {
+					resolve([200, {
+						site: "app",
+						login: "Storybook User",
+					}]);
+				}, Random(300, 600));
 			}));
 		return () => mock.restore();
 	}, []);

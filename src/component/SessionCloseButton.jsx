@@ -1,19 +1,19 @@
 import {Button} from "antd";
 import PropTypes from "prop-types";
 import {useTranslation} from "react-i18next";
-import {useSessionContext} from "../session/SessionContext";
+import {useAppContext} from "../app/AppContext";
 
 const SessionCloseButton = (
 	{
 		text,
 		...props
 	}) => {
-	const sessionContext = useSessionContext();
+	const appContext = useAppContext();
 	const {t} = useTranslation();
 	return (
 		<Button
 			type="primary"
-			onClick={() => sessionContext.close()} children={t(text)}
+			onClick={() => appContext.logout()} children={t(text)}
 			{...props}
 		/>
 	);

@@ -1,5 +1,5 @@
 import {useEffect} from "react";
-import {useDiscoveryContext} from "../discovery/DiscoveryContext";
+import {useAppContext} from "../app/AppContext";
 import Server from "../server/Server";
 
 /**
@@ -18,11 +18,11 @@ const createLinkHook = link => {
 	return (
 		events,
 	) => {
-		const discoveryContext = useDiscoveryContext();
+		const appContext = useAppContext();
 		useEffect(() => {
 			events.call("request");
 			const cancelToken = Server.httpGet(
-				discoveryContext.link(link),
+				appContext.link(link),
 				events,
 			);
 			return () => cancelToken.cancel();

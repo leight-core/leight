@@ -2,7 +2,7 @@ import {List} from "antd";
 import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router";
-import {useDiscoveryContext} from "../discovery/DiscoveryContext";
+import {useAppContext} from "../app/AppContext";
 import Events from "../utils/Events";
 import PageIndex from "../utils/PageIndex";
 
@@ -13,7 +13,7 @@ const BaseList = (
 		pageSize = 10,
 		...props
 	}) => {
-	const discoveryContext = useDiscoveryContext();
+	const appContext = useAppContext();
 	const params = useParams();
 	const [page, setPage] = useState(PageIndex());
 	const [loading, setLoading] = useState(true);
@@ -22,10 +22,10 @@ const BaseList = (
 	const onPage = (page, size) => {
 		setLoading(true);
 		return onFetchPage(
-			discoveryContext,
 			page,
 			size,
 			params,
+			appContext,
 			Events()
 				.on("success", data => {
 					setPage(data);
