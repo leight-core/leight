@@ -23,7 +23,6 @@
 	"dependencies": {
 		"arr-diff": "^4.0.0",
 		"axios": "^0.21.0",
-		"history": "^5.0.0",
 		"i18next": "^19.8.4",
 		"isarray": "^2.0.5",
 		"isobject": "^4.0.0",
@@ -41,6 +40,7 @@
 		"@storybook/react": "^6.1.7",
 		"antd": "^4.8.6",
 		"axios-mock-adapter": "^1.19.0",
+		"history": "^5.0.0",
 		"babel-loader": "^8.2.2",
 		"microbundle": "^0.12.4",
 		"prop-types": "^15.7.2",
