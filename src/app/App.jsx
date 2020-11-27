@@ -21,7 +21,7 @@ import TranslationStep from "./steps/TranslationStep";
 /**
  * Common default Application:
  *
- * - uses server-side discovery by default (Client component)
+ * - uses server-side discovery by default
  * - uses server-side translations by default (with a setup of i18n)
  * - supports Session (with provided sites)
  */
@@ -30,6 +30,7 @@ export const App = (
 		titleTemplate,
 		sites,
 		clientHref,
+		icon,
 	}) => {
 	const {t} = useTranslation();
 	const [title, setTitle] = useState();
@@ -82,7 +83,7 @@ export const App = (
 				<Helmet titleTemplate={titleTemplate} title={title}/>
 				{ready ?
 					(sites[session.site] || <LockedUserView/>) :
-					<Result icon={<AntDesignOutlined/>}>
+					<Result icon={icon || <AntDesignOutlined/>}>
 						<Card>
 							<div style={{display: "flex", justifyContent: "center"}}>
 								<StepLoader steps={[
@@ -114,7 +115,11 @@ App.propTypes = {
 	/**
 	 * Site map - when an user is authenticated, it's bound to the site he can use.
 	 *
-	 * Prop is {site: <Component/>}, for example {root: <RootSite/>}
+	 * Prop is {site: `<Component/>`}, for example {root: `<RootSite/>`}
 	 */
 	sites: PropTypes.any.isRequired,
+	/**
+	 * Optional icon shown when an application bootstraps.
+	 */
+	icon: PropTypes.element,
 };
