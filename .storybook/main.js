@@ -6,7 +6,7 @@ module.exports = {
 	"presets": [
 		"@storybook/preset-ant-design",
 	],
-	"addons":  [
+	"addons": [
 		"@storybook/addon-links",
 		"@storybook/addon-essentials"
 	]

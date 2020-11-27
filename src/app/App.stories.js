@@ -1,3 +1,6 @@
+import axios from "axios";
+import MockAdapter from "axios-mock-adapter";
+import {useEffect} from "react";
 import {App} from "./App";
 
 export default {
@@ -17,3 +20,13 @@ export const Default = () => {
 		/>
 	);
 };
+Default.decorators = [Story => {
+	useEffect(() => {
+		const mock = new MockAdapter(axios);
+		mock.onGet("/client.json").reply(200, {
+			discovery: "/api/discovery",
+		});
+		return () => mock.restore();
+	}, []);
+	return <Story/>;
+}];

@@ -10,6 +10,9 @@ const ClientStep = props => {
 			return httpGet(
 				props.href || "/client.json",
 				Events()
+					.on("success", data => {
+						console.log(data);
+					})
 					.on("catch", () => {
 						stepLoaderContext.setStatus("error");
 					})
