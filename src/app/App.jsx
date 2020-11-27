@@ -24,10 +24,18 @@ export const App = (
 	{
 		titleTemplate,
 		sites,
-		client,
+		clientHref,
 	}) => {
 	const {t} = useTranslation();
 	const [title, setTitle] = useState();
+	const [client, setClient] = useState();
+	const [discovery, setDiscovery] = useState();
+	const link = id => {
+		if (!discovery[id]) {
+			throw new Error(`Cannot resolve link from Discovery for linkId [${id}]`);
+		}
+		return discovery[id].link;
+	};
 	return (
 		<AppContext.Provider value={{
 			setTitle,
@@ -35,14 +43,19 @@ export const App = (
 				useEffect(() => {
 					setTitle(t(title));
 				}, [title]);
-			}
+			},
+			client,
+			setClient,
+			discovery,
+			setDiscovery,
+			link,
 		}}>
 			<BrowserRouter>
 				<Helmet titleTemplate={titleTemplate} title={title}/>
 				<div style={{display: "flex", justifyContent: "center"}}>
 					<StepLoader>
 						<InitialStep/>
-						<ClientStep href={client}/>
+						<ClientStep href={clientHref}/>
 						<DiscoveryStep/>
 						<TranslationStep/>
 						<UserStep/>
@@ -69,7 +82,7 @@ App.propTypes = {
 	/**
 	 * Url from where a client get it's configuration, for example "/client.json".
 	 */
-	client: PropTypes.string,
+	clientHref: PropTypes.string,
 	/**
 	 * Site map - when an user is authenticated, it's bound to the site he can use.
 	 *

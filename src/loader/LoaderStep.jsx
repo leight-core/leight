@@ -13,7 +13,7 @@ const LoaderStep = ({onStep, icon, ...props}) => {
 	useEffect(() => {
 		setLoading(props.active);
 		if (props.active) {
-			return onStep(stepLoaderContext);
+			return onStep();
 		}
 	}, [props.active]);
 	return (
@@ -24,16 +24,9 @@ const LoaderStep = ({onStep, icon, ...props}) => {
 	);
 };
 
-/**
- * @typedef {function} LoaderStepOnStepType
- * @param {StepLoaderContextType} stepLoaderContext
- */
-
 LoaderStep.propTypes = {
 	/**
 	 * Step function being executed when this step is action (do not use React Hooks!).
-	 *
-	 * @type {LoaderStepOnStepType}
 	 */
 	onStep: PropTypes.func.isRequired,
 };

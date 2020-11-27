@@ -1,6 +1,4 @@
-export * from "./client";
 export * from "./component";
-export * from "./discovery";
 export * from "./form";
 export * from "./hook";
 export * from "./icon";
