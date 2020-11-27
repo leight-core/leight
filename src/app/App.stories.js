@@ -5,11 +5,15 @@ export default {
 	component: App,
 };
 
+const ExampleSite = () => <h1>Default Site!</h1>;
+
 export const Default = () => {
 	return (
 		<App
 			titleTemplate={"Storybook | %s"}
-			sites={{}}
+			sites={{
+				app: <ExampleSite/>
+			}}
 		/>
 	);
 };

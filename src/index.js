@@ -13,3 +13,4 @@ export * from "./translation";
 export * from "./utils";
 export * from "./view";
 export * from "./app";
+export * from "./loader";

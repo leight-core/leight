@@ -1,5 +1,5 @@
-import {SyncOutlined} from "@ant-design/icons";
+import {SettingFilled} from "@ant-design/icons";
 
-const LoaderIcon = (props) => <SyncOutlined {...props}/>;
+const LoaderIcon = (props) => <SettingFilled {...props}/>;
 
 export default LoaderIcon;

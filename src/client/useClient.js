@@ -1,5 +1,5 @@
 import {useEffect} from "react";
-import Server from "../server/Server";
+import httpGet from "../server/httpGet";
 
 /**
  * A hook for getting client-side application configuration.
@@ -12,7 +12,7 @@ const useClient = (
 	href = "/client.json"
 ) => {
 	useEffect(() => {
-		const cancelToken = Server.httpGet(
+		const cancelToken = httpGet(
 			href,
 			events,
 		);

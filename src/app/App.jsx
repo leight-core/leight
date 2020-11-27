@@ -3,7 +3,14 @@ import React, {useEffect, useState} from "react";
 import {Helmet} from "react-helmet";
 import {useTranslation} from "react-i18next";
 import {BrowserRouter} from "react-router-dom";
+import StepLoader from "../loader/StepLoader";
 import {AppContext} from "./AppContext";
+import ClientStep from "./steps/ClientStep";
+import DiscoveryStep from "./steps/DiscoveryStep";
+import FinishStep from "./steps/FinishStep";
+import InitialStep from "./steps/InitialStep";
+import TranslationStep from "./steps/TranslationStep";
+import UserStep from "./steps/UserStep";
 
 /**
  * Common default Application:
@@ -32,6 +39,16 @@ export const App = (
 		}}>
 			<BrowserRouter>
 				<Helmet titleTemplate={titleTemplate} title={title}/>
+				<div style={{display: "flex", justifyContent: "center"}}>
+					<StepLoader>
+						<InitialStep/>
+						<ClientStep href={client}/>
+						<DiscoveryStep/>
+						<TranslationStep/>
+						<UserStep/>
+						<FinishStep/>
+					</StepLoader>
+				</div>
 				{/*<Client href={client}>*/}
 				{/*	<Discovery>*/}
 				{/*		<Translation>*/}
