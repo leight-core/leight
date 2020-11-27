@@ -1,14 +1,12 @@
 import {QuestionCircleFilled} from "@ant-design/icons";
-import {Button, Card, Result} from "antd";
+import {Card, Result} from "antd";
 import {useTranslation} from "react-i18next";
-import {useNavigate} from "react-router";
+import BackLink from "../component/BackLink";
+import SessionCloseButton from "../component/SessionCloseButton";
 import {useLayoutContext} from "../layout/LayoutContext";
-import {useSessionContext} from "../session/SessionContext";
 
 const SingOutView = ({id}) => {
-	const sessionContext = useSessionContext();
 	const layoutContext = useLayoutContext();
-	const navigate = useNavigate();
 	const {t} = useTranslation();
 	layoutContext.useMenuSelect(`${id}.sign-out`);
 	layoutContext.useEnableFullscreen();
@@ -19,8 +17,8 @@ const SingOutView = ({id}) => {
 				title={t(`${id}.sign-out.title`)}
 				subTitle={t(`${id}.sign-out.subtitle`)}
 				extra={[
-					<Button type="primary" key="sign-out" onClick={() => sessionContext.close()} children={t(`${id}.sign-out.button.sign-out`)}/>,
-					<Button key="back" onClick={() => navigate(-1)}>{t(`${id}.sign-out.button.back`)}</Button>,
+					<SessionCloseButton key="sign-out" text={id + ".sign-out.button.sign-out"}/>,
+					<BackLink key="back" text={id + ".sign-out.button.back"}/>
 				]}
 			/>
 		</Card>

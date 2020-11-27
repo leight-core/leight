@@ -1,7 +1,7 @@
 import {Button, Result} from "antd";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
-import {useAppContext} from "../AppContext";
+import {useAppContext} from "../app/AppContext";
 import HomeIcon from "../icon/HomeIcon";
 import {useLayoutContext} from "../layout/LayoutContext";
 

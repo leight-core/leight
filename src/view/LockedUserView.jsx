@@ -1,7 +1,7 @@
 import {LockOutlined} from "@ant-design/icons";
 import {Button, Result} from "antd";
 import {useTranslation} from "react-i18next";
-import {useAppContext} from "../AppContext";
+import {useAppContext} from "../app/AppContext";
 import {useSessionContext} from "../session/SessionContext";
 
 const LockedUserView = () => {

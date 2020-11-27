@@ -1,4 +1,6 @@
 import {Button} from "antd";
+import PropTypes from "prop-types";
+import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router";
 import BackIcon from "../icon/BackIcon";
 
@@ -17,16 +19,24 @@ const BackLink = (
 		...props
 	}) => {
 	const navigate = useNavigate();
+	const {t} = useTranslation();
 	return (
 		<Button
 			type={"link"}
 			size={"small"}
 			icon={<BackIcon/>}
 			onClick={() => navigate(-1)}
-			children={text}
+			children={t(text)}
 			{...props}
 		/>
 	);
+};
+
+BackLink.propTypes = {
+	/**
+	 * Text on the button, goes through translation.
+	 */
+	text: PropTypes.string.isRequired,
 };
 
 export default BackLink;

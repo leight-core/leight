@@ -3,10 +3,6 @@ import React, {useEffect, useState} from "react";
 import {Helmet} from "react-helmet";
 import {useTranslation} from "react-i18next";
 import {BrowserRouter} from "react-router-dom";
-import Client from "../client/Client";
-import Discovery from "../discovery/Discovery";
-import Session from "../session/Session";
-import Translation from "../translation/Translation";
 import {AppContext} from "./AppContext";
 
 /**
@@ -36,13 +32,13 @@ export const App = (
 		}}>
 			<BrowserRouter>
 				<Helmet titleTemplate={titleTemplate} title={title}/>
-				<Client href={client}>
-					<Discovery>
-						<Translation>
-							<Session sites={sites}/>
-						</Translation>
-					</Discovery>
-				</Client>
+				{/*<Client href={client}>*/}
+				{/*	<Discovery>*/}
+				{/*		<Translation>*/}
+				{/*			<Session sites={sites}/>*/}
+				{/*		</Translation>*/}
+				{/*	</Discovery>*/}
+				{/*</Client>*/}
 			</BrowserRouter>
 		</AppContext.Provider>
 	);
