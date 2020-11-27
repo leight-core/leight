@@ -12,7 +12,7 @@
  * @property {setTitleType} useTitle Change title as an effect; title goes through translation.
  */
 
-import React, { useContext } from "react";
+import React, {useContext} from "react";
 
 /**
  * Global application context; you should **not** access this directly.

@@ -1,19 +1,15 @@
-import { QuestionCircleFilled } from "@ant-design/icons";
-import {
-	Button,
-	Card,
-	Result
-} from "antd";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
-import { useLayoutContext } from "../layout/LayoutContext";
-import { useSessionContext } from "../session/SessionContext";
+import {QuestionCircleFilled} from "@ant-design/icons";
+import {Button, Card, Result} from "antd";
+import {useTranslation} from "react-i18next";
+import {useNavigate} from "react-router";
+import {useLayoutContext} from "../layout/LayoutContext";
+import {useSessionContext} from "../session/SessionContext";
 
 const SingOutView = ({id}) => {
 	const sessionContext = useSessionContext();
-	const layoutContext  = useLayoutContext();
-	const navigate       = useNavigate();
-	const {t}            = useTranslation();
+	const layoutContext = useLayoutContext();
+	const navigate = useNavigate();
+	const {t} = useTranslation();
 	layoutContext.useMenuSelect(`${id}.sign-out`);
 	layoutContext.useEnableFullscreen();
 	return (

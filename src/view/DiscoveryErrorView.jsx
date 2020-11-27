@@ -1,9 +1,6 @@
-import {
-	Button,
-	Result
-} from "antd";
-import { useTranslation } from "react-i18next";
-import { useAppContext } from "../AppContext";
+import {Button, Result} from "antd";
+import {useTranslation} from "react-i18next";
+import {useAppContext} from "../AppContext";
 
 const DiscoveryErrorView = () => {
 	const {t} = useTranslation();

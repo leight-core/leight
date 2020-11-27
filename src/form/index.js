@@ -1,8 +1,5 @@
 import CheckboxFormItem from "./CheckboxFormItem";
-import {
-	FormContext,
-	useFormContext
-} from "./FormContext";
+import {FormContext, useFormContext} from "./FormContext";
 import FormItem from "./FormItem";
 import hasFormErrors from "./hasFormErrors";
 import isButtonEnabled from "./isButtonEnabled";

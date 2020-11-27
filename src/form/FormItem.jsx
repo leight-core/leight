@@ -1,9 +1,6 @@
-import {
-	Form,
-	Input
-} from "antd";
+import {Form, Input} from "antd";
 import PropTypes from "prop-types";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 
 const FormItem = (
 	{
@@ -11,9 +8,13 @@ const FormItem = (
 		required,
 		children = _ => <Input/>,
 		showLabel = true,
+		noMargin = false,
 		...props
 	}) => {
 	const {t} = useTranslation();
+	if (noMargin) {
+		props.style = {margin: 0};
+	}
 	return (
 		<Form.Item
 			name={name}
@@ -21,11 +22,10 @@ const FormItem = (
 			rules={required ? [
 				{
 					required: true,
-					message:  t("form-item." + name + ".required"),
+					message: t("form-item." + name + ".required"),
 				}
 			] : []}
 			children={children(t("form-item." + name + ".label"))}
-			style={{margin: 0}}
 			{...props}
 		/>
 	);
@@ -35,19 +35,26 @@ FormItem.propTypes = {
 	/**
 	 * Field name; also used for translations.
 	 */
-	name:      PropTypes.oneOfType([
+	name: PropTypes.oneOfType([
 		PropTypes.string,
 		PropTypes.arrayOf(PropTypes.string)
 	]).isRequired,
 	/**
-	 * Element being rendered as a form item value (Input, Datetime, ...)
+	 * Element being rendered as a form item value (Input, Datetime, ...).
 	 */
-	children:  PropTypes.func,
+	children: PropTypes.func,
 	/**
 	 * Attach required validation rule?
 	 */
-	required:  PropTypes.bool,
+	required: PropTypes.bool,
+	/**
+	 * Show Antd Form.Item label.
+	 */
 	showLabel: PropTypes.bool,
+	/**
+	 * Disable default Antd Form.Item margin.
+	 */
+	noMargin: PropTypes.bool,
 };
 
 export default FormItem;

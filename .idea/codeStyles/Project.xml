@@ -7,12 +7,13 @@
       <option name="HTML_KEEP_BLANK_LINES" value="1" />
       <option name="HTML_ALIGN_TEXT" value="true" />
       <option name="HTML_DO_NOT_INDENT_CHILDREN_OF" value="" />
+      <option name="HTML_ENFORCE_QUOTES" value="true" />
     </HTMLCodeStyleSettings>
     <JSCodeStyleSettings version="0">
       <option name="FORCE_SEMICOLON_STYLE" value="true" />
       <option name="FORCE_QUOTE_STYlE" value="true" />
       <option name="IMPORT_SORT_MODULE_NAME" value="true" />
-      <option name="IMPORT_PREFER_ABSOLUTE_PATH" value="TRUE" />
+      <option name="IMPORT_USE_NODE_RESOLUTION" value="FALSE" />
     </JSCodeStyleSettings>
     <JetCodeStyleSettings>
       <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />

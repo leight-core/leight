@@ -1,9 +1,6 @@
-import {
-	Button,
-	Result
-} from "antd";
-import { useTranslation } from "react-i18next";
-import { useAppContext } from "../AppContext";
+import {Button, Result} from "antd";
+import {useTranslation} from "react-i18next";
+import {useAppContext} from "../app/AppContext";
 
 const ClientErrorView = () => {
 	const {t} = useTranslation();
@@ -13,7 +10,7 @@ const ClientErrorView = () => {
 			status={"500"}
 			title={t("error.client.title")}
 			subTitle={t("error.client.body")}
-			extra={<Button type="primary" onClick={() => window.location.reload()}>{t("common.refresh")}</Button>}
+			extra={<Button type="primary" onClick={() => window.location.reload()} children={t("common.refresh")}/>}
 		/>
 	);
 };

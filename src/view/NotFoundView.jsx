@@ -1,15 +1,12 @@
-import {
-	Button,
-	Result
-} from "antd";
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
-import { useAppContext } from "../AppContext";
+import {Button, Result} from "antd";
+import {useTranslation} from "react-i18next";
+import {Link} from "react-router-dom";
+import {useAppContext} from "../AppContext";
 import HomeIcon from "../icon/HomeIcon";
-import { useLayoutContext } from "../layout/LayoutContext";
+import {useLayoutContext} from "../layout/LayoutContext";
 
 const NotFoundView = () => {
-	const {t}           = useTranslation();
+	const {t} = useTranslation();
 	const layoutContext = useLayoutContext();
 	layoutContext.useEnableFullscreen();
 	useAppContext().useTitle("error.not-found.title");

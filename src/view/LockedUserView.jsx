@@ -1,15 +1,12 @@
-import { LockOutlined } from "@ant-design/icons";
-import {
-	Button,
-	Result
-} from "antd";
-import { useTranslation } from "react-i18next";
-import { useAppContext } from "../AppContext";
-import { useSessionContext } from "../session/SessionContext";
+import {LockOutlined} from "@ant-design/icons";
+import {Button, Result} from "antd";
+import {useTranslation} from "react-i18next";
+import {useAppContext} from "../AppContext";
+import {useSessionContext} from "../session/SessionContext";
 
 const LockedUserView = () => {
 	const sessionContext = useSessionContext();
-	const {t}            = useTranslation();
+	const {t} = useTranslation();
 	useAppContext().useTitle("error.user-locked.title");
 	return (
 		<Result

@@ -1,5 +1,5 @@
-import { Layout } from "antd";
-import { useLayoutContext } from "./LayoutContext";
+import {Layout} from "antd";
+import {useLayoutContext} from "./LayoutContext";
 
 const Sider = (
 	{
@@ -16,11 +16,11 @@ const Sider = (
 				onCollapse={layoutContext.setCollapsed}
 				width={220}
 				style={{
-					overflow:        "auto",
-					height:          "100vh",
-					position:        "fixed",
+					overflow: "auto",
+					height: "100vh",
+					position: "fixed",
 					backgroundColor: "rgb(240, 242, 245)",
-					left:            0,
+					left: 0,
 				}}
 				children={children}
 				{...props}

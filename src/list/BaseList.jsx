@@ -1,11 +1,8 @@
-import { List } from "antd";
+import {List} from "antd";
 import PropTypes from "prop-types";
-import {
-	useEffect,
-	useState
-} from "react";
-import { useParams } from "react-router";
-import { useDiscoveryContext } from "../discovery/DiscoveryContext";
+import {useEffect, useState} from "react";
+import {useParams} from "react-router";
+import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import Events from "../utils/Events";
 import PageIndex from "../utils/PageIndex";
 
@@ -16,11 +13,11 @@ const BaseList = (
 		pageSize = 10,
 		...props
 	}) => {
-	const discoveryContext      = useDiscoveryContext();
-	const params                = useParams();
-	const [page, setPage]       = useState(PageIndex());
+	const discoveryContext = useDiscoveryContext();
+	const params = useParams();
+	const [page, setPage] = useState(PageIndex());
 	const [loading, setLoading] = useState(true);
-	const items                 = page.items;
+	const items = page.items;
 
 	const onPage = (page, size) => {
 		setLoading(true);
@@ -55,17 +52,17 @@ const BaseList = (
 			rowKey={record => record.id}
 			loading={{
 				spinning: loading,
-				delay:    50,
+				delay: 50,
 			}}
 			itemLayout={"horizontal"}
 			size={"large"}
 			pagination={{
-				total:            page.total,
-				pageSize:         page.size,
-				defaultPageSize:  page.size,
-				showQuickJumper:  true,
+				total: page.total,
+				pageSize: page.size,
+				defaultPageSize: page.size,
+				showQuickJumper: true,
 				hideOnSinglePage: true,
-				onChange:         (current, size) => onPage(current - 1, size),
+				onChange: (current, size) => onPage(current - 1, size),
 			}}
 			renderItem={children}
 			{...props}
@@ -74,7 +71,7 @@ const BaseList = (
 };
 
 BaseList.propTypes = {
-	children:    PropTypes.func.isRequired,
+	children: PropTypes.func.isRequired,
 	onFetchPage: PropTypes.func.isRequired,
 };
 

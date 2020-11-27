@@ -1,16 +1,13 @@
 import PropTypes from "prop-types";
-import React, {
-	useEffect,
-	useState
-} from "react";
-import { Helmet } from "react-helmet";
-import { useTranslation } from "react-i18next";
-import { BrowserRouter } from "react-router-dom";
-import { AppContext } from "./AppContext";
-import Client from "./client/Client";
-import Discovery from "./discovery/Discovery";
-import Session from "./session/Session";
-import Translation from "./translation/Translation";
+import React, {useEffect, useState} from "react";
+import {Helmet} from "react-helmet";
+import {useTranslation} from "react-i18next";
+import {BrowserRouter} from "react-router-dom";
+import Client from "../client/Client";
+import Discovery from "../discovery/Discovery";
+import Session from "../session/Session";
+import Translation from "../translation/Translation";
+import {AppContext} from "./AppContext";
 
 /**
  * Common default Application:
@@ -26,7 +23,7 @@ export const App = (
 		sites,
 		client,
 	}) => {
-	const {t}               = useTranslation();
+	const {t} = useTranslation();
 	const [title, setTitle] = useState();
 	return (
 		<AppContext.Provider value={{
@@ -59,11 +56,11 @@ App.propTypes = {
 	/**
 	 * Url from where a client get it's configuration, for example "/client.json".
 	 */
-	client:        PropTypes.string,
+	client: PropTypes.string,
 	/**
 	 * Site map - when an user is authenticated, it's bound to the site he can use.
 	 *
 	 * Prop is {site: <Component/>}, for example {root: <RootSite/>}
 	 */
-	sites:         PropTypes.any.isRequired,
+	sites: PropTypes.any.isRequired,
 };

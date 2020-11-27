@@ -1,5 +1,5 @@
-import { Button } from "antd";
-import { useNavigate } from "react-router";
+import {Button} from "antd";
+import {useNavigate} from "react-router";
 import BackIcon from "../icon/BackIcon";
 
 /**

@@ -1,8 +1,5 @@
 import Discovery from "./Discovery";
-import {
-	DiscoveryContext,
-	useDiscoveryContext
-} from "./DiscoveryContext";
+import {DiscoveryContext, useDiscoveryContext} from "./DiscoveryContext";
 import useDiscovery from "./useDiscovery";
 
 export {

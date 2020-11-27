@@ -1,10 +1,7 @@
-import { RightCircleOutlined } from "@ant-design/icons";
-import {
-	Result,
-	Typography
-} from "antd";
+import {RightCircleOutlined} from "@ant-design/icons";
+import {Result, Typography} from "antd";
 import PropTypes from "prop-types";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import NumberRange from "../utils/NumberRange";
 
 /**
@@ -54,7 +51,7 @@ BulletCard.propTypes = {
 	/**
 	 * Optional icon (used in Result under the hood).
 	 */
-	icon:  PropTypes.oneOfType([
+	icon: PropTypes.oneOfType([
 		PropTypes.bool,
 		PropTypes.node,
 	]),

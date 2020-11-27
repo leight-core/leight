@@ -1,7 +1,7 @@
 import Client from "./Client";
 import ClientContext from "./ClientContext";
 import useClient from "./useClient";
-import { useClientContext } from "./useClientContext";
+import {useClientContext} from "./useClientContext";
 
 export {
 	Client,

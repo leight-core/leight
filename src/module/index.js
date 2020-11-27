@@ -1,7 +1,4 @@
-import {
-	ModuleContext,
-	useModuleContext
-} from "./ModuleContext";
+import {ModuleContext, useModuleContext} from "./ModuleContext";
 
 export {
 	ModuleContext,

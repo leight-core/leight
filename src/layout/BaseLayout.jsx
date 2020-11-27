@@ -1,19 +1,16 @@
-import { Layout } from "antd";
+import {Layout} from "antd";
 import isArray from "isarray";
-import {
-	useEffect,
-	useState
-} from "react";
+import {useEffect, useState} from "react";
 import Loader from "../component/Loader";
-import { LayoutContext } from "./LayoutContext";
+import {LayoutContext} from "./LayoutContext";
 
 const BaseLayout = ({children}) => {
 	const [fullscreen, setFullscreen] = useState(false);
 	const [selectMenu, setSelectMenu] = useState([]);
-	const [collapsed, setCollapsed]   = useState(false);
-	const [loading, setLoading]       = useState(0);
-	const [data, setData]             = useState({});
-	const isLoading                   = () => loading > 0;
+	const [collapsed, setCollapsed] = useState(false);
+	const [loading, setLoading] = useState(0);
+	const [data, setData] = useState({});
+	const isLoading = () => loading > 0;
 	return (
 		<LayoutContext.Provider
 			value={{
@@ -24,7 +21,7 @@ const BaseLayout = ({children}) => {
 					// eslint-disable-next-line
 				}, []),
 				selectMenu,
-				useMenuSelect:       select => useEffect(() => {
+				useMenuSelect: select => useEffect(() => {
 					setTimeout(() => setSelectMenu(isArray(select) ? select : [select]), 0);
 					// eslint-disable-next-line
 				}, []),
@@ -32,11 +29,11 @@ const BaseLayout = ({children}) => {
 				setCollapsed,
 				loading,
 				isLoading,
-				loadingStart:        () => {
+				loadingStart: () => {
 					window.scrollTo(0, 0);
 					setLoading(prev => prev + 1);
 				},
-				loadingFinish:       () => {
+				loadingFinish: () => {
 					setLoading(prev => prev - 1);
 				},
 				data,
