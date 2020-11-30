@@ -5,7 +5,7 @@ import BackLink from "../component/BackLink";
 import SessionCloseButton from "../component/SessionCloseButton";
 import {useLayoutContext} from "../layout/LayoutContext";
 
-const SingOutView = ({id}) => {
+const SignOutView = ({id}) => {
 	const layoutContext = useLayoutContext();
 	const {t} = useTranslation();
 	layoutContext.useMenuSelect(`${id}.sign-out`);
@@ -25,4 +25,4 @@ const SingOutView = ({id}) => {
 	);
 };
 
-export default SingOutView;
+export default SignOutView;

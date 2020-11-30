@@ -43,8 +43,8 @@ export const link = (id, link = null) => {
  * Register a new route (both match and link).
  *
  * @param {string} id route id
- * @param {string} route match (goes to {@link match} method
- * @param {string} href link (goes to {@link link} method
+ * @param {string} route match (goes to {@link match} method)
+ * @param {string} href link (goes to {@link link} method)
  */
 export const route = (id, route, href) => {
 	match(id, route);

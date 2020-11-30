@@ -3,7 +3,8 @@ import LockedUserView from "./LockedUserView";
 import NotFoundView from "./NotFoundView";
 import SessionEndedView from "./SessionEndedView";
 import SessionExpiredView from "./SessionExpiredView";
-import SingOutView from "./SingOutView";
+import SignedInView from "./SignedInView";
+import SignOutView from "./SignOutView";
 
 export {
 	LoaderView,
@@ -11,5 +12,6 @@ export {
 	NotFoundView,
 	SessionEndedView,
 	SessionExpiredView,
-	SingOutView,
+	SignedInView,
+	SignOutView,
 };
