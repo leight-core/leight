@@ -13,6 +13,15 @@ import React, {useContext} from "react";
 export const FormContext = React.createContext(null);
 
 /**
+ * @param {*} form Antd form instance
+ *
+ * @return {FormContextType}
+ */
+export const createFormContext = (form) => ({
+	form,
+});
+
+/**
  * Form context is useful for creating any kind of form as it provides a lot of useful
  * features.
  *
