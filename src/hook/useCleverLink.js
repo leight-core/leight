@@ -3,6 +3,12 @@ import omitEmpty from "omit-empty";
 import {generatePath, useParams} from "react-router";
 import {useLayoutContext} from "../layout/LayoutContext";
 
+/**
+ * Generate clever link - it knows if it has all required parameters based on the input.
+ *
+ * @param {string} to
+ * @returns {{enable: boolean, link: string}}
+ */
 const useCleverLink = to => {
 	const layoutContext = useLayoutContext();
 	const request = to.matchAll(/:([a-z0-9-]+)/g).map(item => item[1]) || [];
