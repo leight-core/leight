@@ -1,6 +1,6 @@
 {
 	"name": "@leight-core/leight",
-	"version": "0.5.35",
+	"version": "0.5.36",
 	"description": "A component library for React and Ant Design.",
 	"license": "MIT",
 	"repository": {
