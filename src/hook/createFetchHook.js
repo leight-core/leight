@@ -12,7 +12,7 @@ import Server from "../server/Server";
  * Create fetch hook which contains that common boilerplate shit.
  *
  * @param {string} link Link id from the Discovery Index; must exists or an error will be thrown.
- * @param {string} [replace={id}] Which part of the url will be replaced by later UUID parameter (by default {id})
+ * @param {string} [replace={id}] Which part of the url will be replaced by later UUID parameter (by default **{id}**)
  *
  * @return {FetchHookType}
  */
