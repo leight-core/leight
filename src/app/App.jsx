@@ -47,7 +47,9 @@ export const App = (
 		/**
 		 * A little replace hack to convert `/{foo}/bar` form into `/:foo/bar` form.
 		 */
-		return generatePath(discovery[id].link.replaceAll(/{(.*?)}/g, ":$1"), params);
+		const url = new URL(discovery[id].link.replaceAll(/{(.*?)}/g, ":$1"));
+		url.pathname = generatePath(url.pathname, params);
+		return url.href;
 	};
 	const login = session => setSession(session);
 	const logout = () => {
