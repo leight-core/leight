@@ -2,7 +2,7 @@ import httpDelete from "./httpDelete";
 
 /**
  * @typedef {function} CreateDeleteType
- * @param {AppContextType} discovery DiscoveryContext to get page link from.
+ * @param {AppContextType} appContext DiscoveryContext to get page link from.
  * @param {EventsInstanceType} events Event handler.
  * @return {CancelTokenSource} Axios cancel token
  */
@@ -15,10 +15,10 @@ import httpDelete from "./httpDelete";
  */
 const createDelete = link => {
 	return (
-		discovery,
+		appContext,
 		events,
 	) => httpDelete(
-		discovery.link(link),
+		appContext.link(link),
 		events,
 	);
 };

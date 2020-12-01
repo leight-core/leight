@@ -1,4 +1,5 @@
 import CheckboxFormItem from "./CheckboxFormItem";
+import {Form} from "./Form";
 import {createFormContext, FormContext, useFormContext} from "./FormContext";
 import FormItem from "./FormItem";
 import {FormUtils} from "./FormUtils";
@@ -7,6 +8,7 @@ import SwitchFormItem from "./SwitchFormItem";
 
 export {
 	CheckboxFormItem,
+	Form,
 	createFormContext,
 	FormContext,
 	useFormContext,

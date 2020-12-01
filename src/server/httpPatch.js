@@ -2,9 +2,9 @@ import axios from "axios";
 import {axiosError, axiosSuccess} from "./events";
 
 /**
- * @param href
- * @param data
- * @param events
+ * @param {string} href
+ * @param {*} data
+ * @param {EventsInstanceType} events
  *
  * @returns {CancelTokenSource}
  */

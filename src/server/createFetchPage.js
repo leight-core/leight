@@ -5,7 +5,7 @@ import httpPost from "./httpPost";
  * @param {number} page Selected page.
  * @param {number} limit Limit number of items on the page.
  * @param {Object.<String, String>} [params=null] Params from routing.
- * @param {AppContextType} discovery DiscoveryContext to get page link from.
+ * @param {AppContextType} appContext DiscoveryContext to get page link from.
  * @param {EventsInstanceType} events Event handler.
  * @return {CancelTokenSource} cancel token from Axios
  */
@@ -22,10 +22,10 @@ const createFetchPage = link => {
 		page,
 		limit,
 		params = null,
-		discovery,
+		appContext,
 		events,
 	) => httpPost(
-		discovery.link(link, params),
+		appContext.link(link, params),
 		{
 			page,
 			limit,

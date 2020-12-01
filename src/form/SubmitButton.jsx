@@ -2,6 +2,7 @@ import {Button, Form} from "antd";
 import PropTypes from "prop-types";
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
+import {useFormContext} from "./FormContext";
 import {FormUtils} from "./FormUtils";
 
 /**
@@ -31,6 +32,13 @@ import {FormUtils} from "./FormUtils";
 const SubmitButton = ({form, title, ...props}) => {
 	const {t} = useTranslation();
 	const [disabled, setDisabled] = useState(true);
+	const formContext = useFormContext();
+	if (!form) {
+		if (!formContext) {
+			throw new Error("SubmitButton must be under FormContext (Form component) or get [form] prop!");
+		}
+		form = formContext.form;
+	}
 	return (
 		<Form.Item shouldUpdate>
 			{() => {
@@ -58,7 +66,7 @@ SubmitButton.propTypes = {
 	/**
 	 * An Antd Form Instance used for validation checks and others.
 	 */
-	form: PropTypes.object.isRequired,
+	form: PropTypes.object,
 	/**
 	 * Optional icon.
 	 */

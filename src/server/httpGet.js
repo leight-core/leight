@@ -2,10 +2,10 @@ import axios from "axios";
 import {axiosError, axiosSuccess} from "./events";
 
 /**
- * @param href
- * @param events
+ * @param {string} href
+ * @param {EventsInstanceType} events
  *
- * @returns {CancelTokenSource}
+ * @return {CancelTokenSource}
  */
 const httpGet = (
 	href,
