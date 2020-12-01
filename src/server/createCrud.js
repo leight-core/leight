@@ -15,7 +15,7 @@ import createPost from "./createPost";
  * @param {string} [page] page could have different format as it could be page of another entity (for example user.invoice.page)
  * @return {function[]}
  */
-export const crud = (id, page = null) => ([
+export const createCrud = (id, page = null) => ([
 	createPost(id + ".create"),
 	createPost(id + ".update"),
 	createPost(id + ".delete"),
