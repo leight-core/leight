@@ -37,7 +37,7 @@ export const App = (
 	const [client, setClient] = useState();
 	const [discovery, setDiscovery] = useState();
 	const [session, setSession] = useState({
-		site: "common",
+		site: "public",
 	});
 	const [ready, setReady] = useState(false);
 	const link = (id, params = null) => {
@@ -61,7 +61,7 @@ export const App = (
 	const login = session => setSession(session);
 	const logout = () => {
 		setSession({
-			site: "common",
+			site: "public",
 		});
 		const cancelToken = httpDelete(
 			link(link),
