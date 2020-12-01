@@ -9,12 +9,16 @@
 	},
 	"source": "src/index.js",
 	"module": "dist/leight.modern.js",
+	"types": "flow-typed",
 	"files": [
-		"dist"
+		"dist",
+		"flow-typed"
 	],
 	"scripts": {
+		"flow": "flow",
+		"flow-typed": "flow-remove-types src -d flow-typed",
 		"start": "microbundle watch",
-		"build": "microbundle --strict --no-compress -f modern --jsx React.createElement --jsxImportSource react",
+		"build": "microbundle --strict --compress -f modern --jsx React.createElement --jsxImportSource react && npm run flow-typed",
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"storybook": "start-storybook -p 6006",
@@ -42,6 +46,8 @@
 		"antd": "^4.8.6",
 		"axios-mock-adapter": "^1.19.0",
 		"babel-loader": "^8.2.2",
+		"flow-bin": "^0.138.0",
+		"flow-remove-types": "^2.138.0",
 		"history": "^5.0.0",
 		"microbundle": "^0.12.4",
 		"prop-types": "^15.7.2",

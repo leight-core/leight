@@ -1,4 +1,5 @@
-import React, {useContext} from "react";
+import {FormInstance} from "antd/lib/form";
+import {createContext, useContext} from "react";
 
 /**
  * @typedef {Object} FormErrorType
@@ -31,7 +32,7 @@ import React, {useContext} from "react";
  *
  * @type {React.Context<FormContextType>}
  */
-export const FormContext = React.createContext(null);
+export const FormContext = createContext(null);
 
 /**
  * @param {*} form Antd form instance
@@ -48,10 +49,32 @@ export const createFormContext = (form, errors, setErrors, setValues) => ({
 	setValues,
 });
 
+interface IFormContext {
+	/**
+	 * Antd form instance.
+	 */
+	form: FormInstance,
+	/**
+	 * Current form errors.
+	 */
+	errors: any,
+
+	/**
+	 * Set field errors.
+	 *
+	 * @param errors an error object
+	 */
+	setErrors(errors: any): void,
+
+	/**
+	 * Set form values
+	 * @param values values being set
+	 */
+	setValues(values: any): void,
+}
+
 /**
  * Form context is useful for creating any kind of form as it provides a lot of useful
  * features.
- *
- * @return {FormContextType}
  */
-export const useFormContext = () => useContext(FormContext);
+export const useFormContext = (): IFormContext => useContext(FormContext);
