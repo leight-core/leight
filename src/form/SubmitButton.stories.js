@@ -153,7 +153,7 @@ SubmitWithPostInitialsErrors.decorators = [Story => {
 					}
 				});
 				formContext.setErrors({
-					validations: [
+					errors: [
 						{
 							field: "another-value",
 							status: "error",

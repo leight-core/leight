@@ -1,29 +1,25 @@
 import React, {useContext} from "react";
 
 /**
- * @typedef {Object} FormValidationType
+ * @typedef {Object} FormErrorType
  * @property {string|string[]} field
- * @property {string} status
  * @property {string} message
  */
 /**
- * @typedef {FormValidationType[]} FormValidationsType
- */
-/**
- * @typedef {Object} FormMessagesType
+ * @typedef {Object} FormErrorsType
  * @property {string} message
  * @property {string} type
- * @property {FormValidationsType} validations
+ * @property {FormErrorType[]} errors
  */
 /**
- * @typedef {function} FormSetValidationsType
- * @param {FormMessagesType} errors
+ * @typedef {function} FormSetErrorsType
+ * @param {FormErrorsType} errors
  */
 /**
  * @typedef {Object} FormContextType
  * @property {Object} form Antd Form instance (https://ant.design/components/form/#FormInstance)
- * @property {FormMessagesType} errors form validation errors
- * @property {FormSetValidationsType} setErrors directly set form errors (validation errors)
+ * @property {FormErrorsType} errors form validation errors
+ * @property {FormSetErrorsType} setErrors directly set form errors (validation errors)
  * @property {FormContextSetValuesType} setValues set form values (shortcut method)
  */
 /**

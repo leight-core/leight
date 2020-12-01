@@ -12,7 +12,7 @@ export const Form = ({name, onFinish, onFinishFailed, children, ...props}) => {
 	const [form] = CoolForm.useForm();
 	const [errors, setErrors] = useState();
 	useEffect(() => {
-		form.setFields(((errors || {}).validations || []).map(item => {
+		form.setFields(((errors || {}).errors || []).map(item => {
 			return {
 				name: item.field,
 				errors: [item.message],
