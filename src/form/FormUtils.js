@@ -79,5 +79,8 @@ export const FormUtils = {
 		return new CancelablePromise(resolve => this.hasMissingValues(form).then(bool => {
 			resolve(!bool && !this.hasErrors(form));
 		}));
-	}
+	},
+	resetError: function (form, value) {
+		console.log(value);
+	},
 };

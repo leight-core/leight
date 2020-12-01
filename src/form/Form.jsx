@@ -1,7 +1,8 @@
 import {Form as CoolForm} from "antd";
 import PropTypes from "prop-types";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {createFormContext, FormContext} from "./FormContext";
+import {FormUtils} from "./FormUtils";
 
 /**
  * A bit more clever Form wrapper which provides also FormContext.
@@ -11,30 +12,33 @@ import {createFormContext, FormContext} from "./FormContext";
 export const Form = ({name, onFinish, onFinishFailed, children, ...props}) => {
 	const [form] = CoolForm.useForm();
 	const [errors, setErrors] = useState();
-	useEffect(() => {
-		form.setFields(((errors || {}).errors || []).map(item => {
-			return {
-				name: item.field,
-				errors: [item.message],
-			};
-		}));
-	}, [errors]);
 	return (
-		<FormContext.Provider value={createFormContext(
-			form,
-			errors,
-			setErrors,
-			values => form.setFieldsValue(values)
-		)}>
-			<CoolForm
-				form={form}
-				onFinish={onFinish}
-				onFinishFailed={onFinishFailed || (() => null)}
-				name={name}
+		<CoolForm
+			form={form}
+			onFinish={onFinish}
+			onFinishFailed={onFinishFailed || (() => null)}
+			onValuesChange={value => FormUtils.resetError(form, value)}
+			name={name}
+			{...props}
+		>
+			<FormContext.Provider
+				value={
+					createFormContext(
+						form,
+						errors,
+						errors => {
+							setErrors(errors);
+							form.setFields(((errors || {}).errors || []).map(item => ({
+								name: item.field,
+								errors: [item.message],
+							})));
+						},
+						values => form.setFieldsValue(values)
+					)}
 				children={children}
-				{...props}
 			/>
-		</FormContext.Provider>
+		</CoolForm>
+
 	);
 };
 

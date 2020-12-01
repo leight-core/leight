@@ -137,6 +137,7 @@ SubmitWithPostInitialsErrors.decorators = [Story => {
 	const Items = () => {
 		const formContext = useFormContext();
 		useEffect(() => {
+			console.log("effect");
 			const id = setTimeout(() => {
 				formContext.setValues({
 					"some-value": "the value",
@@ -166,7 +167,7 @@ SubmitWithPostInitialsErrors.decorators = [Story => {
 						}
 					]
 				});
-				setLoading(false);
+				// setLoading(false);
 			}, 1250);
 			return () => clearTimeout(id);
 		}, []);
