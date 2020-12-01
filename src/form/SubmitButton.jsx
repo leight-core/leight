@@ -30,7 +30,6 @@ import {FormUtils} from "./FormUtils";
  * - https://ant.design/components/form/#API
  */
 const SubmitButton = ({form, title, ...props}) => {
-	const {t} = useTranslation();
 	const [disabled, setDisabled] = useState(true);
 	const formContext = useFormContext();
 	if (!form) {
@@ -39,25 +38,28 @@ const SubmitButton = ({form, title, ...props}) => {
 		}
 		form = formContext.form;
 	}
-	useEffect(() => {
-		/**
-		 * Because we need to ensure all item forms are created, can submit works asynchronously.
-		 */
-		const promise = FormUtils.canSubmit(form).then(enabled => setDisabled(!enabled));
-		return () => promise.cancel();
-	}, []);
+
+	const Internal = () => {
+		const {t} = useTranslation();
+		useEffect(() => {
+			/**
+			 * Because we need to ensure all item forms are created, can submit works asynchronously.
+			 */
+			const promise = FormUtils.canSubmit(form).then(enabled => setDisabled(!enabled));
+			return () => promise.cancel();
+		});
+		return <Button
+			type={"primary"}
+			htmlType={"submit"}
+			disabled={disabled}
+			children={t(title)}
+			{...props}
+		/>;
+	};
+
 	return (
 		<Form.Item shouldUpdate>
-			{() => {
-				// FormUtils.canSubmit(form).then(enabled => setDisabled(!enabled));
-				return <Button
-					type={"primary"}
-					htmlType={"submit"}
-					disabled={disabled}
-					children={t(title)}
-					{...props}
-				/>;
-			}}
+			{() => <Internal/>}
 		</Form.Item>
 	);
 };
