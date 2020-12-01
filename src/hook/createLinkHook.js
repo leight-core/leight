@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 import {useAppContext} from "../app/AppContext";
-import Server from "../server/Server";
+import httpGet from "../server/httpGet";
 
 /**
  * @typedef {function} LinkHookType
@@ -21,7 +21,7 @@ const createLinkHook = link => {
 		const appContext = useAppContext();
 		useEffect(() => {
 			events.call("request");
-			const cancelToken = Server.httpGet(
+			const cancelToken = httpGet(
 				appContext.link(link),
 				events,
 			);

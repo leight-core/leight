@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 import {useAppContext} from "../app/AppContext";
-import Server from "../server/Server";
+import httpGet from "../server/httpGet";
 
 /**
  * @typedef {function} FetchHookType
@@ -24,7 +24,7 @@ const createFetchHook = (link, replace = "{id}") => {
 		const appContext = useAppContext();
 		useEffect(() => {
 			events.call("request", uuid);
-			const cancelToken = Server.httpGet(
+			const cancelToken = httpGet(
 				appContext.fetch(link, uuid, replace),
 				events,
 			);
