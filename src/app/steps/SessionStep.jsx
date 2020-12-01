@@ -7,7 +7,7 @@ import httpGet from "../../server/httpGet";
 import Events from "../../utils/Events";
 import {useAppContext} from "../AppContext";
 
-const SessionStep = ({link = "common.user.login", ...props}) => {
+const SessionStep = ({link = "public.user.login", ...props}) => {
 	const appContext = useAppContext();
 	const stepLoaderContext = useStepLoaderContext();
 	return (

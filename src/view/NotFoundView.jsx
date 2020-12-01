@@ -1,11 +1,16 @@
 import {Button, Result} from "antd";
+import PropTypes from "prop-types";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
 import {useAppContext} from "../app/AppContext";
 import HomeIcon from "../icon/HomeIcon";
 import {useLayoutContext} from "../layout/LayoutContext";
+import {link} from "../router/index";
 
-const NotFoundView = () => {
+/**
+ * Simple 4o4 view.
+ */
+const NotFoundView = ({href}) => {
 	const {t} = useTranslation();
 	const layoutContext = useLayoutContext();
 	layoutContext.useEnableFullscreen();
@@ -16,10 +21,17 @@ const NotFoundView = () => {
 			title={t("error.not-found.title")}
 			subTitle={t("error.not-found.body")}
 			extra={
-				<Link to={process.env.PUBLIC_URL + "/"} children={<Button type="primary" icon={<HomeIcon/>} children={t("common.homepage")}/>}/>
+				<Link to={link(href)} children={<Button type="primary" icon={<HomeIcon/>} children={t("common.homepage")}/>}/>
 			}
 		/>
 	);
+};
+
+NotFoundView.propTypes = {
+	/**
+	 * Link ID used to redirect on "not found". Internally uses {@see link}.
+	 */
+	href: PropTypes.string,
 };
 
 export default NotFoundView;

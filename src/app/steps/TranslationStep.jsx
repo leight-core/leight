@@ -8,7 +8,7 @@ import httpGet from "../../server/httpGet";
 import Events from "../../utils/Events";
 import {useAppContext} from "../AppContext";
 
-const TranslationStep = ({link = "common.translation", ...props}) => {
+const TranslationStep = ({link = "public.translation", ...props}) => {
 	const appContext = useAppContext();
 	const stepLoaderContext = useStepLoaderContext();
 	return (
