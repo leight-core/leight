@@ -141,14 +141,30 @@ SubmitWithPostInitialsErrors.decorators = [Story => {
 				formContext.setValues({
 					"some-value": "the value",
 					"required-value": "required",
-				});
-				formContext.setMessages({
-					validations: {
-						"another-value": {
-							status: "error",
-							message: "boom",
+					"some": {
+						"internal": {
+							"dynamic": {
+								"form": [
+									{type: "some-type", value: "some-value"},
+									{type: "another thing", value: "aaa nother value"},
+								]
+							}
 						}
 					}
+				});
+				formContext.setErrors({
+					validations: [
+						{
+							field: "another-value",
+							status: "error",
+							message: "boom",
+						},
+						{
+							field: ["some", "internal", "dynamic", "form", 0, "value"],
+							status: "error",
+							message: "It works!",
+						}
+					]
 				});
 				setLoading(false);
 			}, 1250);
@@ -159,6 +175,36 @@ SubmitWithPostInitialsErrors.decorators = [Story => {
 				<FormItem name={"some-value"} children={label => <Input placeholder={label}/>}/>
 				<FormItem required name={"required-value"} children={label => <Input placeholder={label}/>}/>
 				<FormItem name={"another-value"} children={label => <Input placeholder={label}/>}/>
+				<FormList name={["some", "internal", "dynamic", "form"]}>
+					{(fields, {
+						add,
+						remove
+					}) => (
+						<Card>
+							{fields.map(field => (
+								<div key={field.key}>
+									<FormItem key={field.key + ".type"} name={[field.fieldKey, "type"]} fieldKey={[field.fieldKey, "type"]}/>
+									<FormItem required key={field.key + ".value"} name={[field.fieldKey, "value"]} fieldKey={[field.fieldKey, "value"]}/>
+									<Button
+										type="primary"
+										ghost
+										onClick={() => remove(field.name)}
+										children={"remove"}
+										icon={<DeleteItemIcon/>}
+									/>
+									<Divider type={"horizontal"}/>
+								</div>
+							))}
+							<Button
+								type="primary"
+								ghost
+								onClick={() => add()}
+								children={"add"}
+								icon={<CreateItemIcon/>}
+							/>
+						</Card>
+					)}
+				</FormList>
 				<Story icon={<Spinner done={!loading} children={<SubmitIcon/>}/>}/>
 			</>
 		);

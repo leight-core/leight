@@ -2,11 +2,12 @@ import React, {useContext} from "react";
 
 /**
  * @typedef {Object} FormValidationType
+ * @property {string|string[]} field
  * @property {string} status
  * @property {string} message
  */
 /**
- * @typedef {Object.<String, FormValidationType>} FormValidationsType
+ * @typedef {FormValidationType[]} FormValidationsType
  */
 /**
  * @typedef {Object} FormMessagesType
@@ -16,13 +17,13 @@ import React, {useContext} from "react";
  */
 /**
  * @typedef {function} FormSetValidationsType
- * @param {FormMessagesType} messages
+ * @param {FormMessagesType} errors
  */
 /**
  * @typedef {Object} FormContextType
  * @property {Object} form Antd Form instance (https://ant.design/components/form/#FormInstance)
- * @property {FormMessagesType} messages form validation messages
- * @property {FormSetValidationsType} setMessages directly set form messages (validation messages)
+ * @property {FormMessagesType} errors form validation errors
+ * @property {FormSetValidationsType} setErrors directly set form errors (validation errors)
  * @property {FormContextSetValuesType} setValues set form values (shortcut method)
  */
 /**
@@ -38,16 +39,16 @@ export const FormContext = React.createContext(null);
 
 /**
  * @param {*} form Antd form instance
- * @param messages state holding current form messages
- * @param setMessages method for direct change of messages state
+ * @param errors state holding current form errors
+ * @param setErrors method for direct change of errors state
  * @param setValues method for setting form values
  *
  * @return {FormContextType}
  */
-export const createFormContext = (form, messages, setMessages, setValues) => ({
+export const createFormContext = (form, errors, setErrors, setValues) => ({
 	form,
-	messages,
-	setMessages,
+	errors,
+	setErrors,
 	setValues,
 });
 

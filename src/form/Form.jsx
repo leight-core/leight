@@ -1,6 +1,6 @@
 import {Form as CoolForm} from "antd";
 import PropTypes from "prop-types";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {createFormContext, FormContext} from "./FormContext";
 
 /**
@@ -10,12 +10,20 @@ import {createFormContext, FormContext} from "./FormContext";
  */
 export const Form = ({name, onFinish, onFinishFailed, children, ...props}) => {
 	const [form] = CoolForm.useForm();
-	const [messages, setMessages] = useState();
+	const [errors, setErrors] = useState();
+	useEffect(() => {
+		form.setFields(((errors || {}).validations || []).map(item => {
+			return {
+				name: item.field,
+				errors: [item.message],
+			};
+		}));
+	}, [errors]);
 	return (
 		<FormContext.Provider value={createFormContext(
 			form,
-			messages,
-			setMessages,
+			errors,
+			setErrors,
 			values => form.setFieldsValue(values)
 		)}>
 			<CoolForm

@@ -21,11 +21,11 @@ const FormItem = (
 	if (!formContext) {
 		throw new Error("FormItem must be used with FormContext (for example Form component from leight-core package).");
 	}
-	if (formContext.messages && formContext.messages.validations && formContext.messages.validations[name]) {
-		const message = formContext.messages.validations[name];
-		props.validateStatus = message.status;
-		props.help = message.message;
-	}
+	// if (formContext.messages && formContext.messages.validations && formContext.messages.validations[name]) {
+	// 	const message = formContext.messages.validations[name];
+	// 	props.validateStatus = message.status;
+	// 	props.help = message.message;
+	// }
 	return (
 		<Form.Item
 			name={name}
