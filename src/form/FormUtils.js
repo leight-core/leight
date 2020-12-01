@@ -1,3 +1,4 @@
+import CancelablePromise from "cancelable-promise";
 import isarray from "isarray";
 import isObject from "isobject";
 
@@ -7,28 +8,30 @@ export const FormUtils = {
 	 *
 	 * @param {*} form Antd form instance
 	 *
-	 * @return {Promise}
+	 * @return {CancelablePromise}
 	 */
-	fields: async function (form) {
-		return new Promise(resolve => setTimeout(() => resolve(form.getFieldsError().map(item => [item.name, form.getFieldInstance(item.name)])), 0));
+	fields: function (form) {
+		return new CancelablePromise(resolve => setTimeout(() => resolve(form.getFieldsError().map(item => [item.name, form.getFieldInstance(item.name)])), 0));
 	},
 	/**
 	 * Returns array of [names, Field] of required fields.
 	 *
 	 * @param {*} form Antd form instance
-	 * @return {Promise}
+	 * @return {CancelablePromise}
 	 */
-	required: async function (form) {
-		return (await this.fields(form)).filter(([_, item]) => (item ? (item.props ? item.props : {}) : {}).required);
+	required: function (form) {
+		return new CancelablePromise(resolve => this.fields(form).then(fields => {
+			resolve(fields.filter(([_, item]) => (item ? (item.props ? item.props : {}) : {}).required));
+		}));
 	},
 	/**
 	 * Try to guess if there are some missing required values on the form.
 	 *
 	 * @param {*} form Antd form instance
 	 *
-	 * @returns {Promise<boolean>}
+	 * @returns {CancelablePromise<boolean>}
 	 */
-	hasMissingValues: async function (form) {
+	hasMissingValues: function (form) {
 		function check(input) {
 			for (const value of Object.values(input)) {
 				if (value === undefined || value === "" || value === null) {
@@ -46,7 +49,9 @@ export const FormUtils = {
 			return false;
 		}
 
-		return check(form.getFieldsValue((await this.required(form)).map(([name]) => name)));
+		return new CancelablePromise(resolve => this.required(form).then(required => {
+			resolve(check(form.getFieldsValue(required.map(([name]) => name))));
+		}));
 	},
 	/**
 	 * Check if the given form has errors; also just selected fields could be checked.
@@ -68,9 +73,11 @@ export const FormUtils = {
 	 *
 	 * @param form Antd Form instance
 	 *
-	 * @return {Promise<boolean>}
+	 * @return {CancelablePromise<boolean>}
 	 */
-	canSubmit: async function (form) {
-		return !(await this.hasMissingValues(form)) && !this.hasErrors(form);
+	canSubmit: function (form) {
+		return new CancelablePromise(resolve => this.hasMissingValues(form).then(bool => {
+			resolve(!bool && !this.hasErrors(form));
+		}));
 	}
 };

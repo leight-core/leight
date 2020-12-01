@@ -1,6 +1,6 @@
 import {Form, Input} from "antd";
 import PropTypes from "prop-types";
-import * as React from "react";
+import React from "react";
 import {useTranslation} from "react-i18next";
 import {useFormContext} from "./FormContext";
 
@@ -20,6 +20,11 @@ const FormItem = (
 	const formContext = useFormContext();
 	if (!formContext) {
 		throw new Error("FormItem must be used with FormContext (for example Form component from leight-core package).");
+	}
+	if (formContext.messages && formContext.messages.validations && formContext.messages.validations[name]) {
+		const message = formContext.messages.validations[name];
+		props.validateStatus = message.status;
+		props.help = message.message;
 	}
 	return (
 		<Form.Item

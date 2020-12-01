@@ -1,6 +1,6 @@
 import {Button, Form} from "antd";
 import PropTypes from "prop-types";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useFormContext} from "./FormContext";
 import {FormUtils} from "./FormUtils";
@@ -39,13 +39,17 @@ const SubmitButton = ({form, title, ...props}) => {
 		}
 		form = formContext.form;
 	}
+	useEffect(() => {
+		/**
+		 * Because we need to ensure all item forms are created, can submit works asynchronously.
+		 */
+		const promise = FormUtils.canSubmit(form).then(enabled => setDisabled(!enabled));
+		return () => promise.cancel();
+	}, []);
 	return (
 		<Form.Item shouldUpdate>
 			{() => {
-				/**
-				 * Because we need to ensure all item forms are created, can submit works asynchronously.
-				 */
-				FormUtils.canSubmit(form).then(enabled => setDisabled(!enabled));
+				// FormUtils.canSubmit(form).then(enabled => setDisabled(!enabled));
 				return <Button
 					type={"primary"}
 					htmlType={"submit"}

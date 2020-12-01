@@ -1,4 +1,4 @@
-import {Switch} from "antd";
+import {Checkbox as CoolCheckbox} from "antd";
 import PropTypes from "prop-types";
 import FormItem from "./FormItem";
 
@@ -9,15 +9,15 @@ import FormItem from "./FormItem";
  *
  * Others:
  *
- * - https://ant.design/components/switch/
+ * - https://ant.design/components/checkbox/
  */
-const SwitchFormItem = ({name, ...props}) => {
+const Checkbox = ({name, ...props}) => {
 	return (
-		<FormItem name={name} valuePropName={"checked"} children={_ => <Switch checked {...props}/>}/>
+		<FormItem name={name} valuePropName={"checked"} children={_ => <CoolCheckbox {...props}/>}/>
 	);
 };
 
-SwitchFormItem.propTypes = {
+Checkbox.propTypes = {
 	/**
 	 * Field name:
 	 *
@@ -29,4 +29,4 @@ SwitchFormItem.propTypes = {
 	]).isRequired,
 };
 
-export default SwitchFormItem;
+export default Checkbox;

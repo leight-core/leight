@@ -9,13 +9,14 @@ import {createFormContext, FormContext} from "./FormContext";
  * Rest of props are sent to underlying Antd Form.
  */
 export const Form = ({name, onFinish, onFinishFailed, children, ...props}) => {
-	const [form] = Form.useForm();
+	const [form] = CoolForm.useForm();
 	const [messages, setMessages] = useState();
 	return (
 		<FormContext.Provider value={createFormContext(
 			form,
 			messages,
 			setMessages,
+			values => form.setFieldsValue(values)
 		)}>
 			<CoolForm
 				form={form}

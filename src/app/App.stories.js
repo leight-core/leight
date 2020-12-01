@@ -43,12 +43,12 @@ Default.decorators = [Story => {
 			.reply(() => new Promise(resolve => {
 				setTimeout(() => {
 					resolve([200, {
-						"common.translation": {"link": "/api/common/translation"},
-						"common.user.login": {"link": "/api/common/user/login"},
+						"public.translation": {"link": "/api/public/translation"},
+						"public.user.login": {"link": "/api/public/user/login"},
 					}]);
 				}, Random(300, 600));
 			}))
-			.onGet("/api/common/translation")
+			.onGet("/api/public/translation")
 			.reply(() => new Promise(resolve => {
 				setTimeout(() => {
 					resolve([200, {
@@ -56,7 +56,7 @@ Default.decorators = [Story => {
 					}]);
 				}, Random(300, 600));
 			}))
-			.onGet("/api/common/user/login")
+			.onGet("/api/public/user/login")
 			.reply(() => new Promise(resolve => {
 				setTimeout(() => {
 					resolve([200, {

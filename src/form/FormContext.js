@@ -23,6 +23,11 @@ import React, {useContext} from "react";
  * @property {Object} form Antd Form instance (https://ant.design/components/form/#FormInstance)
  * @property {FormMessagesType} messages form validation messages
  * @property {FormSetValidationsType} setMessages directly set form messages (validation messages)
+ * @property {FormContextSetValuesType} setValues set form values (shortcut method)
+ */
+/**
+ * @typedef {function} FormContextSetValuesType
+ * @param {Object} values
  */
 /**
  * Access to current Form Context; do not use this directly, see {@link useFormContext}.
@@ -35,13 +40,15 @@ export const FormContext = React.createContext(null);
  * @param {*} form Antd form instance
  * @param messages state holding current form messages
  * @param setMessages method for direct change of messages state
+ * @param setValues method for setting form values
  *
  * @return {FormContextType}
  */
-export const createFormContext = (form, messages, setMessages) => ({
+export const createFormContext = (form, messages, setMessages, setValues) => ({
 	form,
 	messages,
 	setMessages,
+	setValues,
 });
 
 /**

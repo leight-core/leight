@@ -23,6 +23,7 @@
 	"dependencies": {
 		"arr-diff": "^4.0.0",
 		"axios": "^0.21.0",
+		"cancelable-promise": "^3.2.0",
 		"i18next": "^19.8.4",
 		"isarray": "^2.0.5",
 		"isobject": "^4.0.0",
