@@ -10,12 +10,12 @@ import {createFormContext, FormContext} from "./FormContext";
  */
 export const Form = ({name, onFinish, onFinishFailed, children, ...props}) => {
 	const [form] = Form.useForm();
-	const [errors, setErrors] = useState();
+	const [messages, setMessages] = useState();
 	return (
 		<FormContext.Provider value={createFormContext(
 			form,
-			errors,
-			setErrors,
+			messages,
+			setMessages,
 		)}>
 			<CoolForm
 				form={form}

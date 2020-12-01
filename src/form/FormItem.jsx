@@ -2,6 +2,7 @@ import {Form, Input} from "antd";
 import PropTypes from "prop-types";
 import * as React from "react";
 import {useTranslation} from "react-i18next";
+import {useFormContext} from "./FormContext";
 
 const FormItem = (
 	{
@@ -15,6 +16,10 @@ const FormItem = (
 	const {t} = useTranslation();
 	if (noMargin) {
 		props.style = {margin: 0};
+	}
+	const formContext = useFormContext();
+	if (!formContext) {
+		throw new Error("FormItem must be used with FormContext (for example Form component from leight-core package).");
 	}
 	return (
 		<Form.Item
