@@ -1,4 +1,4 @@
-import BaseList from "./BaseList";
+import {BaseList} from "./BaseList";
 
 export {
 	BaseList,
