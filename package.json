@@ -18,7 +18,7 @@
 		"flow": "flow",
 		"flow-typed": "flow-remove-types src -d flow-typed",
 		"start": "microbundle watch",
-		"build": "microbundle --strict --compress -f modern --jsx React.createElement --jsxImportSource react && npm run flow-typed",
+		"build": "microbundle --strict --no-compress -f modern --jsx React.createElement --jsxImportSource react && npm run flow-typed",
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"storybook": "start-storybook -p 6006",
