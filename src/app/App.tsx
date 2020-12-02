@@ -1,7 +1,6 @@
 import {AntDesignOutlined} from "@ant-design/icons";
 import {Result} from "antd";
-import PropTypes from "prop-types";
-import React, {useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {Helmet} from "react-helmet";
 import {useTranslation} from "react-i18next";
 import {generatePath} from "react-router";
@@ -18,6 +17,31 @@ import {InitialStep} from "./steps/InitialStep";
 import {SessionStep} from "./steps/SessionStep";
 import {TranslationStep} from "./steps/TranslationStep";
 
+export type ISites = { [key: string]: JSX.Element }
+
+export interface IApp {
+	/**
+	 * Page title using Helmet.
+	 */
+	titleTemplate: string
+	/**
+	 * Url from where a client get it's configuration, for example "/client.json".
+	 *
+	 * Defaults to **`process.env.REACT_APP_CLIENT`**.
+	 */
+	clientHref?: string
+	/**
+	 * Site map - when an user is authenticated, it's bound to the site he can use.
+	 *
+	 * Prop is {site: `<Component/>`}, for example {root: `<RootSite/>`}
+	 */
+	sites: ISites
+	/**
+	 * Optional icon shown when an application bootstraps.
+	 */
+	icon?: JSX.Element
+}
+
 /**
  * Common default Application:
  *
@@ -25,7 +49,7 @@ import {TranslationStep} from "./steps/TranslationStep";
  * - uses server-side translations by default (with a setup of i18n)
  * - supports Session (with provided sites)
  */
-export const App = (
+export const App: FC<IApp> = (
 	{
 		titleTemplate,
 		sites,
@@ -111,27 +135,4 @@ export const App = (
 			</BrowserRouter>
 		</AppContext.Provider>
 	);
-};
-
-App.propTypes = {
-	/**
-	 * Page title using Helmet.
-	 */
-	titleTemplate: PropTypes.string.isRequired,
-	/**
-	 * Url from where a client get it's configuration, for example "/client.json".
-	 *
-	 * Defaults to **`process.env.REACT_APP_CLIENT`**.
-	 */
-	clientHref: PropTypes.string,
-	/**
-	 * Site map - when an user is authenticated, it's bound to the site he can use.
-	 *
-	 * Prop is {site: `<Component/>`}, for example {root: `<RootSite/>`}
-	 */
-	sites: PropTypes.any.isRequired,
-	/**
-	 * Optional icon shown when an application bootstraps.
-	 */
-	icon: PropTypes.element,
 };

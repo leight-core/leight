@@ -1,11 +1,14 @@
 import {Button, Card, Result} from "antd";
-import PropTypes from "prop-types";
-import React from "react";
+import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
 import {useLayoutContext} from "../layout/LayoutContext";
 
-export const SessionExpiredView = ({link}) => {
+export interface ISessionExpiredView {
+	link: string
+}
+
+export const SessionExpiredView: FC<ISessionExpiredView> = ({link}) => {
 	const {t} = useTranslation();
 	useLayoutContext().useEnableFullscreen(true, true);
 	return (
@@ -29,10 +32,10 @@ export const SessionExpiredView = ({link}) => {
 		</Card>
 	);
 };
-
-SessionExpiredView.propTypes = {
-	/**
-	 * Target url of redirection.
-	 */
-	link: PropTypes.string.isRequired,
-};
+//
+// SessionExpiredView.propTypes = {
+// 	/**
+// 	 * Target url of redirection.
+// 	 */
+// 	link: PropTypes.string.isRequired,
+// };
