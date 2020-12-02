@@ -23,7 +23,7 @@ export const SubmitWithRequired = () => (
 		<Form name={"story"} layout={"vertical"} onFinish={action("onFinish")}>
 			<FormItem required field={"login"} children={label => <Input placeholder={label}/>}/>
 			<FormItem required field={"password"} children={label => <Input type={"password"} placeholder={label}/>}/>
-			<SubmitButton title={'Submit!'} icon={<SubmitIcon/>}/>
+			<SubmitButton title={"Submit!"} icon={<SubmitIcon/>}/>
 		</Form>
 	</Centered>
 );
@@ -73,7 +73,7 @@ export const SubmitWithOptional = () => (
 				)}
 			</FormList>
 			<Switch field={"switch"}/>
-			<SubmitButton title={'Submit!'} icon={<SubmitIcon/>}/>
+			<SubmitButton title={"Submit!"} icon={<SubmitIcon/>}/>
 		</Form>
 	</Centered>
 );
@@ -96,7 +96,7 @@ export const SubmitWithPostInitials = () => {
 				<FormItem field={"some-value"} children={label => <Input placeholder={label}/>}/>
 				<FormItem required field={"required-value"} children={label => <Input placeholder={label}/>}/>
 				<FormItem field={"another-value"} children={label => <Input placeholder={label}/>}/>
-				<SubmitButton title={'Submit!'} icon={<SubmitIcon/>}/>
+				<SubmitButton title={"Submit!"} icon={<SubmitIcon/>}/>
 			</>
 		);
 	};
@@ -108,7 +108,7 @@ export const SubmitWithPostInitials = () => {
 			</Form>
 		</Centered>
 	);
-}
+};
 
 export const SubmitWithPostInitialsErrors = () => {
 	const Items = () => {
@@ -181,7 +181,7 @@ export const SubmitWithPostInitialsErrors = () => {
 						</Card>
 					)}
 				</FormList>
-				<SubmitButton title={'Submit!'} icon={<SubmitIcon/>}/>
+				<SubmitButton title={"Submit!"} icon={<SubmitIcon/>}/>
 			</>
 		);
 	};
@@ -193,4 +193,4 @@ export const SubmitWithPostInitialsErrors = () => {
 			</Form>
 		</Centered>
 	);
-}
+};
