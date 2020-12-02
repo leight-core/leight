@@ -17,24 +17,40 @@ export interface IFormContext<TValues = any> {
 	/**
 	 * Antd form instance.
 	 */
-	form: FormInstance,
+	form: FormInstance
 	/**
 	 * Current form errors.
 	 */
-	errors: IFormErrors,
+	errors: IFormErrors
 	/**
 	 * Set field errors.
 	 *
 	 * @param errors
 	 */
-	setErrors: (errors: IFormErrors) => void,
+	setErrors: (errors: IFormErrors) => void
 
 	/**
 	 * Set form values
 	 *
 	 * @param values values being set
 	 */
-	setValues: (values: TValues) => void,
+	setValues: (values: TValues) => void
+	/**
+	 * Direct access to loading state of the layout (**not a bool!**).
+	 */
+	loading: number
+	/**
+	 * Tells if there is requested loading state of the form.
+	 */
+	isLoading: () => boolean
+	/**
+	 * Updates loading state of the form; could be called more times as it maintains loader count.
+	 */
+	loadingStart: () => void
+	/**
+	 * Updates loading state of the form; could be called more times as it maintains loader count.
+	 */
+	loadingFinish: () => void
 }
 
 /**

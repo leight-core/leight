@@ -3,6 +3,8 @@ import {ButtonProps} from "antd/lib/button";
 import {FormInstance} from "antd/lib/form";
 import React, {FC, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
+import {Spinner} from "../icon/Spinner";
+import {SubmitDisabledIcon} from "../icon/SubmitDisabledIcon";
 import {useFormContext} from "./FormContext";
 import {FormUtils} from "./FormUtils";
 
@@ -41,14 +43,11 @@ export interface ISubmitButton extends Partial<ButtonProps> {
  * - https://ant.design/components/button/
  * - https://ant.design/components/form/#API
  */
-export const SubmitButton: FC<ISubmitButton> = ({formInstance, title, ...props}) => {
+export const SubmitButton: FC<ISubmitButton> = ({formInstance, title, icon, ...props}) => {
 	const [disabled, setDisabled] = useState(true);
 	const formContext = useFormContext();
-	if (!formInstance) {
-		if (!formContext) {
-			throw new Error("SubmitButton must be under FormContext (Form component) or get [form] prop!");
-		}
-		formInstance = formContext.form;
+	if (!formContext) {
+		throw new Error("SubmitButton must be under FormContext (Form component) or get [form] prop!");
 	}
 
 	const Internal = () => {
@@ -57,7 +56,7 @@ export const SubmitButton: FC<ISubmitButton> = ({formInstance, title, ...props})
 			/**
 			 * Because we need to ensure all item forms are created, can submit works asynchronously.
 			 */
-			const promise = FormUtils.canSubmit(formInstance).then(enabled => setDisabled(!enabled));
+			const promise = FormUtils.canSubmit(formContext.form).then(enabled => setDisabled(!enabled));
 			return () => promise.cancel();
 		});
 		return <Button
@@ -65,6 +64,7 @@ export const SubmitButton: FC<ISubmitButton> = ({formInstance, title, ...props})
 			htmlType={"submit"}
 			disabled={disabled}
 			children={t(title)}
+			icon={<Spinner done={!formContext.isLoading()} children={disabled ? <SubmitDisabledIcon/> : icon}/>}
 			{...props}
 		/>;
 	};

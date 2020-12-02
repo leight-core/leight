@@ -1,9 +1,8 @@
 import {action} from "@storybook/addon-actions";
 import {Button, Card, Divider, Input} from "antd";
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {CreateItemIcon} from "../icon/CreateItemIcon";
 import {DeleteItemIcon} from "../icon/DeleteItemIcon";
-import {Spinner} from "../icon/Spinner";
 import {SubmitIcon} from "../icon/SubmitIcon";
 import {Centered} from "../layout/Centered";
 import {Form} from "./Form";
@@ -14,8 +13,8 @@ import {SubmitButton} from "./SubmitButton";
 import {Switch} from "./Switch";
 
 export default {
-	title: "Leight/Form/Submit",
-	component: SubmitButton,
+	title: "Leight/Form/Form",
+	component: Form,
 	argTypes: {
 		title: {control: {type: "text"}},
 		form: {control: {disable: true}},
@@ -28,87 +27,77 @@ export default {
 	},
 };
 
-const Template = (args, {form, icon}) => <SubmitButton {...args} form={form} icon={icon}/>;
-
-export const SubmitWithRequired = Template.bind({});
-SubmitWithRequired.decorators = [Story => {
-	return (
-		<Centered span={14}>
-			<Form name={"story"} layout={"vertical"} onFinish={action("onFinish")}>
-				<FormItem required field={"login"} children={label => <Input placeholder={label}/>}/>
-				<FormItem required field={"password"} children={label => <Input type={"password"} placeholder={label}/>}/>
-				<Story icon={<SubmitIcon/>}/>
-			</Form>
-		</Centered>
-	);
-}];
+export const SubmitWithRequired = () => (
+	<Centered span={14}>
+		<Form name={"story"} layout={"vertical"} onFinish={action("onFinish")}>
+			<FormItem required field={"login"} children={label => <Input placeholder={label}/>}/>
+			<FormItem required field={"password"} children={label => <Input type={"password"} placeholder={label}/>}/>
+			<SubmitButton title={'Submit!'} icon={<SubmitIcon/>}/>
+		</Form>
+	</Centered>
+);
 SubmitWithRequired.parameters = {
 	docs: {
 		source: {
-			code: "<SubmitButton form={form} title={'title'}/>",
+			code: "...",
 		}
 	}
 };
 
-export const SubmitWithOptional = Template.bind({});
-SubmitWithOptional.decorators = [Story => {
-	return (
-		<Centered span={14}>
-			<Form name={"story"} layout={"vertical"} onFinish={action("onFinish")}>
-				<FormItem field={"some-value"} children={label => <Input placeholder={label}/>}/>
-				<FormItem required field={"required-value"} children={label => <Input placeholder={label}/>}/>
-				<FormItem field={"another-value"} children={label => <Input placeholder={label}/>}/>
-				<FormItem field={["foo", "bar"]}/>
-				<FormList field={["some", "internal", "dynamic", "form"]}>
-					{(fields, {
-						add,
-						remove
-					}) => (
-						<Card>
-							{fields.map(field => (
-								<div key={field.key}>
-									<FormItem key={field.key + ".type"} field={[field.fieldKey, "type"]} fieldKey={[field.fieldKey, "type"]}/>
-									<FormItem required key={field.key + ".value"} field={[field.fieldKey, "value"]} fieldKey={[field.fieldKey, "value"]}/>
-									<Button
-										type="primary"
-										ghost
-										onClick={() => remove(field.name)}
-										children={"remove"}
-										icon={<DeleteItemIcon/>}
-									/>
-									<Divider type={"horizontal"}/>
-								</div>
-							))}
-							<Button
-								type="primary"
-								ghost
-								onClick={() => add()}
-								children={"add"}
-								icon={<CreateItemIcon/>}
-							/>
-						</Card>
-					)}
-				</FormList>
-				<Switch field={"switch"}/>
-				<Story icon={<SubmitIcon/>}/>
-			</Form>
-		</Centered>
-	);
-}];
+export const SubmitWithOptional = () => (
+	<Centered span={14}>
+		<Form name={"story"} layout={"vertical"} onFinish={action("onFinish")}>
+			<FormItem field={"some-value"} children={label => <Input placeholder={label}/>}/>
+			<FormItem required field={"required-value"} children={label => <Input placeholder={label}/>}/>
+			<FormItem field={"another-value"} children={label => <Input placeholder={label}/>}/>
+			<FormItem field={["foo", "bar"]}/>
+			<FormList field={["some", "internal", "dynamic", "form"]}>
+				{(fields, {
+					add,
+					remove
+				}) => (
+					<Card>
+						{fields.map(field => (
+							<div key={field.key}>
+								<FormItem key={field.key + ".type"} field={[field.fieldKey, "type"]} fieldKey={[field.fieldKey, "type"]}/>
+								<FormItem required key={field.key + ".value"} field={[field.fieldKey, "value"]} fieldKey={[field.fieldKey, "value"]}/>
+								<Button
+									type="primary"
+									ghost
+									onClick={() => remove(field.name)}
+									children={"remove"}
+									icon={<DeleteItemIcon/>}
+								/>
+								<Divider type={"horizontal"}/>
+							</div>
+						))}
+						<Button
+							type="primary"
+							ghost
+							onClick={() => add()}
+							children={"add"}
+							icon={<CreateItemIcon/>}
+						/>
+					</Card>
+				)}
+			</FormList>
+			<Switch field={"switch"}/>
+			<SubmitButton title={'Submit!'} icon={<SubmitIcon/>}/>
+		</Form>
+	</Centered>
+);
 
-export const SubmitWithPostInitials = Template.bind({});
-SubmitWithPostInitials.decorators = [Story => {
-	const [loading, setLoading] = useState(true);
-
+export const SubmitWithPostInitials = () => {
 	const Items = () => {
 		const formContext = useFormContext();
 		useEffect(() => {
+			formContext.loadingStart();
 			setTimeout(() => {
 				formContext.setValues({
 					"some-value": "the value",
 					"required-value": "required",
 				});
-				setLoading(false);
+				formContext.loadingFinish();
 			}, 1250);
 		}, []);
 		return (
@@ -116,7 +105,7 @@ SubmitWithPostInitials.decorators = [Story => {
 				<FormItem field={"some-value"} children={label => <Input placeholder={label}/>}/>
 				<FormItem required field={"required-value"} children={label => <Input placeholder={label}/>}/>
 				<FormItem field={"another-value"} children={label => <Input placeholder={label}/>}/>
-				<Story icon={<Spinner done={!loading} children={<SubmitIcon/>}/>}/>
+				<SubmitButton title={'Submit!'} icon={<SubmitIcon/>}/>
 			</>
 		);
 	};
@@ -128,16 +117,13 @@ SubmitWithPostInitials.decorators = [Story => {
 			</Form>
 		</Centered>
 	);
-}];
+}
 
-export const SubmitWithPostInitialsErrors = Template.bind({});
-SubmitWithPostInitialsErrors.decorators = [Story => {
-	const [loading, setLoading] = useState(true);
-
+export const SubmitWithPostInitialsErrors = () => {
 	const Items = () => {
 		const formContext = useFormContext();
 		useEffect(() => {
-			console.log("effect");
+			formContext.loadingStart();
 			const id = setTimeout(() => {
 				formContext.setValues({
 					"some-value": "the value",
@@ -165,7 +151,7 @@ SubmitWithPostInitialsErrors.decorators = [Story => {
 						}
 					]
 				});
-				// setLoading(false);
+				formContext.loadingFinish();
 			}, 1250);
 			return () => clearTimeout(id);
 		}, []);
@@ -204,7 +190,7 @@ SubmitWithPostInitialsErrors.decorators = [Story => {
 						</Card>
 					)}
 				</FormList>
-				<Story icon={<Spinner done={!loading} children={<SubmitIcon/>}/>}/>
+				<SubmitButton title={'Submit!'} icon={<SubmitIcon/>}/>
 			</>
 		);
 	};
@@ -216,4 +202,4 @@ SubmitWithPostInitialsErrors.decorators = [Story => {
 			</Form>
 		</Centered>
 	);
-}];
+}

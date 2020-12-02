@@ -17,6 +17,7 @@ import {SignInIcon} from "./SignInIcon";
 import {SignOutIcon} from "./SignOutIcon";
 import {SignUpIcon} from "./SignUpIcon";
 import {Spinner} from "./Spinner";
+import {SubmitDisabledIcon} from "./SubmitDisabledIcon";
 import {SubmitIcon} from "./SubmitIcon";
 
 export {
@@ -39,5 +40,6 @@ export {
 	SignUpIcon,
 	SignOutIcon,
 	Spinner,
+	SubmitDisabledIcon,
 	SubmitIcon,
 };

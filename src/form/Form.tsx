@@ -28,6 +28,8 @@ export interface IForm<TValues> extends Partial<FormProps<TValues>> {
 export const Form = <TValues extends unknown = any>({name, onFinish, onFinishFailed = null, children = null, ...props}: PropsWithChildren<IForm<TValues>>) => {
 	const [form] = CoolForm.useForm();
 	const [errors, setErrors] = useState<IFormErrors>();
+	const [loading, setLoading] = useState<number>(0);
+	const isLoading = () => loading > 0;
 	return (
 		<CoolForm
 			form={form}
@@ -48,7 +50,11 @@ export const Form = <TValues extends unknown = any>({name, onFinish, onFinishFai
 							errors: [item.message],
 						})));
 					},
-					setValues: values => form.setFieldsValue(values)
+					setValues: values => form.setFieldsValue(values),
+					loading,
+					isLoading,
+					loadingStart: () => setLoading(prev => prev + 1),
+					loadingFinish: () => setLoading(prev => prev - 1),
 				}}
 				children={children}
 			/>
