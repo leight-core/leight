@@ -1,8 +1,8 @@
-export interface IEventCallback<TData> {
+export interface IEventCallback<TData = any> {
 	(data: TData): boolean | void
 }
 
-export interface IEvent<TData> {
+export interface IEvent<TData = any> {
 	priority: number
 	callback: IEventCallback<TData>
 }
@@ -11,11 +11,11 @@ export interface IEvents {
 	/**
 	 * Internal map of current event handlers, should not be touched directly in any way!
 	 */
-	events: { [key: string]: IEvent<any>[] }
+	events: { [key: string]: IEvent[] }
 	/**
 	 * Registers a handler of the given event name.
 	 */
-	on: <TData>(event: string, callback: IEventCallback<TData>, priority?: number) => IEvents
+	on: <TData = any>(event: string, callback: IEventCallback<TData>, priority?: number) => IEvents
 	/**
 	 * Call handlers of the given event name.
 	 */

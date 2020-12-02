@@ -2,9 +2,9 @@ import axios, {CancelTokenSource} from "axios";
 import {IEvents} from "../utils/Events";
 import {axiosError, axiosSuccess} from "./events";
 
-export function httpPost<TData>(
+export function httpPost<TRequest = any>(
 	href: string,
-	data: TData,
+	data: TRequest,
 	events: IEvents,
 ): CancelTokenSource {
 	const cancelToken = axios.CancelToken.source();

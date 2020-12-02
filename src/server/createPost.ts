@@ -7,12 +7,12 @@ import {httpPost} from "./httpPost";
  *
  * @param link Discovery link id.
  */
-export function createPost<TData>(link: string) {
+export function createPost<TRequest = any>(link: string) {
 	return (
-		data: TData,
+		data: TRequest,
 		appContext: IAppContext,
 		events: IEvents,
-	) => httpPost(
+	) => httpPost<TRequest>(
 		appContext.link(link),
 		data,
 		events,
