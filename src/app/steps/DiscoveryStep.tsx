@@ -2,11 +2,11 @@ import {CompassOutlined} from "@ant-design/icons";
 import React from "react";
 import LoaderStep from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
-import httpGet from "../../server/httpGet";
-import Events from "../../utils/Events";
-import {useAppContext} from "../AppContext";
+import {httpGet} from "../../server/httpGet";
+import {Events} from "../../utils/Events";
+import {IDiscovery, useAppContext} from "../AppContext";
 
-const DiscoveryStep = props => {
+export const DiscoveryStep = props => {
 	const appContext = useAppContext();
 	const stepLoaderContext = useStepLoaderContext();
 	return (
@@ -14,7 +14,7 @@ const DiscoveryStep = props => {
 			const cancelToken = httpGet(
 				appContext.client.discovery,
 				Events()
-					.on("success", discovery => {
+					.on<IDiscovery>("success", discovery => {
 						appContext.setDiscovery(discovery);
 						stepLoaderContext.next();
 					})
@@ -26,5 +26,3 @@ const DiscoveryStep = props => {
 		}}/>
 	);
 };
-
-export default DiscoveryStep;

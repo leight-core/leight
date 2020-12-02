@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import React from "react";
 import LoaderStep from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
-import httpGet from "../../server/httpGet";
-import Events from "../../utils/Events";
+import {httpGet} from "../../server/httpGet";
+import {Events} from "../../utils/Events";
 import {useAppContext} from "../AppContext";
 
-const SessionStep = ({link = "public.user.login", ...props}) => {
+export const SessionStep = ({link = "public.user.login", ...props}) => {
 	const appContext = useAppContext();
 	const stepLoaderContext = useStepLoaderContext();
 	return (
@@ -15,7 +15,7 @@ const SessionStep = ({link = "public.user.login", ...props}) => {
 			const cancelToken = httpGet(
 				appContext.link(link),
 				Events()
-					.on("success", session => {
+					.on<any>("success", session => {
 						appContext.login(session);
 						stepLoaderContext.next();
 					})
@@ -40,5 +40,3 @@ SessionStep.proptTypes = {
 	 */
 	link: PropTypes.string,
 };
-
-export default SessionStep;

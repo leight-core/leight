@@ -1,5 +1,6 @@
+import React from "react";
 import HomeIcon from "../icon/HomeIcon";
-import BulletCard from "./BulletCard";
+import {BulletCard} from "./BulletCard";
 
 export default {
 	title: "Leight/Component/Bullet Card",

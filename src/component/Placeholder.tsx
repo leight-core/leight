@@ -1,6 +1,7 @@
 import {Skeleton} from "antd";
+import React from "react";
 
-const Placeholder = (
+export const Placeholder = (
 	{
 		data,
 		display,
@@ -8,5 +9,3 @@ const Placeholder = (
 	}) => {
 	return data ? display(data) : (children || <Skeleton.Input size={"large"} style={{width: 200}} active={true}/>);
 };
-
-export default Placeholder;

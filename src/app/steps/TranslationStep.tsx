@@ -4,11 +4,22 @@ import PropTypes from "prop-types";
 import React from "react";
 import LoaderStep from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
-import httpGet from "../../server/httpGet";
-import Events from "../../utils/Events";
+import {httpGet} from "../../server/httpGet";
+import {Events} from "../../utils/Events";
 import {useAppContext} from "../AppContext";
 
-const TranslationStep = ({link = "public.translation", ...props}) => {
+export interface ITranslation {
+	language: string
+	namespace: string
+	label: string
+	text: string
+}
+
+export interface ITranslations {
+	translations: ITranslation[]
+}
+
+export const TranslationStep = ({link = "public.translation", ...props}) => {
 	const appContext = useAppContext();
 	const stepLoaderContext = useStepLoaderContext();
 	return (
@@ -16,10 +27,8 @@ const TranslationStep = ({link = "public.translation", ...props}) => {
 			const cancelToken = httpGet(
 				appContext.link(link),
 				Events()
-					.on("success", ({translations}) => {
-						for (const translation of translations) {
-							i18next.addResource(translation.language, translation.namespace, translation.label, translation.text);
-						}
+					.on<ITranslations>("success", ({translations}) => {
+						translations.forEach(translation => i18next.addResource(translation.language, translation.namespace, translation.label, translation.text));
 						stepLoaderContext.next();
 					})
 					.on("catch", () => {
@@ -36,6 +45,4 @@ TranslationStep.propTypes = {
 	 * Which link from Discovery index should be used to retrieve translations.
 	 */
 	link: PropTypes.string,
-};
-
-export default TranslationStep;
+}

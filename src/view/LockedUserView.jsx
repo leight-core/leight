@@ -3,7 +3,7 @@ import {Button, Result} from "antd";
 import {useTranslation} from "react-i18next";
 import {useAppContext} from "../app/AppContext";
 
-const LockedUserView = () => {
+export const LockedUserView = () => {
 	const appContext = useAppContext();
 	const {t} = useTranslation();
 	appContext.useTitle("error.user-locked.title");
@@ -17,5 +17,3 @@ const LockedUserView = () => {
 		/>
 	);
 };
-
-export default LockedUserView;

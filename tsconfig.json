@@ -16,9 +16,11 @@
 			"ESNext"
 		],
 		"skipLibCheck": true,
-		"types": []
+		"types": [
+			"node"
+		]
 	},
 	"include": [
-		"src"
+		"src/**/*"
 	]
 }

@@ -7,16 +7,16 @@ import {useTranslation} from "react-i18next";
 import {generatePath} from "react-router";
 import {BrowserRouter} from "react-router-dom";
 import StepLoader from "../loader/StepLoader";
-import httpDelete from "../server/httpDelete";
-import Events from "../utils/Events";
-import LockedUserView from "../view/LockedUserView";
+import {httpDelete} from "../server/httpDelete";
+import {Events} from "../utils/Events";
+import {LockedUserView} from "../view/LockedUserView";
 import {AppContext} from "./AppContext";
-import ClientStep from "./steps/ClientStep";
-import DiscoveryStep from "./steps/DiscoveryStep";
-import FinishStep from "./steps/FinishStep";
-import InitialStep from "./steps/InitialStep";
-import SessionStep from "./steps/SessionStep";
-import TranslationStep from "./steps/TranslationStep";
+import {ClientStep} from "./steps/ClientStep";
+import {DiscoveryStep} from "./steps/DiscoveryStep";
+import {FinishStep} from "./steps/FinishStep";
+import {InitialStep} from "./steps/InitialStep";
+import {SessionStep} from "./steps/SessionStep";
+import {TranslationStep} from "./steps/TranslationStep";
 
 /**
  * Common default Application:
@@ -41,13 +41,16 @@ export const App = (
 	});
 	const [ready, setReady] = useState(false);
 	const link = (id, params = null) => {
-		if (!discovery[id]) {
-			throw new Error(`Cannot resolve link from Discovery for linkId [${id}]`);
+		if (!discovery) {
+			throw new Error(`Cannot resolve link from Discovery for linkId [${id}]; discovery is not initialized yet!`);
+		}
+		if (!(discovery as Object)[id]) {
+			throw new Error(`Cannot resolve link from Discovery for linkId [${id}]; discovery link does not exist.`);
 		}
 		/**
 		 * A little replace hack to convert `/{foo}/bar` form into `/:foo/bar` form.
 		 */
-		const link = discovery[id].link.replaceAll(/{(.*?)}/g, ":$1");
+		const link = (discovery as Object)[id].link.replaceAll(/{(.*?)}/g, ":$1");
 		try {
 			const url = new URL(link);
 			url.pathname = generatePath(url.pathname, params);
@@ -70,6 +73,8 @@ export const App = (
 		);
 		return () => cancelToken.cancel();
 	};
+	// @ts-ignore
+	// @ts-ignore
 	return (
 		<AppContext.Provider value={{
 			setTitle,
@@ -94,6 +99,7 @@ export const App = (
 					(sites[session.site] || <LockedUserView/>) :
 					<Result icon={icon || <AntDesignOutlined/>}>
 						<div style={{display: "flex", justifyContent: "center"}}>
+							{/*@ts-ignore*/}
 							<StepLoader steps={[
 								<InitialStep key={"initial"}/>,
 								<ClientStep key={"client"} href={clientHref}/>,

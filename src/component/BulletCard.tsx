@@ -1,8 +1,9 @@
 import {RightCircleOutlined} from "@ant-design/icons";
 import {Result, Typography} from "antd";
 import PropTypes from "prop-types";
+import React from "react";
 import {useTranslation} from "react-i18next";
-import NumberRange from "../utils/NumberRange";
+import {NumberRange} from "../utils/NumberRange";
 
 /**
  * Simple bullet card using "Result" component from Antd
@@ -17,7 +18,7 @@ import NumberRange from "../utils/NumberRange";
  *
  * - https://ant.design/components/result/
  */
-const BulletCard = (
+export const BulletCard = (
 	{
 		title,
 		count,
@@ -55,6 +56,4 @@ BulletCard.propTypes = {
 		PropTypes.bool,
 		PropTypes.node,
 	]),
-};
-
-export default BulletCard;
+}

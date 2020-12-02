@@ -1,9 +1,10 @@
 import {Button} from "antd";
 import PropTypes from "prop-types";
+import React from "react";
 import {useTranslation} from "react-i18next";
 import {useAppContext} from "../app/AppContext";
 
-const SessionCloseButton = (
+export const SessionCloseButton = (
 	{
 		text,
 		...props
@@ -25,5 +26,3 @@ SessionCloseButton.propTypes = {
 	 */
 	text: PropTypes.string.isRequired,
 };
-
-export default SessionCloseButton;

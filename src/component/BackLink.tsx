@@ -1,5 +1,6 @@
 import {Button} from "antd";
 import PropTypes from "prop-types";
+import React from "react";
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router";
 import BackIcon from "../icon/BackIcon";
@@ -13,7 +14,7 @@ import BackIcon from "../icon/BackIcon";
  *
  * - https://ant.design/components/button/
  */
-const BackLink = (
+export const BackLink = (
 	{
 		text,
 		...props
@@ -37,6 +38,4 @@ BackLink.propTypes = {
 	 * Text on the button, goes through translation.
 	 */
 	text: PropTypes.string.isRequired,
-};
-
-export default BackLink;
+}

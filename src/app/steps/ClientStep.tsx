@@ -6,7 +6,7 @@ import {httpGet} from "../../server/httpGet";
 import {Events} from "../../utils/Events";
 import {IClient, useAppContext} from "../AppContext";
 
-const ClientStep = ({href, ...props}) => {
+export const ClientStep = ({href, ...props}) => {
 	const appContext = useAppContext();
 	const stepLoaderContext = useStepLoaderContext();
 	return (
@@ -26,5 +26,3 @@ const ClientStep = ({href, ...props}) => {
 		}}/>
 	);
 };
-
-export default ClientStep;

@@ -4,11 +4,9 @@ import LoaderStep from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
 import {Random} from "../../utils/Random";
 
-const InitialStep = props => {
+export const InitialStep = props => {
 	const stepLoaderContext = useStepLoaderContext();
 	return (
 		<LoaderStep icon={<LoginOutlined/>} {...props} onStep={() => setTimeout(() => stepLoaderContext.next(), Random(100, 200))}/>
 	);
-};
-
-export default InitialStep;
+}
