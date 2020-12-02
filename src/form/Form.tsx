@@ -1,7 +1,7 @@
 import {Form as CoolForm} from "antd";
 import {FormProps} from "antd/lib/form";
 import {ValidateErrorEntity} from "rc-field-form/lib/interface";
-import React, {FC, useState} from "react";
+import React, {PropsWithChildren, useState} from "react";
 import {FormContext, IFormErrors} from "./FormContext";
 import {FormUtils} from "./FormUtils";
 
@@ -25,7 +25,7 @@ export interface IForm<TValues> extends Partial<FormProps<TValues>> {
  *
  * Rest of props are sent to underlying Antd Form.
  */
-export const Form: FC<IForm<any>> = ({name, onFinish, onFinishFailed = null, children = null, ...props}) => {
+export const Form = <TValues extends unknown = any>({name, onFinish, onFinishFailed = null, children = null, ...props}: PropsWithChildren<IForm<TValues>>) => {
 	const [form] = CoolForm.useForm();
 	const [errors, setErrors] = useState<IFormErrors>();
 	return (
@@ -53,6 +53,5 @@ export const Form: FC<IForm<any>> = ({name, onFinish, onFinishFailed = null, chi
 				children={children}
 			/>
 		</CoolForm>
-
 	);
 };
