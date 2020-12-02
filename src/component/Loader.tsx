@@ -1,9 +1,13 @@
 import {SettingFilled} from "@ant-design/icons";
 import {Spin} from "antd";
-import React from "react";
+import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
 
-export const Loader = (
+export interface ILoader {
+	isLoading: boolean
+}
+
+export const Loader: FC<ILoader> = (
 	{
 		isLoading,
 		children

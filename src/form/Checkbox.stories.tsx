@@ -7,7 +7,7 @@ export default {
 	component: Checkbox,
 };
 
-export const CheckboxSandbox = () => <Checkbox name={"checkbox"}/>;
+export const CheckboxSandbox = () => <Checkbox field={"checkbox"}/>;
 CheckboxSandbox.decorators = [Story => (
 	<Form name={"story"} onFinish={() => null}>
 		<Story/>

@@ -1,7 +1,17 @@
 import {Switch as CoolSwitch} from "antd";
-import PropTypes from "prop-types";
-import React from "react";
+import {SwitchProps} from "antd/lib/switch";
+import {NamePath} from "rc-field-form/lib/interface";
+import React, {FC} from "react";
 import {FormItem} from "./FormItem";
+
+export interface ISwitch extends Partial<SwitchProps> {
+	/**
+	 * Field name:
+	 *
+	 * - https://ant.design/components/form/#NamePath
+	 */
+	field: NamePath
+}
 
 /**
  * This one is just a tiny wrapper around common FormItem providing right binding to value props.
@@ -12,20 +22,8 @@ import {FormItem} from "./FormItem";
  *
  * - https://ant.design/components/switch/
  */
-export const Switch = ({name, ...props}) => {
+export const Switch: FC<ISwitch> = ({field, ...props}) => {
 	return (
-		<FormItem name={name} valuePropName={"checked"} children={_ => <CoolSwitch checked {...props}/>}/>
+		<FormItem field={field} valuePropName={"checked"} children={_ => <CoolSwitch checked {...props}/>}/>
 	);
-};
-
-Switch.propTypes = {
-	/**
-	 * Field name:
-	 *
-	 * - https://ant.design/components/form/#NamePath
-	 */
-	name: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.arrayOf(PropTypes.string),
-	]).isRequired,
 };

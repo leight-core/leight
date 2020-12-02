@@ -1,10 +1,17 @@
 import {Button} from "antd";
-import PropTypes from "prop-types";
-import React from "react";
+import {ButtonProps} from "antd/lib/button";
+import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useAppContext} from "../app/AppContext";
 
-export const SessionCloseButton = (
+export interface ISessionCloseButton extends Partial<ButtonProps> {
+	/**
+	 * Text on the button, goes through translation.
+	 */
+	text: string
+}
+
+export const SessionCloseButton: FC<ISessionCloseButton> = (
 	{
 		text,
 		...props
@@ -13,16 +20,9 @@ export const SessionCloseButton = (
 	const {t} = useTranslation();
 	return (
 		<Button
-			type="primary"
+			type={"primary"}
 			onClick={() => appContext.logout()} children={t(text)}
 			{...props}
 		/>
 	);
-};
-
-SessionCloseButton.propTypes = {
-	/**
-	 * Text on the button, goes through translation.
-	 */
-	text: PropTypes.string.isRequired,
 };

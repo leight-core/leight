@@ -1,7 +1,17 @@
 import {Checkbox as CoolCheckbox} from "antd";
-import PropTypes from "prop-types";
-import React from "react";
+import {CheckboxProps} from "antd/lib/checkbox/Checkbox";
+import {NamePath} from "rc-field-form/lib/interface";
+import React, {FC} from "react";
 import {FormItem} from "./FormItem";
+
+export interface ICheckbox extends Partial<CheckboxProps> {
+	/**
+	 * Field name:
+	 *
+	 * - https://ant.design/components/form/#NamePath
+	 */
+	field: NamePath
+}
 
 /**
  * This one is just a tiny wrapper around common FormItem providing right binding to value props.
@@ -12,20 +22,8 @@ import {FormItem} from "./FormItem";
  *
  * - https://ant.design/components/checkbox/
  */
-export const Checkbox = ({name, ...props}) => {
+export const Checkbox: FC<ICheckbox> = ({field, ...props}) => {
 	return (
-		<FormItem name={name} valuePropName={"checked"} children={_ => <CoolCheckbox {...props}/>}/>
+		<FormItem field={field} valuePropName={"checked"} children={_ => <CoolCheckbox {...props}/>}/>
 	);
 };
-
-Checkbox.propTypes = {
-	/**
-	 * Field name:
-	 *
-	 * - https://ant.design/components/form/#NamePath
-	 */
-	name: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.arrayOf(PropTypes.string),
-	]).isRequired,
-}

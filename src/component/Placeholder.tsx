@@ -1,11 +1,16 @@
 import {Skeleton} from "antd";
-import React from "react";
+import React, {FC} from "react";
 
-export const Placeholder = (
+export interface IPlaceholder<TData> {
+	display: (data: TData) => any
+	data: TData
+}
+
+export function Placeholder<TData>(
 	{
-		data,
 		display,
+		data,
 		children
-	}) => {
+	}): FC<IPlaceholder<TData>> {
 	return data ? display(data) : (children || <Skeleton.Input size={"large"} style={{width: 200}} active={true}/>);
-};
+}

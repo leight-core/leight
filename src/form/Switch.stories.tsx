@@ -7,7 +7,7 @@ export default {
 	component: Switch,
 };
 
-export const SwitchSandbox = () => <Switch name={"switch"}/>;
+export const SwitchSandbox = () => <Switch field={"switch"}/>;
 SwitchSandbox.decorators = [Story => (
 	<Form name={"story"} onFinish={() => null}>
 		<Story/>

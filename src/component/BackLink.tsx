@@ -1,9 +1,16 @@
 import {Button} from "antd";
-import PropTypes from "prop-types";
-import React from "react";
+import {ButtonProps} from "antd/lib/button";
+import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router";
 import {BackIcon} from "../icon/BackIcon";
+
+export interface IBackLink extends Partial<ButtonProps> {
+	/**
+	 * Text on the button, goes through translation.
+	 */
+	text: string
+}
 
 /**
  * Just a simple back button using react-router under hood to navigate one history entry back.
@@ -14,7 +21,7 @@ import {BackIcon} from "../icon/BackIcon";
  *
  * - https://ant.design/components/button/
  */
-export const BackLink = (
+export const BackLink: FC<IBackLink> = (
 	{
 		text,
 		...props
@@ -32,10 +39,3 @@ export const BackLink = (
 		/>
 	);
 };
-
-BackLink.propTypes = {
-	/**
-	 * Text on the button, goes through translation.
-	 */
-	text: PropTypes.string.isRequired,
-}

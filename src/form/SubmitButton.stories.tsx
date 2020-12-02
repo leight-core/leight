@@ -35,8 +35,8 @@ SubmitWithRequired.decorators = [Story => {
 	return (
 		<Centered span={14}>
 			<Form name={"story"} layout={"vertical"} onFinish={action("onFinish")}>
-				<FormItem required name={"login"} children={label => <Input placeholder={label}/>}/>
-				<FormItem required name={"password"} children={label => <Input type={"password"} placeholder={label}/>}/>
+				<FormItem required field={"login"} children={label => <Input placeholder={label}/>}/>
+				<FormItem required field={"password"} children={label => <Input type={"password"} placeholder={label}/>}/>
 				<Story icon={<SubmitIcon/>}/>
 			</Form>
 		</Centered>
@@ -55,11 +55,11 @@ SubmitWithOptional.decorators = [Story => {
 	return (
 		<Centered span={14}>
 			<Form name={"story"} layout={"vertical"} onFinish={action("onFinish")}>
-				<FormItem name={"some-value"} children={label => <Input placeholder={label}/>}/>
-				<FormItem required name={"required-value"} children={label => <Input placeholder={label}/>}/>
-				<FormItem name={"another-value"} children={label => <Input placeholder={label}/>}/>
-				<FormItem name={["foo", "bar"]}/>
-				<FormList name={["some", "internal", "dynamic", "form"]}>
+				<FormItem field={"some-value"} children={label => <Input placeholder={label}/>}/>
+				<FormItem required field={"required-value"} children={label => <Input placeholder={label}/>}/>
+				<FormItem field={"another-value"} children={label => <Input placeholder={label}/>}/>
+				<FormItem field={["foo", "bar"]}/>
+				<FormList field={["some", "internal", "dynamic", "form"]}>
 					{(fields, {
 						add,
 						remove
@@ -67,8 +67,8 @@ SubmitWithOptional.decorators = [Story => {
 						<Card>
 							{fields.map(field => (
 								<div key={field.key}>
-									<FormItem key={field.key + ".type"} name={[field.fieldKey, "type"]} fieldKey={[field.fieldKey, "type"]}/>
-									<FormItem required key={field.key + ".value"} name={[field.fieldKey, "value"]} fieldKey={[field.fieldKey, "value"]}/>
+									<FormItem key={field.key + ".type"} field={[field.fieldKey, "type"]} fieldKey={[field.fieldKey, "type"]}/>
+									<FormItem required key={field.key + ".value"} field={[field.fieldKey, "value"]} fieldKey={[field.fieldKey, "value"]}/>
 									<Button
 										type="primary"
 										ghost
@@ -89,7 +89,7 @@ SubmitWithOptional.decorators = [Story => {
 						</Card>
 					)}
 				</FormList>
-				<Switch name={"switch"}/>
+				<Switch field={"switch"}/>
 				<Story icon={<SubmitIcon/>}/>
 			</Form>
 		</Centered>
@@ -113,9 +113,9 @@ SubmitWithPostInitials.decorators = [Story => {
 		}, []);
 		return (
 			<>
-				<FormItem name={"some-value"} children={label => <Input placeholder={label}/>}/>
-				<FormItem required name={"required-value"} children={label => <Input placeholder={label}/>}/>
-				<FormItem name={"another-value"} children={label => <Input placeholder={label}/>}/>
+				<FormItem field={"some-value"} children={label => <Input placeholder={label}/>}/>
+				<FormItem required field={"required-value"} children={label => <Input placeholder={label}/>}/>
+				<FormItem field={"another-value"} children={label => <Input placeholder={label}/>}/>
 				<Story icon={<Spinner done={!loading} children={<SubmitIcon/>}/>}/>
 			</>
 		);
@@ -173,10 +173,10 @@ SubmitWithPostInitialsErrors.decorators = [Story => {
 		}, []);
 		return (
 			<>
-				<FormItem name={"some-value"} children={label => <Input placeholder={label}/>}/>
-				<FormItem required name={"required-value"} children={label => <Input placeholder={label}/>}/>
-				<FormItem name={"another-value"} children={label => <Input placeholder={label}/>}/>
-				<FormList name={["some", "internal", "dynamic", "form"]}>
+				<FormItem field={"some-value"} children={label => <Input placeholder={label}/>}/>
+				<FormItem required field={"required-value"} children={label => <Input placeholder={label}/>}/>
+				<FormItem field={"another-value"} children={label => <Input placeholder={label}/>}/>
+				<FormList field={["some", "internal", "dynamic", "form"]}>
 					{(fields, {
 						add,
 						remove
@@ -184,8 +184,8 @@ SubmitWithPostInitialsErrors.decorators = [Story => {
 						<Card>
 							{fields.map(field => (
 								<div key={field.key}>
-									<FormItem key={field.key + ".type"} name={[field.fieldKey, "type"]} fieldKey={[field.fieldKey, "type"]}/>
-									<FormItem required key={field.key + ".value"} name={[field.fieldKey, "value"]} fieldKey={[field.fieldKey, "value"]}/>
+									<FormItem key={field.key + ".type"} field={[field.fieldKey, "type"]} fieldKey={[field.fieldKey, "type"]}/>
+									<FormItem required key={field.key + ".value"} field={[field.fieldKey, "value"]} fieldKey={[field.fieldKey, "value"]}/>
 									<Button
 										type="primary"
 										ghost

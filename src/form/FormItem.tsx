@@ -1,16 +1,37 @@
 import {Form, Input} from "antd";
-import PropTypes from "prop-types";
-import React from "react";
+import {FormItemProps} from "antd/lib/form";
+import {NamePath} from "rc-field-form/lib/interface";
+import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useFormContext} from "./FormContext";
 
-export const FormItem = (
+export interface IFormItem extends Partial<FormItemProps> {
+	/**
+	 * Field name; also used for translations.
+	 */
+	field: NamePath
+	/**
+	 * Attach required validation rule?
+	 */
+	required?: boolean
+	/**
+	 * Show Antd Form.Item label.
+	 */
+	showLabel?: boolean
+	/**
+	 * Disable default Antd Form.Item margin.
+	 */
+	noMargin?: boolean
+	children?: (label: string) => JSX.Element
+}
+
+export const FormItem: FC<IFormItem> = (
 	{
-		name,
+		field,
 		required = false,
-		children = _ => <Input/>,
 		showLabel = true,
 		noMargin = false,
+		children = _ => <Input/>,
 		...props
 	}) => {
 	const {t} = useTranslation();
@@ -23,42 +44,16 @@ export const FormItem = (
 	}
 	return (
 		<Form.Item
-			name={name}
-			label={showLabel === false ? null : t("form-item." + name + ".label")}
+			name={field}
+			label={showLabel === false ? null : t("form-item." + field + ".label")}
 			rules={required ? [
 				{
 					required: true,
-					message: t("form-item." + name + ".required"),
+					message: t("form-item." + field + ".required"),
 				}
 			] : []}
-			children={React.cloneElement(children(t("form-item." + name + ".label")), {required})}
+			children={React.cloneElement(children(t("form-item." + field + ".label")), {required})}
 			{...props}
 		/>
 	);
 };
-
-FormItem.propTypes = {
-	/**
-	 * Field name; also used for translations.
-	 */
-	name: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string]))
-	]).isRequired,
-	/**
-	 * Element being rendered as a form item value (Input, Datetime, ...).
-	 */
-	children: PropTypes.func,
-	/**
-	 * Attach required validation rule?
-	 */
-	required: PropTypes.bool,
-	/**
-	 * Show Antd Form.Item label.
-	 */
-	showLabel: PropTypes.bool,
-	/**
-	 * Disable default Antd Form.Item margin.
-	 */
-	noMargin: PropTypes.bool,
-}

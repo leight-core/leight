@@ -1,9 +1,23 @@
 import {RightCircleOutlined} from "@ant-design/icons";
 import {Result, Typography} from "antd";
-import PropTypes from "prop-types";
-import React from "react";
+import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {NumberRange} from "../utils/NumberRange";
+
+export interface IBulletCard {
+	/**
+	 * Title of the bullet card; uses translation.
+	 */
+	title: string
+	/**
+	 * Number of bullets.
+	 */
+	count: number
+	/**
+	 * Optional icon (used in Result under the hood).
+	 */
+	icon: boolean | JSX.Element
+}
 
 /**
  * Simple bullet card using "Result" component from Antd
@@ -18,7 +32,7 @@ import {NumberRange} from "../utils/NumberRange";
  *
  * - https://ant.design/components/result/
  */
-export const BulletCard = (
+export const BulletCard: FC<IBulletCard> = (
 	{
 		title,
 		count,
@@ -39,21 +53,3 @@ export const BulletCard = (
 		</Result>
 	);
 };
-
-BulletCard.propTypes = {
-	/**
-	 * Title of the bullet card; uses translation.
-	 */
-	title: PropTypes.string.isRequired,
-	/**
-	 * Number of bullets.
-	 */
-	count: PropTypes.number.isRequired,
-	/**
-	 * Optional icon (used in Result under the hood).
-	 */
-	icon: PropTypes.oneOfType([
-		PropTypes.bool,
-		PropTypes.node,
-	]),
-}
