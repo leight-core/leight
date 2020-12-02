@@ -1,6 +1,6 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {Random} from "../utils/Random";
 import {App} from "./App";
 import {useAppContext} from "./AppContext";

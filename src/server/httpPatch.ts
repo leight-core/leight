@@ -1,23 +1,15 @@
-import axios from "axios";
+import axios, {CancelTokenSource} from "axios";
+import {IEvents} from "../utils/Events";
 import {axiosError, axiosSuccess} from "./events";
 
-/**
- * @param {string} href
- * @param {*} data
- * @param {EventsInstanceType} events
- *
- * @returns {CancelTokenSource}
- */
-const httpPatch = (
-	href,
-	data,
-	events,
-) => {
+export function httpPatch<TData>(
+	href: string,
+	data: TData,
+	events: IEvents,
+): CancelTokenSource {
 	const cancelToken = axios.CancelToken.source();
 	axios.patch(href, data, {cancelToken: cancelToken.token})
 		.then(response => axiosSuccess(response, events))
 		.catch(error => axiosError(error, events));
 	return cancelToken;
-};
-
-export default httpPatch;
+}

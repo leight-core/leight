@@ -1,6 +1,6 @@
-import createFetchHook from "../hook/createFetchHook";
-import createFetchPage from "./createFetchPage";
-import createPost from "./createPost";
+import {createFetchHook} from "../hook/createFetchHook";
+import {createFetchPage} from "./createFetchPage";
+import {createPost} from "./createPost";
 
 /**
  * Somehow crudish method returning array of methods for doing:
@@ -11,11 +11,11 @@ import createPost from "./createPost";
  * - PAGE (using POST - just simple collection paging)
  * - FETCH (using GET - fetch a resource by an ID)
  *
- * @param {string} id link id (at the end "id + create", "id + update", ...)
- * @param {string} [page] page could have different format as it could be page of another entity (for example user.invoice.page)
+ * @param id link id (at the end "id + create", "id + update", ...)
+ * @param page could have different format as it could be page of another entity (for example user.invoice.page)
  * @return {function[]}
  */
-export const createCrud = (id, page = null) => ([
+export const createCrud = (id: string, page: string = null) => ([
 	createPost(id + ".create"),
 	createPost(id + ".update"),
 	createPost(id + ".delete"),

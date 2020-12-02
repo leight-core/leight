@@ -1,7 +1,7 @@
 module.exports = {
 	"stories": [
 		"../src/**/*.stories.mdx",
-		"../src/**/*.stories.@(js|jsx)"
+		"../src/**/*.stories.@(js|jsx|ts|tsx)"
 	],
 	"presets": [
 		"@storybook/preset-ant-design",

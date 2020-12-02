@@ -1,64 +1,67 @@
 import {createContext, useContext} from "react";
 
-export interface IAppContext {
-	client: any
-
-	setClient: (client: any) => void
-
-	setTitle: (title: string) => void
-
-	useTitle: (title: string) => void
+export interface IDiscovery {
 }
 
 /**
- * @typedef {function} useTitleType
- * @param {string} title
+ * Client configuration.
  */
-/**
- * @typedef {function} setTitleType
- * @param {string} title
- */
-/**
- * @typedef	{Object} ClientType
- * @property {string} discovery Discovery Index URL for this client.
- */
-/**
- * @typedef {Object} DiscoveryLinkType
- * @property {string} link Link to the server, may contain parameters.
- * @property {string} [description] Description of the discovery link (for human).
- */
-/**
- * @typedef {Object.<String, DiscoveryLinkType>} DiscoveryIndexType
- */
-/**
- * @typedef {function} AppContextSetClientType
- * @param {ClientType} client
- */
-/**
- * @typedef {function} AppContextSetDiscoveryType
- * @param {DiscoveryIndexType} discovery
- */
+export interface IClient {
+	/**
+	 * An URL where to download Discovery Index.
+	 */
+	discovery: string
+}
 
 /**
- * @typedef {function} DiscoveryContextLinkType
- * @param {string} id Link name from the index; if does not exists, error is thrown.
- * @param {Object.<String, String>} [params=null] Replace the given parameters in url.
- * @return {string}
+ * General stuff related to the application.
  */
-/**
- * @typedef {Object} AppContextType
- * @property {useTitleType} setTitle Directly modify title state of the application.
- * @property {setTitleType} useTitle Change title as an effect; title goes through translation.
- * @property {ClientType} client Client configuration retrieved from the world.
- * @property {AppContextSetClientType} setClient Directly set client data.
- * @property {DiscoveryIndexType} discovery Access to discovery index.
- * @property {AppContextSetDiscoveryType} setDiscovery Set current discovery index.
- * @property {DiscoveryContextLinkType} link Requests a link from the Discovery; if does not exists, an error is thrown.
- * @property {function(session): void} login Open new session in the application; makes no http request as this is an internal login (with data whatever comes from).
- * @property {function(): void} logout Closes an application session (switches to public/non-session mode, clear all data); makes a delete request to user login in Discovery Index.
- * @property {*} session Direct access to current session data; usually set to a response from server on login (or default login with public user).
- * @property {function(): void} ready When called, application is switched to ready state (should be called once per full page load); everything needed for proper application run must be... ready!
- */
+export interface IAppContext<TSession = any> {
+	/**
+	 * Direct access to a client configuration.
+	 */
+	client: IClient
+	/**
+	 * Directly set Client configuration.
+	 */
+	setClient: (client: IClient) => void
+	/**
+	 * Direct access to a Discovery Index
+	 */
+	discovery: IDiscovery
+	/**
+	 * Directly set Discovery Index data.
+	 */
+	setDiscovery: (discovery: IDiscovery) => void
+	/**
+	 * Directly set the application title.
+	 */
+	setTitle: (title: string) => void
+	/**
+	 * Use an effect ot set the application title.
+	 */
+	useTitle: (title: string) => void
+	/**
+	 * Generate a link from current Discovery Index or throw an error.
+	 */
+	link: (id: string, params?: Object) => string
+	/**
+	 * Direct access to current session data; usually set to a response from server on login (or default login with public user).
+	 */
+	session: TSession
+	/**
+	 * Open new session in the application; makes no http request as this is an internal login (with data whatever comes from).
+	 */
+	login: (session: TSession) => void
+	/**
+	 * Closes an application session (switches to public/non-session mode, clear all data); makes a delete request to user login in Discovery Index.
+	 */
+	logout: () => void
+	/**
+	 * When called, application is switched to ready state (should be called once per full page load); everything needed for proper application run must be... ready!
+	 */
+	ready: () => void
+}
 
 /**
  * Global application context; you should **not** access this directly.
@@ -70,4 +73,4 @@ export const AppContext = createContext(null);
 /**
  * Use the global application context (like title and so).
  */
-export const useAppContext = (): IAppContext => useContext(AppContext);
+export const useAppContext = <TSession = any>(): IAppContext<TSession> => useContext(AppContext);
