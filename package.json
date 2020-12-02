@@ -8,17 +8,17 @@
 		"url": "git://github.com/leight-core/leight.git"
 	},
 	"source": "src/index.js",
-	"module": "dist/leight.modern.js",
-	"types": "flow-typed",
+	"module": "dist/index.modern.js",
+	"types": "dist/index.d.ts",
 	"files": [
-		"dist",
-		"flow-typed"
+		"dist"
 	],
 	"scripts": {
 		"flow": "flow",
 		"flow-typed": "flow-remove-types src -d flow-typed",
+		"tsc": "tsc",
 		"start": "microbundle watch",
-		"build": "microbundle --strict --no-compress -f modern --jsx React.createElement --jsxImportSource react && npm run flow-typed",
+		"build": "microbundle --strict --no-compress -f modern -o dist/index.js --jsx React.createElement --jsxImportSource react && npm run tsc",
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"storybook": "start-storybook -p 6006",
@@ -55,7 +55,8 @@
 		"react-dom": ">=17.0.1",
 		"react-helmet": "^6.1.0",
 		"react-i18next": "^11.7.3",
-		"react-router-dom": "^6.0.0-beta.0"
+		"react-router-dom": "^6.0.0-beta.0",
+		"typescript": "^4.1.2"
 	},
 	"peerDependencies": {
 		"@ant-design/icons": ">=4.3.0",

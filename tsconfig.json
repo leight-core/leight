@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"declaration": true,
+		"composite": true,
+		"removeComments": false,
+		"emitDeclarationOnly": true,
+		"outFile": "dist/index.d.ts",
+		"rootDir": "src",
+		"types": []
+	},
+	"include": [
+		"src/**/*"
+	]
+}

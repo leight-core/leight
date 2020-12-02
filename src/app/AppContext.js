@@ -50,16 +50,6 @@ import {createContext, useContext} from "react";
  * @property {function(): void} ready When called, application is switched to ready state (should be called once per full page load); everything needed for proper application run must be... ready!
  */
 
-interface IAppContext {
-	client: any,
-
-	setClient(client: any): void,
-
-	setTitle(title: string): void,
-
-	useTitle(title: string): void,
-}
-
 /**
  * Global application context; you should **not** access this directly.
  *
@@ -72,4 +62,4 @@ export const AppContext = createContext(null);
  *
  * @return {AppContextType}
  */
-export const useAppContext = (): IAppContext => useContext(AppContext);
+export const useAppContext = () => useContext(AppContext);
