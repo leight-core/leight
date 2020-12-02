@@ -1,13 +1,19 @@
 import {UserOutlined} from "@ant-design/icons";
-import PropTypes from "prop-types";
-import React from "react";
+import React, {FC} from "react";
 import {LoaderStep} from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
 import {httpGet} from "../../server/httpGet";
 import {Events} from "../../utils/Events";
 import {useAppContext} from "../AppContext";
 
-export const SessionStep = ({link = "public.user.login", ...props}) => {
+export interface ISessionStep {
+	/**
+	 * Discovery Index link id to fetch session from.
+	 */
+	link?: string
+}
+
+export const SessionStep: FC<ISessionStep> = ({link = "public.user.login", ...props}) => {
 	const appContext = useAppContext();
 	const stepLoaderContext = useStepLoaderContext();
 	return (
@@ -32,11 +38,4 @@ export const SessionStep = ({link = "public.user.login", ...props}) => {
 			return () => cancelToken.cancel();
 		}}/>
 	);
-};
-
-SessionStep.proptTypes = {
-	/**
-	 * Discovery Index link id to fetch session from.
-	 */
-	link: PropTypes.string,
 };

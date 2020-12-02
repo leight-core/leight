@@ -6,7 +6,7 @@ import {httpGet} from "../../server/httpGet";
 import {Events} from "../../utils/Events";
 import {IDiscovery, useAppContext} from "../AppContext";
 
-export const DiscoveryStep = props => {
+export const DiscoveryStep = (props) => {
 	const appContext = useAppContext();
 	const stepLoaderContext = useStepLoaderContext();
 	return (

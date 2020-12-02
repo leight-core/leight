@@ -1,12 +1,19 @@
 import {CloudDownloadOutlined} from "@ant-design/icons";
-import React from "react";
+import React, {FC} from "react";
 import {LoaderStep} from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
 import {httpGet} from "../../server/httpGet";
 import {Events} from "../../utils/Events";
 import {IClient, useAppContext} from "../AppContext";
 
-export const ClientStep = ({href, ...props}) => {
+export interface IClientStep {
+	/**
+	 * Where to get a client configuration (defaults to `/client.json`).
+	 */
+	href?: string
+}
+
+export const ClientStep: FC<IClientStep> = ({href, ...props}) => {
 	const appContext = useAppContext();
 	const stepLoaderContext = useStepLoaderContext();
 	return (

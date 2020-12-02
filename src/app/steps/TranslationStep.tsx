@@ -1,7 +1,6 @@
 import {TranslationOutlined} from "@ant-design/icons";
 import i18next from "i18next";
-import PropTypes from "prop-types";
-import React from "react";
+import React, {FC} from "react";
 import {LoaderStep} from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
 import {httpGet} from "../../server/httpGet";
@@ -19,7 +18,14 @@ export interface ITranslations {
 	translations: ITranslation[]
 }
 
-export const TranslationStep = ({link = "public.translation", ...props}) => {
+export interface ITranslationStep {
+	/**
+	 * Which link from Discovery index should be used to retrieve translations.
+	 */
+	link?: string
+}
+
+export const TranslationStep: FC<ITranslationStep> = ({link = "public.translation", ...props}) => {
 	const appContext = useAppContext();
 	const stepLoaderContext = useStepLoaderContext();
 	return (
@@ -39,10 +45,3 @@ export const TranslationStep = ({link = "public.translation", ...props}) => {
 		}}/>
 	);
 };
-
-TranslationStep.propTypes = {
-	/**
-	 * Which link from Discovery index should be used to retrieve translations.
-	 */
-	link: PropTypes.string,
-}
