@@ -1,5 +1,5 @@
-import LoaderStep from "./LoaderStep";
-import StepLoader from "./StepLoader";
+import {LoaderStep} from "./LoaderStep";
+import {StepLoader} from "./StepLoader";
 import {StepLoaderContext, useStepLoaderContext} from "./StepLoaderContext";
 
 export {

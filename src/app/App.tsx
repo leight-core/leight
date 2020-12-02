@@ -6,7 +6,7 @@ import {Helmet} from "react-helmet";
 import {useTranslation} from "react-i18next";
 import {generatePath} from "react-router";
 import {BrowserRouter} from "react-router-dom";
-import StepLoader from "../loader/StepLoader";
+import {StepLoader} from "../loader/StepLoader";
 import {httpDelete} from "../server/httpDelete";
 import {Events} from "../utils/Events";
 import {LockedUserView} from "../view/LockedUserView";

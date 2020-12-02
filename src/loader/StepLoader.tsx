@@ -1,10 +1,10 @@
 import {Steps} from "antd";
 import React, {useState} from "react";
-import {StepLoaderContext} from "./StepLoaderContext";
+import {IStepStatus, StepLoaderContext} from "./StepLoaderContext";
 
-const StepLoader = ({steps, children = null, ...props}) => {
-	const [current, setCurrent] = useState(0);
-	const [status, setStatus] = useState("process");
+export const StepLoader = ({steps, children = null, ...props}) => {
+	const [current, setCurrent] = useState<number>(0);
+	const [status, setStatus] = useState<IStepStatus>("process");
 	return (
 		current === steps.length ?
 			(children || null) :
@@ -31,5 +31,3 @@ const StepLoader = ({steps, children = null, ...props}) => {
 			</StepLoaderContext.Provider>
 	);
 };
-
-export default StepLoader;

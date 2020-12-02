@@ -1,10 +1,10 @@
 import {List} from "antd";
 import PropTypes from "prop-types";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useParams} from "react-router";
 import {useAppContext} from "../app/AppContext";
-import Events from "../utils/Events";
-import PageIndex from "../utils/PageIndex";
+import {Events} from "../utils/Events";
+import {IPageIndex, PageIndex} from "../utils/PageIndex";
 
 const BaseList = (
 	{
@@ -15,8 +15,8 @@ const BaseList = (
 	}) => {
 	const appContext = useAppContext();
 	const params = useParams();
-	const [page, setPage] = useState(PageIndex());
-	const [loading, setLoading] = useState(true);
+	const [page, setPage] = useState<IPageIndex>(PageIndex());
+	const [loading, setLoading] = useState<boolean>(true);
 	const items = page.items;
 
 	const onPage = (page, size) => {
@@ -27,7 +27,7 @@ const BaseList = (
 			params,
 			appContext,
 			Events()
-				.on("success", data => {
+				.on<IPageIndex>("success", data => {
 					setPage(data);
 				})
 				.on("done", () => {
