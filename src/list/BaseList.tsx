@@ -1,16 +1,23 @@
 import {List} from "antd";
-import PropTypes from "prop-types";
-import React, {useEffect, useState} from "react";
-import {useParams} from "react-router";
-import {useAppContext} from "../app/AppContext";
-import {Events} from "../utils/Events";
+import {ListProps} from "antd/lib/list";
+import {CancelTokenSource} from "axios";
+import React, {FC, useEffect, useState} from "react";
+import {Params, useParams} from "react-router";
+import {IAppContext, useAppContext} from "../app/AppContext";
+import {Events, IEvents} from "../utils/Events";
 import {IPageIndex, PageIndex} from "../utils/PageIndex";
 
-const BaseList = (
+export interface IBaseList extends Partial<ListProps<any>> {
+	onFetchPage: (page: number, size: number, params: Params, appContext: IAppContext, events: IEvents) => CancelTokenSource
+	pageSize?: number
+	children: (item: any, index: number) => React.ReactNode
+}
+
+export const BaseList: FC<IBaseList> = (
 	{
 		onFetchPage,
-		children,
 		pageSize = 10,
+		children,
 		...props
 	}) => {
 	const appContext = useAppContext();
@@ -69,10 +76,3 @@ const BaseList = (
 		/>
 	);
 };
-
-BaseList.propTypes = {
-	children: PropTypes.func.isRequired,
-	onFetchPage: PropTypes.func.isRequired,
-};
-
-export default BaseList;

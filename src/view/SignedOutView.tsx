@@ -1,11 +1,17 @@
 import {Button, Card, Result} from "antd";
-import PropTypes from "prop-types";
-import React from "react";
+import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
 import {useLayoutContext} from "../layout/LayoutContext";
 
-export const SignedOutView = ({link}) => {
+export interface ISignedOutView {
+	/**
+	 * Target href to redirect.
+	 */
+	link: string
+}
+
+export const SignedOutView: FC<ISignedOutView> = ({link}) => {
 	const {t} = useTranslation();
 	useLayoutContext().useEnableFullscreen(true, true);
 	return (
@@ -22,11 +28,4 @@ export const SignedOutView = ({link}) => {
 			/>
 		</Card>
 	);
-};
-
-SignedOutView.propTypes = {
-	/**
-	 * Target href to redirect.
-	 */
-	link: PropTypes.string.isRequired,
 };

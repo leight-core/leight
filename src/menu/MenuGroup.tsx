@@ -1,9 +1,13 @@
 import {Menu} from "antd";
-import PropTypes from "prop-types";
-import React from "react";
+import {MenuItemGroupProps} from "rc-menu/lib/MenuItemGroup";
+import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
 
-export const MenuGroup = (
+export interface IMenuGroup extends Partial<MenuItemGroupProps> {
+	id: string
+}
+
+export const MenuGroup: FC<IMenuGroup> = (
 	{
 		id,
 		...props
@@ -12,8 +16,4 @@ export const MenuGroup = (
 	return (
 		<Menu.ItemGroup key={id} title={t(id + ".menu")} {...props}/>
 	);
-};
-
-MenuGroup.propTypes = {
-	id: PropTypes.string.isRequired,
 };

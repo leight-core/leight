@@ -32,10 +32,3 @@ export const SessionExpiredView: FC<ISessionExpiredView> = ({link}) => {
 		</Card>
 	);
 };
-//
-// SessionExpiredView.propTypes = {
-// 	/**
-// 	 * Target url of redirection.
-// 	 */
-// 	link: PropTypes.string.isRequired,
-// };

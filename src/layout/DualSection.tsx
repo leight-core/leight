@@ -1,8 +1,12 @@
 import {Col, Row} from "antd";
-import PropTypes from "prop-types";
-import React from "react";
+import React, {FC} from "react";
 
-export const DualSection = (
+export interface IDualSection {
+	left: JSX.Element
+	right: JSX.Element
+}
+
+export const DualSection: FC<IDualSection> = (
 	{
 		left,
 		right
@@ -17,9 +21,4 @@ export const DualSection = (
 			</Col>
 		</Row>
 	);
-};
-
-DualSection.propTypes = {
-	left: PropTypes.node.isRequired,
-	right: PropTypes.node.isRequired,
 };
