@@ -15,16 +15,7 @@ import {Switch} from "./Switch";
 export default {
 	title: "Leight/Form/Form",
 	component: Form,
-	argTypes: {
-		title: {control: {type: "text"}},
-		form: {control: {disable: true}},
-		fields: {control: {disable: true}},
-		icon: {control: {disable: true}},
-	},
-	args: {
-		title: "Submit!",
-		icon: <SubmitIcon/>,
-	},
+	argTypes: {},
 };
 
 export const SubmitWithRequired = () => (

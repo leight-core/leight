@@ -1,10 +1,13 @@
 import {FormInstance} from "antd/lib/form";
 import CancelablePromise, {CancelablePromiseType} from "cancelable-promise";
-import isarray from "isarray";
-import isObject from "isobject";
+import flatten from "flat";
 import {NamePath} from "rc-field-form/lib/interface";
 
 export type IFormFields = [NamePath, any];
+export type IFlatField = {
+	field: NamePath
+	value: any
+}
 
 export const FormUtils = {
 	/**
@@ -25,31 +28,23 @@ export const FormUtils = {
 			resolve(fields.filter(([_, item]) => (item ? (item.props ? item.props : {}) : {}).required));
 		}));
 	},
+	flatten: function (value: Object): IFlatField[] {
+		const delimiter = "::$";
+		return Object.entries(flatten(value, {
+			delimiter,
+		})).map(([name, value]) => ({
+			field: name.split(delimiter),
+			value,
+		}));
+	},
 	/**
 	 * Try to guess if there are some missing required values on the form.
 	 *
 	 * @param form Antd form instance
 	 */
 	hasMissingValues: function (form: FormInstance): CancelablePromiseType<boolean> {
-		function check(input: any) {
-			for (const value of Object.values(input) as any) {
-				if (value === undefined || value === "" || value === null) {
-					return true;
-				} else if (isObject(value)) {
-					return check(value);
-				} else if (isarray(value)) {
-					for (const item of value) {
-						if (item && check(item)) {
-							return true;
-						}
-					}
-				}
-			}
-			return false;
-		}
-
 		return new CancelablePromise(resolve => this.required(form).then(required => {
-			resolve(check(form.getFieldsValue(required.map(([name, item]) => name))));
+			resolve(!!this.flatten(form.getFieldsValue(required.map(([name, _]) => name))).filter(field => !field.value).length);
 		}));
 	},
 	/**
@@ -75,7 +70,19 @@ export const FormUtils = {
 			resolve(!bool && !this.hasErrors(form));
 		}));
 	},
-	resetError: function (form, value) {
-		console.log(value);
+	/**
+	 * Reset errors value; input is submitted form object (thus object structure is the structure
+	 * of checked fields).
+	 *
+	 * @param form
+	 * @param value
+	 */
+	resetError: function (form: FormInstance, value: Object) {
+		form.setFields(this.flatten(value).map(field => {
+			return ({
+				name: field.field,
+				errors: [],
+			});
+		}));
 	},
 };
