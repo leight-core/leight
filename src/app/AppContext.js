@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import {createContext, useContext} from "react";
 
 /**
  * @typedef {function} useTitleType
@@ -51,13 +51,13 @@ import React, {useContext} from "react";
  */
 
 interface IAppContext {
-	client: any
+	client: any,
 
-	setClient(client: any): void
+	setClient(client: any): void,
 
-	setTitle(title: string): void
+	setTitle(title: string): void,
 
-	useTitle(title: string): void
+	useTitle(title: string): void,
 }
 
 /**
@@ -65,7 +65,7 @@ interface IAppContext {
  *
  * Use {@link useAppContext} instead.
  */
-export const AppContext = React.createContext(null);
+export const AppContext = createContext(null);
 
 /**
  * Use the global application context (like title and so).
