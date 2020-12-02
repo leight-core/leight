@@ -1,10 +1,13 @@
 import {Layout} from "antd";
 import isArray from "isarray";
-import React, {useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {Loader} from "../component/Loader";
 import {LayoutContext} from "./LayoutContext";
 
-export const BaseLayout = ({children}) => {
+export interface IBaseLayout {
+}
+
+export const BaseLayout: FC<IBaseLayout> = ({children}) => {
 	const [fullscreen, setFullscreen] = useState<boolean>(false);
 	const [selectMenu, setSelectMenu] = useState<any>([]);
 	const [collapsed, setCollapsed] = useState<boolean>(false);
