@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router";
-import BackIcon from "../icon/BackIcon";
+import {BackIcon} from "../icon/BackIcon";
 
 /**
  * Just a simple back button using react-router under hood to navigate one history entry back.

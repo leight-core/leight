@@ -1,6 +1,6 @@
 import {CompassOutlined} from "@ant-design/icons";
 import React from "react";
-import LoaderStep from "../../loader/LoaderStep";
+import {LoaderStep} from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
 import {httpGet} from "../../server/httpGet";
 import {Events} from "../../utils/Events";

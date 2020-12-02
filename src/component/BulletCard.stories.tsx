@@ -1,5 +1,5 @@
 import React from "react";
-import HomeIcon from "../icon/HomeIcon";
+import {HomeIcon} from "../icon/HomeIcon";
 import {BulletCard} from "./BulletCard";
 
 export default {

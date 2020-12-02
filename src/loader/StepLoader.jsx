@@ -2,7 +2,7 @@ import {Steps} from "antd";
 import React, {useState} from "react";
 import {StepLoaderContext} from "./StepLoaderContext";
 
-const StepLoader = ({steps, children, ...props}) => {
+const StepLoader = ({steps, children = null, ...props}) => {
 	const [current, setCurrent] = useState(0);
 	const [status, setStatus] = useState("process");
 	return (

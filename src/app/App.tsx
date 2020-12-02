@@ -10,7 +10,7 @@ import StepLoader from "../loader/StepLoader";
 import {httpDelete} from "../server/httpDelete";
 import {Events} from "../utils/Events";
 import {LockedUserView} from "../view/LockedUserView";
-import {AppContext} from "./AppContext";
+import {AppContext, IClient, IDiscovery} from "./AppContext";
 import {ClientStep} from "./steps/ClientStep";
 import {DiscoveryStep} from "./steps/DiscoveryStep";
 import {FinishStep} from "./steps/FinishStep";
@@ -33,13 +33,13 @@ export const App = (
 		icon,
 	}) => {
 	const {t} = useTranslation();
-	const [title, setTitle] = useState();
-	const [client, setClient] = useState();
-	const [discovery, setDiscovery] = useState();
+	const [title, setTitle] = useState<string>();
+	const [client, setClient] = useState<IClient>();
+	const [discovery, setDiscovery] = useState<IDiscovery>();
 	const [session, setSession] = useState({
 		site: "public",
 	});
-	const [ready, setReady] = useState(false);
+	const [ready, setReady] = useState<boolean>(false);
 	const link = (id, params = null) => {
 		if (!discovery) {
 			throw new Error(`Cannot resolve link from Discovery for linkId [${id}]; discovery is not initialized yet!`);
@@ -73,8 +73,6 @@ export const App = (
 		);
 		return () => cancelToken.cancel();
 	};
-	// @ts-ignore
-	// @ts-ignore
 	return (
 		<AppContext.Provider value={{
 			setTitle,
@@ -99,7 +97,6 @@ export const App = (
 					(sites[session.site] || <LockedUserView/>) :
 					<Result icon={icon || <AntDesignOutlined/>}>
 						<div style={{display: "flex", justifyContent: "center"}}>
-							{/*@ts-ignore*/}
 							<StepLoader steps={[
 								<InitialStep key={"initial"}/>,
 								<ClientStep key={"client"} href={clientHref}/>,

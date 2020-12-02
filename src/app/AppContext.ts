@@ -68,9 +68,9 @@ export interface IAppContext<TSession = any> {
  *
  * Use {@link useAppContext} instead.
  */
-export const AppContext = createContext(null);
+export const AppContext = createContext<IAppContext>(null);
 
 /**
  * Use the global application context (like title and so).
  */
-export const useAppContext = <TSession = any>(): IAppContext<TSession> => useContext(AppContext);
+export const useAppContext = <TSession = any>() => useContext<IAppContext<TSession>>(AppContext);

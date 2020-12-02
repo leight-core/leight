@@ -1,13 +1,13 @@
 import {Steps} from "antd";
 import PropTypes from "prop-types";
 import React, {useEffect, useState} from "react";
-import Spinner from "../icon/Spinner";
+import {Spinner} from "../icon/Spinner";
 import {useStepLoaderContext} from "./StepLoaderContext";
 
 /**
  * Step implementation - when active, an action (onStep) is executed.
  */
-const LoaderStep = ({onStep, icon, ...props}) => {
+export const LoaderStep = ({onStep, icon, ...props}) => {
 	const [loading, setLoading] = useState(false);
 	const stepLoaderContext = useStepLoaderContext();
 	useEffect(() => {
@@ -30,5 +30,3 @@ LoaderStep.propTypes = {
 	 */
 	onStep: PropTypes.func.isRequired,
 };
-
-export default LoaderStep;
