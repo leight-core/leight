@@ -157,12 +157,10 @@ SubmitWithPostInitialsErrors.decorators = [Story => {
 					errors: [
 						{
 							field: "another-value",
-							status: "error",
 							message: "boom",
 						},
 						{
 							field: ["some", "internal", "dynamic", "form", 0, "value"],
-							status: "error",
 							message: "It works!",
 						}
 					]

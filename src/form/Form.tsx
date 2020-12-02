@@ -1,17 +1,33 @@
 import {Form as CoolForm} from "antd";
-import PropTypes from "prop-types";
-import React, {useState} from "react";
-import {createFormContext, FormContext} from "./FormContext";
+import {FormProps} from "antd/lib/form";
+import {ValidateErrorEntity} from "rc-field-form/lib/interface";
+import React, {FC, useState} from "react";
+import {FormContext, IFormErrors} from "./FormContext";
 import {FormUtils} from "./FormUtils";
+
+export interface IForm<TValues> extends Partial<FormProps<TValues>> {
+	/**
+	 * Form name.
+	 */
+	name: string
+	/**
+	 * What to to when a form is submitted (and validated).
+	 */
+	onFinish: (values: TValues) => void
+	/**
+	 * Optional method to handle failed submit.
+	 */
+	onFinishFailed?: (errorInfo: ValidateErrorEntity<TValues>) => void
+}
 
 /**
  * A bit more clever Form wrapper which provides also FormContext.
  *
  * Rest of props are sent to underlying Antd Form.
  */
-export const Form = ({name, onFinish, onFinishFailed = null, children = null, ...props}) => {
+export const Form: FC<IForm<any>> = ({name, onFinish, onFinishFailed = null, children = null, ...props}) => {
 	const [form] = CoolForm.useForm();
-	const [errors, setErrors] = useState();
+	const [errors, setErrors] = useState<IFormErrors>();
 	return (
 		<CoolForm
 			form={form}
@@ -22,37 +38,21 @@ export const Form = ({name, onFinish, onFinishFailed = null, children = null, ..
 			{...props}
 		>
 			<FormContext.Provider
-				value={
-					createFormContext(
-						form,
-						errors,
-						errors => {
-							setErrors(errors);
-							form.setFields(((errors || {}).errors || []).map(item => ({
-								name: item.field,
-								errors: [item.message],
-							})));
-						},
-						values => form.setFieldsValue(values)
-					)}
+				value={{
+					form,
+					errors,
+					setErrors: errors => {
+						setErrors(errors);
+						form.setFields(((errors || {}).errors || []).map(item => ({
+							name: item.field,
+							errors: [item.message],
+						})));
+					},
+					setValues: values => form.setFieldsValue(values)
+				}}
 				children={children}
 			/>
 		</CoolForm>
 
 	);
-};
-
-Form.propTypes = {
-	/**
-	 * Form name.
-	 */
-	name: PropTypes.string.isRequired,
-	/**
-	 * What to to when a form is submitted (and validated).
-	 */
-	onFinish: PropTypes.func.isRequired,
-	/**
-	 * Optional method to handle failed submit.
-	 */
-	onFinishFailed: PropTypes.func,
 };
