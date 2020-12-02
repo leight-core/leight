@@ -1,10 +1,11 @@
 import {Menu} from "antd";
 import PropTypes from "prop-types";
+import React from "react";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
-import useCleverLink from "../hook/useCleverLink";
+import {useCleverLink} from "../hook/useCleverLink";
 
-const MenuItem = ({id, icon, href, ...props}) => {
+export const MenuItem = ({id, icon, href, ...props}) => {
 	const {t} = useTranslation();
 	const link = useCleverLink(href);
 
@@ -20,5 +21,3 @@ MenuItem.propTypes = {
 	icon: PropTypes.element.isRequired,
 	href: PropTypes.string.isRequired,
 };
-
-export default MenuItem;

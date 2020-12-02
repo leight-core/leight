@@ -1,6 +1,6 @@
 import {createContext, useContext} from "react";
 
-export type IMenuSelector = string | string[];
+export type IMenuSelector = string[];
 
 export interface ILayoutContext {
 	/**
