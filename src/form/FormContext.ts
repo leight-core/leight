@@ -58,19 +58,19 @@ interface IFormContext {
 	 * Current form errors.
 	 */
 	errors: any,
-
 	/**
 	 * Set field errors.
 	 *
 	 * @param errors an error object
 	 */
-	setErrors(errors: any): void,
+	setErrors: (errors: any) => void,
 
 	/**
 	 * Set form values
+	 *
 	 * @param values values being set
 	 */
-	setValues(values: any): void,
+	setValues: (values: any) => void,
 }
 
 /**

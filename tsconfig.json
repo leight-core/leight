@@ -1,14 +1,23 @@
 {
 	"compilerOptions": {
+		"allowJs": true,
+		"target": "ESNext",
+		"module": "ESNext",
 		"declaration": true,
 		"composite": true,
 		"removeComments": false,
-		"emitDeclarationOnly": true,
-		"outFile": "dist/index.d.ts",
+		"moduleResolution": "Node",
+		"jsx": "react",
 		"rootDir": "src",
+		"outDir": "dist",
+		"lib": [
+			"DOM",
+			"ESNext"
+		],
+		"skipLibCheck": true,
 		"types": []
 	},
 	"include": [
-		"src/**/*"
+		"src"
 	]
 }
