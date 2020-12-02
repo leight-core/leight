@@ -1,14 +1,14 @@
 import {QuestionCircleFilled} from "@ant-design/icons";
 import {Card, Result} from "antd";
+import React from "react";
 import {useTranslation} from "react-i18next";
-import BackLink from "../component/BackLink";
-import SessionCloseButton from "../component/SessionCloseButton";
+import {BackLink} from "../component/BackLink";
+import {SessionCloseButton} from "../component/SessionCloseButton";
 import {useLayoutContext} from "../layout/LayoutContext";
 
-const SignOutView = () => {
-	const layoutContext = useLayoutContext();
+export const SignOutView = () => {
 	const {t} = useTranslation();
-	layoutContext.useEnableFullscreen();
+	useLayoutContext().useEnableFullscreen(true, true);
 	return (
 		<Card>
 			<Result
@@ -23,5 +23,3 @@ const SignOutView = () => {
 		</Card>
 	);
 };
-
-export default SignOutView;

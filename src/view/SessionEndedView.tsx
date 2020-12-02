@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import {useAppContext} from "../app/AppContext";
 
-const SessionEndedView = () => {
+export const SessionEndedView = () => {
 	const appContext = useAppContext();
 	useEffect(() => {
 		appContext.logout();
@@ -9,5 +9,3 @@ const SessionEndedView = () => {
 	}, []);
 	return null;
 };
-
-export default SessionEndedView;

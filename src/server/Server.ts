@@ -12,7 +12,7 @@ import {httpPut} from "./httpPut";
 /**
  * Server just covers basic http method with Axios under the hood.
  */
-const Server = {
+export const Server = {
 	createCrud,
 	createDelete,
 	createFetchPage,
@@ -24,5 +24,3 @@ const Server = {
 	httpPut,
 	httpDelete,
 };
-
-export default Server;

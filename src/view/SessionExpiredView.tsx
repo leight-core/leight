@@ -1,13 +1,13 @@
 import {Button, Card, Result} from "antd";
 import PropTypes from "prop-types";
+import React from "react";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
 import {useLayoutContext} from "../layout/LayoutContext";
 
-const SessionExpiredView = ({link}) => {
+export const SessionExpiredView = ({link}) => {
 	const {t} = useTranslation();
-	const layoutContext = useLayoutContext();
-	layoutContext.useEnableFullscreen();
+	useLayoutContext().useEnableFullscreen(true, true);
 	return (
 		<Card>
 			<Result
@@ -36,5 +36,3 @@ SessionExpiredView.propTypes = {
 	 */
 	link: PropTypes.string.isRequired,
 };
-
-export default SessionExpiredView;

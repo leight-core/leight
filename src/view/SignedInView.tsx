@@ -1,34 +1,32 @@
 import {Button, Card, Result} from "antd";
 import PropTypes from "prop-types";
+import React from "react";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
 import {useLayoutContext} from "../layout/LayoutContext";
 
-const SignedOutView = ({link}) => {
+export const SignedInView = ({link}) => {
 	const {t} = useTranslation();
-	const layoutContext = useLayoutContext();
-	layoutContext.useEnableFullscreen();
+	useLayoutContext().useEnableFullscreen(true, true);
 	return (
 		<Card>
 			<Result
-				status="success"
-				title={t("common.sign-out.succeed.title")}
-				subTitle={t("common.sign-out.succeed.subtitle")}
-				extra={
+				status={"success"}
+				title={t(`common.succeed.title`)}
+				subTitle={t(`common.succeed.subtitle`)}
+				extra={[
 					<Button type="primary" key="continue">
-						<Link to={link}>{t("common.sign-out.continue")}</Link>
+						<Link to={link}>{t(`common.continue`)}</Link>
 					</Button>
-				}
+				]}
 			/>
 		</Card>
 	);
 };
 
-SignedOutView.propTypes = {
+SignedInView.propTypes = {
 	/**
-	 * Target href to redirect.
+	 * Target href (on continue).
 	 */
 	link: PropTypes.string.isRequired,
 };
-
-export default SignedOutView;

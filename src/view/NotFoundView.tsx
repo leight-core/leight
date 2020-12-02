@@ -1,19 +1,19 @@
 import {Button, Result} from "antd";
 import PropTypes from "prop-types";
+import React from "react";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
 import {useAppContext} from "../app/AppContext";
-import HomeIcon from "../icon/HomeIcon";
+import {HomeIcon} from "../icon/HomeIcon";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {link} from "../router/index";
 
 /**
  * Simple 4o4 view.
  */
-const NotFoundView = ({href}) => {
+export const NotFoundView = ({href}) => {
 	const {t} = useTranslation();
-	const layoutContext = useLayoutContext();
-	layoutContext.useEnableFullscreen();
+	useLayoutContext().useEnableFullscreen(true, true);
 	useAppContext().useTitle("error.not-found.title");
 	return (
 		<Result
@@ -33,5 +33,3 @@ NotFoundView.propTypes = {
 	 */
 	href: PropTypes.string,
 };
-
-export default NotFoundView;
