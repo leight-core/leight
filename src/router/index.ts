@@ -1,11 +1,11 @@
 import {generatePath, Params} from "react-router";
 
-interface ObjectIndex {
+export interface RouterIndex {
 	[key: string]: string
 }
 
-export const Matches: ObjectIndex = {};
-export const Links: ObjectIndex = {};
+export const Matches: RouterIndex = {};
+export const Links: RouterIndex = {};
 
 /**
  * Register a new route match or get route match by an id

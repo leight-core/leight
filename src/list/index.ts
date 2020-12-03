@@ -1,5 +1,1 @@
-import {BaseList} from "./BaseList";
-
-export {
-	BaseList,
-};
+export * from "./BaseList";

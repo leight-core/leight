@@ -1,19 +1,8 @@
-import {LoaderView} from "./LoaderView";
-import {LockedUserView} from "./LockedUserView";
-import {NotFoundView} from "./NotFoundView";
-import {SessionEndedView} from "./SessionEndedView";
-import {SessionExpiredView} from "./SessionExpiredView";
-import {SignedInView} from "./SignedInView";
-import {SignedOutView} from "./SignedOutView";
-import {SignOutView} from "./SignOutView";
-
-export {
-	LoaderView,
-	LockedUserView,
-	NotFoundView,
-	SessionEndedView,
-	SessionExpiredView,
-	SignedInView,
-	SignedOutView,
-	SignOutView,
-};
+export * from "./LoaderView";
+export * from "./LockedUserView";
+export * from "./NotFoundView";
+export * from "./SessionEndedView";
+export * from "./SessionExpiredView";
+export * from "./SignedInView";
+export * from "./SignedOutView";
+export * from "./SignOutView";

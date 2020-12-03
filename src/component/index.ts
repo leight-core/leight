@@ -1,15 +1,6 @@
-import {BackLink} from "./BackLink";
-import {BulletCard} from "./BulletCard";
-import {Loader} from "./Loader";
-import {Placeholder} from "./Placeholder";
-import {ScrollToTop} from "./ScrollToTop";
-import {SessionCloseButton} from "./SessionCloseButton";
-
-export {
-	BackLink,
-	BulletCard,
-	Loader,
-	Placeholder,
-	ScrollToTop,
-	SessionCloseButton,
-};
+export * from "./BackLink";
+export * from "./BulletCard";
+export * from "./Loader";
+export * from "./Placeholder";
+export * from "./ScrollToTop";
+export * from "./SessionCloseButton";

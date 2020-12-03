@@ -1,9 +1,3 @@
-import {createFetchHook} from "./createFetchHook";
-import {createLinkHook} from "./createLinkHook";
-import {useCleverLink} from "./useCleverLink";
-
-export {
-	createFetchHook,
-	createLinkHook,
-	useCleverLink,
-};
+export * from "./createFetchHook";
+export * from "./createLinkHook";
+export * from "./useCleverLink";

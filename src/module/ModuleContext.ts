@@ -1,6 +1,6 @@
 import {createContext, useContext} from "react";
 
-export interface IModuleContext {
+export interface IModuleContext<TModule = any> {
 	/**
 	 * Module id, usually could be used for translating stuff.
 	 */
@@ -9,6 +9,10 @@ export interface IModuleContext {
 	 * Default module icon.
 	 */
 	icon: JSX.Element
+	/**
+	 * Custom module stuff.
+	 */
+	module: TModule
 }
 
 /**
@@ -25,4 +29,4 @@ export const ModuleContext = createContext<IModuleContext>(null);
  *
  * Module in general expects one covered Entity or functionality, for example Users, Invoices and so.
  */
-export const useModuleContext = () => useContext<IModuleContext>(ModuleContext);
+export const useModuleContext = <TModule = any>() => useContext<IModuleContext<TModule>>(ModuleContext);

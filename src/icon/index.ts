@@ -1,45 +1,21 @@
-import {BackIcon} from "./BackIcon";
-import {CancelIcon} from "./CancelIcon";
-import {ContinueIcon} from "./ContinueIcon";
-import {CreateIcon} from "./CreateIcon";
-import {CreateItemIcon} from "./CreateItemIcon";
-import {DashboardIcon} from "./DashboardIcon";
-import {DeleteItemIcon} from "./DeleteItemIcon";
-import {DescriptionIcon} from "./DescriptionIcon";
-import {EditIcon} from "./EditIcon";
-import {ErrorIcon} from "./ErrorIcon";
-import {ForwardIcon} from "./ForwardIcon";
-import {GroupIcon} from "./GroupIcon";
-import {HomeIcon} from "./HomeIcon";
-import {ListIcon} from "./ListIcon";
-import {LoaderIcon} from "./LoaderIcon";
-import {SignInIcon} from "./SignInIcon";
-import {SignOutIcon} from "./SignOutIcon";
-import {SignUpIcon} from "./SignUpIcon";
-import {Spinner} from "./Spinner";
-import {SubmitDisabledIcon} from "./SubmitDisabledIcon";
-import {SubmitIcon} from "./SubmitIcon";
-
-export {
-	BackIcon,
-	CancelIcon,
-	ContinueIcon,
-	CreateIcon,
-	CreateItemIcon,
-	DescriptionIcon,
-	DashboardIcon,
-	DeleteItemIcon,
-	EditIcon,
-	ErrorIcon,
-	ForwardIcon,
-	GroupIcon,
-	HomeIcon,
-	ListIcon,
-	LoaderIcon,
-	SignInIcon,
-	SignUpIcon,
-	SignOutIcon,
-	Spinner,
-	SubmitDisabledIcon,
-	SubmitIcon,
-};
+export * from "./BackIcon";
+export * from "./CancelIcon";
+export * from "./ContinueIcon";
+export * from "./CreateIcon";
+export * from "./CreateItemIcon";
+export * from "./DashboardIcon";
+export * from "./DeleteItemIcon";
+export * from "./DescriptionIcon";
+export * from "./EditIcon";
+export * from "./ErrorIcon";
+export * from "./ForwardIcon";
+export * from "./GroupIcon";
+export * from "./HomeIcon";
+export * from "./ListIcon";
+export * from "./LoaderIcon";
+export * from "./SignInIcon";
+export * from "./SignOutIcon";
+export * from "./SignUpIcon";
+export * from "./Spinner";
+export * from "./SubmitDisabledIcon";
+export * from "./SubmitIcon";
