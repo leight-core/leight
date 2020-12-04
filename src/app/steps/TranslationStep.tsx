@@ -1,6 +1,6 @@
 import {TranslationOutlined} from "@ant-design/icons";
 import i18next from "i18next";
-import React, {FC} from "react";
+import {FC} from "react";
 import {LoaderStep} from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
 import {httpGet} from "../../server/httpGet";

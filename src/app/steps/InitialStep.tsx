@@ -1,5 +1,4 @@
 import {LoginOutlined} from "@ant-design/icons";
-import React from "react";
 import {LoaderStep} from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
 import {Random} from "../../utils/Random";

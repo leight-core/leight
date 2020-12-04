@@ -1,6 +1,6 @@
 import {Button} from "antd";
 import {ButtonProps} from "antd/lib/button";
-import React, {FC} from "react";
+import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router";
 import {BackIcon} from "../icon/BackIcon";

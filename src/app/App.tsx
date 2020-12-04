@@ -1,6 +1,6 @@
 import {AntDesignOutlined} from "@ant-design/icons";
 import {Result} from "antd";
-import {FC, useEffect, useState} from "react";
+import {FC, Suspense, useEffect, useState} from "react";
 import {Helmet} from "react-helmet";
 import {useTranslation} from "react-i18next";
 import {generatePath, Params} from "react-router";
@@ -8,6 +8,7 @@ import {BrowserRouter} from "react-router-dom";
 import {StepLoader} from "../loader/StepLoader";
 import {httpDelete} from "../server/httpDelete";
 import {Events} from "../utils/Events";
+import {LoaderView} from "../view/LoaderView";
 import {LockedUserView} from "../view/LockedUserView";
 import {AppContext, IClient, IDiscovery} from "./AppContext";
 import {ClientStep} from "./steps/ClientStep";
@@ -17,7 +18,7 @@ import {InitialStep} from "./steps/InitialStep";
 import {SessionStep} from "./steps/SessionStep";
 import {TranslationStep} from "./steps/TranslationStep";
 
-export type ISites = { [key: string]: JSX.Element }
+export type ISites = { [key: string]: () => JSX.Element }
 
 export interface IApp {
 	/**
@@ -33,7 +34,7 @@ export interface IApp {
 	/**
 	 * Site map - when an user is authenticated, it's bound to the site he can use.
 	 *
-	 * Prop is {site: `<Component/>`}, for example {root: `<RootSite/>`}
+	 * Prop is {site: () => `<Component/>`}, for example {root: () => `<RootSite/>`}
 	 */
 	sites: ISites
 	/**
@@ -121,7 +122,11 @@ export const App: FC<IApp> = (
 			<BrowserRouter>
 				<Helmet titleTemplate={titleTemplate} title={title}/>
 				{ready ?
-					(sites[session.site] || <LockedUserView/>) :
+					<Suspense fallback={<LoaderView/>}>
+						<>
+							{sites[session.site] ? sites[session.site]() : <LockedUserView/>}
+						</>
+					</Suspense> :
 					<Result icon={icon || <AntDesignOutlined/>}>
 						<div style={{display: "flex", justifyContent: "center"}}>
 							<StepLoader steps={[

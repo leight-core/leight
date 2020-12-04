@@ -1,5 +1,4 @@
 import {Story} from "@storybook/react";
-import React from "react";
 import {HomeIcon} from "../icon/HomeIcon";
 import {BulletCard} from "./BulletCard";
 

@@ -1,4 +1,3 @@
-import React from "react";
 import {HomeIcon} from "../../icon/HomeIcon";
 import {LoaderStep} from "../../loader/LoaderStep";
 import {Random} from "../../utils/Random";
@@ -11,4 +10,4 @@ export const FinishStep = props => {
 			setTimeout(() => appContext.ready(), Random(100, 200));
 		}}/>
 	);
-}
+};

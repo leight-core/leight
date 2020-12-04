@@ -1,6 +1,6 @@
 import {SettingFilled} from "@ant-design/icons";
 import {Spin} from "antd";
-import React, {FC} from "react";
+import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface ILoader {

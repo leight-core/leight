@@ -1,9 +1,11 @@
+import {CommonView} from "./CommonView";
 import {CreateView} from "./CreateView";
 import {DashboardView} from "./DashboardView";
 import {EditView} from "./EditView";
 import {HomeView} from "./HomeView";
 import {ListView} from "./ListView";
 
+export * from "./CommonView";
 export * from "./CreateView";
 export * from "./DashboardView";
 export * from "./EditView";
@@ -23,9 +25,10 @@ export * from "./SignOutView";
  * consumer side, here are some shortcuts to prevent import aliases.
  */
 export const View = {
-	CreateView,
-	EditView,
-	ListView,
-	HomeView,
-	DashboardView,
+	Common: CommonView,
+	Create: CreateView,
+	Edit: EditView,
+	List: ListView,
+	Home: HomeView,
+	Dashboard: DashboardView,
 };

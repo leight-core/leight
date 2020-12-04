@@ -22,7 +22,7 @@ export const Default = () => {
 		<App
 			titleTemplate={"Storybook | %s"}
 			sites={{
-				app: <ExampleSite/>
+				app: () => <ExampleSite/>
 			}}
 		/>
 	);

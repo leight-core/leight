@@ -1,5 +1,5 @@
 import {Skeleton} from "antd";
-import React, {FC} from "react";
+import {FC} from "react";
 
 export interface IPlaceholder<TData> {
 	display: (data: TData) => any
