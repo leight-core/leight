@@ -41,7 +41,13 @@ export interface IModuleContext<TModule> {
 	/**
 	 * Do a translation using module ID as a prefix
 	 */
-	t: (key: string, options: Object | string) => string
+	t: (key: string, options?: Object | string) => string
+	/**
+	 * Return just translation key (module ID as a prefix)
+	 *
+	 * @param key
+	 */
+	tid: (key: string) => string
 }
 
 /**
@@ -72,6 +78,7 @@ export const createModule = <TModule = ICommonModule>(id: string, icon: JSX.Elem
 	id,
 	icon,
 	module,
-	generate: (link: string, params?: Params) => generate(id + "." + link, params),
-	t: (key, options) => t(id + "." + key, options)
+	generate: (link, params) => generate(id + "." + link, params),
+	t: (key, options) => t(id + "." + key, options),
+	tid: key => id + "." + key,
 });

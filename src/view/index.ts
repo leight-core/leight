@@ -1,3 +1,6 @@
+export * from "./BaseCreateView";
+export * from "./BaseDashboardView";
+export * from "./BaseListView";
 export * from "./LoaderView";
 export * from "./LockedUserView";
 export * from "./NotFoundView";

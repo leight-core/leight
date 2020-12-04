@@ -9,7 +9,7 @@ export interface IBackLink extends Partial<ButtonProps> {
 	/**
 	 * Text on the button, goes through translation.
 	 */
-	text: string
+	text?: string
 }
 
 /**
@@ -34,7 +34,7 @@ export const BackLink: FC<IBackLink> = (
 			size={"small"}
 			icon={<BackIcon/>}
 			onClick={() => navigate(-1)}
-			children={t(text)}
+			children={text ? t(text) : null}
 			{...props}
 		/>
 	);
