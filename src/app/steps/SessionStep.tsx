@@ -1,5 +1,5 @@
 import {UserOutlined} from "@ant-design/icons";
-import React, {FC} from "react";
+import {FC} from "react";
 import {LoaderStep} from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
 import {httpGet} from "../../server/httpGet";
