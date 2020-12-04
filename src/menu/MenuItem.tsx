@@ -1,6 +1,6 @@
 import {Menu} from "antd";
 import {MenuItemProps} from "antd/lib/menu/MenuItem";
-import React, {FC} from "react";
+import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {Params} from "react-router";
 import {Link} from "react-router-dom";

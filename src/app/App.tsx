@@ -1,6 +1,6 @@
 import {AntDesignOutlined} from "@ant-design/icons";
 import {Result} from "antd";
-import React, {FC, useEffect, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import {Helmet} from "react-helmet";
 import {useTranslation} from "react-i18next";
 import {generatePath, Params} from "react-router";

@@ -1,25 +1,32 @@
 import {List} from "antd";
 import {ListProps} from "antd/lib/list";
-import {CancelTokenSource} from "axios";
-import React, {FC, useEffect, useState} from "react";
-import {Params, useParams} from "react-router";
-import {IAppContext, useAppContext} from "../app/AppContext";
-import {Events, IEvents} from "../utils/Events";
+import {ReactNode, useEffect, useState} from "react";
+import {useParams} from "react-router";
+import {useAppContext} from "../app/AppContext";
+import {OnFetchPageType} from "../server/createFetchPage";
+import {Events} from "../utils/Events";
 import {IPageIndex, PageIndex} from "../utils/PageIndex";
 
-export interface IBaseList extends Partial<ListProps<any>> {
-	onFetchPage: (page: number, size: number, params: Params, appContext: IAppContext, events: IEvents) => CancelTokenSource
-	pageSize?: number
-	children: (item: any, index: number) => React.ReactNode
+/**
+ * Basic record must have an ID, thus all records must be extended from this type.
+ */
+export interface IRecordItem {
+	id: string
 }
 
-export const BaseList: FC<IBaseList> = (
+export interface IBaseList<TItem extends IRecordItem> extends Partial<ListProps<TItem>> {
+	onFetchPage: OnFetchPageType
+	pageSize?: number
+	children: (item: TItem, index: number) => ReactNode
+}
+
+export const BaseList = <TItem extends IRecordItem = any>(
 	{
 		onFetchPage,
 		pageSize = 10,
 		children,
 		...props
-	}) => {
+	}: IBaseList<TItem>) => {
 	const appContext = useAppContext();
 	const params = useParams();
 	const [page, setPage] = useState<IPageIndex>(PageIndex());
@@ -31,7 +38,6 @@ export const BaseList: FC<IBaseList> = (
 		return onFetchPage(
 			page,
 			size,
-			params,
 			appContext,
 			Events()
 				.on<IPageIndex>("success", data => {
@@ -40,6 +46,7 @@ export const BaseList: FC<IBaseList> = (
 				.on("done", () => {
 					setLoading(false);
 				}),
+			params,
 		);
 	};
 
