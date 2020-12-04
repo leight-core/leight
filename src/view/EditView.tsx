@@ -4,10 +4,13 @@ import {BackLink} from "../component/BackLink";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {useModuleContext} from "../module/ModuleContext";
 
-export const BaseListView = ({children}) => {
+/**
+ * Common edit view.
+ */
+export const EditView = ({children}) => {
 	const moduleContext = useModuleContext();
-	useAppContext().useTitle(moduleContext.tid(".list.title"));
-	useLayoutContext().useMenuSelect([moduleContext.id + ".list"]);
+	useAppContext().useTitle(moduleContext.tid(".edit.title"));
+	useLayoutContext().useMenuSelect([moduleContext.id + ".edit"]);
 	return (
 		<Card title={<BackLink/>}>
 			{children}
