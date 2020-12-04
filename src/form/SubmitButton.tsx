@@ -10,6 +10,10 @@ import {FormUtils} from "./FormUtils";
 
 export interface ISubmitButton extends Partial<ButtonProps> {
 	/**
+	 * Disable Form.Item styling.
+	 */
+	noStyle?: boolean
+	/**
 	 * An Antd Form Instance used for validation checks and others.
 	 */
 	formInstance?: FormInstance
@@ -17,6 +21,7 @@ export interface ISubmitButton extends Partial<ButtonProps> {
 	 * Title on the button; goes through react-i18next.
 	 */
 	title: string
+	disabledIcon?: boolean | JSX.Element
 }
 
 /**
@@ -43,7 +48,7 @@ export interface ISubmitButton extends Partial<ButtonProps> {
  * - https://ant.design/components/button/
  * - https://ant.design/components/form/#API
  */
-export const SubmitButton: FC<ISubmitButton> = ({formInstance, title, icon, ...props}) => {
+export const SubmitButton: FC<ISubmitButton> = ({formInstance, noStyle, title, icon, disabledIcon, ...props}) => {
 	const [disabled, setDisabled] = useState(true);
 	const formContext = useFormContext();
 	if (!formContext) {
@@ -64,13 +69,13 @@ export const SubmitButton: FC<ISubmitButton> = ({formInstance, title, icon, ...p
 			htmlType={"submit"}
 			disabled={disabled}
 			children={t(title)}
-			icon={<Spinner done={!formContext.isLoading()} children={disabled ? <SubmitDisabledIcon/> : icon}/>}
+			icon={<Spinner done={!formContext.isLoading()} children={disabled ? (disabledIcon || <SubmitDisabledIcon/>) : icon}/>}
 			{...props}
 		/>;
 	};
 
 	return (
-		<Form.Item shouldUpdate>
+		<Form.Item shouldUpdate noStyle={noStyle}>
 			{() => <Internal/>}
 		</Form.Item>
 	);
