@@ -1,3 +1,4 @@
+import {Story} from "@storybook/react";
 import React from "react";
 import {HomeIcon} from "../icon/HomeIcon";
 import {BulletCard} from "./BulletCard";
@@ -17,7 +18,7 @@ export default {
 const Template = args => <BulletCard {...args}/>;
 
 export const Default = Template.bind({});
-export const WithIcon = Template.bind({});
+export const WithIcon: Story = Template.bind({});
 WithIcon.args = {
 	icon: <HomeIcon/>,
 	count: 3,

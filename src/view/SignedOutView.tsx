@@ -3,15 +3,16 @@ import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
 import {useLayoutContext} from "../layout/LayoutContext";
+import {generate} from "../router/router";
 
 export interface ISignedOutView {
 	/**
-	 * Target href to redirect.
+	 * Target href to redirect; internally uses {@see generate}.
 	 */
-	link: string
+	href: string
 }
 
-export const SignedOutView: FC<ISignedOutView> = ({link}) => {
+export const SignedOutView: FC<ISignedOutView> = ({href}) => {
 	const {t} = useTranslation();
 	useLayoutContext().useEnableFullscreen(true, true);
 	return (
@@ -22,7 +23,7 @@ export const SignedOutView: FC<ISignedOutView> = ({link}) => {
 				subTitle={t("common.sign-out.succeed.subtitle")}
 				extra={
 					<Button type="primary" key="continue">
-						<Link to={link}>{t("common.sign-out.continue")}</Link>
+						<Link to={generate(href)}>{t("common.sign-out.continue")}</Link>
 					</Button>
 				}
 			/>

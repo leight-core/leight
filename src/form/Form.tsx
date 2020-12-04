@@ -25,7 +25,7 @@ export interface IForm<TValues> extends Partial<FormProps<TValues>> {
  *
  * Rest of props are sent to underlying Antd Form.
  */
-export const Form = <TValues extends unknown = any>({name, onFinish, onFinishFailed = null, children = null, ...props}: PropsWithChildren<IForm<TValues>>) => {
+export const Form = <TValues extends unknown = any>({name, onFinish, onFinishFailed = () => null, children = null, ...props}: PropsWithChildren<IForm<TValues>>) => {
 	const [form] = CoolForm.useForm();
 	const [errors, setErrors] = useState<IFormErrors>();
 	const [loading, setLoading] = useState<number>(0);
@@ -42,7 +42,7 @@ export const Form = <TValues extends unknown = any>({name, onFinish, onFinishFai
 			<FormContext.Provider
 				value={{
 					form,
-					errors,
+					errors: errors as IFormErrors,
 					setErrors: errors => {
 						setErrors(errors);
 						form.setFields(((errors || {}).errors || []).map(item => ({

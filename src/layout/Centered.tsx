@@ -1,10 +1,14 @@
 import {Col, Row} from "antd";
-import React from "react";
+import React, {FC} from "react";
 
-export const Centered = (
+export interface ICentered {
+	span: number
+}
+
+export const Centered: FC<ICentered> = (
 	{
 		children,
-		span = null
+		span = 16
 	}) => {
 	return (
 		<Row justify={"center"}>

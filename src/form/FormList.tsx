@@ -3,7 +3,9 @@ import {FormListProps} from "antd/lib/form";
 import {NamePath} from "rc-field-form/lib/interface";
 import React, {FC} from "react";
 
-export interface IFormList extends Partial<FormListProps> {
+type TFormListProps = Partial<FormListProps> & Pick<FormListProps, "children">
+
+export interface IFormList extends TFormListProps {
 	field: NamePath
 }
 

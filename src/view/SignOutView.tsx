@@ -16,8 +16,8 @@ export const SignOutView = () => {
 				title={t(`common.sign-out.title`)}
 				subTitle={t(`common.sign-out.subtitle`)}
 				extra={[
-					<SessionCloseButton key="sign-out" text={"common.sign-out.button.sign-out"}/>,
-					<BackLink key="back" text={"common.sign-out.button.back"}/>
+					<SessionCloseButton key={"sign-out"} text={"common.sign-out.button.sign-out"}/>,
+					<BackLink key={"back"} text={"common.sign-out.button.back"}/>
 				]}
 			/>
 		</Card>

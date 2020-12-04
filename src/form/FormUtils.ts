@@ -53,11 +53,8 @@ export const FormUtils = {
 	 * @param form Antd Form instance
 	 * @param fields Array of fields being checked (or null to check all fields)
 	 */
-	hasErrors: function (form: FormInstance, fields: NamePath[] = null): boolean {
-		if (fields) {
-			return !!form.getFieldsError(fields).filter(({errors}) => errors.length).length;
-		}
-		return !!form.getFieldsError().filter(({errors}) => errors.length).length;
+	hasErrors: function (form: FormInstance, fields?: NamePath[]): boolean {
+		return !!form.getFieldsError(fields).filter(({errors}) => errors.length).length;
 	},
 	/**
 	 * Do a check if this form button is enabled by following Form rules:

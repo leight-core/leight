@@ -1,9 +1,10 @@
 import {Steps} from "antd";
+import {StepProps} from "antd/lib/steps";
 import React, {FC, useEffect, useState} from "react";
 import {Spinner} from "../icon/Spinner";
 import {useStepLoaderContext} from "./StepLoaderContext";
 
-export interface ILoaderStep {
+export interface ILoaderStep extends Partial<StepProps> {
 	/**
 	 * What to do when step should be executed; it could return cleanup function used in `useEffect()`.
 	 */
@@ -28,10 +29,10 @@ export const LoaderStep: FC<ILoaderStep> = (
 		...props
 	}
 ) => {
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState<boolean>(false);
 	const stepLoaderContext = useStepLoaderContext();
 	useEffect(() => {
-		setLoading(props.active);
+		setLoading(props.active as boolean);
 		if (props.active) {
 			return onStep();
 		}

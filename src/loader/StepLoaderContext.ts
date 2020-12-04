@@ -1,6 +1,6 @@
 import {createContext, useContext} from "react";
 
-export type IStepStatus = 'wait' | 'process' | 'finish' | 'error';
+export type IStepStatus = "wait" | "process" | "finish" | "error";
 
 export interface IStepLoaderContext {
 	/**
@@ -32,7 +32,7 @@ export interface IStepLoaderContext {
 /**
  * Access to Step loader context (next/prev/...).
  */
-export const StepLoaderContext = createContext<IStepLoaderContext>(null);
+export const StepLoaderContext = createContext<IStepLoaderContext>(null as unknown as IStepLoaderContext);
 
 /**
  * Access to Step loader context.

@@ -65,7 +65,7 @@ export interface ILayoutContext {
 /**
  * Common Layout context; you should **not** use this directly, see {@link useLayoutContext}.
  */
-export const LayoutContext = createContext<ILayoutContext>(null);
+export const LayoutContext = createContext<ILayoutContext>(null as unknown as ILayoutContext);
 
 /**
  * Access to the current Layout context.

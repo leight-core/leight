@@ -1,3 +1,4 @@
+import {Story} from "@storybook/react";
 import {Button} from "antd";
 import React from "react";
 import {DashboardIcon} from "./DashboardIcon";
@@ -11,6 +12,6 @@ const Template = _ => <DashboardIcon/>;
 
 export const Icon = Template.bind({});
 
-export const ButtonExample = Template.bind({});
+export const ButtonExample: Story = Template.bind({});
 
 ButtonExample.decorators = [Story => <Button type={"primary"} ghost size={"large"} icon={<Story/>} children={"Dashboard"}/>];

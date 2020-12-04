@@ -3,7 +3,7 @@ import {Result} from "antd";
 import React, {FC, useEffect, useState} from "react";
 import {Helmet} from "react-helmet";
 import {useTranslation} from "react-i18next";
-import {generatePath} from "react-router";
+import {generatePath, Params} from "react-router";
 import {BrowserRouter} from "react-router-dom";
 import {StepLoader} from "../loader/StepLoader";
 import {httpDelete} from "../server/httpDelete";
@@ -64,7 +64,7 @@ export const App: FC<IApp> = (
 		site: "public",
 	});
 	const [ready, setReady] = useState<boolean>(false);
-	const link = (id, params = null) => {
+	const link = (id: string, params ?: Params) => {
 		if (!discovery) {
 			throw new Error(`Cannot resolve link from Discovery for linkId [${id}]; discovery is not initialized yet!`);
 		}
@@ -86,16 +86,19 @@ export const App: FC<IApp> = (
 		}
 	};
 	const login = session => setSession(session);
-	const logout = () => {
+	const logout = (href?: string) => {
 		setSession({
 			site: "public",
 		});
-		const cancelToken = httpDelete(
-			link(link),
-			// if we're already logged out, do nothing (as internal stuff could handle 401 errors)
-			Events().on("http-401", () => false),
-		);
-		return () => cancelToken.cancel();
+		if (href) {
+			const cancelToken = httpDelete(
+				link(href),
+				// if we're already logged out, do nothing (as internal stuff could handle 401 errors)
+				Events().on("http-401", () => false),
+			);
+			return () => cancelToken.cancel();
+		}
+		return () => null;
 	};
 	return (
 		<AppContext.Provider value={{
@@ -105,9 +108,9 @@ export const App: FC<IApp> = (
 					setTitle(t(title));
 				}, [title]);
 			},
-			client,
+			client: client as IClient,
 			setClient,
-			discovery,
+			discovery: discovery as IDiscovery,
 			setDiscovery,
 			session,
 			link,

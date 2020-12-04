@@ -1,4 +1,5 @@
 import {createContext, useContext} from "react";
+import {Params} from "react-router";
 
 export interface IDiscovery {
 }
@@ -44,7 +45,7 @@ export interface IAppContext<TSession = any> {
 	/**
 	 * Generate a link from current Discovery Index or throw an error.
 	 */
-	link: (id: string, params?: Object) => string
+	link: (id: string, params?: Params) => string
 	/**
 	 * Direct access to current session data; usually set to a response from server on login (or default login with public user).
 	 */
@@ -55,8 +56,10 @@ export interface IAppContext<TSession = any> {
 	login: (session: TSession) => void
 	/**
 	 * Closes an application session (switches to public/non-session mode, clear all data); makes a delete request to user login in Discovery Index.
+	 *
+	 * @param href An optional link where to send http DELETE
 	 */
-	logout: () => void
+	logout: (href?: string) => () => void
 	/**
 	 * When called, application is switched to ready state (should be called once per full page load); everything needed for proper application run must be... ready!
 	 */
@@ -68,7 +71,7 @@ export interface IAppContext<TSession = any> {
  *
  * Use {@link useAppContext} instead.
  */
-export const AppContext = createContext<IAppContext>(null);
+export const AppContext = createContext<IAppContext>(null as unknown as IAppContext);
 
 /**
  * Use the global application context (like title and so).

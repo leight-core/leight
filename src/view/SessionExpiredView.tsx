@@ -3,12 +3,16 @@ import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
 import {useLayoutContext} from "../layout/LayoutContext";
+import {generate} from "../router/router";
 
 export interface ISessionExpiredView {
-	link: string
+	/**
+	 * Where to redirect on continue; href goes through {@see generate} method.
+	 */
+	href: string
 }
 
-export const SessionExpiredView: FC<ISessionExpiredView> = ({link}) => {
+export const SessionExpiredView: FC<ISessionExpiredView> = ({href}) => {
 	const {t} = useTranslation();
 	useLayoutContext().useEnableFullscreen(true, true);
 	return (
@@ -19,7 +23,7 @@ export const SessionExpiredView: FC<ISessionExpiredView> = ({link}) => {
 				subTitle={t("common.session-expired.subtitle")}
 				extra={
 					<Link
-						to={link}
+						to={generate(href)}
 						children={
 							<Button
 								type={"primary"}

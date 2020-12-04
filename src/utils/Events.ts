@@ -35,9 +35,9 @@ export function Events(): IEvents {
 			});
 			return this;
 		},
-		call: function (event, ...data): IEvents {
+		call: function (event, data): IEvents {
 			for (const item of (this.events[event] || []).sort((a, b) => a.priority - b.priority)) {
-				if (item.callback(...data) === false) {
+				if (item.callback(data) === false) {
 					break;
 				}
 			}

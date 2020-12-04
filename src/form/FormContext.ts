@@ -56,7 +56,7 @@ export interface IFormContext<TValues = any> {
 /**
  * Access to current Form Context; do not use this directly, see {@link useFormContext}.
  */
-export const FormContext = createContext<IFormContext<any>>(null);
+export const FormContext = createContext<IFormContext>(null as unknown as IFormContext);
 
 /**
  * Form context is useful for creating any kind of form as it provides a lot of useful

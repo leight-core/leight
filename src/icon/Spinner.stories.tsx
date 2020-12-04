@@ -1,3 +1,4 @@
+import {Story} from "@storybook/react";
 import {Button} from "antd";
 import React from "react";
 import {Spinner} from "./Spinner";
@@ -25,6 +26,6 @@ const Template = args => <Spinner {...args}/>;
 
 export const Sandbox = Template.bind({});
 
-export const ButtonExample = Template.bind({});
+export const ButtonExample: Story = Template.bind({});
 ButtonExample.decorators = [Story => <Button size={"large"} type={"primary"} ghost icon={<Story/>} children={"Loading something"}/>];
 ButtonExample.args = {children: <SubmitIcon/>};

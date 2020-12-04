@@ -18,7 +18,7 @@ export interface IModuleContext<TModule = any> {
 /**
  * Access to individual context of an application's module (if used).
  */
-export const ModuleContext = createContext<IModuleContext>(null);
+export const ModuleContext = createContext<IModuleContext>(null as unknown as IModuleContext);
 
 /**
  * Returns current application module context. What could be hidden inside of a module context very depends

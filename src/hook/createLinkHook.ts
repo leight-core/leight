@@ -1,4 +1,5 @@
 import {useEffect} from "react";
+import {Params} from "react-router";
 import {useAppContext} from "../app/AppContext";
 import {httpGet} from "../server/httpGet";
 import {IEvents} from "../utils/Events";
@@ -11,7 +12,7 @@ import {IEvents} from "../utils/Events";
 export const createLinkHook = (link: string) => {
 	return (
 		events: IEvents,
-		params: Object = null
+		params?: Params,
 	) => {
 		const appContext = useAppContext();
 		useEffect(() => {

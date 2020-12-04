@@ -1,3 +1,4 @@
+import {Params} from "react-router";
 import {IAppContext} from "../app/AppContext";
 import {IEvents} from "../utils/Events";
 import {httpPost} from "./httpPost";
@@ -16,9 +17,9 @@ export function createFetchPage(link: string) {
 	return (
 		page: number,
 		limit: number,
-		params: Object = null,
 		appContext: IAppContext,
 		events: IEvents,
+		params?: Params,
 	) => httpPost<IPage>(
 		appContext.link(link, params),
 		{
