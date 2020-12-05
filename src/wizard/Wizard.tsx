@@ -1,6 +1,7 @@
 import {Divider, Space, Steps} from "antd";
 import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
+import {PushRight} from "../layout/PushRight";
 import {IEvents} from "../utils/Events";
 import {CancelButton} from "./button/CancelButton";
 import {FinishButton} from "./button/FinishButton";
@@ -55,12 +56,14 @@ export const Wizard: FC<IWizard> = (
 			<Divider type={"horizontal"}/>
 			{steps[step].component}
 			<Divider type={"horizontal"}/>
-			<Space split={<Divider type={"vertical"}/>} size={"large"}>
-				<CancelButton key={"cancel"}/>
-				{canPrevious() && <PreviousButton key={"previous"}/>}
-				{canNext() && <NextButton key={"next"}/>}
-				{canFinish() && <FinishButton key={"finish"}/>}
-			</Space>
+			<PushRight>
+				<Space split={<Divider type={"vertical"}/>} size={"large"}>
+					<CancelButton key={"cancel"}/>
+					{canPrevious() && <PreviousButton key={"previous"}/>}
+					{canNext() && <NextButton key={"next"}/>}
+					{canFinish() && <FinishButton key={"finish"}/>}
+				</Space>
+			</PushRight>
 		</WizardContext.Provider>
 	);
 };

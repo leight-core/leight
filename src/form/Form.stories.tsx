@@ -10,7 +10,7 @@ import {useFormContext} from "./FormContext";
 import {FormItem} from "./FormItem";
 import {FormList} from "./FormList";
 import {FormSubmitButton} from "./FormSubmitButton";
-import {Switch} from "./Switch";
+import {SwitchItem} from "./SwitchItem";
 
 export default {
 	title: "Leight/Form/Form",
@@ -72,7 +72,7 @@ export const SubmitWithOptional = () => (
 					</Card>
 				)}
 			</FormList>
-			<Switch field={"switch"}/>
+			<SwitchItem field={"switch"}/>
 			<FormSubmitButton label={"Submit!"} icon={<SubmitIcon/>}/>
 		</Form>
 	</Centered>

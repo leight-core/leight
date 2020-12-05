@@ -23,6 +23,7 @@ export interface IFormItem extends Partial<FormItemProps> {
 	 */
 	noMargin?: boolean
 	children?: (label: string) => JSX.Element
+	labels?: string[]
 }
 
 export const FormItem: FC<IFormItem> = (
@@ -32,6 +33,7 @@ export const FormItem: FC<IFormItem> = (
 		showLabel = true,
 		noMargin = false,
 		children = _ => <Input/>,
+		labels = [],
 		...props
 	}) => {
 	const {t} = useTranslation();
@@ -46,14 +48,14 @@ export const FormItem: FC<IFormItem> = (
 	return (
 		<Form.Item
 			name={field}
-			label={showLabel === false ? null : t("form-item." + fieldName + ".label")}
+			label={showLabel === false ? null : t(["form-item." + fieldName + ".label"].concat(labels))}
 			rules={required ? [
 				{
 					required: true,
-					message: t("form-item." + fieldName + ".required"),
+					message: t(["form-item." + fieldName + ".required"].concat(labels.map(item => item + ".required"))),
 				}
 			] : []}
-			children={React.cloneElement(children(t("form-item." + fieldName + ".label")), {["data-required"]: required})}
+			children={React.cloneElement(children(t(["form-item." + fieldName + ".label"].concat(labels))), {["data-required"]: required})}
 			{...props}
 		/>
 	);

@@ -1,4 +1,4 @@
-export * from "./Checkbox";
+export * from "./CheckboxItem";
 export * from "./Form";
 export * from "./FormContext";
 export * from "./FormItem";
@@ -6,4 +6,4 @@ export * from "./FormList";
 export * from "./FormSubmitButton";
 export * from "./FormUtils";
 export * from "./SubmitButton";
-export * from "./Switch";
+export * from "./SwitchItem";

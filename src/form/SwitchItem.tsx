@@ -4,7 +4,7 @@ import {NamePath} from "rc-field-form/lib/interface";
 import React, {FC} from "react";
 import {FormItem} from "./FormItem";
 
-export interface ISwitch extends Partial<SwitchProps> {
+export interface ISwitchItem extends Partial<SwitchProps> {
 	/**
 	 * Field name:
 	 *
@@ -16,13 +16,13 @@ export interface ISwitch extends Partial<SwitchProps> {
 /**
  * This one is just a tiny wrapper around common FormItem providing right binding to value props.
  *
- * Rest of props are sent to Antd Switch component.
+ * Rest of props are sent to Antd SwitchItem component.
  *
  * Others:
  *
  * - https://ant.design/components/switch/
  */
-export const Switch: FC<ISwitch> = ({field, ...props}) => {
+export const SwitchItem: FC<ISwitchItem> = ({field, ...props}) => {
 	return (
 		<FormItem field={field} valuePropName={"checked"} children={_ => <CoolSwitch checked {...props}/>}/>
 	);

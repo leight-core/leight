@@ -9,7 +9,7 @@ export interface ILayoutContext {
 	 */
 	fullscreen: boolean
 	/**
-	 * Switch current fullscreen flag by an Effect.
+	 * SwitchItem current fullscreen flag by an Effect.
 	 *
 	 * @param enable
 	 * @param restore
