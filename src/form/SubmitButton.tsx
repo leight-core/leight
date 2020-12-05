@@ -20,7 +20,10 @@ export interface ISubmitButton extends Partial<ButtonProps> {
 	/**
 	 * Title on the button; goes through react-i18next.
 	 */
-	title: string
+	label: string | string[]
+	/**
+	 * When button is disabled, show this icon.
+	 */
 	disabledIcon?: boolean | JSX.Element
 }
 
@@ -48,7 +51,7 @@ export interface ISubmitButton extends Partial<ButtonProps> {
  * - https://ant.design/components/button/
  * - https://ant.design/components/form/#API
  */
-export const SubmitButton: FC<ISubmitButton> = ({formInstance, noStyle, title, icon, disabledIcon, ...props}) => {
+export const SubmitButton: FC<ISubmitButton> = ({formInstance, noStyle, label, icon, disabledIcon, ...props}) => {
 	const [disabled, setDisabled] = useState(true);
 	const formContext = useFormContext();
 	if (!formContext) {
@@ -67,7 +70,7 @@ export const SubmitButton: FC<ISubmitButton> = ({formInstance, noStyle, title, i
 		return <Button
 			type={"primary"}
 			disabled={disabled}
-			children={t(title)}
+			children={t(label)}
 			icon={<Spinner done={!formContext.isBlocked()} children={disabled ? (disabledIcon || <SubmitDisabledIcon/>) : icon}/>}
 			{...props}
 		/>;

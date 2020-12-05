@@ -23,7 +23,7 @@ export const SubmitWithRequired = () => (
 		<Form name={"story"} layout={"vertical"} onSubmit={action("onSubmit")}>
 			<FormItem required field={"login"} children={label => <Input placeholder={label}/>}/>
 			<FormItem required field={"password"} children={label => <Input type={"password"} placeholder={label}/>}/>
-			<FormSubmitButton title={"Submit!"} icon={<SubmitIcon/>}/>
+			<FormSubmitButton label={"Submit!"} icon={<SubmitIcon/>}/>
 		</Form>
 	</Centered>
 );
@@ -73,7 +73,7 @@ export const SubmitWithOptional = () => (
 				)}
 			</FormList>
 			<Switch field={"switch"}/>
-			<FormSubmitButton title={"Submit!"} icon={<SubmitIcon/>}/>
+			<FormSubmitButton label={"Submit!"} icon={<SubmitIcon/>}/>
 		</Form>
 	</Centered>
 );
@@ -96,7 +96,7 @@ export const SubmitWithPostInitials = () => {
 				<FormItem field={"some-value"} children={label => <Input placeholder={label}/>}/>
 				<FormItem required field={"required-value"} children={label => <Input placeholder={label}/>}/>
 				<FormItem field={"another-value"} children={label => <Input placeholder={label}/>}/>
-				<FormSubmitButton title={"Submit!"} icon={<SubmitIcon/>}/>
+				<FormSubmitButton label={"Submit!"} icon={<SubmitIcon/>}/>
 			</>
 		);
 	};
@@ -181,7 +181,7 @@ export const SubmitWithPostInitialsErrors = () => {
 						</Card>
 					)}
 				</FormList>
-				<FormSubmitButton title={"Submit!"} icon={<SubmitIcon/>}/>
+				<FormSubmitButton label={"Submit!"} icon={<SubmitIcon/>}/>
 			</>
 		);
 	};

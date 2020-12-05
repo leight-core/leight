@@ -7,7 +7,11 @@ export const FinishButton = () => {
 	const moduleContext = useModuleContext();
 	return (
 		wizardContext.step === wizardContext.count - 1 ?
-			<SubmitButton title={moduleContext.tid("wizard.finish")} noStyle/> :
+			<SubmitButton label={[
+				moduleContext.tid(wizardContext.name + ".wizard.finish"),
+				moduleContext.tid("wizard.finish"),
+				"common.wizard.finish",
+			]} noStyle/> :
 			null
 	);
 };

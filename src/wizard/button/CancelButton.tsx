@@ -16,7 +16,11 @@ export const CancelButton: FC<ICancelButton> = () => {
 		<Popconfirm
 			okText={t("common.yes")}
 			cancelText={t("common.no")}
-			title={moduleContext.t("wizard.cancelConfirm")}
+			title={t([
+				moduleContext.tid(wizardContext.name + ".wizard.cancelConfirm"),
+				moduleContext.tid("wizard.cancelConfirm"),
+				"wizard.cancelConfirm",
+			])}
 			onConfirm={() => wizardContext.events.call("reset")}
 		>
 			<Button
@@ -24,7 +28,7 @@ export const CancelButton: FC<ICancelButton> = () => {
 				size={"large"}
 				danger
 				icon={<CancelIcon/>}
-				children={moduleContext.t("wizard.cancel")}
+				children={t("common.wizard.cancel")}
 			/>
 		</Popconfirm>
 	);

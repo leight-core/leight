@@ -29,6 +29,7 @@ export const Wizard: FC<IWizard> = (
 	const {t} = useTranslation();
 	return (
 		<WizardContext.Provider value={{
+			name,
 			events,
 			step,
 			count: steps.length,

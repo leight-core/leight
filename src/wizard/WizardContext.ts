@@ -3,6 +3,10 @@ import {IEvents} from "../utils/Events";
 import {useContext} from "../utils/useContext";
 
 export interface IWizardContext {
+	/**
+	 * Wizard name.
+	 */
+	name: string
 	events: IEvents
 	/**
 	 * Current step number.
