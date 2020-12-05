@@ -13,10 +13,10 @@ export interface IListView {
  */
 export const ListView: FC<IListView> = ({children}) => {
 	const moduleContext = useModuleContext();
-	useAppContext().useTitle(moduleContext.tid(".list.title"));
+	useAppContext().useTitle(moduleContext.tid("list.title"));
 	useLayoutContext().useMenuSelect([moduleContext.id + ".list"]);
 	return (
-		<Card title={<BackLink text={moduleContext.tid(".list.title")}/>}>
+		<Card title={<BackLink text={moduleContext.tid("list.title")}/>}>
 			{children}
 		</Card>
 	);

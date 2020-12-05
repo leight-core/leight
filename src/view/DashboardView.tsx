@@ -21,10 +21,10 @@ export const DashboardView: FC<IDashboardView> = (
 		children,
 	}) => {
 	const moduleContext = useModuleContext();
-	useAppContext().useTitle(moduleContext.tid(".dashboard.title"));
+	useAppContext().useTitle(moduleContext.tid("dashboard.title"));
 	useLayoutContext().useMenuSelect([moduleContext.id + ".dashboard"]);
 	return (
-		<Card title={<BackLink text={moduleContext.tid(".dashboard.title")}/>}>
+		<Card title={<BackLink text={moduleContext.tid("dashboard.title")}/>}>
 			<Result
 				status={"info"}
 				title={title || moduleContext.t("dashboard.title")}

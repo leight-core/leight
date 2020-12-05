@@ -87,19 +87,16 @@ export const App: FC<IApp> = (
 		}
 	};
 	const login = session => setSession(session);
-	const logout = (href?: string) => {
+	const logout = () => {
 		setSession({
 			site: "public",
 		});
-		if (href) {
-			const cancelToken = httpDelete(
-				link(href),
-				// if we're already logged out, do nothing (as internal stuff could handle 401 errors)
-				Events().on("http-401", () => false),
-			);
-			return () => cancelToken.cancel();
-		}
-		return () => null;
+		const cancelToken = httpDelete(
+			link("public.user.login"),
+			// if we're already logged out, do nothing (as internal stuff could handle 401 errors)
+			Events().on("http-401", () => false),
+		);
+		return () => cancelToken.cancel();
 	};
 	return (
 		<AppContext.Provider value={{

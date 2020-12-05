@@ -56,10 +56,8 @@ export interface IAppContext<TSession = any> {
 	login: (session: TSession) => void
 	/**
 	 * Closes an application session (switches to public/non-session mode, clear all data); makes a delete request to user login in Discovery Index.
-	 *
-	 * @param href An optional link where to send http DELETE
 	 */
-	logout: (href?: string) => () => void
+	logout: () => () => void
 	/**
 	 * When called, application is switched to ready state (should be called once per full page load); everything needed for proper application run must be... ready!
 	 */

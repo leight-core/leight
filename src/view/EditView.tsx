@@ -13,10 +13,10 @@ export interface IEditView {
  */
 export const EditView: FC<IEditView> = ({children}) => {
 	const moduleContext = useModuleContext();
-	useAppContext().useTitle(moduleContext.tid(".edit.title"));
+	useAppContext().useTitle(moduleContext.tid("edit.title"));
 	useLayoutContext().useMenuSelect([moduleContext.id + ".edit"]);
 	return (
-		<Card title={<BackLink text={moduleContext.tid(".edit.title")}/>}>
+		<Card title={<BackLink text={moduleContext.tid("edit.title")}/>}>
 			{children}
 		</Card>
 	);
