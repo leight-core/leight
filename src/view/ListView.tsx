@@ -16,7 +16,7 @@ export const ListView: FC<IListView> = ({children}) => {
 	useAppContext().useTitle(moduleContext.tid(".list.title"));
 	useLayoutContext().useMenuSelect([moduleContext.id + ".list"]);
 	return (
-		<Card title={<BackLink/>}>
+		<Card title={<BackLink text={moduleContext.tid(".list.title")}/>}>
 			{children}
 		</Card>
 	);

@@ -16,7 +16,7 @@ export const EditView: FC<IEditView> = ({children}) => {
 	useAppContext().useTitle(moduleContext.tid(".edit.title"));
 	useLayoutContext().useMenuSelect([moduleContext.id + ".edit"]);
 	return (
-		<Card title={<BackLink/>}>
+		<Card title={<BackLink text={moduleContext.tid(".edit.title")}/>}>
 			{children}
 		</Card>
 	);
