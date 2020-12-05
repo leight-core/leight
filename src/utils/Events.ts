@@ -1,5 +1,5 @@
 export interface IEventCallback<TData = any> {
-	(data: TData): boolean | void
+	(data: TData): boolean | any
 }
 
 export interface IEvent<TData = any> {
@@ -13,6 +13,10 @@ export interface IEvents {
 	 */
 	events: { [key: string]: IEvent[] }
 	/**
+	 * Internal array of chained event handlers.
+	 */
+	chains: IEvents[],
+	/**
 	 * Registers a handler of the given event name.
 	 */
 	on: <TData = any>(event: string, callback: IEventCallback<TData>, priority?: number) => IEvents
@@ -20,6 +24,14 @@ export interface IEvents {
 	 * Call handlers of the given event name.
 	 */
 	call: (event: string, ...data: any) => IEvents
+	/**
+	 * Chain with the given events (events still respects event handler priority).
+	 *
+	 * @param events
+	 *
+	 * @return Events instance chain method was called on.
+	 */
+	chain: (events: IEvents) => IEvents
 }
 
 /**
@@ -28,20 +40,24 @@ export interface IEvents {
 export function Events(): IEvents {
 	return {
 		events: {},
-		on: function (event, callback, priority = 100): IEvents {
+		chains: [],
+		on: function (event, callback, priority = 100) {
 			(this.events[event] = this.events[event] || []).push({
 				priority,
 				callback,
 			});
 			return this;
 		},
-		call: function (event, data): IEvents {
-			for (const item of (this.events[event] || []).sort((a, b) => a.priority - b.priority)) {
-				if (item.callback(data) === false) {
-					break;
-				}
-			}
+		call: function (event, data) {
+			[this].concat(this.chains)
+				.reduce((array, item) => array.concat(item.events[event] || []), [] as IEvent[])
+				.sort((a, b) => a.priority - b.priority)
+				.find(item => item.callback(data) === false);
 			return this;
 		},
+		chain: function (events) {
+			this.chains.push(events);
+			return this;
+		}
 	};
 }
