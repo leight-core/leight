@@ -9,7 +9,7 @@ import {Form} from "./Form";
 import {useFormContext} from "./FormContext";
 import {FormItem} from "./FormItem";
 import {FormList} from "./FormList";
-import {SubmitButton} from "./SubmitButton";
+import {FormSubmitButton} from "./FormSubmitButton";
 import {Switch} from "./Switch";
 
 export default {
@@ -23,7 +23,7 @@ export const SubmitWithRequired = () => (
 		<Form name={"story"} layout={"vertical"} onSubmit={action("onSubmit")}>
 			<FormItem required field={"login"} children={label => <Input placeholder={label}/>}/>
 			<FormItem required field={"password"} children={label => <Input type={"password"} placeholder={label}/>}/>
-			<SubmitButton title={"Submit!"} icon={<SubmitIcon/>}/>
+			<FormSubmitButton title={"Submit!"} icon={<SubmitIcon/>}/>
 		</Form>
 	</Centered>
 );
@@ -73,7 +73,7 @@ export const SubmitWithOptional = () => (
 				)}
 			</FormList>
 			<Switch field={"switch"}/>
-			<SubmitButton title={"Submit!"} icon={<SubmitIcon/>}/>
+			<FormSubmitButton title={"Submit!"} icon={<SubmitIcon/>}/>
 		</Form>
 	</Centered>
 );
@@ -96,7 +96,7 @@ export const SubmitWithPostInitials = () => {
 				<FormItem field={"some-value"} children={label => <Input placeholder={label}/>}/>
 				<FormItem required field={"required-value"} children={label => <Input placeholder={label}/>}/>
 				<FormItem field={"another-value"} children={label => <Input placeholder={label}/>}/>
-				<SubmitButton title={"Submit!"} icon={<SubmitIcon/>}/>
+				<FormSubmitButton title={"Submit!"} icon={<SubmitIcon/>}/>
 			</>
 		);
 	};
@@ -181,7 +181,7 @@ export const SubmitWithPostInitialsErrors = () => {
 						</Card>
 					)}
 				</FormList>
-				<SubmitButton title={"Submit!"} icon={<SubmitIcon/>}/>
+				<FormSubmitButton title={"Submit!"} icon={<SubmitIcon/>}/>
 			</>
 		);
 	};

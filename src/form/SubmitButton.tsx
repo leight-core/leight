@@ -66,7 +66,6 @@ export const SubmitButton: FC<ISubmitButton> = ({formInstance, noStyle, title, i
 		});
 		return <Button
 			type={"primary"}
-			htmlType={"submit"}
 			disabled={disabled}
 			children={t(title)}
 			icon={<Spinner done={!formContext.isBlocked()} children={disabled ? (disabledIcon || <SubmitDisabledIcon/>) : icon}/>}
