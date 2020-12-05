@@ -53,7 +53,7 @@ export const FormItem: FC<IFormItem> = (
 					message: t("form-item." + fieldName + ".required"),
 				}
 			] : []}
-			children={React.cloneElement(children(t("form-item." + fieldName + ".label")), {required})}
+			children={React.cloneElement(children(t("form-item." + fieldName + ".label")), {isRequired: required})}
 			{...props}
 		/>
 	);
