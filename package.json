@@ -14,8 +14,8 @@
 	],
 	"scripts": {
 		"build": "tsc -p tsconfig.json",
-		"test": "jest",
-		"test:watch": "jest --watchAll",
+		"test": "jest src",
+		"test:watch": "jest src --watchAll",
 		"storybook": "start-storybook -p 6006",
 		"build-storybook": "build-storybook"
 	},
