@@ -9,7 +9,7 @@ export default {
 
 export const SwitchSandbox = () => <Switch field={"switch"}/>;
 SwitchSandbox.decorators = [Story => (
-	<Form name={"story"} onFinish={() => null}>
+	<Form name={"story"} onSubmit={() => null}>
 		<Story/>
 	</Form>
 )];

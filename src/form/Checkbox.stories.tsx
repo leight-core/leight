@@ -9,7 +9,7 @@ export default {
 
 export const CheckboxSandbox = () => <Checkbox field={"checkbox"}/>;
 CheckboxSandbox.decorators = [Story => (
-	<Form name={"story"} onFinish={() => null}>
+	<Form name={"story"} onSubmit={() => null}>
 		<Story/>
 	</Form>
 )];

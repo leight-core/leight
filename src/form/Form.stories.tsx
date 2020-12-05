@@ -20,7 +20,7 @@ export default {
 
 export const SubmitWithRequired = () => (
 	<Centered span={14}>
-		<Form name={"story"} layout={"vertical"} onFinish={action("onFinish")}>
+		<Form name={"story"} layout={"vertical"} onSubmit={action("onSubmit")}>
 			<FormItem required field={"login"} children={label => <Input placeholder={label}/>}/>
 			<FormItem required field={"password"} children={label => <Input type={"password"} placeholder={label}/>}/>
 			<SubmitButton title={"Submit!"} icon={<SubmitIcon/>}/>
@@ -37,7 +37,7 @@ SubmitWithRequired.parameters = {
 
 export const SubmitWithOptional = () => (
 	<Centered span={14}>
-		<Form name={"story"} layout={"vertical"} onFinish={action("onFinish")}>
+		<Form name={"story"} layout={"vertical"} onSubmit={action("onSubmit")}>
 			<FormItem field={"some-value"} children={label => <Input placeholder={label}/>}/>
 			<FormItem required field={"required-value"} children={label => <Input placeholder={label}/>}/>
 			<FormItem field={"another-value"} children={label => <Input placeholder={label}/>}/>
@@ -103,7 +103,7 @@ export const SubmitWithPostInitials = () => {
 
 	return (
 		<Centered span={14}>
-			<Form name={"story"} layout={"vertical"} onFinish={action("onFinish")}>
+			<Form name={"story"} layout={"vertical"} onSubmit={action("onSubmit")}>
 				<Items/>
 			</Form>
 		</Centered>
@@ -188,7 +188,7 @@ export const SubmitWithPostInitialsErrors = () => {
 
 	return (
 		<Centered span={14}>
-			<Form name={"story"} layout={"vertical"} onFinish={action("onFinish")}>
+			<Form name={"story"} layout={"vertical"} onSubmit={action("onSubmit")}>
 				<Items/>
 			</Form>
 		</Centered>
