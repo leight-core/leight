@@ -12,6 +12,7 @@ export const FinishButton = () => {
 				moduleContext.tid("wizard.finish"),
 				"common.wizard.finish",
 			]}
+			size={"large"}
 			noStyle
 		/>
 	);

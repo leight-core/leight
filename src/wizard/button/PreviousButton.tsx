@@ -7,7 +7,6 @@ export const PreviousButton = () => {
 	return (
 		<SubmitButton
 			icon={<BackIcon/>}
-			size={"small"}
 			noStyle
 			disabled={!wizardContext.canPrevious()}
 			onClick={() => {
