@@ -37,7 +37,7 @@ export const CommonView: FC<ICommonView> = (
 			block: () => setBlocking(prev => prev + 1),
 			unblock: () => setBlocking(prev => prev - 1),
 		}}>
-			<Spin spinning={isBlocked()} tip={t("common.loading")}>
+			<Spin delay={200} spinning={isBlocked()} tip={t("common.loading")}>
 				<ScrollToTop/>
 				{children}
 			</Spin>

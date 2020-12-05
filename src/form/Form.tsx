@@ -44,6 +44,7 @@ export const Form = <TValues extends unknown = any>({name, onSubmit, onSubmitFai
 			})));
 		},
 		setValues: values => form.setFieldsValue(values),
+		reset: () => form.resetFields(),
 		blocking,
 		isBlocked,
 		block: () => setBlocking(prev => prev + 1),

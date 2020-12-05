@@ -27,13 +27,16 @@ export interface IFormContext<TValues = any> {
 	 * @param errors
 	 */
 	setErrors: (errors: IFormErrors) => void
-
 	/**
 	 * Set form values
 	 *
 	 * @param values values being set
 	 */
 	setValues: (values: TValues) => void
+	/**
+	 * Reset form to the initial state.
+	 */
+	reset: () => void
 	/**
 	 * Direct access to blocking state of the layout (**not a bool!**).
 	 */
