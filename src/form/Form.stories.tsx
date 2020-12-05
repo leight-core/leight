@@ -134,11 +134,11 @@ export const SubmitWithPostInitialsErrors = () => {
 					errors: [
 						{
 							id: "another-value",
-							message: "boom",
+							error: "boom",
 						},
 						{
 							id: ["some", "internal", "dynamic", "form", 0, "value"],
-							message: "It works!",
+							error: "It works!",
 						}
 					]
 				});

@@ -40,7 +40,7 @@ export const Form = <TValues extends unknown = any>({name, onSubmit, onSubmitFai
 			errors.message && message.error(t("error." + errors.message));
 			form.setFields(((errors || {}).errors || []).map(item => ({
 				name: item.id,
-				errors: [item.message],
+				errors: [item.error],
 			})));
 		},
 		setValues: values => form.setFieldsValue(values),

@@ -4,7 +4,7 @@ import {createContext, useContext} from "react";
 
 export interface IFormError {
 	id: NamePath
-	message: string
+	error: string
 }
 
 export interface IFormErrors {
