@@ -25,7 +25,7 @@ export const CancelButton: FC<ICancelButton> = () => {
 		>
 			<Button
 				type={"ghost"}
-				size={"large"}
+				size={"small"}
 				danger
 				icon={<CancelIcon/>}
 				children={t("common.wizard.cancel")}

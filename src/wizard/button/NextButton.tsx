@@ -5,8 +5,15 @@ import {useWizardContext} from "../WizardContext";
 export const NextButton = () => {
 	const wizardContext = useWizardContext();
 	return (
-		wizardContext.step < (wizardContext.count - 1) ?
-			<SubmitButton label={"common.wizard.next"} noStyle icon={<ForwardIcon/>}/> :
-			null
+		<SubmitButton
+			label={"common.wizard.next"}
+			size={"large"}
+			noStyle
+			icon={<ForwardIcon/>}
+			onClick={() => {
+				wizardContext.next();
+				wizardContext.events.call("next", wizardContext);
+			}}
+		/>
 	);
 };

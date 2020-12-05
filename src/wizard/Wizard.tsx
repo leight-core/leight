@@ -27,14 +27,21 @@ export const Wizard: FC<IWizard> = (
 	}) => {
 	const [step, setStep] = useState<number>(0);
 	const {t} = useTranslation();
+	const count = steps.length;
+	const canNext = () => step < (count - 1);
+	const canPrevious = () => step > 0;
+	const canFinish = () => step === count - 1;
 	return (
 		<WizardContext.Provider value={{
 			name,
 			events,
 			step,
-			count: steps.length,
+			count,
 			previous: () => setStep(current => current - 1),
 			next: () => setStep(current => current + 1),
+			canNext,
+			canPrevious,
+			canFinish,
 		}}>
 			<Steps current={step} size={"default"}>
 				{steps.map(item => (
@@ -49,10 +56,10 @@ export const Wizard: FC<IWizard> = (
 			{steps[step].component}
 			<Divider type={"horizontal"}/>
 			<Space split={<Divider type={"vertical"}/>} size={"large"}>
-				<CancelButton/>
-				<PreviousButton/>
-				<NextButton/>
-				<FinishButton/>
+				<CancelButton key={"cancel"}/>
+				{canPrevious() && <PreviousButton key={"previous"}/>}
+				{canNext() && <NextButton key={"next"}/>}
+				{canFinish() && <FinishButton key={"finish"}/>}
 			</Space>
 		</WizardContext.Provider>
 	);

@@ -24,6 +24,9 @@ export interface IWizardContext {
 	 * Compute next step (update state).
 	 */
 	next: () => void
+	canNext: () => boolean
+	canPrevious: () => boolean
+	canFinish: () => boolean
 }
 
 export const WizardContext = createContext(null as unknown as IWizardContext);

@@ -1,18 +1,21 @@
-import {Button} from "antd";
+import {SubmitButton} from "../../form/SubmitButton";
 import {BackIcon} from "../../icon/BackIcon";
 import {useWizardContext} from "../WizardContext";
 
 export const PreviousButton = () => {
 	const wizardContext = useWizardContext();
-	return (wizardContext.step > 0 ? (
-		<Button
+	return (
+		<SubmitButton
 			icon={<BackIcon/>}
-			size={"large"}
+			size={"small"}
+			noStyle
+			disabled={!wizardContext.canPrevious()}
 			onClick={() => {
 				wizardContext.previous();
 				wizardContext.events.call("previous", wizardContext);
 			}}
-			children={"common.wizard.previous"}
+			disabledIcon={<BackIcon/>}
+			label={"common.wizard.previous"}
 		/>
-	) : null);
+	);
 };
