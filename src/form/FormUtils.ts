@@ -25,7 +25,7 @@ export const FormUtils = {
 	 */
 	required: function (form: FormInstance): CancelablePromiseType<IFormFields[]> {
 		return new CancelablePromise(resolve => this.fields(form).then((fields) => {
-			resolve(fields.filter(([_, item]) => (item ? (item.props ? item.props : {}) : {}).isRequired));
+			resolve(fields.filter(([_, item]) => (item ? (item.props ? item.props : {}) : {})["data-required"]));
 		}));
 	},
 	flatten: function (value: Object): IFlatField[] {
