@@ -3,13 +3,12 @@ import {NamePath} from "rc-field-form/lib/interface";
 import {createContext, useContext} from "react";
 
 export interface IFormError {
-	field: NamePath
+	id: NamePath
 	message: string
 }
 
 export interface IFormErrors {
 	message?: string
-	type?: string
 	errors: IFormError[]
 }
 

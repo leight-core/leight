@@ -30,13 +30,13 @@ export const BaseLayout: FC<IBaseLayout> = ({children}) => {
 				}, []),
 				collapsed,
 				setCollapsed,
-				loading,
-				isLoading,
-				loadingStart: () => {
+				blocking: loading,
+				isBlocked: isLoading,
+				block: () => {
 					window.scrollTo(0, 0);
 					setLoading(prev => prev + 1);
 				},
-				loadingFinish: () => {
+				unblock: () => {
 					setLoading(prev => prev - 1);
 				},
 				data,

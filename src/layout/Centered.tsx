@@ -11,7 +11,7 @@ export const Centered: FC<ICentered> = (
 		span = 16
 	}) => {
 	return (
-		<Row justify={"center"}>
+		<Row justify={"center"} style={{textAlign: "center"}}>
 			<Col span={span}>
 				{children}
 			</Col>

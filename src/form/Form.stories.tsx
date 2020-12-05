@@ -133,11 +133,11 @@ export const SubmitWithPostInitialsErrors = () => {
 				formContext.setErrors({
 					errors: [
 						{
-							field: "another-value",
+							id: "another-value",
 							message: "boom",
 						},
 						{
-							field: ["some", "internal", "dynamic", "form", 0, "value"],
+							id: ["some", "internal", "dynamic", "form", 0, "value"],
 							message: "It works!",
 						}
 					]

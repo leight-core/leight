@@ -37,19 +37,19 @@ export interface ILayoutContext {
 	/**
 	 * Direct access to loading state of the layout (**not a bool!**).
 	 */
-	loading: number
+	blocking: number
 	/**
 	 * Tells if there is requested loading state of the application.
 	 */
-	isLoading: () => boolean
+	isBlocked: () => boolean
 	/**
 	 * Updates loading state of the application; could be called more times as it maintains loader count.
 	 */
-	loadingStart: () => void
+	block: () => void
 	/**
 	 * Updates loading state of the application; could be called more times as it maintains loader count.
 	 */
-	loadingFinish: () => void
+	unblock: () => void
 	/**
 	 * Access to current arbitrary data on the layout; this is the place where some loaded piece of something could be hidden.
 	 */

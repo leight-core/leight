@@ -1,7 +1,8 @@
-import {Form as CoolForm} from "antd";
+import {Form as CoolForm, message} from "antd";
 import {FormProps} from "antd/lib/form";
 import {ValidateErrorEntity} from "rc-field-form/lib/interface";
 import React, {PropsWithChildren, useState} from "react";
+import {useTranslation} from "react-i18next";
 import {FormContext, IFormErrors} from "./FormContext";
 import {FormUtils} from "./FormUtils";
 
@@ -27,6 +28,7 @@ export interface IForm<TValues> extends Partial<FormProps<TValues>> {
  */
 export const Form = <TValues extends unknown = any>({name, onFinish, onFinishFailed = () => null, children = null, ...props}: PropsWithChildren<IForm<TValues>>) => {
 	const [form] = CoolForm.useForm();
+	const {t} = useTranslation();
 	const [errors, setErrors] = useState<IFormErrors>();
 	const [loading, setLoading] = useState<number>(0);
 	const isLoading = () => loading > 0;
@@ -45,8 +47,9 @@ export const Form = <TValues extends unknown = any>({name, onFinish, onFinishFai
 					errors: errors as IFormErrors,
 					setErrors: errors => {
 						setErrors(errors);
+						errors.message && message.error(t("error." + errors.message));
 						form.setFields(((errors || {}).errors || []).map(item => ({
-							name: item.field,
+							name: item.id,
 							errors: [item.message],
 						})));
 					},
