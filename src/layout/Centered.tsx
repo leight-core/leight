@@ -8,10 +8,10 @@ export interface ICentered {
 export const Centered: FC<ICentered> = (
 	{
 		children,
-		span = 16
+		span
 	}) => {
 	return (
-		<Row justify={"center"} style={{textAlign: "center"}}>
+		<Row justify={"center"}>
 			<Col span={span}>
 				{children}
 			</Col>
