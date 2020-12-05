@@ -19,11 +19,11 @@ export const SignedInView: FC<ISignedInView> = ({href}) => {
 		<Card>
 			<Result
 				status={"success"}
-				title={t(`common.succeed.title`)}
-				subTitle={t(`common.succeed.subtitle`)}
+				title={t(`common.sign-in.succeed.title`)}
+				subTitle={t(`common.sign-in.succeed.subtitle`)}
 				extra={[
 					<Button type="primary" key="continue">
-						<Link to={generate(href)}>{t(`common.continue`)}</Link>
+						<Link to={generate(href)}>{t(`common.sign-in.continue`)}</Link>
 					</Button>
 				]}
 			/>
