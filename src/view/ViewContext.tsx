@@ -1,4 +1,5 @@
-import {createContext, useContext} from "react";
+import {createContext} from "react";
+import {useContext} from "../utils/useContext";
 
 export interface IViewContext {
 	/**
@@ -21,10 +22,4 @@ export interface IViewContext {
 
 export const ViewContext = createContext<IViewContext>(null as unknown as IViewContext);
 
-export const useViewContext = () => {
-	const context = useContext<IViewContext>(ViewContext);
-	if (!context) {
-		throw new Error("You requested [ViewContext] but non is available. Please use CommonView or create context provider!");
-	}
-	return context;
-};
+export const useViewContext = () => useContext<IViewContext>(ViewContext, "ViewContext", "Please use CommonView or create context provider!");

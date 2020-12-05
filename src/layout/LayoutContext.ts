@@ -1,4 +1,5 @@
-import {createContext, useContext} from "react";
+import {createContext} from "react";
+import {useContext} from "../utils/useContext";
 
 export type IMenuSelector = string[];
 
@@ -70,4 +71,4 @@ export const LayoutContext = createContext<ILayoutContext>(null as unknown as IL
 /**
  * Access to the current Layout context.
  */
-export const useLayoutContext = () => useContext<ILayoutContext>(LayoutContext);
+export const useLayoutContext = () => useContext<ILayoutContext>(LayoutContext, "LayoutContext");

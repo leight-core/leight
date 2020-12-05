@@ -1,12 +1,12 @@
-import {Button, Divider, Popconfirm, Space, Steps} from "antd";
+import {Divider, Space, Steps} from "antd";
 import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {SubmitButton} from "../form/SubmitButton";
-import {BackIcon} from "../icon/BackIcon";
-import {CancelIcon} from "../icon/CancelIcon";
-import {ForwardIcon} from "../icon/ForwardIcon";
-import {useModuleContext} from "../module/ModuleContext";
 import {IEvents} from "../utils/Events";
+import {CancelButton} from "./button/CancelButton";
+import {FinishButton} from "./button/FinishButton";
+import {NextButton} from "./button/NextButton";
+import {PreviousButton} from "./button/PreviousButton";
+import {WizardContext} from "./WizardContext";
 
 export interface IStep {
 	id: string
@@ -25,12 +25,17 @@ export const Wizard: FC<IWizard> = (
 		events,
 		steps
 	}) => {
-	const [current, setCurrent] = useState(0);
+	const [step, setStep] = useState<number>(0);
 	const {t} = useTranslation();
-	const moduleContext = useModuleContext();
 	return (
-		<>
-			<Steps current={current} size={"default"}>
+		<WizardContext.Provider value={{
+			events,
+			step,
+			count: steps.length,
+			previous: () => setStep(current => current - 1),
+			next: () => setStep(current => current + 1),
+		}}>
+			<Steps current={step} size={"default"}>
 				{steps.map(item => (
 					<Steps.Step
 						key={item.id}
@@ -40,41 +45,14 @@ export const Wizard: FC<IWizard> = (
 				))}
 			</Steps>
 			<Divider type={"horizontal"}/>
-			{steps[current].component}
+			{steps[step].component}
 			<Divider type={"horizontal"}/>
 			<Space split={<Divider type={"vertical"}/>} size={"large"}>
-				<Popconfirm
-					okText={t("common.yes")}
-					cancelText={t("common.no")}
-					title={t(moduleContext.id + ".register.cancelConfirm")}
-					onConfirm={() => events.call("reset")}
-				>
-					<Button
-						type={"ghost"}
-						size={"large"}
-						danger
-						icon={<CancelIcon/>}
-						children={t(moduleContext.id + ".register.cancel")}
-					/>
-				</Popconfirm>
-				{current > 0 && (
-					<Button
-						icon={<BackIcon/>}
-						size={"large"}
-						onClick={() => {
-							setCurrent(step => step - 1);
-							events.call("previous", current);
-						}}
-						children={t(moduleContext.id + ".wizard.previous")}
-					/>
-				)}
-				{current < steps.length - 1 && (
-					<SubmitButton title={moduleContext.tid(".wizard.finish")} noStyle icon={<ForwardIcon/>}/>
-				)}
-				{current === steps.length - 1 && (
-					<SubmitButton title={moduleContext.tid(".wizard.finish")} noStyle/>
-				)}
+				<CancelButton/>
+				<PreviousButton/>
+				<NextButton/>
+				<FinishButton/>
 			</Space>
-		</>
+		</WizardContext.Provider>
 	);
 };

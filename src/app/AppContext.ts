@@ -1,5 +1,6 @@
-import {createContext, useContext} from "react";
+import {createContext} from "react";
 import {Params} from "react-router";
+import {useContext} from "../utils/useContext";
 
 export interface IDiscovery {
 }
@@ -74,4 +75,4 @@ export const AppContext = createContext<IAppContext>(null as unknown as IAppCont
 /**
  * Use the global application context (like title and so).
  */
-export const useAppContext = <TSession = any>() => useContext<IAppContext<TSession>>(AppContext);
+export const useAppContext = <TSession = any>() => useContext<IAppContext<TSession>>(AppContext, "AppContext");
