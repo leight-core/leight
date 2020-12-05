@@ -42,17 +42,18 @@ export const FormItem: FC<IFormItem> = (
 	if (!formContext) {
 		throw new Error("FormItem must be used with FormContext (for example Form component from leight-core package).");
 	}
+	const fieldName = Array.isArray(field) ? field.join(".") : field;
 	return (
 		<Form.Item
 			name={field}
-			label={showLabel === false ? null : t("form-item." + field + ".label")}
+			label={showLabel === false ? null : t("form-item." + fieldName + ".label")}
 			rules={required ? [
 				{
 					required: true,
-					message: t("form-item." + field + ".required"),
+					message: t("form-item." + fieldName + ".required"),
 				}
 			] : []}
-			children={React.cloneElement(children(t("form-item." + field + ".label")), {required})}
+			children={React.cloneElement(children(t("form-item." + fieldName + ".label")), {required})}
 			{...props}
 		/>
 	);

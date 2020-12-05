@@ -21,7 +21,7 @@ export const CommonView: FC<ICommonView> = (
 		children,
 	}) => {
 	const layoutContext = useLayoutContext();
-	layoutContext.useMenuSelect(menu ? menu : [name + ".menu"]);
+	layoutContext.useMenuSelect(menu ? menu : [name]);
 	layoutContext.useEnableFullscreen(fullscreen, restore);
 	useAppContext().useTitle(title ? title : name + ".title");
 	return (
