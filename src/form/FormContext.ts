@@ -35,21 +35,21 @@ export interface IFormContext<TValues = any> {
 	 */
 	setValues: (values: TValues) => void
 	/**
-	 * Direct access to loading state of the layout (**not a bool!**).
+	 * Direct access to blocking state of the layout (**not a bool!**).
 	 */
-	loading: number
+	blocking: number
 	/**
-	 * Tells if there is requested loading state of the form.
+	 * Tells if there is requested blocking state of the form.
 	 */
-	isLoading: () => boolean
+	isBlocked: () => boolean
 	/**
-	 * Updates loading state of the form; could be called more times as it maintains loader count.
+	 * Updates blocking state of the form; could be called more times as it maintains loader count.
 	 */
-	loadingStart: () => void
+	block: () => void
 	/**
-	 * Updates loading state of the form; could be called more times as it maintains loader count.
+	 * Updates blocking state of the form; could be called more times as it maintains loader count.
 	 */
-	loadingFinish: () => void
+	unblock: () => void
 }
 
 /**

@@ -20,6 +20,7 @@ export * from "./SessionExpiredView";
 export * from "./SignedInView";
 export * from "./SignedOutView";
 export * from "./SignOutView";
+export * from "./ViewContext";
 
 /**
  * Some views have clashing names (like CreateView), so to keep stuff simple on

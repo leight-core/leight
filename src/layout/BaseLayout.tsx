@@ -11,9 +11,9 @@ export const BaseLayout: FC<IBaseLayout> = ({children}) => {
 	const [fullscreen, setFullscreen] = useState<boolean>(false);
 	const [selectMenu, setSelectMenu] = useState<any>([]);
 	const [collapsed, setCollapsed] = useState<boolean>(false);
-	const [loading, setLoading] = useState<number>(0);
+	const [blocking, setBlocking] = useState<number>(0);
 	const [data, setData] = useState<any>();
-	const isLoading = () => loading > 0;
+	const isBlocked = () => blocking > 0;
 	return (
 		<LayoutContext.Provider
 			value={{
@@ -30,20 +30,20 @@ export const BaseLayout: FC<IBaseLayout> = ({children}) => {
 				}, []),
 				collapsed,
 				setCollapsed,
-				blocking: loading,
-				isBlocked: isLoading,
+				blocking,
+				isBlocked,
 				block: () => {
 					window.scrollTo(0, 0);
-					setLoading(prev => prev + 1);
+					setBlocking(prev => prev + 1);
 				},
 				unblock: () => {
-					setLoading(prev => prev - 1);
+					setBlocking(prev => prev - 1);
 				},
 				data,
 				setData,
 			}}
 			children={
-				<Loader isLoading={isLoading()}>
+				<Loader isLoading={isBlocked()}>
 					<Layout children={children}/>
 				</Loader>
 			}

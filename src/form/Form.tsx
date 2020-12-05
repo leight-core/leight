@@ -30,8 +30,8 @@ export const Form = <TValues extends unknown = any>({name, onSubmit, onSubmitFai
 	const [form] = CoolForm.useForm();
 	const {t} = useTranslation();
 	const [errors, setErrors] = useState<IFormErrors>();
-	const [loading, setLoading] = useState<number>(0);
-	const isLoading = () => loading > 0;
+	const [blocking, setBlocking] = useState<number>(0);
+	const isBlocked = () => blocking > 0;
 	const formContext = {
 		form,
 		errors: errors as IFormErrors,
@@ -44,10 +44,10 @@ export const Form = <TValues extends unknown = any>({name, onSubmit, onSubmitFai
 			})));
 		},
 		setValues: values => form.setFieldsValue(values),
-		loading,
-		isLoading,
-		loadingStart: () => setLoading(prev => prev + 1),
-		loadingFinish: () => setLoading(prev => prev - 1),
+		blocking,
+		isBlocked,
+		block: () => setBlocking(prev => prev + 1),
+		unblock: () => setBlocking(prev => prev - 1),
 	};
 	return (
 		<CoolForm

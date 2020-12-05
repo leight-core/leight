@@ -35,19 +35,19 @@ export interface ILayoutContext {
 	 */
 	setCollapsed: (collapsed: boolean) => void
 	/**
-	 * Direct access to loading state of the layout (**not a bool!**).
+	 * Direct access to blocking state of the layout (**not a bool!**).
 	 */
 	blocking: number
 	/**
-	 * Tells if there is requested loading state of the application.
+	 * Tells if there is requested blocking state of the application.
 	 */
 	isBlocked: () => boolean
 	/**
-	 * Updates loading state of the application; could be called more times as it maintains loader count.
+	 * Updates blocking state of the application; could be called more times as it maintains loader count.
 	 */
 	block: () => void
 	/**
-	 * Updates loading state of the application; could be called more times as it maintains loader count.
+	 * Updates blocking state of the application; could be called more times as it maintains loader count.
 	 */
 	unblock: () => void
 	/**

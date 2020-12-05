@@ -82,13 +82,13 @@ export const SubmitWithPostInitials = () => {
 	const Items = () => {
 		const formContext = useFormContext();
 		useEffect(() => {
-			formContext.loadingStart();
+			formContext.block();
 			setTimeout(() => {
 				formContext.setValues({
 					"some-value": "the value",
 					"required-value": "required",
 				});
-				formContext.loadingFinish();
+				formContext.unblock();
 			}, 1250);
 		}, []);
 		return (
@@ -114,7 +114,7 @@ export const SubmitWithPostInitialsErrors = () => {
 	const Items = () => {
 		const formContext = useFormContext();
 		useEffect(() => {
-			formContext.loadingStart();
+			formContext.block();
 			const id = setTimeout(() => {
 				formContext.setValues({
 					"some-value": "the value",
@@ -142,7 +142,7 @@ export const SubmitWithPostInitialsErrors = () => {
 						}
 					]
 				});
-				formContext.loadingFinish();
+				formContext.unblock();
 			}, 1250);
 			return () => clearTimeout(id);
 		}, []);
