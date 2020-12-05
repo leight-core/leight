@@ -1,5 +1,6 @@
 import {Layout, PageHeader} from "antd";
-import React from "react";
+import {Suspense} from "react";
+import {PlaceholderView} from "../view/PlaceholderView";
 import {BaseLayout} from "./BaseLayout";
 import {CollapsibleContent} from "./CollapsibleContent";
 import {Sider} from "./Sider";
@@ -21,8 +22,10 @@ export const SiderLayout = (
 			}}>
 				<Sider children={menu}/>
 				<CollapsibleContent>
-					<PageHeader title={''}/>
-					{router}
+					<PageHeader title={""}/>
+					<Suspense fallback={<PlaceholderView/>}>
+						{router}
+					</Suspense>
 					{footer}
 				</CollapsibleContent>
 			</Layout>

@@ -14,6 +14,7 @@ export * from "./ListView";
 export * from "./LoaderView";
 export * from "./LockedUserView";
 export * from "./NotFoundView";
+export * from "./PlaceholderView";
 export * from "./SessionEndedView";
 export * from "./SessionExpiredView";
 export * from "./SignedInView";
