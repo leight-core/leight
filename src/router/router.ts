@@ -26,14 +26,23 @@ export const match = (id: string, match?: string): string => {
 /**
  * Register a new absolute link or retrieve one by an id; link is not generated, for parameter support use {@link generate}.
  */
-export const link = (id: string, link?: string): string => {
-	if (!link) {
+export const link = (id: string, linkTo?: string): string => {
+	if (!linkTo) {
 		if (!Links[id]) {
 			throw new Error(`Requested unknown link with id [${id}]. Did you register it?`);
 		}
-		return Links[id];
+		const href = Links[id];
+		try {
+			const url = new URL(href);
+			/**
+			 * Slice because it looks like URL parses protocol including ":".
+			 */
+			return link(url.protocol.slice(0, -1)) + url.pathname;
+		} catch (e) {
+			return href;
+		}
 	}
-	return Links[id] = link;
+	return Links[id] = linkTo;
 };
 
 /**

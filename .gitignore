@@ -3,5 +3,6 @@
 dist
 flow-typed
 node_modules
+out
 storybook-static
 tsconfig.tsbuildinfo
