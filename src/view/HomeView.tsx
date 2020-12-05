@@ -16,7 +16,7 @@ export const HomeView: FC<IHomeView> = ({children}) => {
 	useAppContext().useTitle(moduleContext.tid("home.title"));
 	useLayoutContext().useMenuSelect([moduleContext.id + ".home"]);
 	return (
-		<Card title={<BackLink text={moduleContext.tid("home.title")}/>}>
+		<Card title={<><BackLink/>&nbsp;{moduleContext.t("home.title")}</>}>
 			{children}
 		</Card>
 	);

@@ -24,7 +24,7 @@ export const DashboardView: FC<IDashboardView> = (
 	useAppContext().useTitle(moduleContext.tid("dashboard.title"));
 	useLayoutContext().useMenuSelect([moduleContext.id + ".dashboard"]);
 	return (
-		<Card title={<BackLink text={moduleContext.tid("dashboard.title")}/>}>
+		<Card title={<><BackLink/>&nbsp;{moduleContext.t("dashboard.title")}</>}>
 			<Result
 				status={"info"}
 				title={title || moduleContext.t("dashboard.title")}

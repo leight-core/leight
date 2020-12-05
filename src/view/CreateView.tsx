@@ -18,7 +18,7 @@ export const CreateView: FC<ICreateView> = ({children}) => {
 	useAppContext().useTitle(moduleContext.tid("create.title"));
 	useLayoutContext().useMenuSelect([moduleContext.id + ".create"]);
 	return (
-		<Card title={<BackLink text={moduleContext.tid("create.title")}/>}>
+		<Card title={<><BackLink/>&nbsp;{moduleContext.t("create.title")}</>}>
 			{children}
 		</Card>
 	);
