@@ -1,15 +1,13 @@
-export type IStringIndex = { [key: string]: string };
-
-export class Stringable<TItem extends IStringIndex> {
+export class Stringable<TItem extends Object, TValue extends keyof TItem> {
 	private readonly item: TItem;
-	private readonly value: string;
+	private readonly value: TValue;
 
-	constructor(item: TItem, value = "id") {
+	constructor(item: TItem, value: TValue = "id" as unknown as TValue) {
 		this.item = item;
 		this.value = value;
 	}
 
 	toString() {
-		return this.item[this.value];
+		return this.item[this.value as unknown as string];
 	}
 }
