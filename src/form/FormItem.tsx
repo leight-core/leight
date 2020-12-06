@@ -1,5 +1,5 @@
 import {Form, Input} from "antd";
-import {FormItemProps} from "antd/lib/form";
+import {FormItemProps, Rule} from "antd/lib/form";
 import {NamePath} from "rc-field-form/lib/interface";
 import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
@@ -45,16 +45,24 @@ export const FormItem: FC<IFormItem> = (
 		throw new Error("FormItem must be used with FormContext (for example Form component from leight-core package).");
 	}
 	const fieldName = Array.isArray(field) ? field.join(".") : field;
+	const rules: Rule[] = [];
+	if (required) {
+		rules.push({
+			required: true,
+			message: t(["form-item." + fieldName + ".required"].concat(labels.map(item => item + ".required"))),
+		});
+	}
+	/**
+	 * This is... a hack I really don't understand! But it works.
+	 *
+	 * The idea is to clear errors set from form context and this solution could do that with ease!
+	 */
+	rules.push(() => ({validator: () => Promise.resolve()}));
 	return (
 		<Form.Item
 			name={field}
 			label={showLabel === false ? null : t(["form-item." + fieldName + ".label"].concat(labels))}
-			rules={required ? [
-				{
-					required: true,
-					message: t(["form-item." + fieldName + ".required"].concat(labels.map(item => item + ".required"))),
-				}
-			] : []}
+			rules={rules}
 			children={React.cloneElement(children(t(["form-item." + fieldName + ".label"].concat(labels))), {["data-required"]: required})}
 			{...props}
 		/>

@@ -1,6 +1,6 @@
 import {FormInstance} from "antd/lib/form";
 import CancelablePromise, {CancelablePromiseType} from "cancelable-promise";
-import {FieldData, NamePath} from "rc-field-form/lib/interface";
+import {NamePath} from "rc-field-form/lib/interface";
 
 export type IFormFields = [NamePath, any];
 export type IFlatField = {
@@ -56,22 +56,5 @@ export const FormUtils = {
 		return new CancelablePromise(resolve => this.hasMissingValues(form).then(bool => {
 			resolve(!bool && !this.hasErrors(form));
 		}));
-	},
-	/**
-	 * Reset errors value; input is submitted form object (thus object structure is the structure
-	 * of checked fields).
-	 *
-	 * @param form
-	 * @param fields
-	 */
-	resetError: function (form: FormInstance, fields: FieldData[]) {
-		/**
-		 * Filter out errors with props.error (custom errors from the form); rest should stay (set by something else, maintained by something else).
-		 */
-		// console.log(form.getFieldsError(fields.map(field => field.name)).map(item => item.errors));
-		form.setFields(fields.map(field => ({
-			name: field.name,
-			errors: [],
-		})));
 	},
 };

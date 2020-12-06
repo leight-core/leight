@@ -4,7 +4,6 @@ import {ValidateErrorEntity} from "rc-field-form/lib/interface";
 import React, {PropsWithChildren, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {FormContext, IFormContext, IFormErrors} from "./FormContext";
-import {FormUtils} from "./FormUtils";
 
 export interface IForm<TValues> extends Partial<FormProps<TValues>> {
 	/**
@@ -20,10 +19,6 @@ export interface IForm<TValues> extends Partial<FormProps<TValues>> {
 	 */
 	onSubmitFailed?: (errorInfo: ValidateErrorEntity<TValues>, formContext: IFormContext) => void
 }
-
-const FormError = ({error}) => {
-	return error;
-};
 
 /**
  * A bit more clever Form wrapper which provides also FormContext.
@@ -44,7 +39,7 @@ export const Form = <TValues extends unknown = any>({name, onSubmit, onSubmitFai
 			errors.message && message.error(t("error." + errors.message));
 			form.setFields(((errors || {}).errors || []).map(item => ({
 				name: item.id,
-				errors: [<FormError error={item.error}/>],
+				errors: [item.error],
 			})));
 		},
 		setValues: values => form.setFieldsValue(values),
@@ -59,7 +54,6 @@ export const Form = <TValues extends unknown = any>({name, onSubmit, onSubmitFai
 			form={form}
 			onFinish={values => onSubmit(values, formContext)}
 			onFinishFailed={errors => onSubmitFailed(errors, formContext)}
-			onFieldsChange={fields => FormUtils.resetError(form, fields)}
 			name={name}
 			{...props}
 		>

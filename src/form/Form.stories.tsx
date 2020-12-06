@@ -149,7 +149,11 @@ export const SubmitWithPostInitialsErrors = () => {
 						{
 							id: ["some", "internal", "dynamic", "form", 0, "value"],
 							error: "It works!",
-						}
+						},
+						{
+							id: ["some", "internal", "dynamic", "form", 0, "date"],
+							error: "I don't like the thing you provided!!",
+						},
 					]
 				});
 				formContext.unblock();
@@ -171,6 +175,7 @@ export const SubmitWithPostInitialsErrors = () => {
 								<div key={field.key}>
 									<FormItem key={field.key + ".type"} field={[field.fieldKey, "type"]} fieldKey={[field.fieldKey, "type"]}/>
 									<FormItem required key={field.key + ".value"} field={[field.fieldKey, "value"]} fieldKey={[field.fieldKey, "value"]}/>
+									<FormItem required key={field.key + ".date"} field={[field.fieldKey, "date"]} fieldKey={[field.fieldKey, "date"]} children={label => <DatePicker/>}/>
 									<Button
 										type="primary"
 										ghost
