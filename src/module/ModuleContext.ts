@@ -1,8 +1,9 @@
 import {TFunction} from "i18next";
-import {createContext, useContext} from "react";
+import {createContext} from "react";
 import {Params} from "react-router";
 import {generate} from "../router/router";
 import {OnFetchPageType} from "../server/createFetchPage";
+import {useContext} from "../utils/useContext";
 
 /**
  * Common module uses basic CRUD operations and similar stuff; it expects operation one exactly one
@@ -64,7 +65,7 @@ export const ModuleContext = createContext<IModuleContext<any>>(null as unknown 
  *
  * Module in general expects one covered Entity or functionality, for example Users, Invoices and so.
  */
-export const useModuleContext = <TModule = ICommonModule>() => useContext<IModuleContext<TModule>>(ModuleContext);
+export const useModuleContext = <TModule = ICommonModule>() => useContext<IModuleContext<TModule>>(ModuleContext, "ModuleContext");
 
 /**
  * Create a new module context for Providers.
