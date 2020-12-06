@@ -21,6 +21,10 @@ export interface IWizardContext {
 	 */
 	previous: () => void
 	/**
+	 * Values collected from form in the wizard, if any.
+	 */
+	values: Object
+	/**
 	 * Compute next step (update state).
 	 */
 	next: () => void

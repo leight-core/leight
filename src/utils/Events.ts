@@ -19,11 +19,11 @@ export interface IEvents {
 	/**
 	 * Registers a handler of the given event name.
 	 */
-	on: <TData = any>(event: string, callback: IEventCallback<TData>, priority?: number) => IEvents
+	on: <TData extends Object = any>(event: string, callback: IEventCallback<TData>, priority?: number) => IEvents
 	/**
 	 * Call handlers of the given event name.
 	 */
-	call: (event: string, ...data: any) => IEvents
+	call: <TData extends Object = any>(event: string, data?: TData) => IEvents
 	/**
 	 * Chain with the given events (events still respects event handler priority).
 	 *

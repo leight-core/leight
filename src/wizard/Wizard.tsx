@@ -2,7 +2,7 @@ import {Divider, Space, Steps} from "antd";
 import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {PushRight} from "../layout/PushRight";
-import {IEvents} from "../utils/Events";
+import {Events, IEvents} from "../utils/Events";
 import {CancelButton} from "./button/CancelButton";
 import {FinishButton} from "./button/FinishButton";
 import {NextButton} from "./button/NextButton";
@@ -27,11 +27,13 @@ export const Wizard: FC<IWizard> = (
 		steps
 	}) => {
 	const [step, setStep] = useState<number>(0);
+	const [values, setValues] = useState<Object>({});
 	const {t} = useTranslation();
 	const count = steps.length;
 	const canNext = () => step < (count - 1);
 	const canPrevious = () => step > 0;
 	const canFinish = () => step === count - 1;
+	events.chain(Events().on("next", ({values}) => setValues(prev => ({...prev, ...values}))));
 	return (
 		<WizardContext.Provider value={{
 			name,
@@ -43,6 +45,7 @@ export const Wizard: FC<IWizard> = (
 			canNext,
 			canPrevious,
 			canFinish,
+			values,
 		}}>
 			<Steps current={step} size={"default"}>
 				{steps.map(item => (

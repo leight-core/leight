@@ -14,3 +14,7 @@ export const useContext = <TContext>(context: Context<TContext>, name: string, h
 	}
 	return current;
 };
+
+export const useOptionalContext = <TContext>(context: Context<TContext | null>): TContext | null => {
+	return coolUseContext<TContext | null>(context);
+};

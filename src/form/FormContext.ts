@@ -1,6 +1,7 @@
 import {FormInstance} from "antd/lib/form";
 import {NamePath} from "rc-field-form/lib/interface";
-import {createContext, useContext} from "react";
+import {createContext} from "react";
+import {useContext, useOptionalContext} from "../utils/useContext";
 
 export interface IFormError {
 	id: NamePath
@@ -64,4 +65,6 @@ export const FormContext = createContext<IFormContext>(null as unknown as IFormC
  * Form context is useful for creating any kind of form as it provides a lot of useful
  * features.
  */
-export const useFormContext = <TValues>() => useContext<IFormContext<TValues>>(FormContext);
+export const useFormContext = <TValues extends Object = any>() => useContext<IFormContext<TValues>>(FormContext, "FormContext");
+
+export const useOptionalFormContext = <TValues extends Object = any>() => useOptionalContext<IFormContext<TValues> | null>(FormContext as unknown as any);
