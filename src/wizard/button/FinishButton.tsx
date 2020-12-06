@@ -1,4 +1,5 @@
 import {SubmitButton} from "../../form/SubmitButton";
+import {SubmitIcon} from "../../icon/SubmitIcon";
 import {useModuleContext} from "../../module/ModuleContext";
 import {useWizardContext} from "../WizardContext";
 
@@ -13,6 +14,7 @@ export const FinishButton = () => {
 				"common.wizard.finish",
 			]}
 			size={"large"}
+			icon={<SubmitIcon/>}
 			noStyle
 		/>
 	);
