@@ -1,7 +1,6 @@
 import {FormInstance} from "antd/lib/form";
 import CancelablePromise, {CancelablePromiseType} from "cancelable-promise";
-import flatten from "flat";
-import {NamePath} from "rc-field-form/lib/interface";
+import {FieldData, NamePath} from "rc-field-form/lib/interface";
 
 export type IFormFields = [NamePath, any];
 export type IFlatField = {
@@ -24,17 +23,8 @@ export const FormUtils = {
 	 * @param form Antd form instance
 	 */
 	required: function (form: FormInstance): CancelablePromiseType<IFormFields[]> {
-		return new CancelablePromise(resolve => this.fields(form).then((fields) => {
+		return new CancelablePromise(resolve => this.fields(form).then(fields => {
 			resolve(fields.filter(([_, item]) => (item ? (item.props ? item.props : {}) : {})["data-required"]));
-		}));
-	},
-	flatten: function (value: Object): IFlatField[] {
-		const delimiter = "::$";
-		return Object.entries(flatten(value, {
-			delimiter,
-		})).map(([name, value]) => ({
-			field: name.split(delimiter),
-			value,
 		}));
 	},
 	/**
@@ -44,7 +34,7 @@ export const FormUtils = {
 	 */
 	hasMissingValues: function (form: FormInstance): CancelablePromiseType<boolean> {
 		return new CancelablePromise(resolve => this.required(form).then(required => {
-			resolve(!!this.flatten(form.getFieldsValue(required.map(([name, _]) => name))).filter(field => !field.value).length);
+			resolve(!!required.map(([name, _]) => name).map(name => form.getFieldValue(name)).filter(value => !value).length);
 		}));
 	},
 	/**
@@ -72,14 +62,16 @@ export const FormUtils = {
 	 * of checked fields).
 	 *
 	 * @param form
-	 * @param value
+	 * @param fields
 	 */
-	resetError: function (form: FormInstance, value: Object) {
-		form.setFields(this.flatten(value).map(field => {
-			return ({
-				name: field.field,
-				errors: [],
-			});
-		}));
+	resetError: function (form: FormInstance, fields: FieldData[]) {
+		/**
+		 * Filter out errors with props.error (custom errors from the form); rest should stay (set by something else, maintained by something else).
+		 */
+		// console.log(form.getFieldsError(fields.map(field => field.name)).map(item => item.errors));
+		form.setFields(fields.map(field => ({
+			name: field.name,
+			errors: [],
+		})));
 	},
 };

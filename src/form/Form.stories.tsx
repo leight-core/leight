@@ -1,5 +1,5 @@
 import {action} from "@storybook/addon-actions";
-import {Button, Card, Divider, Input} from "antd";
+import {Button, Card, DatePicker, Divider, Input} from "antd";
 import React, {useEffect} from "react";
 import {CreateItemIcon} from "../icon/CreateItemIcon";
 import {DeleteItemIcon} from "../icon/DeleteItemIcon";
@@ -34,6 +34,16 @@ SubmitWithRequired.parameters = {
 		}
 	}
 };
+
+export const SubmitWithRequiredDate = () => (
+	<Centered span={14}>
+		<Form name={"story"} layout={"vertical"} onSubmit={action("onSubmit")}>
+			<FormItem required field={"input"} children={label => <Input placeholder={label}/>}/>
+			<FormItem required field={["hidden", "date"]} children={label => <DatePicker style={{width: "100%"}}/>}/>
+			<FormSubmitButton label={"Submit!"} icon={<SubmitIcon/>}/>
+		</Form>
+	</Centered>
+);
 
 export const SubmitWithOptional = () => (
 	<Centered span={14}>
