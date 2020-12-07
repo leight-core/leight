@@ -73,3 +73,27 @@ export const Default = () => {
 			</ModuleContext.Provider>
 	);
 };
+
+export const WithPrefetch = () => {
+	const [finish, setFinish] = useState<boolean>(false);
+	const events = Events()
+		.on("finish", ({values}) => {
+			setFinish(true);
+			action("onWizardFinish");
+		});
+	return (
+		finish ?
+			<Result status={"success"} title={"It works!"}>
+				<Centered>
+					<Button size={"large"} type={"primary"} onClick={() => setFinish(false)} children={"Reset"}/>
+				</Centered>
+			</Result> :
+			<ModuleContext.Provider value={createModule("story", <SubmitIcon/>, t => t, null)}>
+				<Wizard name={"story"} events={events} steps={[
+					{id: "first", component: <FirstStep/>},
+					{id: "second", component: <SecondStep/>},
+					{id: "third", component: <ThirdStep/>},
+				]}/>
+			</ModuleContext.Provider>
+	);
+};

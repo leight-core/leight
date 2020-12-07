@@ -8,7 +8,7 @@ import {CancelButton} from "./button/CancelButton";
 import {FinishButton} from "./button/FinishButton";
 import {NextButton} from "./button/NextButton";
 import {PreviousButton} from "./button/PreviousButton";
-import {WizardContext} from "./WizardContext";
+import {useWizardContext, WizardContext} from "./WizardContext";
 
 export interface IStep {
 	id: string
@@ -21,6 +21,40 @@ export interface IWizard {
 	steps: IStep[]
 }
 
+interface IWizardInternal {
+	name: string
+	steps: IStep[]
+}
+
+const WizardInternal: FC<IWizardInternal> = ({name, steps}) => {
+	const wizardContext = useWizardContext();
+	const {t} = useTranslation();
+	return (
+		<Form name={name} onSubmit={() => null} layout={"vertical"}>
+			<Steps current={wizardContext.step} size={"default"}>
+				{steps.map(item => (
+					<Steps.Step
+						key={item.id}
+						title={t("wizard." + name + ".step." + item.id + ".title")}
+						description={t("wizard." + name + ".step." + item.id + ".description")}
+					/>
+				))}
+			</Steps>
+			<Divider type={"horizontal"}/>
+			{steps[wizardContext.step].component}
+			<Divider type={"horizontal"}/>
+			<PushRight>
+				<Space split={<Divider type={"vertical"}/>} size={"large"}>
+					<CancelButton key={"cancel"}/>
+					{wizardContext.canPrevious() && <PreviousButton key={"previous"}/>}
+					{wizardContext.canNext() && <NextButton key={"next"}/>}
+					{wizardContext.canFinish() && <FinishButton key={"finish"}/>}
+				</Space>
+			</PushRight>
+		</Form>
+	);
+};
+
 export const Wizard: FC<IWizard> = (
 	{
 		name,
@@ -29,7 +63,6 @@ export const Wizard: FC<IWizard> = (
 	}) => {
 	const [step, setStep] = useState<number>(0);
 	const [values, setValues] = useState<Object>({});
-	const {t} = useTranslation();
 	const count = steps.length;
 	const canNext = () => step < (count - 1);
 	const canPrevious = () => step > 0;
@@ -51,28 +84,7 @@ export const Wizard: FC<IWizard> = (
 			canFinish,
 			values,
 		}}>
-			<Form name={name} onSubmit={() => null} layout={"vertical"}>
-				<Steps current={step} size={"default"}>
-					{steps.map(item => (
-						<Steps.Step
-							key={item.id}
-							title={t("wizard." + name + ".step." + item.id + ".title")}
-							description={t("wizard." + name + ".step." + item.id + ".description")}
-						/>
-					))}
-				</Steps>
-				<Divider type={"horizontal"}/>
-				{steps[step].component}
-				<Divider type={"horizontal"}/>
-				<PushRight>
-					<Space split={<Divider type={"vertical"}/>} size={"large"}>
-						<CancelButton key={"cancel"}/>
-						{canPrevious() && <PreviousButton key={"previous"}/>}
-						{canNext() && <NextButton key={"next"}/>}
-						{canFinish() && <FinishButton key={"finish"}/>}
-					</Space>
-				</PushRight>
-			</Form>
+			<WizardInternal name={name} steps={steps}/>
 		</WizardContext.Provider>
 	);
 };
