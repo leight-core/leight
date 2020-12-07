@@ -7,11 +7,24 @@ import {IMenuSelector, useLayoutContext} from "../layout/LayoutContext";
 import {ViewContext} from "./ViewContext";
 
 export interface ICommonView {
+	/**
+	 * Name of this view; it's also used for menu selection and title.
+	 */
 	name: string
+	/**
+	 * If generated title is not enough, it could be overridden.
+	 */
 	title?: string
+	/**
+	 * If a menu is used, this marks current view in the menu.
+	 */
 	menu?: IMenuSelector,
 	fullscreen?: boolean
 	restore?: boolean
+	/**
+	 * Should be a view blocked by default? This flag is reset by any call to unblock().
+	 */
+	blocked?: boolean
 }
 
 export const CommonView: FC<ICommonView> = (
@@ -22,22 +35,28 @@ export const CommonView: FC<ICommonView> = (
 		fullscreen = false,
 		restore = true,
 		children,
+		blocked = false,
 	}) => {
 	const {t} = useTranslation();
 	const layoutContext = useLayoutContext();
+	const [isBlocked, setIsBlocked] = useState<boolean>(blocked);
 	const [blocking, setBlocking] = useState<number>(0);
 	layoutContext.useMenuSelect(menu ? menu : [name]);
 	layoutContext.useEnableFullscreen(fullscreen, restore);
 	useAppContext().useTitle(title ? title : name + ".title");
-	const isBlocked = () => blocking > 0;
+	const isBlocking = () => blocking > 0 || isBlocked;
 	return (
 		<ViewContext.Provider value={{
 			blocking,
-			isBlocked,
+			isBlocked: isBlocking,
 			block: () => setBlocking(prev => prev + 1),
-			unblock: () => setBlocking(prev => prev - 1),
+			unblock: () => {
+				isBlocked && setIsBlocked(false);
+				setBlocking(prev => prev - 1);
+			},
+			blocked: (blocked = true) => setIsBlocked(blocked)
 		}}>
-			<Spin delay={200} spinning={isBlocked()} tip={t("common.loading")}>
+			<Spin spinning={isBlocking()} tip={t("common.loading")}>
 				<ScrollToTop/>
 				{children}
 			</Spin>
