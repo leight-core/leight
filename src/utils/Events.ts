@@ -16,6 +16,7 @@ export interface IEvents {
 	 * Internal array of chained event handlers.
 	 */
 	chains: IEvents[],
+	requires: string[],
 	/**
 	 * Registers a handler of the given event name.
 	 */
@@ -24,6 +25,12 @@ export interface IEvents {
 	 * Call handlers of the given event name.
 	 */
 	call: <TData extends Object = any>(event: string, data?: TData) => IEvents
+	/**
+	 * Set required event handlers; when required event is called, but handler not present, an error is thrown.
+	 *
+	 * @param events
+	 */
+	required: (...events: string[]) => IEvents
 	/**
 	 * Chain with the given events (events still respects event handler priority).
 	 *
@@ -41,6 +48,7 @@ export function Events(): IEvents {
 	return {
 		events: {},
 		chains: [],
+		requires: [],
 		on: function (event, callback, priority = 100) {
 			(this.events[event] = this.events[event] || []).push({
 				priority,
@@ -49,10 +57,17 @@ export function Events(): IEvents {
 			return this;
 		},
 		call: function (event, data) {
-			[this].concat(this.chains)
+			const handlers = [this].concat(this.chains)
 				.reduce((array, item) => array.concat(item.events[event] || []), [] as IEvent[])
-				.sort((a, b) => a.priority - b.priority)
-				.find(item => item.callback(data) === false);
+				.sort((a, b) => a.priority - b.priority);
+			if (this.requires.filter(name => event === name).length > 0 && !handlers.length) {
+				throw new Error(`Missing required Event handler [${event}].`);
+			}
+			handlers.find(item => item.callback(data) === false);
+			return this;
+		},
+		required: function (...events) {
+			this.requires.push(...events);
 			return this;
 		},
 		chain: function (events) {

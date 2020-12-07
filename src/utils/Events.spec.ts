@@ -41,3 +41,18 @@ test("Breaking events", () => {
 	events.call("test");
 	expect(stack).toEqual(["wanna this!", "yep!"]);
 });
+
+test("Missing required handler", () => {
+	const events = Events();
+	events.required("this-is-required", "another-required");
+	expect(() => events.call("another-required")).toThrow("Missing required Event handler [another-required].");
+});
+
+test("Required handler", () => {
+	const events = Events();
+	const stack: string[] = [];
+	events.required("this-is-required", "another-required");
+	events.on("this-is-required", () => stack.push("yaay!"));
+	events.call("this-is-required");
+	expect(stack).toEqual(["yaay!"]);
+});
