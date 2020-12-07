@@ -2,6 +2,7 @@ import {Divider, Space, Steps} from "antd";
 import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Form} from "../form/Form";
+import {useFormContext} from "../form/FormContext";
 import {PushRight} from "../layout/PushRight";
 import {StepLoader} from "../loader/StepLoader";
 import {Events, IEvents} from "../utils/Events";
@@ -30,9 +31,11 @@ interface IWizardInternal {
 
 const WizardInternal: FC<IWizardInternal> = ({name, steps}) => {
 	const wizardContext = useWizardContext();
+	const formContext = useFormContext();
 	const {t} = useTranslation();
+	wizardContext.events.on("reset", () => formContext.reset());
 	return (
-		<Form name={name} onSubmit={() => null} layout={"vertical"}>
+		<>
 			<Steps current={wizardContext.step} size={"default"}>
 				{steps.map(item => (
 					<Steps.Step
@@ -53,7 +56,7 @@ const WizardInternal: FC<IWizardInternal> = ({name, steps}) => {
 					{wizardContext.canFinish() && <FinishButton key={"finish"}/>}
 				</Space>
 			</PushRight>
-		</Form>
+		</>
 	);
 };
 
@@ -98,7 +101,15 @@ export const Wizard: FC<IWizard> = (
 					return dependencies[dependency];
 				},
 			}}
-			children={<StepLoader steps={loaders} children={<WizardInternal name={name} steps={steps}/>}/>}
+			children={
+				<StepLoader
+					steps={loaders}
+					children={
+						<Form name={name} onSubmit={() => null} layout={"vertical"}>
+							<WizardInternal name={name} steps={steps}/>
+						</Form>
+					}/>
+			}
 		/>
 	);
 };
