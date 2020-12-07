@@ -1,4 +1,5 @@
-import {createContext, useContext} from "react";
+import {createContext} from "react";
+import {useContext} from "../utils/useContext";
 
 export type IStepStatus = "wait" | "process" | "finish" | "error";
 
@@ -37,4 +38,4 @@ export const StepLoaderContext = createContext<IStepLoaderContext>(null as unkno
 /**
  * Access to Step loader context.
  */
-export const useStepLoaderContext = () => useContext<IStepLoaderContext>(StepLoaderContext);
+export const useStepLoaderContext = () => useContext<IStepLoaderContext>(StepLoaderContext, "StepLoaderContext", "Use StepLoader component or provide context by hand.");

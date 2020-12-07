@@ -1,12 +1,16 @@
 import {action} from "@storybook/addon-actions";
-import {Button, Card, Result} from "antd";
+import {Button, Card, Result, Select} from "antd";
 import {useState} from "react";
 import {FormItem} from "../form/FormItem";
+import {EditIcon} from "../icon/EditIcon";
 import {SubmitIcon} from "../icon/SubmitIcon";
 import {Centered} from "../layout/Centered";
+import {LoaderStep} from "../loader/LoaderStep";
+import {useStepLoaderContext} from "../loader/StepLoaderContext";
 import {createModule, ModuleContext} from "../module/ModuleContext";
 import {Events} from "../utils/Events";
 import {Wizard} from "./Wizard";
+import {useWizardContext} from "./WizardContext";
 import {WizardStep} from "./WizardStep";
 
 export default {
@@ -14,12 +18,52 @@ export default {
 	component: Wizard,
 };
 
+const SomeLoader = props => {
+	const stepLoaderContext = useStepLoaderContext();
+	const wizardContext = useWizardContext();
+	return (
+		<LoaderStep
+			onStep={() => {
+				setTimeout(() => {
+					wizardContext.dependency("name", {});
+					stepLoaderContext.next();
+				}, 800);
+			}}
+			icon={<SubmitIcon/>}
+			{...props}
+		/>
+	);
+};
+
+const LoaderOfSomethingElse = props => {
+	const stepLoaderContext = useStepLoaderContext();
+	const wizardContext = useWizardContext();
+	return (
+		<LoaderStep
+			onStep={() => {
+				setTimeout(() => {
+					wizardContext.dependency("select", [
+						{label: "foo", value: "bar"},
+						{label: "bar", value: "foo"},
+					]);
+					stepLoaderContext.next();
+				}, 400);
+			}}
+			icon={<EditIcon/>}
+			{...props}
+		/>
+	);
+};
+
 const FirstStep = () => {
+	const wizardContext = useWizardContext();
 	return (
 		<WizardStep title={"first"}>
 			<Centered span={8}>
 				<FormItem field={["another", "value"]}/>
-				<FormItem field={["some", "value"]} required/>
+				<FormItem field={["some", "value"]} required>
+					{label => <Select options={wizardContext.dependency("select")} placeholder={label}/>}
+				</FormItem>
 			</Centered>
 		</WizardStep>
 	);
@@ -89,11 +133,19 @@ export const WithPrefetch = () => {
 				</Centered>
 			</Result> :
 			<ModuleContext.Provider value={createModule("story", <SubmitIcon/>, t => t, null)}>
-				<Wizard name={"story"} events={events} steps={[
-					{id: "first", component: <FirstStep/>},
-					{id: "second", component: <SecondStep/>},
-					{id: "third", component: <ThirdStep/>},
-				]}/>
+				<Wizard
+					name={"story"}
+					events={events}
+					steps={[
+						{id: "first", component: <FirstStep/>},
+						{id: "second", component: <SecondStep/>},
+						{id: "third", component: <ThirdStep/>},
+					]}
+					loaders={[
+						<SomeLoader key={"SomeLoader"}/>,
+						<LoaderOfSomethingElse key={"LoaderOfSomethingElse"}/>,
+					]}
+				/>
 			</ModuleContext.Provider>
 	);
 };

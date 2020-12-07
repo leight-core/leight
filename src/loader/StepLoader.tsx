@@ -1,13 +1,19 @@
 import {Steps} from "antd";
-import React, {useState} from "react";
+import {StepsProps} from "antd/lib/steps";
+import {FC, useState} from "react";
 import {IStepStatus, StepLoaderContext} from "./StepLoaderContext";
 
-export const StepLoader = ({steps, children = null, ...props}) => {
+export interface IStepLoader extends Partial<StepsProps> {
+	steps: JSX.Element[]
+	children?: JSX.Element
+}
+
+export const StepLoader: FC<IStepLoader> = ({steps, children = <></>, ...props}) => {
 	const [current, setCurrent] = useState<number>(0);
 	const [status, setStatus] = useState<IStepStatus>("process");
 	return (
 		current === steps.length ?
-			(children || null) :
+			children :
 			<StepLoaderContext.Provider value={{
 				current,
 				setCurrent,
@@ -16,7 +22,6 @@ export const StepLoader = ({steps, children = null, ...props}) => {
 				setStatus,
 			}}>
 				<Steps
-					{...props}
 					style={{
 						display: "flex",
 						justifyContent: "center",
@@ -27,6 +32,7 @@ export const StepLoader = ({steps, children = null, ...props}) => {
 					current={current}
 					status={status}
 					children={steps.map(step => step)}
+					{...props}
 				/>
 			</StepLoaderContext.Provider>
 	);

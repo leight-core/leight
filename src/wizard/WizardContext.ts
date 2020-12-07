@@ -17,13 +17,13 @@ export interface IWizardContext {
 	 */
 	count: number
 	/**
-	 * Compute previous step (update state).
-	 */
-	previous: () => void
-	/**
 	 * Values collected from form in the wizard, if any.
 	 */
 	values: Object
+	/**
+	 * Compute previous step (update state).
+	 */
+	previous: () => void
 	/**
 	 * Compute next step (update state).
 	 */
@@ -31,6 +31,14 @@ export interface IWizardContext {
 	canNext: () => boolean
 	canPrevious: () => boolean
 	canFinish: () => boolean
+	/**
+	 * Set or get data a wizard might depend on (for example when Wizard prefetches some data required by a component in later step to
+	 * ensure the wizard has all the data).
+	 *
+	 * @param name
+	 * @param values
+	 */
+	dependency: <T = any>(name: string, value?: T) => any,
 }
 
 export const WizardContext = createContext(null as unknown as IWizardContext);

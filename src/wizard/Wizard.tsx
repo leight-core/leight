@@ -3,6 +3,7 @@ import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Form} from "../form/Form";
 import {PushRight} from "../layout/PushRight";
+import {StepLoader} from "../loader/StepLoader";
 import {Events, IEvents} from "../utils/Events";
 import {CancelButton} from "./button/CancelButton";
 import {FinishButton} from "./button/FinishButton";
@@ -19,6 +20,7 @@ export interface IWizard {
 	name: string
 	events: IEvents
 	steps: IStep[]
+	loaders?: JSX.Element[]
 }
 
 interface IWizardInternal {
@@ -59,10 +61,12 @@ export const Wizard: FC<IWizard> = (
 	{
 		name,
 		events,
-		steps
+		steps,
+		loaders = [],
 	}) => {
 	const [step, setStep] = useState<number>(0);
 	const [values, setValues] = useState<Object>({});
+	const [dependencies, setDependencies] = useState<Object>({});
 	const count = steps.length;
 	const canNext = () => step < (count - 1);
 	const canPrevious = () => step > 0;
@@ -72,19 +76,29 @@ export const Wizard: FC<IWizard> = (
 		.on("reset", () => setStep(0))
 		.chain(events);
 	return (
-		<WizardContext.Provider value={{
-			name,
-			events: wizardEvents,
-			step,
-			count,
-			previous: () => setStep(current => current - 1),
-			next: () => setStep(current => current + 1),
-			canNext,
-			canPrevious,
-			canFinish,
-			values,
-		}}>
-			<WizardInternal name={name} steps={steps}/>
-		</WizardContext.Provider>
+		<WizardContext.Provider
+			value={{
+				name,
+				events: wizardEvents,
+				step,
+				count,
+				values,
+				previous: () => setStep(current => current - 1),
+				next: () => setStep(current => current + 1),
+				canNext,
+				canPrevious,
+				canFinish,
+				dependency: (dependency, value) => {
+					if (value) {
+						setDependencies(prev => ({...prev, [dependency]: value}));
+						return value;
+					} else if (!dependencies[dependency]) {
+						throw new Error(`Requested missing dependency [${dependency}] in Wizard [${name}].`);
+					}
+					return dependencies[dependency];
+				},
+			}}
+			children={<StepLoader steps={loaders} children={<WizardInternal name={name} steps={steps}/>}/>}
+		/>
 	);
 };
