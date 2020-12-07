@@ -1,6 +1,7 @@
 import {Divider, Space, Steps} from "antd";
 import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
+import {Form} from "../form/Form";
 import {PushRight} from "../layout/PushRight";
 import {Events, IEvents} from "../utils/Events";
 import {CancelButton} from "./button/CancelButton";
@@ -33,11 +34,14 @@ export const Wizard: FC<IWizard> = (
 	const canNext = () => step < (count - 1);
 	const canPrevious = () => step > 0;
 	const canFinish = () => step === count - 1;
-	events.chain(Events().on("next", ({values}) => setValues(prev => ({...prev, ...values}))));
+	const wizardEvents = Events()
+		.on("next", ({values}) => setValues(prev => ({...prev, ...values})))
+		.on("reset", () => setStep(0))
+		.chain(events);
 	return (
 		<WizardContext.Provider value={{
 			name,
-			events,
+			events: wizardEvents,
 			step,
 			count,
 			previous: () => setStep(current => current - 1),
@@ -47,26 +51,28 @@ export const Wizard: FC<IWizard> = (
 			canFinish,
 			values,
 		}}>
-			<Steps current={step} size={"default"}>
-				{steps.map(item => (
-					<Steps.Step
-						key={item.id}
-						title={t("wizard." + name + ".step." + item.id + ".title")}
-						description={t("wizard." + name + ".step." + item.id + ".description")}
-					/>
-				))}
-			</Steps>
-			<Divider type={"horizontal"}/>
-			{steps[step].component}
-			<Divider type={"horizontal"}/>
-			<PushRight>
-				<Space split={<Divider type={"vertical"}/>} size={"large"}>
-					<CancelButton key={"cancel"}/>
-					{canPrevious() && <PreviousButton key={"previous"}/>}
-					{canNext() && <NextButton key={"next"}/>}
-					{canFinish() && <FinishButton key={"finish"}/>}
-				</Space>
-			</PushRight>
+			<Form name={name} onSubmit={() => null} layout={"vertical"}>
+				<Steps current={step} size={"default"}>
+					{steps.map(item => (
+						<Steps.Step
+							key={item.id}
+							title={t("wizard." + name + ".step." + item.id + ".title")}
+							description={t("wizard." + name + ".step." + item.id + ".description")}
+						/>
+					))}
+				</Steps>
+				<Divider type={"horizontal"}/>
+				{steps[step].component}
+				<Divider type={"horizontal"}/>
+				<PushRight>
+					<Space split={<Divider type={"vertical"}/>} size={"large"}>
+						<CancelButton key={"cancel"}/>
+						{canPrevious() && <PreviousButton key={"previous"}/>}
+						{canNext() && <NextButton key={"next"}/>}
+						{canFinish() && <FinishButton key={"finish"}/>}
+					</Space>
+				</PushRight>
+			</Form>
 		</WizardContext.Provider>
 	);
 };
