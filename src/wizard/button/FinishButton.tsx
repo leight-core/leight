@@ -21,7 +21,7 @@ export const FinishButton = () => {
 				const values = formContext ? formContext.form.getFieldsValue() : {};
 				wizardContext.events
 					.call("next", {values})
-					.call("finish", {values: wizardContext.values});
+					.call("finish", {values: wizardContext.values, ...values});
 			}}
 			noStyle
 		/>
