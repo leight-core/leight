@@ -113,7 +113,7 @@ export const Default = () => {
 					{id: "first", component: <FirstStep/>},
 					{id: "second", component: <SecondStep/>},
 					{id: "third", component: <ThirdStep/>},
-				]}/>
+				]} defaultDependencies={{select: [{label: "foo", value: "bar"},]}}/>
 			</ModuleContext.Provider>
 	);
 };

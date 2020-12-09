@@ -22,6 +22,7 @@ export interface IWizard {
 	events: IEvents
 	steps: IStep[]
 	loaders?: JSX.Element[]
+	defaultDependencies?: Object
 }
 
 interface IWizardInternal {
@@ -65,11 +66,12 @@ export const Wizard: FC<IWizard> = (
 		name,
 		events,
 		steps,
+		defaultDependencies = {},
 		loaders = [],
 	}) => {
 	const [step, setStep] = useState<number>(0);
 	const [values, setValues] = useState<Object>({});
-	const [dependencies, setDependencies] = useState<Object>({});
+	const [dependencies, setDependencies] = useState<Object>(defaultDependencies);
 	const count = steps.length;
 	const canNext = () => step < (count - 1);
 	const canPrevious = () => step > 0;
