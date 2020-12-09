@@ -14,6 +14,6 @@ export const Loader: FC<ILoader> = (
 	}) => {
 	const {t} = useTranslation();
 	return (
-		<Spin indicator={<SettingFilled spin/>} spinning={isLoading} tip={t("common.spinner")} children={children}/>
+		<Spin indicator={<SettingFilled spin/>} spinning={isLoading} tip={t("common.spinner") as string} children={children}/>
 	);
 };

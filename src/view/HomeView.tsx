@@ -2,7 +2,7 @@ import {Card} from "antd";
 import {FC} from "react";
 import {useAppContext} from "../app/AppContext";
 import {BackLink} from "../component/BackLink";
-import {useLayoutContext} from "../layout/LayoutContext";
+import {useMenuContext} from "../menu/MenuContext";
 import {useModuleContext} from "../module/ModuleContext";
 
 export interface IHomeView {
@@ -14,7 +14,7 @@ export interface IHomeView {
 export const HomeView: FC<IHomeView> = ({children}) => {
 	const moduleContext = useModuleContext();
 	useAppContext().useTitle(moduleContext.tid("home.title"));
-	useLayoutContext().useMenuSelect([moduleContext.id + ".home"]);
+	useMenuContext().useSelect([moduleContext.id + ".home"]);
 	return (
 		<Card title={<><BackLink/>&nbsp;{moduleContext.t("home.title")}</>}>
 			{children}

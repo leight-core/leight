@@ -1,7 +1,7 @@
 import {Form, Input} from "antd";
 import {FormItemProps, Rule} from "antd/lib/form";
 import {NamePath} from "rc-field-form/lib/interface";
-import React, {FC} from "react";
+import {cloneElement, FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useFormContext} from "./FormContext";
 
@@ -49,7 +49,7 @@ export const FormItem: FC<IFormItem> = (
 	if (required) {
 		rules.push({
 			required: true,
-			message: t(["form-item." + fieldName + ".required"].concat(labels.map(item => item + ".required"))),
+			message: t(["form-item." + fieldName + ".required"].concat(labels.map(item => item + ".required"))) as string,
 		});
 	}
 	/**
@@ -63,7 +63,7 @@ export const FormItem: FC<IFormItem> = (
 			name={field}
 			label={showLabel === false ? null : t(["form-item." + fieldName + ".label"].concat(labels))}
 			rules={rules}
-			children={React.cloneElement(children(t(["form-item." + fieldName + ".label"].concat(labels))), {["data-required"]: required})}
+			children={cloneElement(children(t(["form-item." + fieldName + ".label"].concat(labels)) as string), {["data-required"]: required})}
 			{...props}
 		/>
 	);

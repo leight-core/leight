@@ -2,7 +2,7 @@ import {Card, Result} from "antd";
 import {FC} from "react";
 import {useAppContext} from "../app/AppContext";
 import {BackLink} from "../component/BackLink";
-import {useLayoutContext} from "../layout/LayoutContext";
+import {useMenuContext} from "../menu/MenuContext";
 import {useModuleContext} from "../module/ModuleContext";
 
 export interface IDashboardView {
@@ -22,7 +22,7 @@ export const DashboardView: FC<IDashboardView> = (
 	}) => {
 	const moduleContext = useModuleContext();
 	useAppContext().useTitle(moduleContext.tid("dashboard.title"));
-	useLayoutContext().useMenuSelect([moduleContext.id + ".dashboard"]);
+	useMenuContext().useSelect([moduleContext.id + ".dashboard"]);
 	return (
 		<Card title={<><BackLink/>&nbsp;{moduleContext.t("dashboard.title")}</>}>
 			<Result

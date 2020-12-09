@@ -5,12 +5,13 @@ import {useTranslation} from "react-i18next";
 import {BackLink} from "../component/BackLink";
 import {SessionCloseButton} from "../component/SessionCloseButton";
 import {useLayoutContext} from "../layout/LayoutContext";
+import {useMenuContext} from "../menu/MenuContext";
 
 export const SignOutView = () => {
 	const {t} = useTranslation();
 	const layoutContext = useLayoutContext();
 	layoutContext.useEnableFullscreen(true, true);
-	layoutContext.useMenuSelect(["common.sign-out"]);
+	useMenuContext().useSelect(["common.sign-out"]);
 	return (
 		<Card>
 			<Result

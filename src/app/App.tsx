@@ -103,7 +103,7 @@ export const App: FC<IApp> = (
 			setTitle,
 			useTitle: title => {
 				useEffect(() => {
-					setTitle(t(title));
+					setTitle(t(title) as string);
 				}, [title]);
 			},
 			client: client as IClient,

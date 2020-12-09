@@ -16,7 +16,7 @@ export const PlaceholderView: FC<IPlaceholderView> = () => {
 	useAppContext().useTitle("common.placeholder.title");
 	const {t} = useTranslation();
 	return (
-		<Card title={<BackLink title={t("common.placeholder.back")}/>} style={{minHeight: "65vh"}}>
+		<Card title={<BackLink title={t("common.placeholder.back") as string}/>} style={{minHeight: "65vh"}}>
 			<Result
 				icon={<LoaderIcon spin/>}
 				title={t("common.placeholder.title")}

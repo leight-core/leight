@@ -10,6 +10,7 @@ export * from "./CreateView";
 export * from "./DashboardView";
 export * from "./EditView";
 export * from "./HomeView";
+export * from "./interface";
 export * from "./ListView";
 export * from "./LoaderView";
 export * from "./LockedUserView";

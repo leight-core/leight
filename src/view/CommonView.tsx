@@ -1,9 +1,12 @@
 import {Spin} from "antd";
-import {FC, useState} from "react";
+import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useAppContext} from "../app/AppContext";
+import {Block} from "../block/Block";
+import {useBlockContext} from "../block/BlockContext";
 import {ScrollToTop} from "../component/ScrollToTop";
-import {IMenuSelector, useLayoutContext} from "../layout/LayoutContext";
+import {useLayoutContext} from "../layout/LayoutContext";
+import {useMenuContext} from "../menu/MenuContext";
 import {ViewContext} from "./ViewContext";
 
 export interface ICommonView {
@@ -18,14 +21,24 @@ export interface ICommonView {
 	/**
 	 * If a menu is used, this marks current view in the menu.
 	 */
-	menu?: IMenuSelector,
+	menu?: string[],
 	fullscreen?: boolean
 	restore?: boolean
-	/**
-	 * Should be a view blocked by default? This flag is reset by any call to unblock().
-	 */
 	blocked?: boolean
 }
+
+const CommonViewInternal = ({children}) => {
+	const {t} = useTranslation();
+	const blockContext = useBlockContext();
+	return (
+		<ViewContext.Provider value={{blockContext}}>
+			<Spin spinning={blockContext.isBlocked()} tip={t("common.loading") as string}>
+				<ScrollToTop/>
+				{children}
+			</Spin>
+		</ViewContext.Provider>
+	);
+};
 
 export const CommonView: FC<ICommonView> = (
 	{
@@ -37,29 +50,12 @@ export const CommonView: FC<ICommonView> = (
 		children,
 		blocked = false,
 	}) => {
-	const {t} = useTranslation();
-	const layoutContext = useLayoutContext();
-	const [isBlocked, setIsBlocked] = useState<boolean>(blocked);
-	const [blocking, setBlocking] = useState<number>(0);
-	layoutContext.useMenuSelect(menu ? menu : [name]);
-	layoutContext.useEnableFullscreen(fullscreen, restore);
+	useLayoutContext().useEnableFullscreen(fullscreen, restore);
 	useAppContext().useTitle(title ? title : name + ".title");
-	const isBlocking = () => blocking > 0 || isBlocked;
+	useMenuContext().useSelect(menu ? menu : [name]);
 	return (
-		<ViewContext.Provider value={{
-			blocking,
-			isBlocked: isBlocking,
-			block: () => setBlocking(prev => prev + 1),
-			unblock: () => {
-				isBlocked && setIsBlocked(false);
-				setBlocking(prev => prev - 1);
-			},
-			blocked: (blocked = true) => setIsBlocked(blocked)
-		}}>
-			<Spin spinning={isBlocking()} tip={t("common.loading")}>
-				<ScrollToTop/>
-				{children}
-			</Spin>
-		</ViewContext.Provider>
+		<Block locked={blocked}>
+			<CommonViewInternal children={children}/>
+		</Block>
 	);
 };
