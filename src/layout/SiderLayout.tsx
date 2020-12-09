@@ -6,7 +6,7 @@ import {CollapsibleContent} from "./CollapsibleContent";
 import {useLayoutContext} from "./LayoutContext";
 import {Sider} from "./Sider";
 
-const SiderLayoutInternal = ({header, router, footer}) => {
+const SiderLayoutInternal = ({header, footer, children}) => {
 	const {menuContext} = useLayoutContext();
 	return (
 		<>
@@ -19,9 +19,7 @@ const SiderLayoutInternal = ({header, router, footer}) => {
 				<Sider children={menuContext.menu}/>
 				<CollapsibleContent>
 					<PageHeader title={""}/>
-					<Suspense fallback={<PlaceholderView/>}>
-						{router}
-					</Suspense>
+					<Suspense fallback={<PlaceholderView/>} children={children}/>
 					{footer}
 				</CollapsibleContent>
 			</Layout>
@@ -35,10 +33,6 @@ export interface ISiderLayout {
 	 */
 	header: JSX.Element
 	/**
-	 * Application routing (all modules).
-	 */
-	router: JSX.Element
-	/**
 	 * Page (common layout) footer.
 	 */
 	footer: JSX.Element
@@ -47,15 +41,15 @@ export interface ISiderLayout {
 export const SiderLayout: FC<ISiderLayout> = (
 	{
 		header,
-		router,
+		children,
 		footer,
 	}) => {
 	return (
 		<BaseLayout>
 			<SiderLayoutInternal
 				header={header}
-				router={router}
 				footer={footer}
+				children={children}
 			/>
 		</BaseLayout>
 	);
