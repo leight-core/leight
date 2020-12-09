@@ -1,4 +1,5 @@
 import {Divider, Space, Steps} from "antd";
+import deepmerge from "deepmerge";
 import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Form} from "../form/Form";
@@ -77,7 +78,7 @@ export const Wizard: FC<IWizard> = (
 	const canPrevious = () => step > 0;
 	const canFinish = () => step === count - 1;
 	const wizardEvents = Events()
-		.on("next", ({values}) => setValues(prev => ({...prev, ...values})))
+		.on("next", ({values}) => setValues(prev => deepmerge(prev, values)))
 		.on("reset", () => setStep(0))
 		.chain(events);
 	return (

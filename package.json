@@ -23,6 +23,7 @@
 		"arr-diff": "^4.0.0",
 		"axios": "^0.21.0",
 		"cancelable-promise": "^3.2.0",
+		"deepmerge": "^4.2.2",
 		"i18next": "^19.8.4",
 		"isobject": "^4.0.0",
 		"omit-empty": "^1.0.0",
