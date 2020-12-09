@@ -1,11 +1,11 @@
-import {useOptionalFormContext} from "../../form/FormContext";
+import {useFormContext} from "../../form/FormContext";
 import {SubmitButton} from "../../form/SubmitButton";
 import {ForwardIcon} from "../../icon/ForwardIcon";
 import {useWizardContext} from "../WizardContext";
 
 export const NextButton = () => {
 	const wizardContext = useWizardContext();
-	const formContext = useOptionalFormContext();
+	const formContext = useFormContext();
 	return (
 		<SubmitButton
 			label={"common.wizard.next"}
@@ -14,7 +14,7 @@ export const NextButton = () => {
 			icon={<ForwardIcon/>}
 			onClick={() => {
 				wizardContext.next();
-				wizardContext.events.call("next", {wizardContext, values: formContext ? formContext.form.getFieldsValue() : {}});
+				wizardContext.events.call("next", {wizardContext, values: formContext.form.getFieldsValue()});
 			}}
 		/>
 	);
