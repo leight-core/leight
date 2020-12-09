@@ -19,9 +19,13 @@ export interface ICommonView {
 	 */
 	title?: string
 	/**
-	 * If a menu is used, this marks current view in the menu.
+	 * Menu for this view.
 	 */
-	menu?: string[],
+	menu: JSX.Element
+	/**
+	 * Currently selected menu items (if any).
+	 */
+	menuItems?: string[]
 	fullscreen?: boolean
 	restore?: boolean
 	blocked?: boolean
@@ -45,14 +49,17 @@ export const CommonView: FC<ICommonView> = (
 		name,
 		title,
 		menu,
+		menuItems = undefined,
 		fullscreen = false,
 		restore = true,
 		children,
 		blocked = false,
 	}) => {
+	const menuContext = useMenuContext();
 	useLayoutContext().useEnableFullscreen(fullscreen, restore);
 	useAppContext().useTitle(title ? title : name + ".title");
-	useMenuContext().useSelect(menu ? menu : [name]);
+	menuContext.useMenu(menu);
+	menuContext.useSelect(menuItems || [name]);
 	return (
 		<Block locked={blocked}>
 			<CommonViewInternal children={children}/>

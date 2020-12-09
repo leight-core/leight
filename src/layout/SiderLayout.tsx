@@ -42,21 +42,16 @@ export interface ISiderLayout {
 	 * Page (common layout) footer.
 	 */
 	footer: JSX.Element
-	/**
-	 * Default menu.
-	 */
-	defaultMenu: JSX.Element
 }
 
 export const SiderLayout: FC<ISiderLayout> = (
 	{
 		header,
-		defaultMenu,
 		router,
 		footer,
 	}) => {
 	return (
-		<BaseLayout defaultMenu={defaultMenu}>
+		<BaseLayout>
 			<SiderLayoutInternal
 				header={header}
 				router={router}

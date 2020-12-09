@@ -2,12 +2,11 @@ import {FC, useEffect, useState} from "react";
 import {MenuContext} from "./MenuContext";
 
 export interface IMenuProvider {
-	defaultMenu: JSX.Element
 }
 
-export const MenuProvider: FC<IMenuProvider> = ({defaultMenu, children}) => {
+export const MenuProvider: FC<IMenuProvider> = ({children}) => {
 	const [current, setCurrent] = useState<string[]>([]);
-	const [menu, setMenu] = useState<JSX.Element>(defaultMenu);
+	const [menu, setMenu] = useState<JSX.Element>(<></>);
 	return (
 		<MenuContext.Provider
 			value={{

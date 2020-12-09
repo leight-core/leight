@@ -8,7 +8,6 @@ import {MenuProvider} from "../menu/MenuProvider";
 import {LayoutContext} from "./LayoutContext";
 
 export interface IBaseLayout {
-	defaultMenu: JSX.Element
 }
 
 const BaseLayoutInternal = ({children}) => {
@@ -41,10 +40,10 @@ const BaseLayoutInternal = ({children}) => {
 	);
 };
 
-export const BaseLayout: FC<IBaseLayout> = ({defaultMenu, children}) => {
+export const BaseLayout: FC<IBaseLayout> = ({children}) => {
 	return (
 		<Block>
-			<MenuProvider defaultMenu={defaultMenu}>
+			<MenuProvider>
 				<BaseLayoutInternal children={children}/>
 			</MenuProvider>
 		</Block>
