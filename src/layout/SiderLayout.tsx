@@ -1,14 +1,13 @@
 import {Layout, PageHeader} from "antd";
 import {FC, Suspense} from "react";
-import {useMenuContext} from "../menu/MenuContext";
 import {PlaceholderView} from "../view/PlaceholderView";
 import {BaseLayout} from "./BaseLayout";
 import {CollapsibleContent} from "./CollapsibleContent";
+import {useLayoutContext} from "./LayoutContext";
 import {Sider} from "./Sider";
 
-const SiderLayoutInternal = ({header, menu, router, footer}) => {
-	const menuContext = useMenuContext();
-	menuContext.useMenu(menu);
+const SiderLayoutInternal = ({header, router, footer}) => {
+	const {menuContext} = useLayoutContext();
 	return (
 		<>
 			{header}
@@ -46,21 +45,20 @@ export interface ISiderLayout {
 	/**
 	 * Default menu.
 	 */
-	menu: JSX.Element
+	defaultMenu: JSX.Element
 }
 
 export const SiderLayout: FC<ISiderLayout> = (
 	{
 		header,
-		menu,
+		defaultMenu,
 		router,
 		footer,
 	}) => {
 	return (
-		<BaseLayout>
+		<BaseLayout defaultMenu={defaultMenu}>
 			<SiderLayoutInternal
 				header={header}
-				menu={menu}
 				router={router}
 				footer={footer}
 			/>
