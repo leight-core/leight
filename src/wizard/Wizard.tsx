@@ -1,9 +1,11 @@
 import {Divider, Space, Steps} from "antd";
 import deepmerge from "deepmerge";
+import {isPlainObject} from "is-plain-object";
 import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Form} from "../form/Form";
 import {useFormContext} from "../form/FormContext";
+import {IDeepMerge, IOutputMapper} from "../interface/interface";
 import {PushRight} from "../layout/PushRight";
 import {StepLoader} from "../loader/StepLoader";
 import {Events, IEvents} from "../utils/Events";
@@ -11,27 +13,45 @@ import {CancelButton} from "./button/CancelButton";
 import {FinishButton} from "./button/FinishButton";
 import {NextButton} from "./button/NextButton";
 import {PreviousButton} from "./button/PreviousButton";
+import {IStep} from "./interface";
 import {useWizardContext, WizardContext} from "./WizardContext";
 
-export interface IStep {
-	id: string
-	component: JSX.Element
-}
-
 export interface IWizard {
+	/**
+	 * Name of the wizard (and also underlying form).
+	 */
 	name: string
+	/**
+	 * Wizard events; they're chained on top of internal Wizard events.
+	 */
 	events: IEvents
+	/**
+	 * Wizard steps.
+	 */
 	steps: IStep[]
+	/**
+	 * If specified, Wizard will preload/do something before first step appears.
+	 *
+	 * Useful for data prefetch.
+	 */
 	loaders?: JSX.Element[]
+	/**
+	 * If something inside Wizard needs data (dependencies), they could be directly
+	 * put here; loaders are setting those too.
+	 */
 	defaultDependencies?: Object
+	/**
+	 * When Wizard finishes, values are mapped by this method (if needed).
+	 */
+	outputMapper?: IOutputMapper
+	/**
+	 * Wizard-wise method used for merging values from pages. Defaults to deepmerge replacing
+	 * arrays and preserving special objects.
+	 */
+	merge?: IDeepMerge
 }
 
-interface IWizardInternal {
-	name: string
-	steps: IStep[]
-}
-
-const WizardInternal: FC<IWizardInternal> = ({name, steps}) => {
+const WizardInternal = ({name, steps}) => {
 	const wizardContext = useWizardContext();
 	const formContext = useFormContext();
 	const {t} = useTranslation();
@@ -69,6 +89,14 @@ export const Wizard: FC<IWizard> = (
 		steps,
 		defaultDependencies = {},
 		loaders = [],
+		outputMapper = value => value,
+		merge = (a, b) => deepmerge<any>(
+			a,
+			b,
+			{
+				arrayMerge: (_, source, __) => source,
+				isMergeableObject: isPlainObject,
+			}),
 	}) => {
 	const [step, setStep] = useState<number>(0);
 	const [values, setValues] = useState<Object>({});
@@ -78,7 +106,7 @@ export const Wizard: FC<IWizard> = (
 	const canPrevious = () => step > 0;
 	const canFinish = () => step === count - 1;
 	const wizardEvents = Events()
-		.on("next", ({values}) => setValues(prev => deepmerge(prev, values)))
+		.on("next", ({values}) => setValues(prev => merge(prev, values)))
 		.on("reset", () => setStep(0))
 		.chain(events);
 	return (
@@ -103,6 +131,8 @@ export const Wizard: FC<IWizard> = (
 					}
 					return dependencies[dependency];
 				},
+				outputMapper,
+				merge,
 			}}
 			children={
 				<StepLoader

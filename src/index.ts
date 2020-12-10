@@ -3,6 +3,7 @@ export * from "./component";
 export * from "./form";
 export * from "./hook";
 export * from "./icon";
+export * from "./interface";
 export * from "./layout";
 export * from "./list";
 export * from "./loader";

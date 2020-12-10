@@ -27,7 +27,8 @@
 		"i18next": "^19.8.4",
 		"isobject": "^4.0.0",
 		"omit-empty": "^1.0.0",
-		"react-helmet": "^6.1.0"
+		"react-helmet": "^6.1.0",
+		"is-plain-object": "^5.0.0"
 	},
 	"devDependencies": {
 		"@ant-design/icons": ">=4.3.0",

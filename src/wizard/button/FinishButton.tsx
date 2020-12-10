@@ -1,4 +1,3 @@
-import deepmerge from "deepmerge";
 import {useFormContext} from "../../form/FormContext";
 import {FormSubmitButton} from "../../form/FormSubmitButton";
 import {SubmitIcon} from "../../icon/SubmitIcon";
@@ -22,7 +21,7 @@ export const FinishButton = () => {
 				const values = formContext.form.getFieldsValue();
 				wizardContext.events
 					.call("next", {values})
-					.call("finish", {values: deepmerge(wizardContext.values, values)});
+					.call("finish", {values: wizardContext.outputMapper(wizardContext.merge(wizardContext.values, values))});
 			}}
 			noStyle
 		/>
