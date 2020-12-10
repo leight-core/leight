@@ -27,7 +27,7 @@ const SiderLayoutInternal = ({header, footer, children}) => {
 	);
 };
 
-export interface ISiderLayout {
+export interface ISiderLayoutProps {
 	/**
 	 * Page (common layout) header.
 	 */
@@ -38,7 +38,7 @@ export interface ISiderLayout {
 	footer: JSX.Element
 }
 
-export const SiderLayout: FC<ISiderLayout> = (
+export const SiderLayout: FC<ISiderLayoutProps> = (
 	{
 		header,
 		children,

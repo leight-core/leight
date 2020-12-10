@@ -5,14 +5,14 @@ import {Link} from "react-router-dom";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {generate} from "../router/router";
 
-export interface ISessionExpiredView {
+export interface ISessionExpiredViewProps {
 	/**
 	 * Where to redirect on continue; href goes through {@see generate} method.
 	 */
 	href: string
 }
 
-export const SessionExpiredView: FC<ISessionExpiredView> = ({href}) => {
+export const SessionExpiredView: FC<ISessionExpiredViewProps> = ({href}) => {
 	const {t} = useTranslation();
 	useLayoutContext().useEnableFullscreen(true, true);
 	return (

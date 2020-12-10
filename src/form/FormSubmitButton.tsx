@@ -1,7 +1,7 @@
 import React, {FC} from "react";
-import {ISubmitButton, SubmitButton} from "./SubmitButton";
+import {ISubmitButtonProps, SubmitButton} from "./SubmitButton";
 
-export interface IFormSubmitButton extends ISubmitButton {
+export interface IFormSubmitButtonProps extends ISubmitButtonProps {
 }
 
 /**
@@ -9,6 +9,6 @@ export interface IFormSubmitButton extends ISubmitButton {
  *
  * Internally just sets htmlType of the underlying SubmitButton.
  */
-export const FormSubmitButton: FC<IFormSubmitButton> = (props) => {
+export const FormSubmitButton: FC<IFormSubmitButtonProps> = (props) => {
 	return <SubmitButton htmlType={"submit"} {...props}/>;
 };

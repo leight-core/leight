@@ -3,7 +3,8 @@ import {LoaderStep} from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
 import {httpGet} from "../../server/httpGet";
 import {Events} from "../../utils/Events";
-import {IDiscovery, useAppContext} from "../AppContext";
+import {useAppContext} from "../AppContext";
+import {IDiscovery} from "../interface";
 
 export const DiscoveryStep = (props) => {
 	const appContext = useAppContext();

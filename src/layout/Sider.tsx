@@ -1,8 +1,12 @@
 import {Layout} from "antd";
-import React from "react";
+import {SiderProps} from "antd/lib/layout";
+import React, {FC} from "react";
 import {useLayoutContext} from "./LayoutContext";
 
-export const Sider = (
+export interface ISiderProps extends SiderProps {
+}
+
+export const Sider: FC<ISiderProps> = (
 	{
 		children,
 		...props

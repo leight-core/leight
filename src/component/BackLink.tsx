@@ -5,7 +5,7 @@ import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router";
 import {BackIcon} from "../icon/BackIcon";
 
-export interface IBackLink extends Partial<ButtonProps> {
+export interface IBackLinkProps extends Partial<ButtonProps> {
 	/**
 	 * Text on the button, goes through translation.
 	 */
@@ -21,7 +21,7 @@ export interface IBackLink extends Partial<ButtonProps> {
  *
  * - https://ant.design/components/button/
  */
-export const BackLink: FC<IBackLink> = (
+export const BackLink: FC<IBackLinkProps> = (
 	{
 		text,
 		...props

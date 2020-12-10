@@ -1,5 +1,5 @@
 import axios, {CancelTokenSource} from "axios";
-import {IEvents} from "../utils/Events";
+import {IEvents} from "../utils/interface";
 import {axiosError, axiosSuccess} from "./events";
 
 export function httpPut<TRequest = any>(

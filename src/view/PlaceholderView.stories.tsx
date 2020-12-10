@@ -1,5 +1,6 @@
 import {BrowserRouter} from "react-router-dom";
-import {AppContext, IAppContext} from "../app/AppContext";
+import {AppContext} from "../app/AppContext";
+import {IAppContext} from "../app/interface";
 import {PlaceholderView} from "./PlaceholderView";
 
 export default {

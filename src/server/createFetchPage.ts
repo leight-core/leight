@@ -1,25 +1,15 @@
-import {CancelTokenSource} from "axios";
 import {Params} from "react-router";
-import {IAppContext} from "../app/AppContext";
-import {IEvents} from "../utils/Events";
+import {IAppContext} from "../app/interface";
+import {IEvents} from "../utils/interface";
 import {httpPost} from "./httpPost";
-
-/**
- * Callback used when a new page is required.
- */
-export type OnFetchPageType = (page: number, size: number, appContext: IAppContext, events: IEvents, params?: Params) => CancelTokenSource
-
-export interface IPage {
-	page: number
-	limit: number
-}
+import {IOnFetchPage, IPage} from "./interface";
 
 /**
  * Simple factory for making HTTP post for paging over resource support.
  *
  * @param link Discovery Index link id
  */
-export function createFetchPage(link: string): OnFetchPageType {
+export function createFetchPage(link: string): IOnFetchPage {
 	return (
 		page: number,
 		limit: number,

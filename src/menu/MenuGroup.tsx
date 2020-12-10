@@ -3,11 +3,11 @@ import {MenuItemGroupProps} from "rc-menu/lib/MenuItemGroup";
 import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface IMenuGroup extends Partial<MenuItemGroupProps> {
+export interface IMenuGroupProps extends Partial<MenuItemGroupProps> {
 	id: string
 }
 
-export const MenuGroup: FC<IMenuGroup> = (
+export const MenuGroup: FC<IMenuGroupProps> = (
 	{
 		id,
 		...props

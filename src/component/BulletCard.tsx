@@ -4,7 +4,7 @@ import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {NumberRange} from "../utils/NumberRange";
 
-export interface IBulletCard {
+export interface IBulletCardProps {
 	/**
 	 * Title of the bullet card; uses translation.
 	 */
@@ -32,7 +32,7 @@ export interface IBulletCard {
  *
  * - https://ant.design/components/result/
  */
-export const BulletCard: FC<IBulletCard> = (
+export const BulletCard: FC<IBulletCardProps> = (
 	{
 		title,
 		count,

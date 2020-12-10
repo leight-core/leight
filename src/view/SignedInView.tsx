@@ -5,14 +5,14 @@ import {Link} from "react-router-dom";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {generate} from "../router/router";
 
-export interface ISignedInView {
+export interface ISignedInViewProps {
 	/**
 	 * Target href (on continue); internally uses {@see generate}.
 	 */
 	href: string
 }
 
-export const SignedInView: FC<ISignedInView> = ({href}) => {
+export const SignedInView: FC<ISignedInViewProps> = ({href}) => {
 	const {t} = useTranslation();
 	useLayoutContext().useEnableFullscreen(true, true);
 	return (

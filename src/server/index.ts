@@ -1,5 +1,2 @@
-import {Server} from "./Server";
-
-export {
-	Server,
-};
+export * from "./interface";
+export * from "./Server";

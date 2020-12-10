@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import {useAppContext} from "../app/AppContext";
 import {httpGet} from "../server/httpGet";
-import {IEvents} from "../utils/Events";
+import {IEvents} from "../utils/interface";
 
 /**
  * Create fetch hook which contains that common boilerplate shit.

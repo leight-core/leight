@@ -1,11 +1,11 @@
 import {Col, Row} from "antd";
 import React, {FC} from "react";
 
-export interface IPushRight {
+export interface IPushRightProps {
 	span?: number
 }
 
-export const PushRight: FC<IPushRight> = (
+export const PushRight: FC<IPushRightProps> = (
 	{
 		children,
 		span

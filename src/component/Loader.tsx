@@ -3,11 +3,11 @@ import {Spin} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface ILoader {
+export interface ILoaderProps {
 	isLoading: boolean
 }
 
-export const Loader: FC<ILoader> = (
+export const Loader: FC<ILoaderProps> = (
 	{
 		isLoading,
 		children

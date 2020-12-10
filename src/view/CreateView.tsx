@@ -5,7 +5,7 @@ import {BackLink} from "../component/BackLink";
 import {useMenuContext} from "../menu/MenuContext";
 import {useModuleContext} from "../module/ModuleContext";
 
-export interface ICreateView {
+export interface ICreateViewProps {
 }
 
 /**
@@ -13,7 +13,7 @@ export interface ICreateView {
  *
  * Do some steps like setting application title and selecting menu (setting menu state).
  */
-export const CreateView: FC<ICreateView> = ({children}) => {
+export const CreateView: FC<ICreateViewProps> = ({children}) => {
     const moduleContext = useModuleContext();
     useAppContext().useTitle(moduleContext.tid("create.title"));
     useMenuContext().useSelect([moduleContext.id + ".create"]);

@@ -8,15 +8,16 @@ import {useFormContext} from "../form/FormContext";
 import {IDeepMerge, IOutputMapper} from "../interface/interface";
 import {PushRight} from "../layout/PushRight";
 import {StepLoader} from "../loader/StepLoader";
-import {Events, IEvents} from "../utils/Events";
+import {Events} from "../utils/Events";
+import {IEvents} from "../utils/interface";
 import {CancelButton} from "./button/CancelButton";
 import {FinishButton} from "./button/FinishButton";
 import {NextButton} from "./button/NextButton";
 import {PreviousButton} from "./button/PreviousButton";
-import {IStep} from "./interface";
+import {IWizardStep} from "./interface";
 import {useWizardContext, WizardContext} from "./WizardContext";
 
-export interface IWizard {
+export interface IWizardProps {
 	/**
 	 * Name of the wizard (and also underlying form).
 	 */
@@ -28,7 +29,7 @@ export interface IWizard {
 	/**
 	 * Wizard steps.
 	 */
-	steps: IStep[]
+	steps: IWizardStep[]
 	/**
 	 * If specified, Wizard will preload/do something before first step appears.
 	 *
@@ -82,7 +83,7 @@ const WizardInternal = ({name, steps}) => {
 	);
 };
 
-export const Wizard: FC<IWizard> = (
+export const Wizard: FC<IWizardProps> = (
 	{
 		name,
 		events,

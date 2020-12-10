@@ -5,13 +5,13 @@ import {BackLink} from "../component/BackLink";
 import {useMenuContext} from "../menu/MenuContext";
 import {useModuleContext} from "../module/ModuleContext";
 
-export interface IHomeView {
+export interface IHomeViewProps {
 }
 
 /**
  * Common home view - just to make same shape for all views for showing home of things.
  */
-export const HomeView: FC<IHomeView> = ({children}) => {
+export const HomeView: FC<IHomeViewProps> = ({children}) => {
 	const moduleContext = useModuleContext();
 	useAppContext().useTitle(moduleContext.tid("home.title"));
 	useMenuContext().useSelect([moduleContext.id + ".home"]);

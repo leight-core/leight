@@ -5,7 +5,7 @@ import {cloneElement, FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useFormContext} from "./FormContext";
 
-export interface IFormItem extends Partial<FormItemProps> {
+export interface IFormItemProps extends Partial<FormItemProps> {
 	/**
 	 * Field name; also used for translations.
 	 */
@@ -26,7 +26,7 @@ export interface IFormItem extends Partial<FormItemProps> {
 	labels?: string[]
 }
 
-export const FormItem: FC<IFormItem> = (
+export const FormItem: FC<IFormItemProps> = (
 	{
 		field,
 		required = false,

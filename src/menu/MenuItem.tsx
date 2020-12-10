@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 import {useCleverLink} from "../hook/useCleverLink";
 import {generate} from "../router/router";
 
-export interface IMenuItem extends Partial<MenuItemProps> {
+export interface IMenuItemProps extends Partial<MenuItemProps> {
 	/**
 	 * Menu ID used for translations, link and others.
 	 */
@@ -26,7 +26,7 @@ export interface IMenuItem extends Partial<MenuItemProps> {
 	params?: Params
 }
 
-export const MenuItem: FC<IMenuItem> = ({id, icon, href, params, ...props}) => {
+export const MenuItem: FC<IMenuItemProps> = ({id, icon, href, params, ...props}) => {
 	const {t} = useTranslation();
 	const cleverLink = useCleverLink(generate(href || id, params));
 	return (

@@ -1,8 +1,12 @@
 import {Layout} from "antd";
-import React from "react";
+import {LayoutContextProps} from "antd/lib/layout/layout";
+import React, {FC} from "react";
 import {useLayoutContext} from "./LayoutContext";
 
-export const CollapsibleContent = (
+export interface ICollapsibleContentProps extends Partial<LayoutContextProps> {
+}
+
+export const CollapsibleContent: FC<ICollapsibleContentProps> = (
 	{
 		children,
 		...props

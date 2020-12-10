@@ -1,55 +1,8 @@
 import {TFunction} from "i18next";
 import {createContext} from "react";
-import {Params} from "react-router";
 import {generate} from "../router/router";
-import {OnFetchPageType} from "../server/createFetchPage";
 import {useContext} from "../utils/useContext";
-
-/**
- * Common module uses basic CRUD operations and similar stuff; it expects operation one exactly one
- * entity type (for example module for an User, an Invoice and so on, not mixed ones).
- */
-export interface ICommonModule {
-	/**
-	 * Callback used for fetching page of items (usually used in tables/lists).
-	 */
-	page: OnFetchPageType
-}
-
-/**
- * This is a marker interface for modules not using CRUD or other stuff.
- */
-export interface ISimpleModule {
-}
-
-export interface IModuleContext<TModule> {
-	/**
-	 * Module id, usually could be used for translating stuff.
-	 */
-	id: string
-	/**
-	 * Default module icon.
-	 */
-	icon: JSX.Element
-	/**
-	 * Custom module stuff.
-	 */
-	module: TModule
-	/**
-	 * Generate module link using module ID as a prefix
-	 */
-	generate: (link: string, params?: Params) => string
-	/**
-	 * Do a translation using module ID as a prefix
-	 */
-	t: (key: string, options?: Object | string) => string
-	/**
-	 * Return just translation key (module ID as a prefix)
-	 *
-	 * @param key
-	 */
-	tid: (key: string) => string
-}
+import {ICommonModule, IModuleContext} from "./interface";
 
 /**
  * Access to individual context of an application's module (if used).

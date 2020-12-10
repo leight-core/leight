@@ -5,5 +5,6 @@ export * from "./FormItem";
 export * from "./FormList";
 export * from "./FormSubmitButton";
 export * from "./FormUtils";
+export * from "./interface";
 export * from "./SubmitButton";
 export * from "./SwitchItem";

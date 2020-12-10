@@ -8,7 +8,7 @@ import {SubmitDisabledIcon} from "../icon/SubmitDisabledIcon";
 import {useFormContext} from "./FormContext";
 import {FormUtils} from "./FormUtils";
 
-export interface ISubmitButton extends Partial<ButtonProps> {
+export interface ISubmitButtonProps extends Partial<ButtonProps> {
 	/**
 	 * Disable Form.Item styling.
 	 */
@@ -51,7 +51,7 @@ export interface ISubmitButton extends Partial<ButtonProps> {
  * - https://ant.design/components/button/
  * - https://ant.design/components/form/#API
  */
-export const SubmitButton: FC<ISubmitButton> = ({formInstance, noStyle, label, icon, disabledIcon, ...props}) => {
+export const SubmitButton: FC<ISubmitButtonProps> = ({formInstance, noStyle, label, icon, disabledIcon, ...props}) => {
 	const [disabled, setDisabled] = useState(true);
 	const formContext = useFormContext();
 	if (!formContext) {

@@ -4,7 +4,7 @@ import {NamePath} from "rc-field-form/lib/interface";
 import React, {FC} from "react";
 import {FormItem} from "./FormItem";
 
-export interface ISwitchItem extends Partial<SwitchProps> {
+export interface ISwitchItemProps extends Partial<SwitchProps> {
 	/**
 	 * Field name:
 	 *
@@ -23,7 +23,7 @@ export interface ISwitchItem extends Partial<SwitchProps> {
  *
  * - https://ant.design/components/switch/
  */
-export const SwitchItem: FC<ISwitchItem> = ({field, labels = [], ...props}) => {
+export const SwitchItem: FC<ISwitchItemProps> = ({field, labels = [], ...props}) => {
 	return (
 		<FormItem
 			field={field}

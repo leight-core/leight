@@ -4,7 +4,7 @@ import {NamePath} from "rc-field-form/lib/interface";
 import React, {FC} from "react";
 import {FormItem} from "./FormItem";
 
-export interface ICheckboxItem extends Partial<CheckboxProps> {
+export interface ICheckboxItemProps extends Partial<CheckboxProps> {
 	/**
 	 * Field name:
 	 *
@@ -23,7 +23,7 @@ export interface ICheckboxItem extends Partial<CheckboxProps> {
  *
  * - https://ant.design/components/checkbox/
  */
-export const CheckboxItem: FC<ICheckboxItem> = ({field, labels = [], ...props}) => {
+export const CheckboxItem: FC<ICheckboxItemProps> = ({field, labels = [], ...props}) => {
 	return (
 		<FormItem
 			field={field}

@@ -4,7 +4,7 @@ import React, {FC, useEffect, useState} from "react";
 import {Spinner} from "../icon/Spinner";
 import {useStepLoaderContext} from "./StepLoaderContext";
 
-export interface ILoaderStep extends Partial<StepProps> {
+export interface ILoaderStepProps extends Partial<StepProps> {
 	/**
 	 * What to do when step should be executed; it could return cleanup function used in `useEffect()`.
 	 */
@@ -22,7 +22,7 @@ export interface ILoaderStep extends Partial<StepProps> {
 /**
  * Step implementation - when active, an action (onStep) is executed.
  */
-export const LoaderStep: FC<ILoaderStep> = (
+export const LoaderStep: FC<ILoaderStepProps> = (
 	{
 		onStep,
 		icon,

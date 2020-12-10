@@ -4,14 +4,14 @@ import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useAppContext} from "../app/AppContext";
 
-export interface ISessionCloseButton extends Partial<ButtonProps> {
+export interface ISessionCloseButtonProps extends Partial<ButtonProps> {
 	/**
 	 * Text on the button, goes through translation.
 	 */
 	text: string
 }
 
-export const SessionCloseButton: FC<ISessionCloseButton> = (
+export const SessionCloseButton: FC<ISessionCloseButtonProps> = (
 	{
 		text,
 		...props

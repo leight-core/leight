@@ -5,10 +5,10 @@ import {CancelIcon} from "../../icon/CancelIcon";
 import {useModuleContext} from "../../module/ModuleContext";
 import {useWizardContext} from "../WizardContext";
 
-export interface ICancelButton {
+export interface ICancelButtonProps {
 }
 
-export const CancelButton: FC<ICancelButton> = () => {
+export const CancelButton: FC<ICancelButtonProps> = () => {
 	const {t} = useTranslation();
 	const wizardContext = useWizardContext();
 	const moduleContext = useModuleContext();

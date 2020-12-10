@@ -2,11 +2,11 @@ import {Divider} from "antd";
 import {FC} from "react";
 import {useModuleContext} from "../module/ModuleContext";
 
-export interface IWizardStep {
+export interface IWizardStepProps {
 	title: string
 }
 
-export const WizardStep: FC<IWizardStep> = ({title, children}) => {
+export const WizardStep: FC<IWizardStepProps> = ({title, children}) => {
 	const moduleContext = useModuleContext();
 	return (
 		<>

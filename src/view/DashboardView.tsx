@@ -5,7 +5,7 @@ import {BackLink} from "../component/BackLink";
 import {useMenuContext} from "../menu/MenuContext";
 import {useModuleContext} from "../module/ModuleContext";
 
-export interface IDashboardView {
+export interface IDashboardViewProps {
 	title?: string | JSX.Element
 	subTitle?: string | JSX.Element
 }
@@ -14,7 +14,7 @@ export interface IDashboardView {
  * Common dashboard view usually used on module root (for example on users); to use
  * common view for selected object (for example user by an ID) use HomeView.
  */
-export const DashboardView: FC<IDashboardView> = (
+export const DashboardView: FC<IDashboardViewProps> = (
 	{
 		title,
 		subTitle,

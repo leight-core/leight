@@ -3,19 +3,13 @@ import {ListProps} from "antd/lib/list";
 import {ReactNode, useEffect, useState} from "react";
 import {useParams} from "react-router";
 import {useAppContext} from "../app/AppContext";
-import {OnFetchPageType} from "../server/createFetchPage";
+import {IPageIndex, IRecordItem} from "../interface/interface";
+import {IOnFetchPage} from "../server/interface";
 import {Events} from "../utils/Events";
-import {IPageIndex, PageIndex} from "../utils/PageIndex";
+import {PageIndex} from "../utils/PageIndex";
 
-/**
- * Basic record must have an ID, thus all records must be extended from this type.
- */
-export interface IRecordItem {
-	id: string
-}
-
-export interface IBaseList<TItem extends IRecordItem> extends Partial<ListProps<TItem>> {
-	onFetchPage: OnFetchPageType
+export interface IBaseListProps<TItem extends IRecordItem> extends Partial<ListProps<TItem>> {
+	onFetchPage: IOnFetchPage
 	pageSize?: number
 	children: (item: TItem, index: number) => ReactNode
 }
@@ -26,7 +20,7 @@ export const BaseList = <TItem extends IRecordItem = any>(
 		pageSize = 10,
 		children,
 		...props
-	}: IBaseList<TItem>) => {
+	}: IBaseListProps<TItem>) => {
 	const appContext = useAppContext();
 	const params = useParams();
 	const [page, setPage] = useState<IPageIndex>(PageIndex());

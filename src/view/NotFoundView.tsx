@@ -7,7 +7,7 @@ import {HomeIcon} from "../icon/HomeIcon";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {link} from "../router/index";
 
-export interface INotFoundView {
+export interface INotFoundViewProps {
 	/**
 	 * Link ID used to redirect on "not found". Internally uses {@see link}.
 	 */
@@ -17,7 +17,7 @@ export interface INotFoundView {
 /**
  * Simple 4o4 view.
  */
-export const NotFoundView: FC<INotFoundView> = ({href}) => {
+export const NotFoundView: FC<INotFoundViewProps> = ({href}) => {
 	const {t} = useTranslation();
 	useLayoutContext().useEnableFullscreen(true, true);
 	useAppContext().useTitle("error.not-found.title");

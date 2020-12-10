@@ -5,13 +5,13 @@ import {BackLink} from "../component/BackLink";
 import {useMenuContext} from "../menu/MenuContext";
 import {useModuleContext} from "../module/ModuleContext";
 
-export interface IListView {
+export interface IListViewProps {
 }
 
 /**
  * Common list view used to make a listing.
  */
-export const ListView: FC<IListView> = ({children}) => {
+export const ListView: FC<IListViewProps> = ({children}) => {
 	const moduleContext = useModuleContext();
 	useAppContext().useTitle(moduleContext.tid("list.title"));
 	useMenuContext().useSelect([moduleContext.id + ".list"]);

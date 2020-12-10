@@ -1,5 +1,5 @@
-import {IAppContext} from "../app/AppContext";
-import {IEvents} from "../utils/Events";
+import {IAppContext} from "../app/interface";
+import {IEvents} from "../utils/interface";
 import {httpDelete} from "./httpDelete";
 
 /**

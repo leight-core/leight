@@ -1,24 +1,16 @@
 import {Col, Row} from "antd";
 import React, {FC} from "react";
 
-export interface IDualSection {
+export interface IDualSectionProps {
 	left: JSX.Element
 	right: JSX.Element
 }
 
-export const DualSection: FC<IDualSection> = (
-	{
-		left,
-		right
-	}) => {
+export const DualSection: FC<IDualSectionProps> = ({left, right}) => {
 	return (
 		<Row>
-			<Col xs={24} xl={12}>
-				{left}
-			</Col>
-			<Col xs={24} xl={12}>
-				{right}
-			</Col>
+			<Col xs={24} xl={12} children={left}/>
+			<Col xs={24} xl={12} children={right}/>
 		</Row>
 	);
 };

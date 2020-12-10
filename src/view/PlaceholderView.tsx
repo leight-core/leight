@@ -5,14 +5,14 @@ import {useAppContext} from "../app/AppContext";
 import {BackLink} from "../component/BackLink";
 import {LoaderIcon} from "../icon/LoaderIcon";
 
-export interface IPlaceholderView {
+export interface IPlaceholderViewProps {
 }
 
 /**
  * Placeholder view is useful when there are views loaded lazily (by a suspense), thus it's necessary
  * to show at least "something".
  */
-export const PlaceholderView: FC<IPlaceholderView> = () => {
+export const PlaceholderView: FC<IPlaceholderViewProps> = () => {
 	useAppContext().useTitle("common.placeholder.title");
 	const {t} = useTranslation();
 	return (

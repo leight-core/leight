@@ -6,14 +6,14 @@ import {httpGet} from "../../server/httpGet";
 import {Events} from "../../utils/Events";
 import {useAppContext} from "../AppContext";
 
-export interface ISessionStep {
+export interface ISessionStepProps {
 	/**
 	 * Discovery Index link id to fetch session from.
 	 */
 	link?: string
 }
 
-export const SessionStep: FC<ISessionStep> = ({link = "public.user.login", ...props}) => {
+export const SessionStep: FC<ISessionStepProps> = ({link = "public.user.login", ...props}) => {
 	const appContext = useAppContext();
 	const stepLoaderContext = useStepLoaderContext();
 	return (

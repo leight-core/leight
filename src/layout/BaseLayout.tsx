@@ -7,7 +7,7 @@ import {useMenuContext} from "../menu/MenuContext";
 import {MenuProvider} from "../menu/MenuProvider";
 import {LayoutContext} from "./LayoutContext";
 
-export interface IBaseLayout {
+export interface IBaseLayoutProps {
 }
 
 const BaseLayoutInternal = ({children}) => {
@@ -40,7 +40,7 @@ const BaseLayoutInternal = ({children}) => {
 	);
 };
 
-export const BaseLayout: FC<IBaseLayout> = ({children}) => {
+export const BaseLayout: FC<IBaseLayoutProps> = ({children}) => {
 	return (
 		<Block>
 			<MenuProvider>

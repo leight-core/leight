@@ -1,12 +1,7 @@
 import {FormInstance} from "antd/lib/form";
 import CancelablePromise, {CancelablePromiseType} from "cancelable-promise";
 import {NamePath} from "rc-field-form/lib/interface";
-
-export type IFormFields = [NamePath, any];
-export type IFlatField = {
-	field: NamePath
-	value: any
-}
+import {IFormFields} from "./interface";
 
 export const FormUtils = {
 	/**

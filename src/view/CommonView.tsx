@@ -9,7 +9,7 @@ import {useLayoutContext} from "../layout/LayoutContext";
 import {useMenuContext} from "../menu/MenuContext";
 import {ViewContext} from "./ViewContext";
 
-export interface ICommonView {
+export interface ICommonViewProps {
 	/**
 	 * Name of this view; it's also used for menu selection and title.
 	 */
@@ -44,7 +44,7 @@ const CommonViewInternal = ({children}) => {
 	);
 };
 
-export const CommonView: FC<ICommonView> = (
+export const CommonView: FC<ICommonViewProps> = (
 	{
 		name,
 		title,

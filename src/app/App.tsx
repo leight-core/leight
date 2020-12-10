@@ -10,7 +10,8 @@ import {httpDelete} from "../server/httpDelete";
 import {Events} from "../utils/Events";
 import {LoaderView} from "../view/LoaderView";
 import {LockedUserView} from "../view/LockedUserView";
-import {AppContext, IClient, IDiscovery} from "./AppContext";
+import {AppContext} from "./AppContext";
+import {IClient, IDiscovery, ISites} from "./interface";
 import {ClientStep} from "./steps/ClientStep";
 import {DiscoveryStep} from "./steps/DiscoveryStep";
 import {FinishStep} from "./steps/FinishStep";
@@ -18,9 +19,7 @@ import {InitialStep} from "./steps/InitialStep";
 import {SessionStep} from "./steps/SessionStep";
 import {TranslationStep} from "./steps/TranslationStep";
 
-export type ISites = { [key: string]: () => JSX.Element }
-
-export interface IApp {
+export interface IAppProps {
 	/**
 	 * Page title using Helmet.
 	 */
@@ -50,7 +49,7 @@ export interface IApp {
  * - uses server-side translations by default (with a setup of i18n)
  * - supports Session (with provided sites)
  */
-export const App: FC<IApp> = (
+export const App: FC<IAppProps> = (
 	{
 		titleTemplate,
 		sites,

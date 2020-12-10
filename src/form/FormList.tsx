@@ -5,10 +5,10 @@ import React, {FC} from "react";
 
 type TFormListProps = Partial<FormListProps> & Pick<FormListProps, "children">
 
-export interface IFormList extends TFormListProps {
+export interface IFormListProps extends TFormListProps {
 	field: NamePath
 }
 
-export const FormList: FC<IFormList> = ({field, ...props}) => {
+export const FormList: FC<IFormListProps> = ({field, ...props}) => {
 	return <Form.List name={field} {...props} children={props.children}/>;
 };

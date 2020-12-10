@@ -1,9 +1,4 @@
-export interface IPageIndex<TItem = any> {
-	total: number
-	limit: number
-	size: number
-	items: TItem[]
-}
+import {IPageIndex} from "../interface/interface";
 
 export function PageIndex(): IPageIndex {
 	return {

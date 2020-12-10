@@ -2,10 +2,10 @@ import {Menu} from "antd";
 import React, {FC} from "react";
 import {useMenuContext} from "./MenuContext";
 
-export interface IBaseMenu {
+export interface IBaseMenuProps {
 }
 
-export const BaseMenu: FC<IBaseMenu> = ({children}) => {
+export const BaseMenu: FC<IBaseMenuProps> = ({children}) => {
     const menuContext = useMenuContext();
     return (
         <Menu

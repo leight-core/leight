@@ -4,16 +4,17 @@ import {LoaderStep} from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
 import {httpGet} from "../../server/httpGet";
 import {Events} from "../../utils/Events";
-import {IClient, useAppContext} from "../AppContext";
+import {useAppContext} from "../AppContext";
+import {IClient} from "../interface";
 
-export interface IClientStep {
+export interface IClientStepProps {
 	/**
 	 * Where to get a client configuration (defaults to `/client.json`).
 	 */
 	href?: string
 }
 
-export const ClientStep: FC<IClientStep> = ({href, ...props}) => {
+export const ClientStep: FC<IClientStepProps> = ({href, ...props}) => {
 	const appContext = useAppContext();
 	const stepLoaderContext = useStepLoaderContext();
 	return (

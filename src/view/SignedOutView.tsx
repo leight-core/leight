@@ -5,14 +5,14 @@ import {Link} from "react-router-dom";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {generate} from "../router/router";
 
-export interface ISignedOutView {
+export interface ISignedOutViewProps {
 	/**
 	 * Target href to redirect; internally uses {@see generate}.
 	 */
 	href: string
 }
 
-export const SignedOutView: FC<ISignedOutView> = ({href}) => {
+export const SignedOutView: FC<ISignedOutViewProps> = ({href}) => {
 	const {t} = useTranslation();
 	useLayoutContext().useEnableFullscreen(true, true);
 	return (
