@@ -128,6 +128,7 @@ export const Wizard: FC<IWizardProps> = (
 				canNext,
 				canPrevious,
 				canFinish,
+				dependencies,
 				dependency: (dependency, value) => {
 					if (value) {
 						setDependencies(prev => ({...prev, [dependency]: value}));

@@ -30,6 +30,7 @@ export interface IWizardContext {
 	canNext: () => boolean
 	canPrevious: () => boolean
 	canFinish: () => boolean
+	dependencies: Object
 	/**
 	 * Set or get data a wizard might depend on (for example when Wizard prefetches some data required by a component in later step to
 	 * ensure the wizard has all the data).
