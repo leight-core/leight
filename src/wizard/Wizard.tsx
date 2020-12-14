@@ -37,6 +37,10 @@ export interface IWizardProps {
 	 */
 	loaders?: JSX.Element[]
 	/**
+	 * Initial values for the underlying form.
+	 */
+	initialValues?: Object
+	/**
 	 * If something inside Wizard needs data (dependencies), they could be directly
 	 * put here; loaders are setting those too.
 	 */
@@ -88,6 +92,7 @@ export const Wizard: FC<IWizardProps> = (
 		name,
 		events,
 		steps,
+		initialValues = {},
 		defaultDependencies = {},
 		loaders = [],
 		outputMapper = value => value,
@@ -139,9 +144,13 @@ export const Wizard: FC<IWizardProps> = (
 				<StepLoader
 					steps={loaders}
 					children={
-						<Form name={name} onSubmit={() => null} layout={"vertical"}>
-							<WizardInternal name={name} steps={steps}/>
-						</Form>
+						<Form
+							name={name}
+							onSubmit={() => null}
+							layout={"vertical"}
+							children={<WizardInternal name={name} steps={steps}/>}
+							initialValues={initialValues}
+						/>
 					}/>
 			}
 		/>
