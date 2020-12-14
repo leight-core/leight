@@ -1,7 +1,8 @@
-import {Button, Card, Result} from "antd";
+import {Card, Result} from "antd";
 import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {Link} from "react-router-dom";
+import {ButtonLink} from "../component/ButtonLink";
+import {ContinueIcon} from "../icon/ContinueIcon";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {generate} from "../router/router";
 
@@ -21,11 +22,9 @@ export const SignedInView: FC<ISignedInViewProps> = ({href}) => {
 				status={"success"}
 				title={t(`common.sign-in.succeed.title`)}
 				subTitle={t(`common.sign-in.succeed.subtitle`)}
-				extra={[
-					<Button type="primary" key="continue">
-						<Link to={generate(href)}>{t(`common.sign-in.continue`)}</Link>
-					</Button>
-				]}
+				extra={
+					<ButtonLink href={href} icon={<ContinueIcon/>} title={"common.sign-in.continue"}/>
+				}
 			/>
 		</Card>
 	);

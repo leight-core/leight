@@ -1,7 +1,8 @@
-import {Button, Card, Result} from "antd";
+import {Card, Result} from "antd";
 import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {Link} from "react-router-dom";
+import {ButtonLink} from "../component/ButtonLink";
+import {ContinueIcon} from "../icon/ContinueIcon";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {generate} from "../router/router";
 
@@ -22,9 +23,7 @@ export const SignedOutView: FC<ISignedOutViewProps> = ({href}) => {
 				title={t("common.sign-out.succeed.title")}
 				subTitle={t("common.sign-out.succeed.subtitle")}
 				extra={
-					<Button type="primary" key="continue">
-						<Link to={generate(href)}>{t("common.sign-out.continue")}</Link>
-					</Button>
+					<ButtonLink href={href} icon={<ContinueIcon/>} title={"common.sign-out.continue"}/>
 				}
 			/>
 		</Card>
