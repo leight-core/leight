@@ -1,7 +1,8 @@
 import {Button, Card, Result} from "antd";
-import {FC} from "react";
+import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
+import {ScrollToTop} from "../component/ScrollToTop";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {generate} from "../router/router";
 
@@ -17,6 +18,7 @@ export const SessionExpiredView: FC<ISessionExpiredViewProps> = ({href}) => {
 	useLayoutContext().useEnableFullscreen(true, true);
 	return (
 		<Card>
+			<ScrollToTop/>
 			<Result
 				status={"403"}
 				title={t("common.session-expired.title")}

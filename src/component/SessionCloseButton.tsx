@@ -3,6 +3,7 @@ import {ButtonProps} from "antd/lib/button";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useAppContext} from "../app/AppContext";
+import {SignOutIcon} from "../icon/SignOutIcon";
 
 export interface ISessionCloseButtonProps extends Partial<ButtonProps> {
 	/**
@@ -22,6 +23,7 @@ export const SessionCloseButton: FC<ISessionCloseButtonProps> = (
 		<Button
 			type={"primary"}
 			onClick={() => appContext.logout()} children={t(text)}
+			icon={<SignOutIcon/>}
 			{...props}
 		/>
 	);

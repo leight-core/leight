@@ -2,6 +2,7 @@ import {Card, Result} from "antd";
 import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {ButtonLink} from "../component/ButtonLink";
+import {ScrollToTop} from "../component/ScrollToTop";
 import {ContinueIcon} from "../icon/ContinueIcon";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {generate} from "../router/router";
@@ -18,6 +19,7 @@ export const SignedInView: FC<ISignedInViewProps> = ({href}) => {
 	useLayoutContext().useEnableFullscreen(true, true);
 	return (
 		<Card>
+			<ScrollToTop/>
 			<Result
 				status={"success"}
 				title={t(`common.sign-in.succeed.title`)}

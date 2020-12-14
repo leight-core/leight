@@ -3,6 +3,7 @@ import {Card, Divider, Result, Space} from "antd";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {BackLink} from "../component/BackLink";
+import {ScrollToTop} from "../component/ScrollToTop";
 import {SessionCloseButton} from "../component/SessionCloseButton";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {useMenuContext} from "../menu/MenuContext";
@@ -14,6 +15,7 @@ export const SignOutView = () => {
 	useMenuContext().useSelect(["common.sign-out"]);
 	return (
 		<Card>
+			<ScrollToTop/>
 			<Result
 				icon={<QuestionCircleFilled/>}
 				title={t(`common.sign-out.title`)}
