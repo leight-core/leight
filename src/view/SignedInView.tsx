@@ -5,7 +5,6 @@ import {ButtonLink} from "../component/ButtonLink";
 import {ScrollToTop} from "../component/ScrollToTop";
 import {ContinueIcon} from "../icon/ContinueIcon";
 import {useLayoutContext} from "../layout/LayoutContext";
-import {useModuleContext} from "../module/ModuleContext";
 import {generate} from "../router/router";
 
 export interface ISignedInViewProps {
@@ -13,19 +12,22 @@ export interface ISignedInViewProps {
 	 * Target href (on continue); internally uses {@see generate}.
 	 */
 	href: string
+	/**
+	 * Base title used for translation; it will be used as `title + ".title"` for title and `title + ".subtitle"` for subtitle.
+	 */
+	title?: string
 }
 
-export const SignedInView: FC<ISignedInViewProps> = ({href}) => {
+export const SignedInView: FC<ISignedInViewProps> = ({href, title = ""}) => {
 	const {t} = useTranslation();
-	const moduleContext = useModuleContext();
 	useLayoutContext().useEnableFullscreen(true, true);
 	return (
 		<Card>
 			<ScrollToTop/>
 			<Result
 				status={"success"}
-				title={t([moduleContext.tid("sign-in.succeed.title"), "common.sign-in.succeed.title"])}
-				subTitle={t([moduleContext.tid("sign-in.succeed.subtitle"), "common.sign-in.succeed.subtitle"])}
+				title={t([title + ".title", "common.sign-in.succeed.title"])}
+				subTitle={t([title + ".subtitle", "common.sign-in.succeed.subtitle"])}
 				extra={
 					<ButtonLink href={href} icon={<ContinueIcon/>} title={"common.sign-in.continue"}/>
 				}
