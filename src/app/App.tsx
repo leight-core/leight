@@ -3,9 +3,10 @@ import {Result} from "antd";
 import {FC, Suspense, useEffect, useState} from "react";
 import {Helmet} from "react-helmet";
 import {useTranslation} from "react-i18next";
-import {generatePath, Params} from "react-router";
+import {Params} from "react-router";
 import {BrowserRouter} from "react-router-dom";
 import {StepLoader} from "../loader/StepLoader";
+import {generate} from "../router/router";
 import {httpDelete} from "../server/httpDelete";
 import {Events} from "../utils/Events";
 import {LoaderView} from "../view/LoaderView";
@@ -77,10 +78,10 @@ export const App: FC<IAppProps> = (
 		const link = (discovery as Object)[id].link.replaceAll(/{(.*?)}/g, ":$1");
 		try {
 			const url = new URL(link);
-			url.pathname = generatePath(url.pathname, params);
+			url.pathname = generate(url.pathname, params);
 			return url.href;
 		} catch (e) {
-			return generatePath(link, params);
+			return generate(link, params);
 			// swallowed exception - do not disturb in console
 			// console.info(e);
 		}

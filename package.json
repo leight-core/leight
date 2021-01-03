@@ -14,6 +14,7 @@
 	],
 	"scripts": {
 		"build": "tsc -p tsconfig.json",
+		"build:watch": "tsc -w -p tsconfig.json",
 		"test": "jest src",
 		"test:watch": "jest src --watchAll",
 		"storybook": "start-storybook -p 6006",
@@ -21,14 +22,14 @@
 	},
 	"dependencies": {
 		"arr-diff": "^4.0.0",
-		"axios": "^0.21.0",
+		"axios": "^0.21.1",
 		"cancelable-promise": "^3.2.0",
 		"deepmerge": "^4.2.2",
 		"i18next": "^19.8.4",
+		"is-plain-object": "^5.0.0",
 		"isobject": "^4.0.0",
 		"omit-empty": "^1.0.0",
-		"react-helmet": "^6.1.0",
-		"is-plain-object": "^5.0.0"
+		"react-helmet": "^6.1.0"
 	},
 	"devDependencies": {
 		"@ant-design/icons": ">=4.3.0",
@@ -41,7 +42,7 @@
 		"@storybook/preset-ant-design": "0.0.1",
 		"@storybook/react": "^6.1.11",
 		"@types/jest": "^26.0.19",
-		"@types/node": "^14.14.14",
+		"@types/node": "^14.14.19",
 		"antd": "^4.9.4",
 		"axios-mock-adapter": "^1.19.0",
 		"babel-loader": "^8.2.2",

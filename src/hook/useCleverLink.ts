@@ -1,7 +1,7 @@
-import diffArray from "arr-diff";
 import omitEmpty from "omit-empty";
-import {generatePath, useParams} from "react-router";
+import {generatePath, Params, useParams} from "react-router";
 import {useLayoutContext} from "../layout/LayoutContext";
+import {generate} from "../router/router";
 
 export interface ICleverLink {
 	/**
@@ -18,15 +18,26 @@ export interface ICleverLink {
  * Generate clever link - it knows if it has all required parameters based on the input.
  *
  * @param to
+ * @param params
  */
-export function useCleverLink(to: string): ICleverLink {
-	const layoutContext = useLayoutContext();
-	const request = Array.from(to.matchAll(/:([a-z0-9-]+)/g)).map(item => item[1]) || [];
-	const params = useParams();
-	const current = omitEmpty({...layoutContext.data, ...params});
-	const diff = diffArray(request, Object.keys(current));
-	return {
-		enable: !diff.length,
-		link: diff.length ? "" : generatePath(to, current),
-	};
+export function useCleverLink(to: string, params?: Params): ICleverLink {
+	const current = omitEmpty({...useLayoutContext().data, ...useParams(), ...params});
+	try {
+		return {
+			enable: true,
+			link: generate(to, current),
+		};
+	} catch (e) {
+		try {
+			return {
+				enable: true,
+				link: generatePath(to, current),
+			};
+		} catch (e) {
+			return {
+				enable: false,
+				link: ""
+			};
+		}
+	}
 }

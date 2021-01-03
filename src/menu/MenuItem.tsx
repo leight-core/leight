@@ -5,7 +5,6 @@ import {useTranslation} from "react-i18next";
 import {Params} from "react-router";
 import {Link} from "react-router-dom";
 import {useCleverLink} from "../hook/useCleverLink";
-import {generate} from "../router/router";
 
 export interface IMenuItemProps extends Partial<MenuItemProps> {
 	/**
@@ -28,7 +27,7 @@ export interface IMenuItemProps extends Partial<MenuItemProps> {
 
 export const MenuItem: FC<IMenuItemProps> = ({id, icon, href, params, ...props}) => {
 	const {t} = useTranslation();
-	const cleverLink = useCleverLink(generate(href || id, params));
+	const cleverLink = useCleverLink(href || id, params);
 	return (
 		<Menu.Item icon={icon} {...props} disabled={!cleverLink.enable}>
 			<Link to={cleverLink.link} children={t(id + ".menu")}/>
