@@ -1,4 +1,4 @@
-import {link} from "./router";
+import {link} from "./utils";
 
 test("Request unknown Link ID", () => {
 	expect(() => link("foo")).toThrow("Requested unknown link with id [foo]. Did you register it?");
