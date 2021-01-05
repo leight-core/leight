@@ -44,7 +44,7 @@ export class RouterContextClass implements IRouterContext {
 		}
 		const link = this.links[id];
 		try {
-			const url = new URL(id);
+			const url = new URL(link);
 			/**
 			 * Slice because it looks like URL parses protocol including ":".
 			 */
