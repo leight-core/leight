@@ -6,6 +6,7 @@ import {useTranslation} from "react-i18next";
 import {generatePath, Params} from "react-router";
 import {BrowserRouter} from "react-router-dom";
 import {StepLoader} from "../loader/StepLoader";
+import {RouterContext, RouterContextClass} from "../router/RouterContext";
 import {httpDelete} from "../server/httpDelete";
 import {Events} from "../utils/Events";
 import {LoaderView} from "../view/LoaderView";
@@ -115,28 +116,30 @@ export const App: FC<IAppProps> = (
 			logout,
 			ready: () => setReady(true),
 		}}>
-			<BrowserRouter>
-				<Helmet titleTemplate={titleTemplate} title={title}/>
-				{ready ?
-					<Suspense fallback={<LoaderView/>}>
-						<>
-							{sites[session.site] ? sites[session.site]() : <LockedUserView/>}
-						</>
-					</Suspense> :
-					<Result icon={icon || <AntDesignOutlined/>}>
-						<div style={{display: "flex", justifyContent: "center"}}>
-							<StepLoader steps={[
-								<InitialStep key={"initial"}/>,
-								<ClientStep key={"client"} href={clientHref}/>,
-								<DiscoveryStep key={"discovery"}/>,
-								<TranslationStep key={"translation"}/>,
-								<SessionStep key={"session"}/>,
-								<FinishStep key={"finish"}/>,
-							]}/>
-						</div>
-					</Result>
-				}
-			</BrowserRouter>
+			<RouterContext.Provider value={new RouterContextClass()}>
+				<BrowserRouter>
+					<Helmet titleTemplate={titleTemplate} title={title}/>
+					{ready ?
+						<Suspense fallback={<LoaderView/>}>
+							<>
+								{sites[session.site] ? sites[session.site]() : <LockedUserView/>}
+							</>
+						</Suspense> :
+						<Result icon={icon || <AntDesignOutlined/>}>
+							<div style={{display: "flex", justifyContent: "center"}}>
+								<StepLoader steps={[
+									<InitialStep key={"initial"}/>,
+									<ClientStep key={"client"} href={clientHref}/>,
+									<DiscoveryStep key={"discovery"}/>,
+									<TranslationStep key={"translation"}/>,
+									<SessionStep key={"session"}/>,
+									<FinishStep key={"finish"}/>,
+								]}/>
+							</div>
+						</Result>
+					}
+				</BrowserRouter>
+			</RouterContext.Provider>
 		</AppContext.Provider>
 	);
 };

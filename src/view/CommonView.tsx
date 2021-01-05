@@ -1,12 +1,14 @@
 import {Spin} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
+import {useParams} from "react-router";
 import {useAppContext} from "../app/AppContext";
 import {Block} from "../block/Block";
 import {useBlockContext} from "../block/BlockContext";
 import {ScrollToTop} from "../component/ScrollToTop";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {useMenuContext} from "../menu/MenuContext";
+import {useRouterContext} from "../router/RouterContext";
 import {ViewContext} from "./ViewContext";
 
 export interface ICommonViewProps {
@@ -56,6 +58,7 @@ export const CommonView: FC<ICommonViewProps> = (
 		blocked = false,
 	}) => {
 	const menuContext = useMenuContext();
+	useRouterContext().setParams(useParams());
 	useLayoutContext().useEnableFullscreen(fullscreen, restore);
 	useAppContext().useTitle(title ? title : name + ".title");
 	menuContext.useMenu(menu);

@@ -3,7 +3,7 @@ import {ButtonProps} from "antd/lib/button";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
-import {generate} from "../router/router";
+import {useRouterContext} from "../router/RouterContext";
 
 export interface IButtonLinkProps extends ButtonProps {
 	/**
@@ -18,8 +18,9 @@ export interface IButtonLinkProps extends ButtonProps {
 
 export const ButtonLink = ({href, title, ...props}) => {
 	const {t} = useTranslation();
+	const routerContext = useRouterContext();
 	return (
-		<Link to={generate(href)}>
+		<Link to={routerContext.generate(href)}>
 			<Button type={"primary"} children={t(title)} {...props}/>
 		</Link>
 	);

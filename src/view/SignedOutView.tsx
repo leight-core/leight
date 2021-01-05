@@ -5,7 +5,6 @@ import {ButtonLink} from "../component/ButtonLink";
 import {ScrollToTop} from "../component/ScrollToTop";
 import {ContinueIcon} from "../icon/ContinueIcon";
 import {useLayoutContext} from "../layout/LayoutContext";
-import {generate} from "../router/router";
 
 export interface ISignedOutViewProps {
 	/**

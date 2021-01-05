@@ -6,11 +6,10 @@ import {ButtonLink} from "../component/ButtonLink";
 import {ScrollToTop} from "../component/ScrollToTop";
 import {HomeIcon} from "../icon/HomeIcon";
 import {useLayoutContext} from "../layout/LayoutContext";
-import {link} from "../router/index";
 
 export interface INotFoundViewProps {
 	/**
-	 * Link ID used to redirect on "not found". Internally uses {@see link}.
+	 * Link ID used to redirect on "not found". Internally uses {@see IRouterContext::generate}.
 	 */
 	href: string
 }

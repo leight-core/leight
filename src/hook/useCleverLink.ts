@@ -1,7 +1,7 @@
 import omitEmpty from "omit-empty";
-import {generatePath, Params, useParams} from "react-router";
+import {Params} from "react-router";
 import {useLayoutContext} from "../layout/LayoutContext";
-import {generate} from "../router/router";
+import {useRouterContext} from "../router/RouterContext";
 
 export interface ICleverLink {
 	/**
@@ -21,23 +21,17 @@ export interface ICleverLink {
  * @param params
  */
 export function useCleverLink(to: string, params?: Params): ICleverLink {
-	const current = omitEmpty({...useLayoutContext().data, ...useParams(), ...params});
+	const routerContext = useRouterContext();
+	const current = omitEmpty({...useLayoutContext().data, ...routerContext.params, ...params});
 	try {
 		return {
 			enable: true,
-			link: generate(to, current),
+			link: routerContext.generate(to, current),
 		};
 	} catch (e) {
-		try {
-			return {
-				enable: true,
-				link: generatePath(to, current),
-			};
-		} catch (e) {
-			return {
-				enable: false,
-				link: ""
-			};
-		}
+		return {
+			enable: false,
+			link: ""
+		};
 	}
 }

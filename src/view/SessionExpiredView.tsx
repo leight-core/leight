@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
 import {ScrollToTop} from "../component/ScrollToTop";
 import {useLayoutContext} from "../layout/LayoutContext";
-import {generate} from "../router/router";
+import {useRouterContext} from "../router/RouterContext";
 
 export interface ISessionExpiredViewProps {
 	/**
@@ -15,6 +15,7 @@ export interface ISessionExpiredViewProps {
 
 export const SessionExpiredView: FC<ISessionExpiredViewProps> = ({href}) => {
 	const {t} = useTranslation();
+	const routerContext = useRouterContext();
 	useLayoutContext().useEnableFullscreen(true, true);
 	return (
 		<Card>
@@ -25,7 +26,7 @@ export const SessionExpiredView: FC<ISessionExpiredViewProps> = ({href}) => {
 				subTitle={t("common.session-expired.subtitle")}
 				extra={
 					<Link
-						to={generate(href)}
+						to={routerContext.generate(href)}
 						children={
 							<Button
 								type={"primary"}
