@@ -46,6 +46,11 @@ const CommonViewInternal = ({children}) => {
 	);
 };
 
+/**
+ * Common view does a lot of things and it should be used **once** as a top level view component.
+ *
+ * There is no styling or other things used, so it's ideal for building view from scratch.
+ */
 export const CommonView: FC<ICommonViewProps> = (
 	{
 		name,

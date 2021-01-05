@@ -1,3 +1,4 @@
+import {BareView} from "./BareView";
 import {CommonView} from "./CommonView";
 import {CreateView} from "./CreateView";
 import {DashboardView} from "./DashboardView";
@@ -5,6 +6,7 @@ import {EditView} from "./EditView";
 import {HomeView} from "./HomeView";
 import {ListView} from "./ListView";
 
+export * from "./BareView";
 export * from "./CommonView";
 export * from "./CreateView";
 export * from "./DashboardView";
@@ -28,6 +30,7 @@ export * from "./ViewContext";
  * consumer side, here are some shortcuts to prevent import aliases.
  */
 export const View = {
+	Bare: BareView,
 	Common: CommonView,
 	Create: CreateView,
 	Edit: EditView,
