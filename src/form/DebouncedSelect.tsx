@@ -1,10 +1,11 @@
 import {Select} from "antd";
 import {SelectProps} from "antd/lib/select";
-import {FC, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import {useAppContext} from "../app/AppContext";
 import {ISearchRequest} from "../interface/interface";
 import {IPostCallback} from "../server/createPost";
 import {Events} from "../utils/Events";
+import {useFormContext} from "./FormContext";
 
 export interface IDebouncedSelectProps extends SelectProps<any> {
 	/**
@@ -19,12 +20,26 @@ export interface IDebouncedSelectProps extends SelectProps<any> {
 	 * Debounce interval in ms.
 	 */
 	debounce?: number
+	initial?: string
 }
 
-export const DebouncedSelect: FC<IDebouncedSelectProps> = ({fetch, mapper, debounce = 250, ...props}) => {
+export const DebouncedSelect: FC<IDebouncedSelectProps> = ({fetch, mapper, initial = "", debounce = 250, ...props}) => {
 	const appContext = useAppContext();
 	const [options, setOptions] = useState([]);
 	const [tid, setTid] = useState<number>();
+	const formContext = useFormContext();
+	useEffect(() => {
+		formContext.block();
+		fetch(
+			{search: initial},
+			appContext,
+			Events()
+				.on("success", data => {
+					setOptions(data.map(mapper));
+					formContext.unblock();
+				})
+		);
+	}, []);
 	return (
 		<Select
 			options={options}
