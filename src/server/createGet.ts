@@ -1,12 +1,7 @@
-import {CancelTokenSource} from "axios";
 import {IAppContext} from "../app/interface";
 import {IEvents} from "../utils/interface";
 import {httpGet} from "./httpGet";
-
-export type IGetCallback = (
-	appContext: IAppContext,
-	events: IEvents,
-) => CancelTokenSource;
+import {IGetCallback} from "./interface";
 
 /**
  * Simple factory for creating get based on the discovery link id.

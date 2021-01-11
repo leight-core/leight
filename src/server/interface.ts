@@ -12,3 +12,14 @@ export interface IPage {
 	page: number
 	limit: number
 }
+
+export type IGetCallback = (
+	appContext: IAppContext,
+	events: IEvents,
+) => CancelTokenSource;
+
+export type IPostCallback<TRequest = any> = (
+	data: TRequest,
+	appContext: IAppContext,
+	events: IEvents,
+) => CancelTokenSource

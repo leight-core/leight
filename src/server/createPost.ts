@@ -1,13 +1,7 @@
-import {CancelTokenSource} from "axios";
 import {IAppContext} from "../app/interface";
 import {IEvents} from "../utils/interface";
 import {httpPost} from "./httpPost";
-
-export type IPostCallback<TRequest = any> = (
-	data: TRequest,
-	appContext: IAppContext,
-	events: IEvents,
-) => CancelTokenSource
+import {IPostCallback} from "./interface";
 
 /**
  * Simple factory for creating post based on the discovery link id.

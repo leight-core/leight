@@ -2,7 +2,7 @@ import {Select} from "antd";
 import {SelectProps} from "antd/lib/select";
 import {FC, useEffect, useState} from "react";
 import {useAppContext} from "../app/AppContext";
-import {IGetCallback} from "../server/createGet";
+import {IGetCallback} from "../server/interface";
 import {Events} from "../utils/Events";
 import {useFormContext} from "./FormContext";
 

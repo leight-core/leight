@@ -4,7 +4,7 @@ import {FC, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useAppContext} from "../app/AppContext";
 import {ISearchRequest} from "../interface/interface";
-import {IPostCallback} from "../server/createPost";
+import {IPostCallback} from "../server/interface";
 import {Events} from "../utils/Events";
 import {useFormContext} from "./FormContext";
 
@@ -50,7 +50,7 @@ export const DebouncedSelect: FC<IDebouncedSelectProps> = ({fetch, mapper, initi
 			options={options}
 			showSearch={true}
 			loading={loading}
-			virtual={false}
+			filterOption={() => true}
 			notFoundContent={t("common.nothing-found")}
 			onSearch={search => {
 				clearTimeout(tid);
