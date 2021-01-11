@@ -53,9 +53,9 @@ export const DebouncedSelect: FC<IDebouncedSelectProps> = ({fetch, mapper, initi
 			filterOption={() => true}
 			notFoundContent={t("common.nothing-found")}
 			onSearch={search => {
+				setLoading(true);
 				clearTimeout(tid);
 				setTid(setTimeout(() => {
-					setLoading(true);
 					fetch(
 						{search},
 						appContext,
