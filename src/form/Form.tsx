@@ -1,4 +1,4 @@
-import {Form as CoolForm, message} from "antd";
+import {Form as CoolForm, message, Spin} from "antd";
 import {FormProps} from "antd/lib/form";
 import {ValidateErrorEntity} from "rc-field-form/lib/interface";
 import React, {PropsWithChildren, useState} from "react";
@@ -60,8 +60,9 @@ export const Form = <TValues extends unknown = any>({name, onSubmit, onSubmitFai
 		>
 			<FormContext.Provider
 				value={formContext}
-				children={children}
-			/>
+			>
+				<Spin spinning={isBlocked()} children={children}/>
+			</FormContext.Provider>
 		</CoolForm>
 	);
 };
