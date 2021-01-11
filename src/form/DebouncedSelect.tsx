@@ -1,6 +1,7 @@
 import {Select} from "antd";
 import {SelectProps} from "antd/lib/select";
 import {FC, useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 import {useAppContext} from "../app/AppContext";
 import {ISearchRequest} from "../interface/interface";
 import {IPostCallback} from "../server/createPost";
@@ -28,14 +29,18 @@ export const DebouncedSelect: FC<IDebouncedSelectProps> = ({fetch, mapper, initi
 	const [options, setOptions] = useState([]);
 	const [tid, setTid] = useState<number>();
 	const formContext = useFormContext();
+	const [loading, setLoading] = useState(true);
+	const {t} = useTranslation();
 	useEffect(() => {
 		formContext.block();
+		setLoading(true);
 		fetch(
 			{search: initial},
 			appContext,
 			Events()
 				.on("success", data => {
 					setOptions(data.map(mapper));
+					setLoading(false);
 					formContext.unblock();
 				})
 		);
@@ -44,14 +49,22 @@ export const DebouncedSelect: FC<IDebouncedSelectProps> = ({fetch, mapper, initi
 		<Select
 			options={options}
 			showSearch={true}
+			disabled={!loading}
+			loading={loading}
+			virtual={false}
+			notFoundContent={t("common.nothing-found")}
 			onSearch={search => {
 				clearTimeout(tid);
 				setTid(setTimeout(() => {
+					setLoading(true);
 					fetch(
 						{search},
 						appContext,
 						Events()
-							.on("success", data => setOptions(data.map(mapper)))
+							.on("success", data => {
+								setOptions(data.map(mapper));
+								setLoading(false);
+							})
 					);
 				}, debounce) as unknown as number);
 			}}
