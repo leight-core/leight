@@ -49,7 +49,6 @@ export const DebouncedSelect: FC<IDebouncedSelectProps> = ({fetch, mapper, initi
 		<Select
 			options={options}
 			showSearch={true}
-			disabled={!loading}
 			loading={loading}
 			virtual={false}
 			notFoundContent={t("common.nothing-found")}
