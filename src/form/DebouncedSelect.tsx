@@ -36,7 +36,7 @@ export const DebouncedSelect: FC<IDebouncedSelectProps> = ({fetch, mapper, debou
 						{search},
 						appContext,
 						Events()
-							.on("success", data => setOptions(mapper(data)))
+							.on("success", data => setOptions(data.map(mapper)))
 					);
 				}, debounce) as unknown as number);
 			}}
