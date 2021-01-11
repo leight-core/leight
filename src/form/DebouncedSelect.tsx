@@ -2,6 +2,7 @@ import {Select} from "antd";
 import {SelectProps} from "antd/lib/select";
 import {FC, useState} from "react";
 import {useAppContext} from "../app/AppContext";
+import {ISearchRequest} from "../interface/interface";
 import {IPostCallback} from "../server/createPost";
 import {Events} from "../utils/Events";
 
@@ -9,7 +10,7 @@ export interface IDebouncedSelectProps extends SelectProps<any> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
-	fetch: IPostCallback
+	fetch: IPostCallback<ISearchRequest>
 	/**
 	 * Map requested data into Select's options.
 	 */

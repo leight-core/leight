@@ -30,3 +30,7 @@ export interface IPageIndex<TItem extends Object = any> {
 	size: number
 	items: TItem[]
 }
+
+export interface ISearchRequest {
+	search: string
+}
