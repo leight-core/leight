@@ -39,7 +39,7 @@ export interface IRouterContext {
 	generate(href: string, params?: Params): string
 
 	/**
-	 * Execute navigation to the given target.
+	 * Execute navigation to the given target; internally uses generate method (thus using named routes).
 	 */
 	useNavigate(): INavigate
 }
