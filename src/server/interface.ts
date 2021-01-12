@@ -16,10 +16,12 @@ export interface IPage {
 export type IGetCallback = (
 	appContext: IAppContext,
 	events: IEvents,
+	params?: Params,
 ) => CancelTokenSource;
 
 export type IPostCallback<TRequest = any> = (
 	data: TRequest,
 	appContext: IAppContext,
 	events: IEvents,
+	params?: Params,
 ) => CancelTokenSource

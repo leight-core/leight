@@ -1,3 +1,4 @@
+import {Params} from "react-router";
 import {IAppContext} from "../app/interface";
 import {IEvents} from "../utils/interface";
 import {httpGet} from "./httpGet";
@@ -12,8 +13,9 @@ export function createGet(link: string): IGetCallback {
 	return (
 		appContext: IAppContext,
 		events: IEvents,
+		params?: Params,
 	) => httpGet(
-		appContext.link(link),
+		appContext.link(link, params),
 		events,
 	);
 }
