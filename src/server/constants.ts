@@ -1,1 +1,1 @@
-export const requestTimeout = 3000;
+export const requestTimeout = 10000;
