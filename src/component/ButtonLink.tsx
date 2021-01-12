@@ -1,6 +1,6 @@
 import {Button} from "antd";
 import {ButtonProps} from "antd/lib/button";
-import React from "react";
+import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {Params} from "react-router";
 import {Link} from "react-router-dom";
@@ -22,7 +22,7 @@ export interface IButtonLinkProps extends ButtonProps {
 	params?: Params
 }
 
-export const ButtonLink = ({href, title, params, ...props}) => {
+export const ButtonLink: FC<IButtonLinkProps> = ({href, title, params, ...props}) => {
 	const {t} = useTranslation();
 	const routerContext = useRouterContext();
 	const layoutContext = useLayoutContext();
