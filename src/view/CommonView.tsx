@@ -1,5 +1,5 @@
 import {Spin} from "antd";
-import {FC} from "react";
+import {FC, useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import {useParams} from "react-router";
 import {useAppContext} from "../app/AppContext";
@@ -63,11 +63,13 @@ export const CommonView: FC<ICommonViewProps> = (
 		blocked = false,
 	}) => {
 	const menuContext = useMenuContext();
+	const layoutContext = useLayoutContext();
 	useRouterContext().setParams(useParams());
-	useLayoutContext().useEnableFullscreen(fullscreen, restore);
 	useAppContext().useTitle(title ? title : name + ".title");
 	menuContext.useMenu(menu);
 	menuContext.useSelect(menuItems || [name]);
+	layoutContext.useEnableFullscreen(fullscreen, restore);
+	useEffect(() => layoutContext.setData({}), []);
 	return (
 		<Block locked={blocked}>
 			<CommonViewInternal children={children}/>
