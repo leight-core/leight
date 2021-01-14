@@ -15,9 +15,13 @@ export interface IBaseSelectProps extends SelectProps<any> {
 	 * Map requested data into Select's options.
 	 */
 	mapper: (item) => any
+	/**
+	 * Dependency used to force redraw (re-fetch data).
+	 */
+	dependency?: string
 }
 
-export const BaseSelect: FC<IBaseSelectProps> = ({fetch, mapper, ...props}) => {
+export const BaseSelect: FC<IBaseSelectProps> = ({fetch, mapper, dependency, ...props}) => {
 	const [options, setOptions] = useState([]);
 	const appContext = useAppContext();
 	const formContext = useFormContext();
@@ -33,7 +37,7 @@ export const BaseSelect: FC<IBaseSelectProps> = ({fetch, mapper, ...props}) => {
 		);
 		return () => token.cancel();
 		// eslint-disable-next-line
-	}, []);
+	}, [dependency]);
 	return (
 		<Select
 			options={options}
