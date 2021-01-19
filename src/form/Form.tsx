@@ -1,12 +1,14 @@
 import {Form as CoolForm, message, Spin} from "antd";
 import {FormProps} from "antd/lib/form";
-import {ValidateErrorEntity} from "rc-field-form/lib/interface";
-import React, {PropsWithChildren, useState} from "react";
+import React, {PropsWithChildren, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
+import {useAppContext} from "../app/AppContext";
 import {useLayoutContext} from "../layout/LayoutContext";
+import {IGetCallback, IServerEvents} from "../server/interface";
 import {Events} from "../utils/Events";
+import {useViewContext} from "../view/ViewContext";
 import {FormContext} from "./FormContext";
-import {IFormContext, IFormErrors} from "./interface";
+import {IFormErrors, IFormHandleFetchCallback, IFormSubmitCallback, IFormSubmitFailedCallback} from "./interface";
 
 export interface IFormProps<TValues> extends Partial<FormProps<TValues>> {
 	/**
@@ -16,11 +18,16 @@ export interface IFormProps<TValues> extends Partial<FormProps<TValues>> {
 	/**
 	 * What to to when a form is submitted (and validated).
 	 */
-	onSubmit: (values: TValues, formContext: IFormContext) => void
+	onSubmit: IFormSubmitCallback<TValues>
 	/**
 	 * Optional method to handle failed submit.
 	 */
-	onSubmitFailed?: (errorInfo: ValidateErrorEntity<TValues>, formContext: IFormContext) => void
+	onSubmitFailed?: IFormSubmitFailedCallback<TValues>
+	/**
+	 * Optional callback to fill-up the form (for example remote data).
+	 */
+	onFetch?: IGetCallback
+	onHandleFetch?: IFormHandleFetchCallback<TValues>
 }
 
 /**
@@ -28,8 +35,19 @@ export interface IFormProps<TValues> extends Partial<FormProps<TValues>> {
  *
  * Rest of props are sent to underlying Antd Form.
  */
-export const Form = <TValues extends unknown = any>({name, onSubmit, onSubmitFailed = () => null, children = null, ...props}: PropsWithChildren<IFormProps<TValues>>) => {
+export const Form = <TValues extends unknown = any>(
+	{
+		name,
+		onSubmit,
+		onSubmitFailed = () => null,
+		onFetch,
+		onHandleFetch = (formContext, data) => formContext.setValues(data),
+		children = null,
+		...props
+	}: PropsWithChildren<IFormProps<TValues>>) => {
+	const appContext = useAppContext();
 	const layoutContext = useLayoutContext();
+	const {blockContext} = useViewContext();
 	const [form] = CoolForm.useForm();
 	const {t} = useTranslation();
 	const [errors, setErrors] = useState<IFormErrors>();
@@ -62,6 +80,19 @@ export const Form = <TValues extends unknown = any>({name, onSubmit, onSubmitFai
 				layoutContext.blockContext.unblock();
 			})
 	};
+	useEffect(() => {
+		blockContext.block();
+		const cancelToken = onFetch ? onFetch(
+			appContext,
+			Events<IServerEvents>()
+				.on("success", data => {
+					onHandleFetch(formContext, data);
+					blockContext.unblock();
+				})
+		) : {cancel: () => undefined};
+		return () => cancelToken.cancel();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	return (
 		<CoolForm
 			form={form}

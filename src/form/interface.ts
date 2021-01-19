@@ -1,5 +1,5 @@
 import {FormInstance} from "antd/lib/form";
-import {NamePath} from "rc-field-form/lib/interface";
+import {NamePath, ValidateErrorEntity} from "rc-field-form/lib/interface";
 import {IServerEvents} from "../server/interface";
 import {IEvents} from "../utils/interface";
 
@@ -62,3 +62,7 @@ export interface IFormContext<TValues = any> {
 	 */
 	events: <T extends string = IServerEvents>() => IEvents<T>
 }
+
+export type IFormSubmitCallback<TValues> = (values: TValues, formContext: IFormContext) => void
+export type IFormSubmitFailedCallback<TValues> = (errorInfo: ValidateErrorEntity<TValues>, formContext: IFormContext) => void
+export type IFormHandleFetchCallback<TValues = any> = (formContext: IFormContext, data: TValues) => void
