@@ -8,6 +8,7 @@ export function httpPatch<TRequest = any>(
 	events: IEvents,
 ): CancelTokenSource {
 	const cancelToken = axios.CancelToken.source();
+	events.call("request", data);
 	axios.patch(href, data, {
 		cancelToken: cancelToken.token,
 	})

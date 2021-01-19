@@ -1,4 +1,5 @@
 import axios from "axios";
+import {IEvents} from "../utils/interface";
 
 /**
  * Handle axios error.
@@ -6,7 +7,7 @@ import axios from "axios";
  * @param error
  * @param events
  */
-const axiosError = (error, events) => {
+const axiosError = (error, events: IEvents) => {
 	if (axios.isCancel(error)) {
 		return;
 	}
@@ -25,7 +26,7 @@ const axiosError = (error, events) => {
  * @param data
  * @param events
  */
-const axiosSuccess = ({data}, events) => {
+const axiosSuccess = ({data}, events: IEvents) => {
 	events.call("success", data);
 	events.call("done");
 };

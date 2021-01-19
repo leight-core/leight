@@ -10,6 +10,7 @@ export function httpGet(
 	events: IEvents,
 ): CancelTokenSource {
 	const cancelToken = axios.CancelToken.source();
+	events.call("request");
 	axios.get(href, {
 		cancelToken: cancelToken.token,
 	})

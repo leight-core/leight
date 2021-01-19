@@ -8,6 +8,7 @@ export function httpPost<TRequest = any>(
 	events: IEvents,
 ): CancelTokenSource {
 	const cancelToken = axios.CancelToken.source();
+	events.call("request", data);
 	axios.post(href, data, {
 		cancelToken: cancelToken.token,
 	})
