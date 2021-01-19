@@ -1,5 +1,6 @@
 import {FormInstance} from "antd/lib/form";
 import {NamePath} from "rc-field-form/lib/interface";
+import {IServerEvents} from "../server/interface";
 import {IEvents} from "../utils/interface";
 
 export type IFormFields = [NamePath, any];
@@ -59,5 +60,5 @@ export interface IFormContext<TValues = any> {
 	/**
 	 * Create default events handling some things in the form.
 	 */
-	events: <T extends string>() => IEvents<T>
+	events: <T extends string = IServerEvents>() => IEvents<T>
 }
