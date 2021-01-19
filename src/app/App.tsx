@@ -77,7 +77,7 @@ export const App: FC<IAppProps> = (
 		 * A little replace hack to convert `/{foo}/bar` form into `/:foo/bar` form.
 		 */
 		const link = (discovery as Object)[id].link.replaceAll(/{(.*?)}/g, ":$1");
-		params = {...params, ...routerContext.params};
+		params = {...routerContext.params, ...params};
 		try {
 			const url = new URL(link);
 			url.pathname = generatePath(url.pathname, params);
