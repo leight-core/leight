@@ -81,10 +81,12 @@ export const Form = <TValues extends unknown = any>(
 			})
 	};
 	useEffect(() => {
-		blockContext.block();
 		const cancelToken = onFetch ? onFetch(
 			appContext,
 			Events<IServerEvents>()
+				.on("request", () => {
+					blockContext.block();
+				})
 				.on("success", data => {
 					onHandleFetch(formContext, data);
 					blockContext.unblock();
