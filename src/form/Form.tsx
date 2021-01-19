@@ -38,7 +38,7 @@ export const Form = <TValues extends unknown = any>({name, onSubmit, onSubmitFai
 	const formContext = {
 		form,
 		errors: errors as IFormErrors,
-		setErrors: errors => {
+		setErrors: (errors: IFormErrors) => {
 			setErrors(errors);
 			errors.message && message.error(t("error." + errors.message));
 			form.setFields(((errors || {}).errors || []).map(item => ({
@@ -54,6 +54,10 @@ export const Form = <TValues extends unknown = any>({name, onSubmit, onSubmitFai
 		unblock: () => setBlocking(prev => prev - 1),
 		events: () => Events()
 			.on("http-400", errors => formContext.setErrors(errors))
+			.on("http-500", () => formContext.setErrors({
+				message: t("common.form.server-error"),
+				errors: [],
+			}))
 			.on("done", () => {
 				layoutContext.blockContext.unblock();
 			})
