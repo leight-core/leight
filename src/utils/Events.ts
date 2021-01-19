@@ -3,7 +3,7 @@ import {IEvent, IEvents} from "./interface";
 /**
  * Simple EventBus implementation intended to be used locally on call site near to the execution site (thus not application-wise).
  */
-export function Events(): IEvents {
+export function Events<TEvents extends string>(): IEvents<TEvents> {
 	return {
 		events: {},
 		chains: [],

@@ -2,6 +2,7 @@ import {useEffect} from "react";
 import {Params} from "react-router";
 import {useAppContext} from "../app/AppContext";
 import {httpGet} from "../server/httpGet";
+import {IServerEvents} from "../server/interface";
 import {IEvents} from "../utils/interface";
 
 /**
@@ -11,12 +12,11 @@ import {IEvents} from "../utils/interface";
  */
 export const createLinkHook = (link: string) => {
 	return (
-		events: IEvents,
+		events: IEvents<IServerEvents>,
 		params?: Params,
 	) => {
 		const appContext = useAppContext();
 		useEffect(() => {
-			events.call("request");
 			const cancelToken = httpGet(
 				appContext.link(link, params),
 				events,

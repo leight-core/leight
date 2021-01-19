@@ -1,13 +1,14 @@
 import axios, {CancelTokenSource} from "axios";
 import {IEvents} from "../utils/interface";
 import {axiosError, axiosSuccess} from "./events";
+import {IServerEvents} from "./interface";
 
 /**
  * simple http get; returns cancel token
  */
 export function httpGet(
 	href: string,
-	events: IEvents,
+	events: IEvents<IServerEvents>,
 ): CancelTokenSource {
 	const cancelToken = axios.CancelToken.source();
 	events.call("request");

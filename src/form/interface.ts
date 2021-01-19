@@ -59,5 +59,5 @@ export interface IFormContext<TValues = any> {
 	/**
 	 * Create default events handling some things in the form.
 	 */
-	events: () => IEvents
+	events: <T extends string>() => IEvents<T>
 }

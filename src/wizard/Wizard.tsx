@@ -14,7 +14,7 @@ import {CancelButton} from "./button/CancelButton";
 import {FinishButton} from "./button/FinishButton";
 import {NextButton} from "./button/NextButton";
 import {PreviousButton} from "./button/PreviousButton";
-import {IWizardStep} from "./interface";
+import {IWizardEvents, IWizardStep} from "./interface";
 import {useWizardContext, WizardContext} from "./WizardContext";
 
 export interface IWizardProps {
@@ -111,7 +111,7 @@ export const Wizard: FC<IWizardProps> = (
 	const canNext = () => step < (count - 1);
 	const canPrevious = () => step > 0;
 	const canFinish = () => step === count - 1;
-	const wizardEvents = Events()
+	const wizardEvents = Events<IWizardEvents>()
 		.on("next", ({values}) => setValues(prev => merge(prev, values)))
 		.on("reset", () => setStep(0))
 		.chain(events);

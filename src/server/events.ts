@@ -7,7 +7,7 @@ import {IEvents} from "../utils/interface";
  * @param error
  * @param events
  */
-const axiosError = (error, events: IEvents) => {
+export const axiosError = (error, events: IEvents) => {
 	if (axios.isCancel(error)) {
 		return;
 	}
@@ -26,12 +26,7 @@ const axiosError = (error, events: IEvents) => {
  * @param data
  * @param events
  */
-const axiosSuccess = ({data}, events: IEvents) => {
+export const axiosSuccess = ({data}, events: IEvents) => {
 	events.call("success", data);
 	events.call("done");
-};
-
-export {
-	axiosError,
-	axiosSuccess
 };

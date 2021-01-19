@@ -2,7 +2,7 @@ import {Select} from "antd";
 import {SelectProps} from "antd/lib/select";
 import {FC, useEffect, useState} from "react";
 import {useAppContext} from "../app/AppContext";
-import {IGetCallback} from "../server/interface";
+import {IGetCallback, IServerEvents} from "../server/interface";
 import {Events} from "../utils/Events";
 import {useFormContext} from "./FormContext";
 
@@ -29,7 +29,7 @@ export const BaseSelect: FC<IBaseSelectProps> = ({fetch, mapper, dependency, ...
 		formContext.block();
 		const token = fetch(
 			appContext,
-			Events()
+			Events<IServerEvents>()
 				.on("success", data => {
 					setOptions(data.map(mapper));
 					formContext.unblock();

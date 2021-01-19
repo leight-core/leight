@@ -1,11 +1,12 @@
 import axios, {CancelTokenSource} from "axios";
 import {IEvents} from "../utils/interface";
 import {axiosError, axiosSuccess} from "./events";
+import {IServerEvents} from "./interface";
 
 export function httpPatch<TRequest = any>(
 	href: string,
 	data: TRequest,
-	events: IEvents,
+	events: IEvents<IServerEvents>,
 ): CancelTokenSource {
 	const cancelToken = axios.CancelToken.source();
 	events.call("request", data);
