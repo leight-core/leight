@@ -1,5 +1,6 @@
 import {FormInstance} from "antd/lib/form";
 import {NamePath} from "rc-field-form/lib/interface";
+import {IEvents} from "../utils/interface";
 
 export type IFormFields = [NamePath, any];
 
@@ -54,4 +55,9 @@ export interface IFormContext<TValues = any> {
 	 * Updates blocking state of the form; could be called more times as it maintains loader count.
 	 */
 	unblock: () => void
+
+	/**
+	 * Create default events handling some things in the form.
+	 */
+	events: () => IEvents
 }

@@ -3,6 +3,8 @@ import {FormProps} from "antd/lib/form";
 import {ValidateErrorEntity} from "rc-field-form/lib/interface";
 import React, {PropsWithChildren, useState} from "react";
 import {useTranslation} from "react-i18next";
+import {useLayoutContext} from "../layout/LayoutContext";
+import {Events} from "../utils/Events";
 import {FormContext} from "./FormContext";
 import {IFormContext, IFormErrors} from "./interface";
 
@@ -27,6 +29,7 @@ export interface IFormProps<TValues> extends Partial<FormProps<TValues>> {
  * Rest of props are sent to underlying Antd Form.
  */
 export const Form = <TValues extends unknown = any>({name, onSubmit, onSubmitFailed = () => null, children = null, ...props}: PropsWithChildren<IFormProps<TValues>>) => {
+	const layoutContext = useLayoutContext();
 	const [form] = CoolForm.useForm();
 	const {t} = useTranslation();
 	const [errors, setErrors] = useState<IFormErrors>();
@@ -49,6 +52,11 @@ export const Form = <TValues extends unknown = any>({name, onSubmit, onSubmitFai
 		isBlocked,
 		block: () => setBlocking(prev => prev + 1),
 		unblock: () => setBlocking(prev => prev - 1),
+		events: () => Events()
+			.on("http-400", errors => formContext.setErrors(errors))
+			.on("done", () => {
+				layoutContext.blockContext.unblock();
+			})
 	};
 	return (
 		<CoolForm
