@@ -65,6 +65,7 @@ export const App: FC<IAppProps> = (
 		site: "public",
 	});
 	const [ready, setReady] = useState<boolean>(false);
+	const routerContext = new RouterContextClass();
 	const link = (id: string, params ?: Params) => {
 		if (!discovery) {
 			throw new Error(`Cannot resolve link from Discovery for linkId [${id}]; discovery is not initialized yet!`);
@@ -76,14 +77,18 @@ export const App: FC<IAppProps> = (
 		 * A little replace hack to convert `/{foo}/bar` form into `/:foo/bar` form.
 		 */
 		const link = (discovery as Object)[id].link.replaceAll(/{(.*?)}/g, ":$1");
+		params = {...params, ...routerContext.params};
 		try {
 			const url = new URL(link);
 			url.pathname = generatePath(url.pathname, params);
 			return url.href;
 		} catch (e) {
-			return generatePath(link, params);
-			// swallowed exception - do not disturb in console
-			// console.info(e);
+			try {
+				return generatePath(link, params);
+			} catch (e) {
+				console.error(`Cannot generate path for ${link} with params`, params);
+				throw e;
+			}
 		}
 	};
 	const login = session => setSession(session);
@@ -116,7 +121,7 @@ export const App: FC<IAppProps> = (
 			logout,
 			ready: () => setReady(true),
 		}}>
-			<RouterContext.Provider value={new RouterContextClass()}>
+			<RouterContext.Provider value={routerContext}>
 				<BrowserRouter>
 					<Helmet titleTemplate={titleTemplate} title={title}/>
 					{ready ?
