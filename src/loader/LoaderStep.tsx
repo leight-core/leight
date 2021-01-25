@@ -1,5 +1,4 @@
-import {Steps} from "antd";
-import {StepProps} from "antd/lib/steps";
+import {StepProps, Steps} from "antd";
 import React, {FC, useEffect, useState} from "react";
 import {Spinner} from "../icon/Spinner";
 import {useStepLoaderContext} from "./StepLoaderContext";

@@ -1,5 +1,4 @@
-import {Steps} from "antd";
-import {StepsProps} from "antd/lib/steps";
+import {Steps, StepsProps} from "antd";
 import {FC, useState} from "react";
 import {IStepStatus} from "./interface";
 import {StepLoaderContext} from "./StepLoaderContext";

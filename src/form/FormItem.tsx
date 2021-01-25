@@ -1,6 +1,5 @@
-import {Form, Input} from "antd";
-import {FormItemProps, Rule} from "antd/lib/form";
-import {NamePath} from "rc-field-form/lib/interface";
+import {Form, FormItemProps, Input} from "antd";
+import {NamePath, Rule} from "rc-field-form/lib/interface";
 import {cloneElement, FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useFormContext} from "./FormContext";

@@ -1,4 +1,4 @@
-import {FormInstance} from "antd/lib/form";
+import {FormInstance} from "antd";
 import CancelablePromise, {CancelablePromiseType} from "cancelable-promise";
 import {NamePath} from "rc-field-form/lib/interface";
 import {IFormFields} from "./interface";

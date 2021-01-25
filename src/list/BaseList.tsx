@@ -1,5 +1,4 @@
-import {List} from "antd";
-import {ListProps} from "antd/lib/list";
+import {List, ListProps} from "antd";
 import {ReactNode, useEffect, useState} from "react";
 import {useParams} from "react-router";
 import {useAppContext} from "../app/AppContext";

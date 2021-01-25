@@ -1,5 +1,4 @@
-import {Table} from "antd";
-import {TableProps} from "antd/lib/table";
+import {Table, TableProps} from "antd";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router";
 import {useAppContext} from "../app/AppContext";

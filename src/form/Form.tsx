@@ -1,5 +1,4 @@
-import {Form as CoolForm, message, Spin} from "antd";
-import {FormProps} from "antd/lib/form";
+import {Form as CoolForm, FormProps, message, Spin} from "antd";
 import React, {PropsWithChildren, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useAppContext} from "../app/AppContext";

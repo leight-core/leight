@@ -1,16 +1,24 @@
-import {Skeleton} from "antd";
-import {FC} from "react";
+import {Skeleton, SkeletonProps} from "antd";
+import {FC, ReactElement} from "react";
 
-export interface IPlaceholderProps<TData> {
-	display: (data: TData) => any
+export interface IPlaceholderProps<TData = any> {
+	/**
+	 * Render children by this callback.
+	 */
+	callback: (data: TData) => ReactElement
 	data: TData
+	children?: ReactElement
+	skeleton?: SkeletonProps
 }
 
-export function Placeholder<TData>(
+export const Placeholder: FC<IPlaceholderProps> = (
 	{
-		display,
+		callback,
 		data,
-		children
-	}): FC<IPlaceholderProps<TData>> {
-	return data ? display(data) : (children || <Skeleton.Input size={"large"} style={{width: 200}} active={true}/>);
-}
+		children,
+		skeleton,
+	}) => {
+	return (
+		data ? callback(data) : (children || <Skeleton.Input size={"large"} style={{width: 200}} active={true} {...skeleton}/>)
+	);
+};

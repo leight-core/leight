@@ -1,4 +1,4 @@
-import {FormInstance} from "antd/lib/form";
+import {FormInstance} from "antd";
 import {NamePath, ValidateErrorEntity} from "rc-field-form/lib/interface";
 import {IServerEvents} from "../server/interface";
 import {IEvents} from "../utils/interface";

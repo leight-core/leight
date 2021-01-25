@@ -1,6 +1,4 @@
-import {Button, Form} from "antd";
-import {ButtonProps} from "antd/lib/button";
-import {FormInstance} from "antd/lib/form";
+import {Button, ButtonProps, Form, FormInstance} from "antd";
 import React, {FC, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Spinner} from "../icon/Spinner";

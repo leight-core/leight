@@ -1,5 +1,4 @@
-import {Menu} from "antd";
-import {DividerProps} from "antd/lib/divider";
+import {DividerProps, Menu} from "antd";
 import React from "react";
 
 export interface IMenuDividerProps extends Partial<DividerProps> {

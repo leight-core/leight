@@ -1,5 +1,4 @@
-import {Switch as CoolSwitch} from "antd";
-import {SwitchProps} from "antd/lib/switch";
+import {Switch as CoolSwitch, SwitchProps} from "antd";
 import {NamePath} from "rc-field-form/lib/interface";
 import React, {FC} from "react";
 import {FormItem} from "./FormItem";

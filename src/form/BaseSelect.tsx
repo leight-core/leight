@@ -1,5 +1,4 @@
-import {Select} from "antd";
-import {SelectProps} from "antd/lib/select";
+import {Select, SelectProps} from "antd";
 import {FC, useEffect, useState} from "react";
 import {useAppContext} from "../app/AppContext";
 import {IGetCallback, IServerEvents} from "../server/interface";
