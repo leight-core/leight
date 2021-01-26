@@ -1,5 +1,6 @@
-import {Skeleton, SkeletonProps} from "antd";
-import {ReactElement} from "react";
+import {Skeleton} from "antd";
+import {SkeletonInputProps} from "antd/lib/skeleton/Input";
+import {ReactNode} from "react";
 
 export interface IPlaceholderProps<TData = any> {
 	/**
@@ -9,29 +10,29 @@ export interface IPlaceholderProps<TData = any> {
 	/**
 	 * Children takes data (when available) and should render it's content.
 	 */
-	children?: (data: TData) => ReactElement
+	children?: (data: TData) => JSX.Element
 	/**
-	 * Optional custom placeholder; defaults to Atnd Skeleon Input https://ant.design/components/skeleton/.
+	 * Optional custom placeholder; defaults to Atnd Skeleton Input https://ant.design/components/skeleton/.
 	 */
-	placeholder?: ReactElement
+	placeholder?: () => ReactNode
 	/**
 	 * If needed, customize Antd Skeleton props.
 	 */
-	skeleton?: SkeletonProps
+	skeleton?: SkeletonInputProps
 }
 
 export const Placeholder = <TData extends unknown = any>(
 	{
 		data,
 		children,
-		placeholder,
 		skeleton,
+		placeholder = () => <Skeleton.Input size={"large"} style={{width: 200}} active={true} {...skeleton}/>,
 	}: IPlaceholderProps<TData>) => {
 	return (
 		<>
 			{data ?
 				(children && children(data as unknown as TData)) :
-				(placeholder || <Skeleton.Input size={"large"} style={{width: 200}} active={true} {...skeleton}/>)
+				placeholder()
 			}
 		</>
 	);
