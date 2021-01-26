@@ -1,4 +1,5 @@
 import React from "react";
+import {StoryApp} from "../storybook/StoryApp";
 import {CheckboxItem} from "./CheckboxItem";
 import {Form} from "./Form";
 
@@ -9,7 +10,9 @@ export default {
 
 export const CheckboxSandbox = () => <CheckboxItem field={"checkbox"}/>;
 CheckboxSandbox.decorators = [Story => (
-	<Form name={"story"} onSubmit={() => null}>
-		<Story/>
-	</Form>
+	<StoryApp>
+		<Form name={"story"} onSubmit={() => null}>
+			<Story/>
+		</Form>
+	</StoryApp>
 )];

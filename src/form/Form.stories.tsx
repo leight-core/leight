@@ -5,6 +5,7 @@ import {CreateItemIcon} from "../icon/CreateItemIcon";
 import {DeleteItemIcon} from "../icon/DeleteItemIcon";
 import {SubmitIcon} from "../icon/SubmitIcon";
 import {Centered} from "../layout/Centered";
+import {StoryApp} from "../storybook/StoryApp";
 import {Form} from "./Form";
 import {useFormContext} from "./FormContext";
 import {FormItem} from "./FormItem";
@@ -19,13 +20,15 @@ export default {
 };
 
 export const SubmitWithRequired = () => (
-	<Centered span={14}>
-		<Form name={"story"} layout={"vertical"} onSubmit={action("onSubmit")}>
-			<FormItem required field={"login"} children={label => <Input placeholder={label}/>}/>
-			<FormItem required field={"password"} children={label => <Input type={"password"} placeholder={label}/>}/>
-			<FormSubmitButton label={"Submit!"} icon={<SubmitIcon/>}/>
-		</Form>
-	</Centered>
+	<StoryApp>
+		<Centered span={14}>
+			<Form name={"story"} layout={"vertical"} onSubmit={action("onSubmit")}>
+				<FormItem required field={"login"} children={label => <Input placeholder={label}/>}/>
+				<FormItem required field={"password"} children={label => <Input type={"password"} placeholder={label}/>}/>
+				<FormSubmitButton label={"Submit!"} icon={<SubmitIcon/>}/>
+			</Form>
+		</Centered>
+	</StoryApp>
 );
 SubmitWithRequired.parameters = {
 	docs: {
@@ -36,56 +39,60 @@ SubmitWithRequired.parameters = {
 };
 
 export const SubmitWithRequiredDate = () => (
-	<Centered span={14}>
-		<Form name={"story"} layout={"vertical"} onSubmit={action("onSubmit")}>
-			<FormItem required field={"input"} children={label => <Input placeholder={label}/>}/>
-			<FormItem required field={["hidden", "date"]} children={label => <DatePicker style={{width: "100%"}}/>}/>
-			<FormSubmitButton label={"Submit!"} icon={<SubmitIcon/>}/>
-		</Form>
-	</Centered>
+	<StoryApp>
+		<Centered span={14}>
+			<Form name={"story"} layout={"vertical"} onSubmit={action("onSubmit")}>
+				<FormItem required field={"input"} children={label => <Input placeholder={label}/>}/>
+				<FormItem required field={["hidden", "date"]} children={label => <DatePicker style={{width: "100%"}}/>}/>
+				<FormSubmitButton label={"Submit!"} icon={<SubmitIcon/>}/>
+			</Form>
+		</Centered>
+	</StoryApp>
 );
 
 export const SubmitWithOptional = () => (
-	<Centered span={14}>
-		<Form name={"story"} layout={"vertical"} onSubmit={action("onSubmit")}>
-			<FormItem field={"some-value"} children={label => <Input placeholder={label}/>}/>
-			<FormItem required field={"required-value"} children={label => <Input placeholder={label}/>}/>
-			<FormItem field={"another-value"} children={label => <Input placeholder={label}/>}/>
-			<FormItem field={["foo", "bar"]}/>
-			<FormList field={["some", "internal", "dynamic", "form"]}>
-				{(fields, {
-					add,
-					remove
-				}) => (
-					<Card>
-						{fields.map(field => (
-							<div key={field.key}>
-								<FormItem key={field.key + ".type"} field={[field.fieldKey, "type"]} fieldKey={[field.fieldKey, "type"]}/>
-								<FormItem required key={field.key + ".value"} field={[field.fieldKey, "value"]} fieldKey={[field.fieldKey, "value"]}/>
-								<Button
-									type="primary"
-									ghost
-									onClick={() => remove(field.name)}
-									children={"remove"}
-									icon={<DeleteItemIcon/>}
-								/>
-								<Divider type={"horizontal"}/>
-							</div>
-						))}
-						<Button
-							type="primary"
-							ghost
-							onClick={() => add()}
-							children={"add"}
-							icon={<CreateItemIcon/>}
-						/>
-					</Card>
-				)}
-			</FormList>
-			<SwitchItem field={"switch"}/>
-			<FormSubmitButton label={"Submit!"} icon={<SubmitIcon/>}/>
-		</Form>
-	</Centered>
+	<StoryApp>
+		<Centered span={14}>
+			<Form name={"story"} layout={"vertical"} onSubmit={action("onSubmit")}>
+				<FormItem field={"some-value"} children={label => <Input placeholder={label}/>}/>
+				<FormItem required field={"required-value"} children={label => <Input placeholder={label}/>}/>
+				<FormItem field={"another-value"} children={label => <Input placeholder={label}/>}/>
+				<FormItem field={["foo", "bar"]}/>
+				<FormList field={["some", "internal", "dynamic", "form"]}>
+					{(fields, {
+						add,
+						remove
+					}) => (
+						<Card>
+							{fields.map(field => (
+								<div key={field.key}>
+									<FormItem key={field.key + ".type"} field={[field.fieldKey, "type"]} fieldKey={[field.fieldKey, "type"]}/>
+									<FormItem required key={field.key + ".value"} field={[field.fieldKey, "value"]} fieldKey={[field.fieldKey, "value"]}/>
+									<Button
+										type="primary"
+										ghost
+										onClick={() => remove(field.name)}
+										children={"remove"}
+										icon={<DeleteItemIcon/>}
+									/>
+									<Divider type={"horizontal"}/>
+								</div>
+							))}
+							<Button
+								type="primary"
+								ghost
+								onClick={() => add()}
+								children={"add"}
+								icon={<CreateItemIcon/>}
+							/>
+						</Card>
+					)}
+				</FormList>
+				<SwitchItem field={"switch"}/>
+				<FormSubmitButton label={"Submit!"} icon={<SubmitIcon/>}/>
+			</Form>
+		</Centered>
+	</StoryApp>
 );
 
 export const SubmitWithPostInitials = () => {
@@ -112,11 +119,13 @@ export const SubmitWithPostInitials = () => {
 	};
 
 	return (
-		<Centered span={14}>
-			<Form name={"story"} layout={"vertical"} onSubmit={action("onSubmit")}>
-				<Items/>
-			</Form>
-		</Centered>
+		<StoryApp>
+			<Centered span={14}>
+				<Form name={"story"} layout={"vertical"} onSubmit={action("onSubmit")}>
+					<Items/>
+				</Form>
+			</Centered>
+		</StoryApp>
 	);
 };
 
@@ -202,10 +211,12 @@ export const SubmitWithPostInitialsErrors = () => {
 	};
 
 	return (
-		<Centered span={14}>
-			<Form name={"story"} layout={"vertical"} onSubmit={action("onSubmit")}>
-				<Items/>
-			</Form>
-		</Centered>
+		<StoryApp>
+			<Centered span={14}>
+				<Form name={"story"} layout={"vertical"} onSubmit={action("onSubmit")}>
+					<Items/>
+				</Form>
+			</Centered>
+		</StoryApp>
 	);
 };

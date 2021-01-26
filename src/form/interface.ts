@@ -60,7 +60,7 @@ export interface IFormContext<TValues = any> {
 	/**
 	 * Create default events handling some things in the form.
 	 */
-	events: <T extends string = IServerEvents>() => IEvents<T>
+	events: <T extends IServerEvents>() => IEvents<T>
 }
 
 export type IFormSubmitCallback<TValues> = (values: TValues, formContext: IFormContext) => void

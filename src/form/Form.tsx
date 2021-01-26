@@ -69,7 +69,10 @@ export const Form = <TValues extends unknown = any>(
 		isBlocked,
 		block: () => setBlocking(prev => prev + 1),
 		unblock: () => setBlocking(prev => prev - 1),
-		events: () => Events()
+		events: () => Events<IServerEvents>()
+			.on("request", _ => {
+				layoutContext.blockContext.block();
+			})
 			.on("http-400", errors => formContext.setErrors(errors))
 			.on("http-500", () => formContext.setErrors({
 				message: t("common.form.server-error"),
