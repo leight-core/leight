@@ -10,7 +10,7 @@ export interface IPlaceholderProps<TData = any> {
 	/**
 	 * Children takes data (when available) and should render it's content.
 	 */
-	children?: (data: TData) => JSX.Element
+	children?: (data: TData) => ReactNode
 	/**
 	 * Optional custom placeholder; defaults to Atnd Skeleton Input https://ant.design/components/skeleton/.
 	 */
