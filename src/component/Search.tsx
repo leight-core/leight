@@ -64,7 +64,6 @@ export const Search: FC<ISearchProps> = (
 			defaultActiveFirstOption={false}
 			onSearch={doSearch}
 			onClear={() => doSearch()}
-			onChange={_ => doSearch()}
 			allowClear
 			suffixIcon={loading ? <LoadingOutlined/> : <SearchOutlined/>}
 			filterOption={false}
