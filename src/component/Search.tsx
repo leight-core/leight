@@ -1,4 +1,4 @@
-import {SearchOutlined} from "@ant-design/icons";
+import {LoadingOutlined, SearchOutlined} from "@ant-design/icons";
 import {Empty, Select, SelectProps} from "antd";
 import {FC, ReactNode, useState} from "react";
 import {useTranslation} from "react-i18next";
@@ -46,10 +46,12 @@ export const Search: FC<ISearchProps> = (
 				Events<IServerEvents>()
 					.on<ISearchItem[]>("success", data => {
 						setData(mapper(data));
-						console.log("setting data", mapper(data), "from", data);
 					})
 					.on("done", _ => {
 						setLoading(false);
+					})
+					.on("catch", error => {
+						console.error("catch", error);
 					})
 			);
 		}, 250));
@@ -64,7 +66,7 @@ export const Search: FC<ISearchProps> = (
 			onClear={() => doSearch()}
 			onChange={_ => doSearch()}
 			allowClear
-			suffixIcon={<SearchOutlined/>}
+			suffixIcon={loading ? <LoadingOutlined/> : <SearchOutlined/>}
 			filterOption={false}
 			loading={loading}
 			placeholder={t("common.search.placeholder")}
