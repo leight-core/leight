@@ -20,6 +20,10 @@ export interface IFetchProps<TData = any> {
 	placeholder?: () => ReactElement
 }
 
+/**
+ * Simple fetch component used for providing fetch callback and rendering children when data is available delegating setting data state to an upper
+ * component.
+ */
 export const Fetch = <TData extends unknown>({fetch, deps = [], children, placeholder = () => <Loader isLoading={true}/>}: IFetchProps<TData>) => {
 	const [data, setData] = useState<TData>();
 	useEffect(() => {
