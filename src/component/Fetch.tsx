@@ -1,11 +1,11 @@
-import {EffectCallback, ReactElement, useEffect, useState} from "react";
+import {Dispatch, ReactElement, SetStateAction, useEffect, useState} from "react";
 import {Loader} from "./Loader";
 
 export interface IFetchProps<TData = any> {
 	/**
 	 * Fetch factory callback; used in an effect to fetch (somehow get) data.
 	 */
-	fetch: (setData: (data: TData) => void) => EffectCallback
+	fetch: (setData: Dispatch<SetStateAction<TData | undefined>>) => void | (() => void | undefined)
 	/**
 	 * Dependencies used in an effect; should control component redraws.
 	 */
@@ -27,7 +27,7 @@ export interface IFetchProps<TData = any> {
 export const Fetch = <TData extends unknown>({fetch, deps = [], children, placeholder = () => <Loader isLoading={true}/>}: IFetchProps<TData>) => {
 	const [data, setData] = useState<TData>();
 	useEffect(() => {
-		fetch(setData);
+		return fetch(setData);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, deps);
 	return (
