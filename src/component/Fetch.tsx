@@ -13,7 +13,7 @@ export interface IFetchProps<TData = any> {
 	/**
 	 * Actual children rendered when data are available.
 	 */
-	children: <TData>(data: TData) => ReactNode
+	children: (data: TData) => ReactNode
 	/**
 	 * Placeholder rendered when data are not available.
 	 */
@@ -31,6 +31,8 @@ export const Fetch = <TData extends unknown>({fetch, deps = [], children, placeh
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, deps);
 	return (
-		data ? children(data) : placeholder()
+		<>
+			{data ? children(data) : placeholder()}
+		</>
 	);
 };

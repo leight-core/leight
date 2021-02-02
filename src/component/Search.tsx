@@ -14,8 +14,8 @@ export interface ISearchItem {
 }
 
 export interface ISearchProps extends Partial<SelectProps<any>> {
-	mapper: (data: any) => ISearchItem[]
 	search: IPostCallback<IServerEvents, ISearchRequest>
+	mapper?: (data: any) => ISearchItem[]
 	render?: (item: ISearchItem) => ReactNode
 }
 
@@ -46,6 +46,7 @@ export const Search: FC<ISearchProps> = (
 				Events<IServerEvents>()
 					.on<ISearchItem[]>("success", data => {
 						setData(mapper(data));
+						console.log("setting data", mapper(data), "from", data);
 					})
 					.on("done", _ => {
 						setLoading(false);
