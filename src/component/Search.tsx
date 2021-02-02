@@ -1,14 +1,11 @@
 import {SearchOutlined} from "@ant-design/icons";
 import {Empty, Select, SelectProps} from "antd";
-import {FC, ReactElement, useState} from "react";
+import {FC, ReactNode, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useAppContext} from "../app/AppContext";
+import {ISearchRequest} from "../interface/interface";
 import {IPostCallback, IServerEvents} from "../server/interface";
 import {Events} from "../utils/Events";
-
-export interface ISearchRequest {
-	search: string
-}
 
 export interface ISearchItem {
 	id: string
@@ -17,11 +14,22 @@ export interface ISearchItem {
 }
 
 export interface ISearchProps extends Partial<SelectProps<any>> {
+	mapper: (data: any) => ISearchItem[]
 	search: IPostCallback<IServerEvents, ISearchRequest>
-	render: (item: ISearchItem) => ReactElement
+	render?: (item: ISearchItem) => ReactNode
 }
 
-export const Search: FC<ISearchProps> = ({search, render, ...props}) => {
+export const Search: FC<ISearchProps> = (
+	{
+		search,
+		mapper = data => data.items.map(item => ({
+			label: item.name,
+			value: item.id,
+			...item
+		})),
+		render = (item => item.name),
+		...props
+	}) => {
 	const appContext = useAppContext();
 	const {t} = useTranslation();
 	const [loading, setLoading] = useState<boolean>(false);
@@ -37,7 +45,7 @@ export const Search: FC<ISearchProps> = ({search, render, ...props}) => {
 				appContext,
 				Events<IServerEvents>()
 					.on<ISearchItem[]>("success", data => {
-						setData(data);
+						setData(mapper(data));
 					})
 					.on("done", _ => {
 						setLoading(false);

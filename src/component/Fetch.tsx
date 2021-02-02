@@ -1,4 +1,4 @@
-import {Dispatch, ReactElement, SetStateAction, useEffect, useState} from "react";
+import {Dispatch, ReactNode, SetStateAction, useEffect, useState} from "react";
 import {Loader} from "./Loader";
 
 export interface IFetchProps<TData = any> {
@@ -13,11 +13,11 @@ export interface IFetchProps<TData = any> {
 	/**
 	 * Actual children rendered when data are available.
 	 */
-	children: <TData>(data: TData) => ReactElement
+	children: <TData>(data: TData) => ReactNode
 	/**
 	 * Placeholder rendered when data are not available.
 	 */
-	placeholder?: () => ReactElement
+	placeholder?: () => ReactNode
 }
 
 /**
