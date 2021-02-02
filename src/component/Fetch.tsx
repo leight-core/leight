@@ -13,7 +13,7 @@ export interface IFetchProps<TData = any> {
 	/**
 	 * Actual children rendered when data are available.
 	 */
-	children: (data: TData) => ReactElement
+	children: <TData>(data: TData) => ReactElement
 	/**
 	 * Placeholder rendered when data are not available.
 	 */
