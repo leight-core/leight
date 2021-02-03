@@ -1,5 +1,6 @@
 export * from "./app";
 export * from "./component";
+export * from "./date";
 export * from "./form";
 export * from "./hook";
 export * from "./icon";
