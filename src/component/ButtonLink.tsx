@@ -14,7 +14,7 @@ export interface IButtonLinkProps extends ButtonProps {
 	/**
 	 * Title of a button.
 	 */
-	title: string
+	title?: string
 	/**
 	 * Optional params for the link generator.
 	 */
@@ -28,13 +28,13 @@ export const ButtonLink: FC<IButtonLinkProps> = ({href, title, params, ...props}
 	try {
 		return (
 			<Link to={routerContext.generate(href, {...layoutContext.data, ...params})}>
-				<Button type={"primary"} children={t(title)} {...props}/>
+				<Button type={"primary"} children={title ? t(title) : null} {...props}/>
 			</Link>
 		);
 	} catch {
 		return (
 			<Link to={""}>
-				<Button type={"primary"} children={t(title)} disabled {...props}/>
+				<Button type={"primary"} children={title ? t(title) : null} disabled {...props}/>
 			</Link>
 		);
 	}

@@ -10,12 +10,14 @@ import {PageIndex} from "../utils/PageIndex";
 export interface IBaseTableProps<TItem extends IRecordItem> extends TableProps<TItem> {
 	onFetchPage: IOnFetchPage
 	pageSize?: number
+	deps?: any[]
 }
 
 export const BaseTable = <TItem extends IRecordItem = any>(
 	{
 		onFetchPage,
 		pageSize = 10,
+		deps = [],
 		...props
 	}: IBaseTableProps<TItem>) => {
 	const appContext = useAppContext();
@@ -48,7 +50,7 @@ export const BaseTable = <TItem extends IRecordItem = any>(
 		const cancelToken = onPage(0, pageSize);
 		return () => cancelToken.cancel();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, deps);
 
 	return (
 		<Table
