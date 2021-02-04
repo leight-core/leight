@@ -1,6 +1,8 @@
 /**
  * Currently selected menu items, menu and other cool menu stuff.
  */
+import {ReactNode} from "react";
+
 export interface IMenuContext {
 	/**
 	 * Currently selected menu items.
@@ -15,12 +17,12 @@ export interface IMenuContext {
 	/**
 	 * Current menu.
 	 */
-	menu: JSX.Element
+	menu: ReactNode
 	/**
 	 * Use the selected menu
 	 *
 	 * @param menu use the given menu
 	 * @param select optionally select item(s) of the menu
 	 */
-	useMenu: (menu: JSX.Element, select?: string[]) => void
+	useMenu: (menu: ReactNode, select?: string[]) => void
 }

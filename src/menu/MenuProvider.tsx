@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import {FC, ReactNode, useEffect, useState} from "react";
 import {MenuContext} from "./MenuContext";
 
 export interface IMenuProviderProps {
@@ -6,7 +6,7 @@ export interface IMenuProviderProps {
 
 export const MenuProvider: FC<IMenuProviderProps> = ({children}) => {
 	const [current, setCurrent] = useState<string[]>([]);
-	const [menu, setMenu] = useState<JSX.Element>(<></>);
+	const [menu, setMenu] = useState<ReactNode>(null);
 	return (
 		<MenuContext.Provider
 			value={{

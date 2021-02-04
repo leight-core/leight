@@ -1,5 +1,5 @@
 import {Spin} from "antd";
-import {FC, useEffect} from "react";
+import {FC, ReactNode, useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import {useParams} from "react-router";
 import {useAppContext} from "../app/AppContext";
@@ -23,7 +23,7 @@ export interface ICommonViewProps {
 	/**
 	 * Menu for this view.
 	 */
-	menu: JSX.Element
+	menu: () => ReactNode
 	/**
 	 * Currently selected menu items (if any).
 	 */
@@ -66,7 +66,7 @@ export const CommonView: FC<ICommonViewProps> = (
 	const layoutContext = useLayoutContext();
 	useRouterContext().setParams(useParams());
 	useAppContext().useTitle(title ? title : name + ".title");
-	menuContext.useMenu(menu);
+	menuContext.useMenu(menu());
 	menuContext.useSelect(menuItems || [name]);
 	layoutContext.useEnableFullscreen(fullscreen, restore);
 	useEffect(() => layoutContext.setData({}), []);
