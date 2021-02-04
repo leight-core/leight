@@ -72,7 +72,7 @@ export const Search: FC<ISearchProps> = (
 			notFoundContent={<Empty description={t("common.search.empty")} image={Empty.PRESENTED_IMAGE_SIMPLE}/>}
 			{...props}
 		>
-			{(data ?? []).map(item => (
+			{(data ? data : []).map(item => (
 				<Select.Option key={item.id} value={item.id} item={item}>
 					{render(item)}
 				</Select.Option>
