@@ -1,9 +1,9 @@
 import {Checkbox as CoolCheckbox, CheckboxProps} from "antd";
 import {NamePath} from "rc-field-form/lib/interface";
 import React, {FC} from "react";
-import {FormItem} from "./FormItem";
+import {FormItem, IFormItemProps} from "./FormItem";
 
-export interface ICheckboxItemProps extends Partial<CheckboxProps> {
+export interface ICheckboxItemProps extends Partial<IFormItemProps> {
 	/**
 	 * Field name:
 	 *
@@ -11,6 +11,7 @@ export interface ICheckboxItemProps extends Partial<CheckboxProps> {
 	 */
 	field: NamePath
 	labels?: string[]
+	checkboxProps?: Partial<CheckboxProps>
 }
 
 /**
@@ -22,14 +23,14 @@ export interface ICheckboxItemProps extends Partial<CheckboxProps> {
  *
  * - https://ant.design/components/checkbox/
  */
-export const CheckboxItem: FC<ICheckboxItemProps> = ({field, labels = [], ...props}) => {
+export const CheckboxItem: FC<ICheckboxItemProps> = ({field, labels = [], checkboxProps, ...props}) => {
 	return (
 		<FormItem
 			field={field}
 			valuePropName={"checked"}
 			labels={labels}
-			initialValue={false}
-			children={_ => <CoolCheckbox {...props}/>}
+			{...props}
+			children={_ => <CoolCheckbox {...checkboxProps}/>}
 		/>
 	);
 };
