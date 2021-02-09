@@ -28,7 +28,8 @@
 		"is-plain-object": "^5.0.0",
 		"omit-empty": "^1.0.0",
 		"rc-picker": "^2.5.5",
-		"react-helmet": "^6.1.0"
+		"react-helmet": "^6.1.0",
+		"dayjs": "^1.10.4"
 	},
 	"devDependencies": {
 		"@ant-design/icons": "^4.4.0",
