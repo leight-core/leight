@@ -1,13 +1,6 @@
 import {Params} from "react-router";
 
-/**
- * Common module uses basic CRUD operations and similar stuff; it expects operation one exactly one
- * entity type (for example module for an User, an Invoice and so on, not mixed ones).
- */
-export interface ICommonModule {
-}
-
-export interface IModuleContext<TModule> {
+export interface IModuleContext {
 	/**
 	 * Module id, usually could be used for translating stuff.
 	 */
@@ -16,10 +9,6 @@ export interface IModuleContext<TModule> {
 	 * Default module icon.
 	 */
 	icon: JSX.Element
-	/**
-	 * Custom module stuff.
-	 */
-	module: TModule
 	/**
 	 * Generate module link using module ID as a prefix
 	 */

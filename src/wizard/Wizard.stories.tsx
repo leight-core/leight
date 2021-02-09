@@ -110,7 +110,7 @@ export const Default = () => {
 					<Button size={"large"} type={"primary"} onClick={() => setFinish(false)} children={"Reset"}/>
 				</Centered>
 			</Result> :
-			<ModuleContext.Provider value={createModule("story", <SubmitIcon/>, t => t, {} as unknown as IRouterContext, null)}>
+			<ModuleContext.Provider value={createModule("story", <SubmitIcon/>, t => t, {} as unknown as IRouterContext)}>
 				<StoryApp>
 					<Wizard name={"story"} events={events} steps={[
 						{id: "first", component: <FirstStep/>},
@@ -136,7 +136,7 @@ export const WithPrefetch = () => {
 					<Button size={"large"} type={"primary"} onClick={() => setFinish(false)} children={"Reset"}/>
 				</Centered>
 			</Result> :
-			<ModuleContext.Provider value={createModule("story", <SubmitIcon/>, t => t, {} as unknown as IRouterContext, null)}>
+			<ModuleContext.Provider value={createModule("story", <SubmitIcon/>, t => t, {} as unknown as IRouterContext)}>
 				<StoryApp>
 					<Wizard
 						name={"story"}
