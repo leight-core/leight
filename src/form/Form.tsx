@@ -74,11 +74,11 @@ export const Form = <TValues extends unknown = any>(
 				layoutContext.blockContext.block();
 			})
 			.on("http-400", errors => formContext.setErrors(errors))
-			.on("http-500", () => {
-				formContext.setErrors({
-					message: t("common.form.server-error"),
-					errors: [],
-				});
+			.on("http-500", () => formContext.setErrors({
+				message: t("common.form.server-error"),
+				errors: [],
+			}))
+			.on("catch", () => {
 				layoutContext.blockContext.unblock(true);
 			})
 			.on("done", () => {
