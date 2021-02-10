@@ -24,7 +24,7 @@ export const SignedOutView: FC<ISignedOutViewProps> = ({href}) => {
 				title={t("common.sign-out.succeed.title")}
 				subTitle={t("common.sign-out.succeed.subtitle")}
 				extra={
-					<ButtonLink href={href} icon={<ContinueIcon/>} title={"common.sign-out.continue"}/>
+					<ButtonLink size={"large"} href={href} icon={<ContinueIcon/>} title={"common.sign-out.continue"}/>
 				}
 			/>
 		</Card>

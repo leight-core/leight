@@ -17,7 +17,7 @@ export const LockedUserView = () => {
 				icon={<LockOutlined/>}
 				title={t("error.user-locked.title")}
 				subTitle={t("error.user-locked.body")}
-				extra={<Button type="primary" onClick={() => appContext.logout()} children={t("error.user-locked.dismiss")}/>}
+				extra={<Button size={"large"} type="primary" onClick={() => appContext.logout()} children={t("error.user-locked.dismiss")}/>}
 			/>
 		</>
 	);

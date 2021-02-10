@@ -23,7 +23,7 @@ export const SignOutView = () => {
 				extra={
 					<Space split={<Divider type={"vertical"}/>} size={"large"}>
 						<BackLink text={"common.sign-out.button.back"}/>
-						<SessionCloseButton text={"common.sign-out.button.sign-out"}/>
+						<SessionCloseButton size={"large"} text={"common.sign-out.button.sign-out"}/>
 					</Space>
 				}
 			/>

@@ -29,7 +29,7 @@ export const NotFoundView: FC<INotFoundViewProps> = ({href}) => {
 				title={t("error.not-found.title")}
 				subTitle={t("error.not-found.body")}
 				extra={
-					<ButtonLink href={href} icon={<HomeIcon/>} title={"common.homepage"}/>
+					<ButtonLink size={"large"} href={href} icon={<HomeIcon/>} title={"common.homepage"}/>
 				}
 			/>
 		</>

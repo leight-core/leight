@@ -28,7 +28,7 @@ export const SignedInView: FC<ISignedInViewProps> = ({href, title = ""}) => {
 				title={t([title + ".title", "common.sign-in.succeed.title"])}
 				subTitle={t([title + ".subtitle", "common.sign-in.succeed.subtitle"])}
 				extra={
-					<ButtonLink href={href} icon={<ContinueIcon/>} title={"common.sign-in.continue"}/>
+					<ButtonLink size={"large"} href={href} icon={<ContinueIcon/>} title={"common.sign-in.continue"}/>
 				}
 			/>
 		</Card>
