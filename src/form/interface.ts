@@ -1,5 +1,6 @@
 import {FormInstance} from "antd";
 import {NamePath, ValidateErrorEntity} from "rc-field-form/lib/interface";
+import {INavigate} from "../router/interface";
 import {IServerEvents} from "../server/interface";
 import {IEvents} from "../utils/interface";
 
@@ -66,3 +67,7 @@ export interface IFormContext<TValues = any> {
 export type IFormSubmitCallback<TValues> = (values: TValues, formContext: IFormContext) => void
 export type IFormSubmitFailedCallback<TValues> = (errorInfo: ValidateErrorEntity<TValues>, formContext: IFormContext) => void
 export type IFormHandleFetchCallback<TValues = any> = (formContext: IFormContext, data: TValues) => void
+
+export type IFormPostMapper<TData extends Object, TValues extends Object> = (data: TData | null, values: TValues) => any;
+export type IFormInitialMapper<TData extends Object, TValues extends Object> = (data: TData | null) => TValues
+export type IFormOnSuccess<TData extends Object> = (navigate: INavigate, data: TData) => void

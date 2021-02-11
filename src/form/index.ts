@@ -1,5 +1,6 @@
 export * from "./BaseSelect";
 export * from "./CheckboxItem";
+export * from "./CommonForm";
 export * from "./DebouncedSelect";
 export * from "./Form";
 export * from "./FormContext";
