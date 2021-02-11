@@ -18,10 +18,10 @@ export interface IFetchBlockingProps<TData> extends Omit<IFetchProps<TData>, "fe
 	/**
 	 * Mapper used to map fetched data into layout context's data.
 	 */
-	mapper: (data: TData) => any
+	mapper?: (data: TData) => any
 }
 
-export const FetchBlocking = <TData extends Object>({fetch, mapper, params, children, ...props}: IFetchBlockingProps<TData>) => {
+export const FetchBlocking = <TData extends Object>({fetch, mapper = data => data, params, children, ...props}: IFetchBlockingProps<TData>) => {
 	const appContext = useAppContext();
 	const viewContext = useViewContext();
 	const layoutContext = useLayoutContext();
