@@ -1,6 +1,8 @@
+import {message} from "antd";
 import {Params} from "react-router";
 import {useAppContext} from "../app/AppContext";
 import {useLayoutContext} from "../layout/LayoutContext";
+import {useModuleContext} from "../module/ModuleContext";
 import {IGetCallback, IServerEvents} from "../server/interface";
 import {Events} from "../utils/Events";
 import {useViewContext} from "../view/ViewContext";
@@ -25,6 +27,7 @@ export const FetchBlocking = <TData extends Object>({fetch, mapper = data => dat
 	const appContext = useAppContext();
 	const viewContext = useViewContext();
 	const layoutContext = useLayoutContext();
+	const moduleContext = useModuleContext();
 	return (
 		<Fetch<TData>
 			fetch={(setData) => {
@@ -38,6 +41,12 @@ export const FetchBlocking = <TData extends Object>({fetch, mapper = data => dat
 						.on<TData>("success", data => {
 							layoutContext.setData(mapper(data));
 							setData(data);
+						})
+						.on("catch", _ => {
+							viewContext.blockContext.unblock(true);
+							message.error(moduleContext.t("error-occurred"));
+						})
+						.on("done", _ => {
 							viewContext.blockContext.unblock();
 						}),
 					params,
