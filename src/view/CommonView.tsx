@@ -28,8 +28,24 @@ export interface ICommonViewProps {
 	 * Currently selected menu items (if any).
 	 */
 	menuItems?: string[]
+	/**
+	 * Is the given view in a "fullscreen" mode - means menu is disabled, page header
+	 * is displayed.
+	 *
+	 * Defaults to `false`.
+	 */
 	fullscreen?: boolean
+	/**
+	 * Restore the original fullscreen mode when a view is left.
+	 *
+	 * Defaults to `true`.
+	 */
 	restore?: boolean
+	/**
+	 * Initial blocking state of a view; when true, view shows a loader.
+	 *
+	 * Defaults to `false`.
+	 */
 	blocked?: boolean
 }
 
