@@ -21,7 +21,7 @@ export interface IFetchBlockingProps<TData> extends Omit<IFetchProps<TData>, "fe
 	mapper?: (data: TData) => any
 }
 
-export const FetchBlocking = <TData extends Object>({fetch, mapper = data => data, params, children, ...props}: IFetchBlockingProps<TData>) => {
+export const FetchBlocking = <TData extends Object>({fetch, mapper = data => data, params, deps = [], children, ...props}: IFetchBlockingProps<TData>) => {
 	const appContext = useAppContext();
 	const viewContext = useViewContext();
 	const layoutContext = useLayoutContext();
@@ -45,6 +45,7 @@ export const FetchBlocking = <TData extends Object>({fetch, mapper = data => dat
 				return () => token.cancel();
 			}}
 			children={children}
+			deps={[params].concat(deps)}
 			{...props}
 		/>
 	);
