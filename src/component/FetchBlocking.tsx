@@ -22,15 +22,21 @@ export interface IFetchBlockingProps<TData> extends Omit<IFetchProps<TData>, "fe
 	 */
 	mapper?: (data: TData) => any
 	/**
+	 * Do initial block on request; this could be useful, when there are more fetches on a single page.
+	 *
+	 * Defaults to false as usually a view is blocked by default.
+	 */
+	block?: boolean
+	/**
 	 * When fetch is done, unblock view context; useful when a context view is re-rendered, thus blocked more
 	 * times - this will ensure a view is unblocked.
 	 *
-	 * Defaults to true.
+	 * Defaults to false.
 	 */
 	unblock?: boolean
 }
 
-export const FetchBlocking = <TData extends Object>({fetch, mapper = data => data, params, deps = [], unblock = true, children, ...props}: IFetchBlockingProps<TData>) => {
+export const FetchBlocking = <TData extends Object>({fetch, mapper = data => data, params, deps = [], block = false, unblock = false, children, ...props}: IFetchBlockingProps<TData>) => {
 	const appContext = useAppContext();
 	const viewContext = useViewContext();
 	const layoutContext = useLayoutContext();
@@ -43,7 +49,7 @@ export const FetchBlocking = <TData extends Object>({fetch, mapper = data => dat
 					appContext,
 					Events<IServerEvents>()
 						.on("request", () => {
-							viewContext.blockContext.block();
+							block && viewContext.blockContext.block();
 						})
 						.on<TData>("success", data => {
 							layoutContext.setData(mapper(data));
