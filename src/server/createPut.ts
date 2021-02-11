@@ -1,21 +1,23 @@
 import {Params} from "react-router";
 import {IAppContext} from "../app/interface";
 import {IEvents} from "../utils/interface";
-import {httpGet} from "./httpGet";
-import {IGetCallback, IServerEvents} from "./interface";
+import {httpPut} from "./httpPut";
+import {IPutCallback, IServerEvents} from "./interface";
 
 /**
- * Simple factory for creating `get` based on the discovery link id.
+ * Simple factory for creating `put` based on the discovery link id.
  *
  * @param link Discovery link id.
  */
-export function createGet(link: string): IGetCallback {
+export function createPut<TRequest = any>(link: string): IPutCallback<IServerEvents, TRequest> {
 	return (
+		data: TRequest,
 		appContext: IAppContext,
 		events: IEvents<IServerEvents>,
 		params?: Params,
-	) => httpGet(
+	) => httpPut<TRequest>(
 		appContext.link(link, params),
+		data,
 		events,
 	);
 }

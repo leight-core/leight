@@ -4,7 +4,7 @@ import {httpDelete} from "./httpDelete";
 import {IServerEvents} from "./interface";
 
 /**
- * Simple factory for creating delete based on the discovery link id.
+ * Simple factory for creating `delete` based on the discovery link id.
  *
  * @param link Discovery link id.
  */

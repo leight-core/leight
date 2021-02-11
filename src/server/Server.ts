@@ -4,7 +4,9 @@ import {createCrud} from "./createCrud";
 import {createDelete} from "./createDelete";
 import {createFetchPage} from "./createFetchPage";
 import {createGet} from "./createGet";
+import {createPatch} from "./createPatch";
 import {createPost} from "./createPost";
+import {createPut} from "./createPut";
 import {httpDelete} from "./httpDelete";
 import {httpGet} from "./httpGet";
 import {httpPatch} from "./httpPatch";
@@ -21,7 +23,9 @@ export const Server = {
 	createDelete,
 	createFetchPage,
 	createGet,
+	createPatch,
 	createPost,
+	createPut,
 	httpGet,
 	httpPost,
 	httpPatch,
