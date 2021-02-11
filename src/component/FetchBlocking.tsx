@@ -21,9 +21,16 @@ export interface IFetchBlockingProps<TData> extends Omit<IFetchProps<TData>, "fe
 	 * Mapper used to map fetched data into layout context's data.
 	 */
 	mapper?: (data: TData) => any
+	/**
+	 * When fetch is done, unblock view context; useful when a context view is re-rendered, thus blocked more
+	 * times - this will ensure a view is unblocked.
+	 *
+	 * Defaults to true.
+	 */
+	unblock?: boolean
 }
 
-export const FetchBlocking = <TData extends Object>({fetch, mapper = data => data, params, deps = [], children, ...props}: IFetchBlockingProps<TData>) => {
+export const FetchBlocking = <TData extends Object>({fetch, mapper = data => data, params, deps = [], unblock = true, children, ...props}: IFetchBlockingProps<TData>) => {
 	const appContext = useAppContext();
 	const viewContext = useViewContext();
 	const layoutContext = useLayoutContext();
@@ -43,11 +50,11 @@ export const FetchBlocking = <TData extends Object>({fetch, mapper = data => dat
 							setData(data);
 						})
 						.on("catch", _ => {
-							viewContext.blockContext.unblock(true);
+							viewContext.blockContext.unblock(unblock);
 							message.error(moduleContext.t("error-occurred"));
 						})
 						.on("done", _ => {
-							viewContext.blockContext.unblock();
+							viewContext.blockContext.unblock(unblock);
 						}),
 					params,
 				);

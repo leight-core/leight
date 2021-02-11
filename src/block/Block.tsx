@@ -25,7 +25,7 @@ export const Block: FC<IBlockProps> = ({locked = false, children}) => {
 				},
 				unblock: (unlock = false) => {
 					lock && setLock(false);
-					setCount(unlock ? 0 : prev => prev - 1);
+					setCount(unlock ? 0 : prev => Math.max(0, prev - 1));
 				},
 			}}
 			children={children}
