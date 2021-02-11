@@ -40,6 +40,8 @@ export type IPatchCallback<TEvents extends string = IServerEvents, TRequest = an
 	params?: Params,
 ) => CancelTokenSource
 
+export type IUpdateCallback = IPostCallback | IPutCallback | IPatchCallback;
+
 export type IFetchHook<TEvents extends string = IServerEvents> = (
 	uuid: string,
 	events: IEvents<TEvents>,
