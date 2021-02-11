@@ -26,6 +26,12 @@ export type IPostCallback<TEvents extends string = IServerEvents, TRequest = any
 	params?: Params,
 ) => CancelTokenSource
 
+export type IDeleteCallback<TEvents extends string = IServerEvents> = (
+	appContext: IAppContext,
+	events: IEvents<TEvents>,
+	params?: Params,
+) => CancelTokenSource
+
 export type IPutCallback<TEvents extends string = IServerEvents, TRequest = any> = (
 	data: TRequest,
 	appContext: IAppContext,

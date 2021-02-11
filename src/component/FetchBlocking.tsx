@@ -7,6 +7,7 @@ import {IGetCallback, IServerEvents} from "../server/interface";
 import {Events} from "../utils/Events";
 import {useViewContext} from "../view/ViewContext";
 import {Fetch, IFetchProps} from "./Fetch";
+import {IFetchMapper} from "./interface";
 
 export interface IFetchBlockingProps<TData> extends Omit<IFetchProps<TData>, "fetch"> {
 	/**
@@ -20,7 +21,7 @@ export interface IFetchBlockingProps<TData> extends Omit<IFetchProps<TData>, "fe
 	/**
 	 * Mapper used to map fetched data into layout context's data.
 	 */
-	mapper?: (data: TData) => any
+	mapper?: IFetchMapper<TData>
 	/**
 	 * Do initial block on request; this could be useful, when there are more fetches on a single page.
 	 *

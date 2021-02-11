@@ -3,6 +3,7 @@ export * from "./BulletCard";
 export * from "./ButtonLink";
 export * from "./Fetch";
 export * from "./FetchBlocking";
+export * from "./interface";
 export * from "./Loader";
 export * from "./Placeholder";
 export * from "./ScrollToTop";
