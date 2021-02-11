@@ -1,3 +1,4 @@
+export * from "./BaseGroupSelect";
 export * from "./BaseSelect";
 export * from "./CheckboxItem";
 export * from "./CommonForm";

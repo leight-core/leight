@@ -72,4 +72,6 @@ export type IFormPostMapper<TData extends Object, TValues extends Object> = (dat
 export type IFormInitialMapper<TData extends Object, TValues extends Object> = (data: TData | null) => TValues
 export type IFormOnSuccess<TData extends Object> = (navigate: INavigate, data: TData) => void
 
-export type IBaseSelectOption = { value: string | number, label: string | number };
+export type IBaseSelectItem = any;
+export type IBaseSelectOption = { value: IBaseSelectItem, label: IBaseSelectItem };
+export type IBaseGroupSelectOption = { label: IBaseSelectItem, children: IBaseSelectOption[] };

@@ -5,9 +5,9 @@ import {useAppContext} from "../app/AppContext";
 import {IGetCallback, IServerEvents} from "../server/interface";
 import {Events} from "../utils/Events";
 import {useFormContext} from "./FormContext";
-import {IBaseSelectOption} from "./interface";
+import {IBaseGroupSelectOption} from "./interface";
 
-export interface IBaseSelectProps<TData> extends SelectProps<any> {
+export interface IBaseGroupSelectProps<TData> extends SelectProps<any> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
@@ -19,15 +19,15 @@ export interface IBaseSelectProps<TData> extends SelectProps<any> {
 	/**
 	 * Map requested data into Select options.
 	 */
-	mapper: (item: TData) => IBaseSelectOption
+	mapper: (item: TData) => IBaseGroupSelectOption
 	/**
 	 * Dependency used to force redraw (re-fetch data).
 	 */
 	deps?: any[]
 }
 
-export const BaseSelect = <TData extends unknown>({fetch, fetchParams, mapper, deps = [], ...props}: IBaseSelectProps<TData>) => {
-	const [options, setOptions] = useState<IBaseSelectOption[]>([]);
+export const BaseGroupSelect = <TData extends unknown>({fetch, fetchParams, mapper, deps = [], ...props}: IBaseGroupSelectProps<TData>) => {
+	const [options, setOptions] = useState<IBaseGroupSelectOption[]>([]);
 	const appContext = useAppContext();
 	const formContext = useFormContext();
 	useEffect(() => {
@@ -46,9 +46,17 @@ export const BaseSelect = <TData extends unknown>({fetch, fetchParams, mapper, d
 	}, deps);
 	return (
 		<Select
-			options={options}
 			showSearch={true}
 			{...props}
-		/>
+		>
+			{options.map(item => (
+				item.children.length &&
+				<Select.OptGroup key={item.label} label={item.label}>
+					{item.children.map(item => (
+						<Select.Option key={item.value} value={item.value} children={item.label}/>
+					))}
+				</Select.OptGroup>
+			))}
+		</Select>
 	);
 };
