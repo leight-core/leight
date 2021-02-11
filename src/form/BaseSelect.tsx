@@ -5,6 +5,7 @@ import {useAppContext} from "../app/AppContext";
 import {IGetCallback, IServerEvents} from "../server/interface";
 import {Events} from "../utils/Events";
 import {useFormContext} from "./FormContext";
+import {IBaseSelectOption} from "./interface";
 
 export interface IBaseSelectProps<TData> extends SelectProps<any> {
 	/**
@@ -18,7 +19,7 @@ export interface IBaseSelectProps<TData> extends SelectProps<any> {
 	/**
 	 * Map requested data into Select options.
 	 */
-	mapper: (item: TData) => { value: string | number, label: string | number }[]
+	mapper: (item: TData) => IBaseSelectOption[]
 	/**
 	 * Dependency used to force redraw (re-fetch data).
 	 */

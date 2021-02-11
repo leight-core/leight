@@ -71,3 +71,5 @@ export type IFormHandleFetchCallback<TValues = any> = (formContext: IFormContext
 export type IFormPostMapper<TData extends Object, TValues extends Object> = (data: TData | null, values: TValues) => any;
 export type IFormInitialMapper<TData extends Object, TValues extends Object> = (data: TData | null) => TValues
 export type IFormOnSuccess<TData extends Object> = (navigate: INavigate, data: TData) => void
+
+export type IBaseSelectOption = { value: string | number, label: string | number };
