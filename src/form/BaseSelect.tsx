@@ -1,26 +1,31 @@
 import {Select, SelectProps} from "antd";
-import {FC, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
+import {Params} from "react-router";
 import {useAppContext} from "../app/AppContext";
 import {IGetCallback, IServerEvents} from "../server/interface";
 import {Events} from "../utils/Events";
 import {useFormContext} from "./FormContext";
 
-export interface IBaseSelectProps extends SelectProps<any> {
+export interface IBaseSelectProps<TData> extends SelectProps<any> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
 	fetch: IGetCallback
 	/**
-	 * Map requested data into Select's options.
+	 * Optional parameters provided into fetch method.
 	 */
-	mapper: (item) => any
+	fetchParams?: Params
+	/**
+	 * Map requested data into Select options.
+	 */
+	mapper: (item: TData) => { value: string | number, label: string | number }[]
 	/**
 	 * Dependency used to force redraw (re-fetch data).
 	 */
-	dependency?: string
+	deps?: any[]
 }
 
-export const BaseSelect: FC<IBaseSelectProps> = ({fetch, mapper, dependency, ...props}) => {
+export const BaseSelect = <TData extends unknown>({fetch, fetchParams, mapper, deps = [], ...props}: IBaseSelectProps<TData>) => {
 	const [options, setOptions] = useState([]);
 	const appContext = useAppContext();
 	const formContext = useFormContext();
@@ -32,11 +37,12 @@ export const BaseSelect: FC<IBaseSelectProps> = ({fetch, mapper, dependency, ...
 				.on("success", data => {
 					setOptions(data.map(mapper));
 					formContext.unblock();
-				})
+				}),
+			fetchParams
 		);
 		return () => token.cancel();
 		// eslint-disable-next-line
-	}, [dependency]);
+	}, deps);
 	return (
 		<Select
 			options={options}
