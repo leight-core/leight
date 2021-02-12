@@ -7,8 +7,6 @@ import {DatePicker} from "./DatePicker";
 export interface ITimePickerProps extends Omit<PickerTimeProps<Dayjs>, "picker"> {
 }
 
-export const TimePicker = React.forwardRef<any, ITimePickerProps>((props, ref) => {
-	return <DatePicker {...props} picker={"time"} mode={undefined} ref={ref}/>;
-});
+export const TimePicker = React.forwardRef<any, ITimePickerProps>((props, ref) => <DatePicker {...props} picker={"time"} mode={undefined} ref={ref}/>);
 
 TimePicker.displayName = "TimePicker";
