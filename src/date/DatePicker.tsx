@@ -6,4 +6,4 @@ import React from "react";
 
 const DatePickerInternal = generatePicker<Dayjs>(dayjsGenerateConfig);
 
-export const DatePicker = React.forwardRef<any, PickerProps<Dayjs>>((props, ref) => <DatePickerInternal format={(dayjs as any).localeData().longDateFormat("L")} ref={ref} {...props}/>);
+export const DatePicker = React.forwardRef<any, Partial<PickerProps<Dayjs>>>((props, ref) => <DatePickerInternal format={(dayjs as any).localeData().longDateFormat("L")} ref={ref} {...props}/>);
