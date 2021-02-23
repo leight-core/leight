@@ -29,6 +29,7 @@ export function useCleverLink(to: string, params?: Params): ICleverLink {
 			link: routerContext.generate(to, current),
 		};
 	} catch (e) {
+		console.error(`Cannot generate clever link [${to}].`, "Params", params, e);
 		return {
 			enable: false,
 			link: ""
