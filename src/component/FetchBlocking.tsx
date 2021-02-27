@@ -45,7 +45,10 @@ export const FetchBlocking = <TData extends Object>({fetch, mapper = data => dat
 	return (
 		<Fetch<TData>
 			fetch={(setData) => {
-				setData(null);
+				/**
+				 * Setting data to undefined forces component to render loading.
+				 */
+				setData(undefined);
 				const token = fetch(
 					appContext,
 					Events<IServerEvents>()
