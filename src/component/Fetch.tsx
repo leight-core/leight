@@ -2,6 +2,8 @@ import {Result} from "antd";
 import {Dispatch, ReactNode, SetStateAction, useEffect, useState} from "react";
 import {Loader} from "./Loader";
 
+const MagicUndefined = "__leight-core.undefined";
+
 export interface IFetchProps<TData = any> {
 	/**
 	 * Fetch factory callback; used in an effect to fetch (somehow get) data.
@@ -26,14 +28,14 @@ export interface IFetchProps<TData = any> {
  * component.
  */
 export const Fetch = <TData extends unknown>({fetch, deps = [], children, placeholder = () => <Result icon={<Loader isLoading={true}/>}/>}: IFetchProps<TData>) => {
-	const [data, setData] = useState<TData | null>("__undefined" as TData);
+	const [data, setData] = useState<TData | null>(MagicUndefined as TData);
 	useEffect(() => {
 		return fetch(setData);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, deps);
 	return (
 		<>
-			{data !== "__undefined" ? children(data as TData) : placeholder()}
+			{data !== MagicUndefined ? children(data as TData) : placeholder()}
 		</>
 	);
 };
