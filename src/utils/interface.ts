@@ -20,7 +20,7 @@ export interface IEvents<TEvents extends string = any> {
 	/**
 	 * Registers a handler of the given event name.
 	 */
-	on: <TData extends Object = any>(event: TEvents, callback: IEventCallback<TData>, priority?: number) => IEvents<TEvents>
+	on: <TData extends any = any>(event: TEvents, callback: IEventCallback<TData>, priority?: number) => IEvents<TEvents>
 	/**
 	 * Call handlers of the given event name.
 	 */

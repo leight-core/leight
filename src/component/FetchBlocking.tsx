@@ -37,7 +37,7 @@ export interface IFetchBlockingProps<TData> extends Omit<IFetchProps<TData>, "fe
 	unblock?: boolean
 }
 
-export const FetchBlocking = <TData extends Object>({fetch, mapper = data => data, params, deps = [], block = false, unblock = false, children, ...props}: IFetchBlockingProps<TData>) => {
+export const FetchBlocking = <TData extends any>({fetch, mapper = data => data, params, deps = [], block = false, unblock = false, children, ...props}: IFetchBlockingProps<TData>) => {
 	const appContext = useAppContext();
 	const viewContext = useViewContext();
 	const layoutContext = useLayoutContext();
