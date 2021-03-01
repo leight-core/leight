@@ -30,7 +30,7 @@ export interface IEvents<TEvents extends string = any> {
 	 *
 	 * @param events
 	 */
-	required: (...events: string[]) => IEvents<TEvents>
+	required: (...events: TEvents[]) => IEvents<TEvents>
 	/**
 	 * Chain with the given events (events still respects event handler priority).
 	 *

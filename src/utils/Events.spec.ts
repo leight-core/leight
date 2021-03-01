@@ -17,8 +17,8 @@ test("Event order", () => {
 });
 
 test("Events chaining", () => {
-	const events = Events();
-	const globals = Events();
+	const events = Events<"test">();
+	const globals = Events<"test">();
 	const stack: string[] = [];
 	events.chain(globals);
 	events.on("test", () => stack.push("first"), 10);
@@ -29,7 +29,7 @@ test("Events chaining", () => {
 });
 
 test("Breaking events", () => {
-	const events = Events();
+	const events = Events<"test">();
 	const stack: string[] = [];
 	events.on("test", () => stack.push("nope!"), 100);
 	events.on("test", () => stack.push("another nope!"), 101);
@@ -43,13 +43,13 @@ test("Breaking events", () => {
 });
 
 test("Missing required handler", () => {
-	const events = Events();
+	const events = Events<"this-is-required" | "another-required">();
 	events.required("this-is-required", "another-required");
 	expect(() => events.call("another-required")).toThrow("Missing required Event handler [another-required].");
 });
 
 test("Required handler", () => {
-	const events = Events();
+	const events = Events<"this-is-required" | "another-required">();
 	const stack: string[] = [];
 	events.required("this-is-required", "another-required");
 	events.on("this-is-required", () => stack.push("yaay!"));
