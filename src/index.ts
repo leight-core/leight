@@ -13,6 +13,7 @@ export * from "./module";
 export * from "./router";
 export * from "./server";
 export * from "./table";
+export * from "./uploader";
 export * from "./utils";
 export * from "./view";
 export * from "./wizard";
