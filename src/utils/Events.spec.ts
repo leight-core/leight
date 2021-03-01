@@ -1,7 +1,7 @@
 import {Events} from "./Events";
 
 test("Event order", () => {
-	const events = Events();
+	const events = Events<"test">();
 	const stack: string[] = [];
 	events.on("test", () => {
 		stack.push("second");
