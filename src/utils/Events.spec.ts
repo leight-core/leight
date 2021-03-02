@@ -1,15 +1,13 @@
 import {Events} from "./Events";
-import {IEventHandler, IEventResult} from "./interface";
+import {IEventHandlers, IEventResult} from "./interface";
 
 type ITestEventTypes = "test";
 
-interface ITestEventHandlers extends IEventHandler<ITestEventTypes> {
+interface ITestEventHandlers extends IEventHandlers<ITestEventTypes> {
 	test: () => IEventResult
 }
 
-type IRequiredEventTypes = "thisIsRequired" | "anotherRequired" | "junc";
-
-interface IRequiredEventHandlers extends IEventHandler<IRequiredEventTypes> {
+interface IRequiredEventHandlers extends IEventHandlers<"thisIsRequired" | "anotherRequired" | "junc"> {
 	thisIsRequired: () => IEventResult
 	anotherRequired: () => IEventResult
 	junc: (junc: string) => void
@@ -58,13 +56,13 @@ test("Breaking events", () => {
 });
 
 test("Missing required handler", () => {
-	const events = Events<IRequiredEventTypes, IRequiredEventHandlers>();
+	const events = Events<IRequiredEventHandlers["types"], IRequiredEventHandlers>();
 	events.required("thisIsRequired", "anotherRequired");
 	expect(() => events.handler("anotherRequired")()).toThrow("Missing required Event handler [anotherRequired].");
 });
 
 test("Required handler", () => {
-	const events = Events<IRequiredEventTypes, IRequiredEventHandlers>();
+	const events = Events<IRequiredEventHandlers["types"], IRequiredEventHandlers>();
 	const stack: string[] = [];
 	events.required("thisIsRequired", "anotherRequired");
 	events.on("thisIsRequired", () => stack.push("yaay!"));

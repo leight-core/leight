@@ -37,7 +37,7 @@ export const DebouncedSelect: FC<IDebouncedSelectProps> = ({fetch, mapper, initi
 			{search: initial},
 			appContext,
 			ServerEvents()
-				.on("success", data => {
+				.on("response", data => {
 					setOptions(data.map(mapper));
 					setLoading(false);
 					formContext.unblock();
@@ -59,7 +59,7 @@ export const DebouncedSelect: FC<IDebouncedSelectProps> = ({fetch, mapper, initi
 						{search},
 						appContext,
 						ServerEvents()
-							.on("success", data => {
+							.on("response", data => {
 								setOptions(data.map(mapper));
 								setLoading(false);
 							})

@@ -23,7 +23,7 @@ export const TranslationStep: FC<ITranslationStepProps> = ({link = "public.trans
 			const cancelToken = httpGet(
 				appContext.link(link),
 				ServerEvents<ITranslations>()
-					.on("success", ({translations}) => {
+					.on("response", ({translations}) => {
 						translations.forEach(translation => i18next.addResource(translation.language, translation.namespace, translation.label, translation.text));
 						stepLoaderContext.next();
 					})

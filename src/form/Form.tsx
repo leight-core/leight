@@ -92,7 +92,7 @@ export const Form = <TValues extends unknown = any>(
 				.on("request", () => {
 					blockContext.block();
 				})
-				.on("success", data => {
+				.on("response", data => {
 					onHandleFetch(formContext, data);
 					blockContext.unblock();
 				})

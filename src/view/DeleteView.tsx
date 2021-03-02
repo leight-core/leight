@@ -70,7 +70,7 @@ export const DeleteView = <TFetch extends unknown = any, TResponse extends unkno
 	{
 		translation,
 		fetch = (_, events) => {
-			events.handler("success")(undefined as unknown as any);
+			events.handler("response")(undefined as unknown as any);
 			events.handler("done")();
 			return {cancel: () => null, token: null as any} as any;
 		},
@@ -103,7 +103,7 @@ export const DeleteView = <TFetch extends unknown = any, TResponse extends unkno
 									deleteCallback(
 										appContext,
 										ServerEvents<TResponse>()
-											.on("success", (data) => {
+											.on("response", data => {
 												onSuccess(navigate, data);
 											})
 											.on("http500", () => {

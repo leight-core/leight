@@ -21,6 +21,6 @@ export const axiosError = (error: AxiosError, events: IServerEvents) => {
  * Handle axios success.
  */
 export const axiosSuccess = <TResponse = any>(axiosResponse: AxiosResponse<TResponse>, events: IServerEvents) => {
-	events.handler("success")(axiosResponse.data);
+	events.handler("response")(axiosResponse.data);
 	events.handler("done")();
 };

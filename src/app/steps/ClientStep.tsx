@@ -22,7 +22,7 @@ export const ClientStep: FC<IClientStepProps> = ({href, ...props}) => {
 			const cancelToken = httpGet(
 				href || "/client.json",
 				ServerEvents<IClient>()
-					.on("success", client => {
+					.on("response", client => {
 						appContext.setClient(client);
 						stepLoaderContext.next();
 					})

@@ -21,7 +21,7 @@ export const SessionStep: FC<ISessionStepProps> = ({link = "public.user.login", 
 			const cancelToken = httpGet(
 				appContext.link(link),
 				ServerEvents()
-					.on("success", session => {
+					.on("response", session => {
 						appContext.login(session);
 						stepLoaderContext.next();
 					})

@@ -22,14 +22,14 @@ export interface IEvent {
  * Base interface for any event handlers - it's just marker interface
  * to keep types on track (aligned to what IEvents expects).
  */
-export type IEventHandler<T extends string> = {
+export type IEventHandlers<T extends string> = {
 	[index in T]: IEventCallback
-}
+} & { types: T }
 
 /**
  * Simple EventBus nicely typed to keep all the things in the right way.
  */
-export interface IEvents<TEventTypes extends string, TEventHandlers extends IEventHandler<TEventTypes>> {
+export interface IEvents<TEventTypes extends string, TEventHandlers extends IEventHandlers<TEventTypes>> {
 	/**
 	 * Internal map of current event handlers, should not be touched directly in any way!
 	 */
@@ -42,17 +42,17 @@ export interface IEvents<TEventTypes extends string, TEventHandlers extends IEve
 	/**
 	 * Registers a handler of the given event name.
 	 */
-	on: <T extends TEventHandlers, U extends keyof T>(event: U, callback: T[U], priority?: number) => IEvents<TEventTypes, TEventHandlers>
+	on: <T extends TEventHandlers, U extends TEventTypes>(event: U, callback: T[U], priority?: number) => IEvents<TEventTypes, TEventHandlers>
 	/**
 	 * Returns the handler of an event.
 	 */
-	handler: <T extends keyof TEventHandlers>(event: T) => TEventHandlers[T];
+	handler: <T extends TEventTypes, U extends TEventHandlers, >(event: T) => U[T];
 	/**
 	 * Set required event handlers; when required event is called, but handler not present, an error is thrown.
 	 *
 	 * @param events
 	 */
-	required: (...events: string[]) => IEvents<TEventTypes, TEventHandlers>
+	required: (...events: TEventTypes[]) => IEvents<TEventTypes, TEventHandlers>
 	/**
 	 * Chain with the given events (events still respects event handler priority).
 	 *

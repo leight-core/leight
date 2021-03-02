@@ -33,12 +33,8 @@ export const BaseList = <TItem extends IRecordItem = any>(
 			size,
 			appContext,
 			ServerEvents<IPageIndex<TItem>>()
-				.on("success", data => {
-					setPage(data);
-				})
-				.on("done", () => {
-					setLoading(false);
-				}),
+				.on("response", data => setPage(data))
+				.on("done", () => setLoading(false)),
 			params,
 		);
 	};

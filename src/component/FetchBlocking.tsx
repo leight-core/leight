@@ -55,7 +55,7 @@ export const FetchBlocking = <TResponse extends any>({fetch, mapper = data => da
 						.on("request", () => {
 							block && viewContext.blockContext.block();
 						})
-						.on("success", data => {
+						.on("response", data => {
 							layoutContext.setData(mapper(data));
 							setData(data);
 						})

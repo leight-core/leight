@@ -33,7 +33,7 @@ export const BaseTable = <TItem extends IRecordItem = any>(
 			size,
 			appContext,
 			ServerEvents<IPageIndex>()
-				.on("success", data => {
+				.on("response", data => {
 					setPage(data);
 				})
 				.on("done", () => {

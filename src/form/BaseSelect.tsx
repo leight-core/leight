@@ -35,7 +35,7 @@ export const BaseSelect = <TData extends unknown>({fetch, fetchParams, mapper, d
 		const token = fetch(
 			appContext,
 			ServerEvents<TData[]>()
-				.on("success", data => {
+				.on("response", data => {
 					setOptions(data.map(mapper));
 					formContext.unblock();
 				}),

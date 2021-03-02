@@ -14,7 +14,7 @@ export const DiscoveryStep = (props) => {
 			const cancelToken = httpGet(
 				appContext.client.discovery,
 				ServerEvents<IDiscovery>()
-					.on("success", discovery => {
+					.on("response", discovery => {
 						appContext.setDiscovery(discovery);
 						stepLoaderContext.next();
 					})

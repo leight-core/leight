@@ -2,7 +2,7 @@ import {AxiosError, CancelTokenSource} from "axios";
 import {Params} from "react-router";
 import {IAppContext} from "../app/interface";
 import {IPageIndex} from "../interface/interface";
-import {IEventHandler, IEventResult, IEvents} from "../utils/interface";
+import {IEventHandlers, IEventResult, IEvents} from "../utils/interface";
 
 /**
  * Available http events.
@@ -12,7 +12,7 @@ export type IHttpErrorEventTypes = "http400" | "http401" | "http403" | "http500"
 /**
  * Some of events may happen during http transfer.
  */
-export interface IHttpErrorEvents extends IEventHandler<IHttpErrorEventTypes> {
+export interface IHttpErrorEvents extends IEventHandlers<IHttpErrorEventTypes> {
 	http400: (response: any) => IEventResult
 	http401: (response: any) => IEventResult
 	http403: (response: any) => IEventResult
@@ -22,14 +22,14 @@ export interface IHttpErrorEvents extends IEventHandler<IHttpErrorEventTypes> {
 /**
  * Available server events.
  */
-export type IServerEventTypes = "request" | IHttpErrorEventTypes;
+export type IServerEventTypes = "request" | "response" | "catch" | "error" | "done" | IHttpErrorEventTypes;
 
 /**
  * Events emitted in server util methods.
  */
-export interface IServerEventHandlers<TSuccess = any> extends IHttpErrorEvents {
+export interface IServerEventHandlers<TResponse = any> extends IHttpErrorEvents {
 	request: <TRequest>(request?: TRequest) => void
-	success: (data: TSuccess) => void
+	response: (data: TResponse) => void
 	done: () => void
 	error: (error: AxiosError) => void
 	catch: (error: AxiosError) => void

@@ -35,7 +35,7 @@ export const BaseGroupSelect = <TResponse extends unknown = any>({fetch, fetchPa
 		const token = fetch(
 			appContext,
 			ServerEvents<TResponse[]>()
-				.on("success", data => {
+				.on("response", data => {
 					setOptions(data.map(mapper));
 					formContext.unblock();
 				}),

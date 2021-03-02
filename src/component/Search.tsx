@@ -39,7 +39,7 @@ export const Search: FC<ISearchProps> = (
 				{search: value},
 				appContext,
 				ServerEvents<ISearchItem[]>()
-					.on("success", data => {
+					.on("response", data => {
 						setData(mapper(data));
 					})
 					.on("done", () => {

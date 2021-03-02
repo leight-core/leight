@@ -60,7 +60,7 @@ export const CommonForm = <TData extends Object, TValues = any>(
 					appContext,
 					events
 						.chain(formContext.events())
-						.on("success", data => {
+						.on("response", data => {
 							onSuccess(navigate, data);
 							layoutContext.blockContext.unblock();
 						})
