@@ -1,13 +1,9 @@
 import {Events} from "./Events";
 import {IEventHandlers, IEventResult} from "./interface";
 
-type ITestEventTypes = "test";
-
 interface ITestEventHandlers extends IEventHandlers {
 	test: () => IEventResult
 }
-
-type IRequiredEventTypes = "thisIsRequired" | "anotherRequired" | "junc";
 
 interface IRequiredEventHandlers extends IEventHandlers {
 	thisIsRequired: () => IEventResult
@@ -15,8 +11,11 @@ interface IRequiredEventHandlers extends IEventHandlers {
 	junc: (junc: string) => void
 }
 
+const TestEvents = () => Events<"test", ITestEventHandlers>();
+const RequiredEvents = () => Events<"thisIsRequired" | "anotherRequired" | "junc", IRequiredEventHandlers>();
+
 test("Event order", () => {
-	const events = Events<ITestEventTypes, ITestEventHandlers>();
+	const events = TestEvents();
 	const stack: string[] = [];
 	events.on("test", () => {
 		stack.push("second");
@@ -32,8 +31,8 @@ test("Event order", () => {
 });
 
 test("Events chaining", () => {
-	const events = Events<ITestEventTypes, ITestEventHandlers>();
-	const globals = Events<ITestEventTypes, ITestEventHandlers>();
+	const events = TestEvents();
+	const globals = TestEvents();
 	const stack: string[] = [];
 	events.chain(globals);
 	events.on("test", () => stack.push("first"), 10);
@@ -44,7 +43,7 @@ test("Events chaining", () => {
 });
 
 test("Breaking events", () => {
-	const events = Events<ITestEventTypes, ITestEventHandlers>();
+	const events = TestEvents();
 	const stack: string[] = [];
 	events.on("test", () => stack.push("nope!"), 100);
 	events.on("test", () => stack.push("another nope!"), 101);
@@ -58,13 +57,13 @@ test("Breaking events", () => {
 });
 
 test("Missing required handler", () => {
-	const events = Events<IRequiredEventTypes, IRequiredEventHandlers>();
+	const events = RequiredEvents();
 	events.required("thisIsRequired", "anotherRequired");
 	expect(() => events.handler("anotherRequired")()).toThrow("Missing required Event handler [anotherRequired].");
 });
 
 test("Required handler", () => {
-	const events = Events<IRequiredEventTypes, IRequiredEventHandlers>();
+	const events = RequiredEvents();
 	const stack: string[] = [];
 	events.required("thisIsRequired", "anotherRequired");
 	events.on("thisIsRequired", () => stack.push("yaay!"));
