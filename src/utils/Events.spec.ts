@@ -3,11 +3,13 @@ import {IEventHandlers, IEventResult} from "./interface";
 
 type ITestEventTypes = "test";
 
-interface ITestEventHandlers extends IEventHandlers<ITestEventTypes> {
+interface ITestEventHandlers extends IEventHandlers {
 	test: () => IEventResult
 }
 
-interface IRequiredEventHandlers extends IEventHandlers<"thisIsRequired" | "anotherRequired" | "junc"> {
+type IRequiredEventTypes = "thisIsRequired" | "anotherRequired" | "junc";
+
+interface IRequiredEventHandlers extends IEventHandlers {
 	thisIsRequired: () => IEventResult
 	anotherRequired: () => IEventResult
 	junc: (junc: string) => void
@@ -56,13 +58,13 @@ test("Breaking events", () => {
 });
 
 test("Missing required handler", () => {
-	const events = Events<IRequiredEventHandlers["types"], IRequiredEventHandlers>();
+	const events = Events<IRequiredEventTypes, IRequiredEventHandlers>();
 	events.required("thisIsRequired", "anotherRequired");
 	expect(() => events.handler("anotherRequired")()).toThrow("Missing required Event handler [anotherRequired].");
 });
 
 test("Required handler", () => {
-	const events = Events<IRequiredEventHandlers["types"], IRequiredEventHandlers>();
+	const events = Events<IRequiredEventTypes, IRequiredEventHandlers>();
 	const stack: string[] = [];
 	events.required("thisIsRequired", "anotherRequired");
 	events.on("thisIsRequired", () => stack.push("yaay!"));

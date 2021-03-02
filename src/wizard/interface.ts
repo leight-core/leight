@@ -68,7 +68,7 @@ export interface IWizardFinish<TValues extends Object = any> {
 
 export type IWizardEventTypes = "reset" | "next" | "previous" | "finish";
 
-export interface IWizardEventHandlers extends IEventHandlers<IWizardEventTypes> {
+export interface IWizardEventHandlers extends IEventHandlers {
 	reset: () => void
 	next: (wizardNext: IWizardNext) => void
 	previous: (wizardContext: IWizardContext) => void

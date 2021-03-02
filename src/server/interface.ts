@@ -12,7 +12,7 @@ export type IHttpErrorEventTypes = "http400" | "http401" | "http403" | "http500"
 /**
  * Some of events may happen during http transfer.
  */
-export interface IHttpErrorEvents extends IEventHandlers<IHttpErrorEventTypes> {
+export interface IHttpErrorEvents extends IEventHandlers {
 	http400: (response: any) => IEventResult
 	http401: (response: any) => IEventResult
 	http403: (response: any) => IEventResult

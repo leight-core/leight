@@ -22,14 +22,14 @@ export interface IEvent {
  * Base interface for any event handlers - it's just marker interface
  * to keep types on track (aligned to what IEvents expects).
  */
-export type IEventHandlers<T extends string> = {
+export type IEventHandlers<T extends string = string> = {
 	[index in T]: IEventCallback
-} & { types: T }
+}
 
 /**
  * Simple EventBus nicely typed to keep all the things in the right way.
  */
-export interface IEvents<TEventTypes extends string, TEventHandlers extends IEventHandlers<TEventTypes>> {
+export interface IEvents<TEventTypes extends string, TEventHandlers extends IEventHandlers> {
 	/**
 	 * Internal map of current event handlers, should not be touched directly in any way!
 	 */
