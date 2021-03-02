@@ -33,7 +33,7 @@ export interface IEvents<TEvents extends IEventHandler> {
 	/**
 	 * Internal map of current event handlers, should not be touched directly in any way!
 	 */
-	events: { [T in keyof TEvents]: IEvent[] }
+	events: any
 	/**
 	 * Internal array of chained event handlers.
 	 */
@@ -42,7 +42,7 @@ export interface IEvents<TEvents extends IEventHandler> {
 	/**
 	 * Registers a handler of the given event name.
 	 */
-	on: <T extends keyof TEvents>(event: T, callback: TEvents[T], priority?: number) => IEvents<TEvents>
+	on: <T extends TEvents, U extends keyof T>(event: U, callback: T[U], priority?: number) => IEvents<TEvents>
 	/**
 	 * Returns the handler of an event.
 	 */

@@ -8,6 +8,7 @@ interface ITestEvents extends IEventHandler {
 interface IRequiredEvents extends IEventHandler {
 	thisIsRequired: () => IEventResult
 	anotherRequired: () => IEventResult
+	junc: (junc: string) => void
 }
 
 test("Event order", () => {
