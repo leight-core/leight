@@ -1,5 +1,6 @@
 import axios from "axios";
 import {IEvents} from "../utils/interface";
+import {IServerEvents} from "./interface";
 
 /**
  * Handle axios error.
@@ -7,12 +8,12 @@ import {IEvents} from "../utils/interface";
  * @param error
  * @param events
  */
-export const axiosError = (error, events: IEvents) => {
+export const axiosError = (error, events: IEvents<IServerEvents>) => {
 	if (axios.isCancel(error)) {
 		return;
 	}
 	if (error.response && error.response.status) {
-		events.call("http-" + error.response.status, error.response.data);
+		events.call("http-" + error.response.status as IServerEvents, error.response.data);
 	} else {
 		events.call("error", error);
 	}
@@ -26,7 +27,7 @@ export const axiosError = (error, events: IEvents) => {
  * @param data
  * @param events
  */
-export const axiosSuccess = ({data}, events: IEvents) => {
+export const axiosSuccess = ({data}, events: IEvents<IServerEvents>) => {
 	events.call("success", data);
 	events.call("done");
 };

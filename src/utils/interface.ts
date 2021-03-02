@@ -7,15 +7,15 @@ export interface IEvent<TData = any> {
 	callback: IEventCallback<TData>
 }
 
-export interface IEvents<TEvents extends string = any> {
+export interface IEvents<TEvents extends string = string> {
 	/**
 	 * Internal map of current event handlers, should not be touched directly in any way!
 	 */
-	events: { [key: string]: IEvent[] }
+	events: { [index: string]: IEvent[] }
 	/**
 	 * Internal array of chained event handlers.
 	 */
-	chains: IEvents[],
+	chains: IEvents<any>[],
 	requires: string[],
 	/**
 	 * Registers a handler of the given event name.

@@ -60,4 +60,4 @@ export type IHttpErrorEvents = "http-400" | "http-401" | "http-403" | "http-500"
 /**
  * Events emitted in server util methods.
  */
-export type IServerEvents = "request" | "success" | "done" | "catch" | IHttpErrorEvents
+export type IServerEvents = "request" | "success" | "done" | "error" | "catch" | IHttpErrorEvents
