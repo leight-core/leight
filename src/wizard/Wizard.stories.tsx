@@ -11,6 +11,7 @@ import {createModule, ModuleContext} from "../module/ModuleContext";
 import {IRouterContext} from "../router/interface";
 import {StoryApp} from "../storybook/StoryApp";
 import {Events} from "../utils/Events";
+import {IWizardEvents} from "./interface";
 import {Wizard} from "./Wizard";
 import {useWizardContext} from "./WizardContext";
 import {WizardStep} from "./WizardStep";
@@ -98,7 +99,7 @@ const ThirdStep = () => {
 
 export const Default = () => {
 	const [finish, setFinish] = useState<boolean>(false);
-	const events = Events()
+	const events = Events<IWizardEvents>()
 		.on("finish", ({values}) => {
 			setFinish(true);
 			action("onWizardFinish");
@@ -124,7 +125,7 @@ export const Default = () => {
 
 export const WithPrefetch = () => {
 	const [finish, setFinish] = useState<boolean>(false);
-	const events = Events()
+	const events = Events<IWizardEvents>()
 		.on("finish", ({values}) => {
 			setFinish(true);
 			action("onWizardFinish");

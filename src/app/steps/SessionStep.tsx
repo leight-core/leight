@@ -3,6 +3,7 @@ import {FC} from "react";
 import {LoaderStep} from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
 import {httpGet} from "../../server/httpGet";
+import {IServerEvents} from "../../server/interface";
 import {Events} from "../../utils/Events";
 import {useAppContext} from "../AppContext";
 
@@ -20,12 +21,12 @@ export const SessionStep: FC<ISessionStepProps> = ({link = "public.user.login", 
 		<LoaderStep icon={<UserOutlined/>} {...props} onStep={() => {
 			const cancelToken = httpGet(
 				appContext.link(link),
-				Events()
-					.on<any>("success", session => {
+				Events<IServerEvents>()
+					.on("success", session => {
 						appContext.login(session);
 						stepLoaderContext.next();
 					})
-					.on("http-401", () => {
+					.on("http401", () => {
 						/**
 						 * 401 is OK here, because if we're on public, we'll get one when session is checked.
 						 */

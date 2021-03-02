@@ -1,36 +1,58 @@
-export interface IEventCallback<TData = any> {
-	(data: TData): boolean | any
+/**
+ * Encapsulated event callback result to deduplicate all that stuff with the cost of lengthy type name.
+ */
+export type IEventResult = boolean | any;
+
+/**
+ * A shape of event handler - some arguments and optional boolean return.
+ */
+export interface IEventCallback {
+	(...args): IEventResult
 }
 
-export interface IEvent<TData = any> {
+/**
+ * Internal event structure.
+ */
+export interface IEvent {
 	priority: number
-	callback: IEventCallback<TData>
+	callback: IEventCallback
 }
 
-export interface IEvents<TEvents extends string = string> {
+/**
+ * Base interface for any event handlers - it's just marker interface
+ * to keep types on track (aligned to what IEvents expects).
+ */
+export interface IEventHandler {
+	[index: string]: IEventCallback
+}
+
+/**
+ * Simple EventBus nicely typed to keep all the things in the right way.
+ */
+export interface IEvents<TEvents extends IEventHandler> {
 	/**
 	 * Internal map of current event handlers, should not be touched directly in any way!
 	 */
-	events: { [index: string]: IEvent[] }
+	events: { [T in keyof TEvents]: IEvent[] }
 	/**
 	 * Internal array of chained event handlers.
 	 */
-	chains: IEvents<any>[],
-	requires: string[],
+	chains: any[],
+	requires: any[],
 	/**
 	 * Registers a handler of the given event name.
 	 */
-	on: <TData extends any = any>(event: TEvents, callback: IEventCallback<TData>, priority?: number) => IEvents<TEvents>
+	on: <T extends keyof TEvents>(event: T, callback: TEvents[T], priority?: number) => IEvents<TEvents>
 	/**
-	 * Call handlers of the given event name.
+	 * Returns the handler of an event.
 	 */
-	call: <TData extends Object = any>(event: TEvents, data?: TData) => IEvents<TEvents>
+	handler: <T extends keyof TEvents>(event: T) => TEvents[T];
 	/**
 	 * Set required event handlers; when required event is called, but handler not present, an error is thrown.
 	 *
 	 * @param events
 	 */
-	required: (...events: TEvents[]) => IEvents<TEvents>
+	required: (...events: (keyof TEvents)[]) => IEvents<TEvents>
 	/**
 	 * Chain with the given events (events still respects event handler priority).
 	 *
@@ -38,5 +60,5 @@ export interface IEvents<TEvents extends string = string> {
 	 *
 	 * @return Events instance chain method was called on.
 	 */
-	chain: <U extends TEvents>(events: IEvents<U>) => IEvents<U>
+	chain: <U extends IEventHandler>(events: IEvents<U>) => IEvents<TEvents & U>
 }

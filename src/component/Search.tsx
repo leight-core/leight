@@ -6,12 +6,7 @@ import {useAppContext} from "../app/AppContext";
 import {ISearchRequest} from "../interface/interface";
 import {IPostCallback, IServerEvents} from "../server/interface";
 import {Events} from "../utils/Events";
-
-export interface ISearchItem {
-	id: string
-	name: string
-	type: string
-}
+import {ISearchItem} from "./interface";
 
 export interface ISearchProps extends Partial<SelectProps<any>> {
 	search: IPostCallback<IServerEvents, ISearchRequest>
@@ -43,11 +38,11 @@ export const Search: FC<ISearchProps> = (
 			search(
 				{search: value},
 				appContext,
-				Events<IServerEvents>()
-					.on<ISearchItem[]>("success", data => {
+				Events<IServerEvents<ISearchItem[]>>()
+					.on("success", data => {
 						setData(mapper(data));
 					})
-					.on("done", _ => {
+					.on("done", () => {
 						setLoading(false);
 					})
 					.on("catch", error => {

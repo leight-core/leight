@@ -9,7 +9,7 @@ export function httpPut<TRequest = any>(
 	events: IEvents<IServerEvents>,
 ): CancelTokenSource {
 	const cancelToken = axios.CancelToken.source();
-	events.call("request", data);
+	events.handler("request")(data);
 	axios.put(href, data, {
 		cancelToken: cancelToken.token,
 	})

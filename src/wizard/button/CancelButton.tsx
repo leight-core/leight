@@ -21,7 +21,7 @@ export const CancelButton: FC<ICancelButtonProps> = () => {
 				moduleContext.tid("wizard.cancelConfirm"),
 				"wizard.cancelConfirm",
 			])}
-			onConfirm={() => wizardContext.events.call("reset")}
+			onConfirm={() => wizardContext.events.handler("reset")()}
 		>
 			<Button
 				type={"ghost"}

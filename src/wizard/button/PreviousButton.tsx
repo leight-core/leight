@@ -13,7 +13,7 @@ export const PreviousButton = () => {
 			disabled={!wizardContext.canPrevious()}
 			onClick={() => {
 				wizardContext.previous();
-				wizardContext.events.call("previous", wizardContext);
+				wizardContext.events.handler("previous")(wizardContext);
 			}}
 			disabledIcon={<BackIcon/>}
 			label={"common.wizard.previous"}

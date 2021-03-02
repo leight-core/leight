@@ -1,7 +1,7 @@
-import {CancelTokenSource} from "axios";
+import {AxiosError, CancelTokenSource} from "axios";
 import {Params} from "react-router";
 import {IAppContext} from "../app/interface";
-import {IEvents} from "../utils/interface";
+import {IEventHandler, IEvents} from "../utils/interface";
 
 /**
  * Callback used when a new page is required.
@@ -13,33 +13,33 @@ export interface IPage {
 	limit: number
 }
 
-export type IGetCallback<TEvents extends string = IServerEvents> = (
+export type IGetCallback<TEvents extends IEventHandler = IServerEvents> = (
 	appContext: IAppContext,
 	events: IEvents<TEvents>,
 	params?: Params,
 ) => CancelTokenSource;
 
-export type IPostCallback<TEvents extends string = IServerEvents, TRequest = any> = (
+export type IPostCallback<TEvents extends IEventHandler = IServerEvents, TRequest = any> = (
 	data: TRequest,
 	appContext: IAppContext,
 	events: IEvents<TEvents>,
 	params?: Params,
 ) => CancelTokenSource
 
-export type IDeleteCallback<TEvents extends string = IServerEvents> = (
+export type IDeleteCallback<TEvents extends IEventHandler = IServerEvents> = (
 	appContext: IAppContext,
 	events: IEvents<TEvents>,
 	params?: Params,
 ) => CancelTokenSource
 
-export type IPutCallback<TEvents extends string = IServerEvents, TRequest = any> = (
+export type IPutCallback<TEvents extends IEventHandler = IServerEvents, TRequest = any> = (
 	data: TRequest,
 	appContext: IAppContext,
 	events: IEvents<TEvents>,
 	params?: Params,
 ) => CancelTokenSource
 
-export type IPatchCallback<TEvents extends string = IServerEvents, TRequest = any> = (
+export type IPatchCallback<TEvents extends IEventHandler = IServerEvents, TRequest = any> = (
 	data: TRequest,
 	appContext: IAppContext,
 	events: IEvents<TEvents>,
@@ -48,7 +48,7 @@ export type IPatchCallback<TEvents extends string = IServerEvents, TRequest = an
 
 export type IUpdateCallback = IPostCallback | IPutCallback | IPatchCallback;
 
-export type IFetchHook<TEvents extends string = IServerEvents> = (
+export type IFetchHook<TEvents extends IEventHandler = IServerEvents> = (
 	uuid: string,
 	events: IEvents<TEvents>,
 ) => void
@@ -56,8 +56,20 @@ export type IFetchHook<TEvents extends string = IServerEvents> = (
 /**
  * Some of events may happen during http transfer.
  */
-export type IHttpErrorEvents = "http-400" | "http-401" | "http-403" | "http-500"
+export interface IHttpErrorEvents extends IEventHandler {
+	http400: (response: any) => void
+	http401: (response: any) => void
+	http403: (response: any) => void
+	http500: (response: any) => void
+}
+
 /**
  * Events emitted in server util methods.
  */
-export type IServerEvents = "request" | "success" | "done" | "error" | "catch" | IHttpErrorEvents
+export interface IServerEvents<TSuccess = any> extends IHttpErrorEvents {
+	request: (request?: any) => void
+	success: (data: TSuccess) => void
+	done: () => void
+	error: (error: AxiosError) => void
+	catch: (error: AxiosError) => void
+}

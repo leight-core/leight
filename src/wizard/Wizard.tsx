@@ -25,7 +25,7 @@ export interface IWizardProps {
 	/**
 	 * Wizard events; they're chained on top of internal Wizard events.
 	 */
-	events: IEvents
+	events: IEvents<IWizardEvents>
 	/**
 	 * Wizard steps.
 	 */

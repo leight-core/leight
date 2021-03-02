@@ -49,15 +49,15 @@ export const Uploader = ({limit, events, translation, action, params, ...props}:
 			case "uploading":
 				setProgress(info.fileList[current].percent ?? 0);
 				setLoading(true);
-				events.call("uploading", info.fileList[current].response);
+				events.handler("uploading")(info.fileList[current]);
 				break;
 			case "error":
 				setLoading(false);
 				setProgress(0);
-				events.call("error", info.fileList[current]);
+				events.handler("error")(info.fileList[current]);
 				break;
 			case "done":
-				events.call("done", info.fileList[current]);
+				events.handler("done")(info.fileList[current]);
 				break;
 		}
 	};

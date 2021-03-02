@@ -8,7 +8,7 @@ export function httpDelete(
 	events: IEvents<IServerEvents>,
 ): CancelTokenSource {
 	const cancelToken = axios.CancelToken.source();
-	events.call("request");
+	events.handler("request")();
 	axios.delete(href, {
 		cancelToken: cancelToken.token,
 	})

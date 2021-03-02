@@ -1,5 +1,5 @@
 import {IDeepMerge, IOutputMapper} from "../interface/interface";
-import {IEvents} from "../utils/interface";
+import {IEventHandler, IEvents} from "../utils/interface";
 
 export interface IWizardContext {
 	/**
@@ -53,9 +53,19 @@ export interface IWizardStep {
 	component: JSX.Element
 }
 
+export interface IWizardNext<TValues extends Object = any> {
+	wizardContext: IWizardContext
+	values: TValues
+}
+
 export interface IWizardFinish<TValues extends Object = any> {
 	wizardContext: IWizardContext
 	values: TValues
 }
 
-export type IWizardEvents = "reset" | "next" | "previous" | "finish";
+export interface IWizardEvents extends IEventHandler {
+	reset: () => void
+	next: (wizardNext: IWizardNext) => void
+	previous: (wizardContext: IWizardContext) => void
+	finish: (wizardFinish: IWizardFinish) => void
+}

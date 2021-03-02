@@ -69,9 +69,9 @@ const DeleteViewPlaceholder = ({translation}) => {
 export const DeleteView = <TData extends Object>(
 	{
 		translation,
-		fetch = (appContext, events) => {
-			events.call("success", {});
-			events.call("done", {});
+		fetch = (_, events) => {
+			events.handler("success")({});
+			events.handler("done")();
 			return {cancel: () => null, token: null as any} as any;
 		},
 		fetchMapper = data => data,
@@ -103,10 +103,10 @@ export const DeleteView = <TData extends Object>(
 									deleteCallback(
 										appContext,
 										Events<IServerEvents>()
-											.on<TData>("success", (data) => {
+											.on("success", (data) => {
 												onSuccess(navigate, data);
 											})
-											.on("http-500", () => {
+											.on("http500", () => {
 												message.error(t(translation + ".error"));
 											})
 											.on("done", () => {

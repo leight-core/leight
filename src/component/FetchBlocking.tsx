@@ -9,7 +9,7 @@ import {useViewContext} from "../view/ViewContext";
 import {Fetch, IFetchProps} from "./Fetch";
 import {IFetchMapper} from "./interface";
 
-export interface IFetchBlockingProps<TData> extends Omit<IFetchProps<TData>, "fetch"> {
+export interface IFetchBlockingProps<TData extends any> extends Omit<IFetchProps<TData>, "fetch"> {
 	/**
 	 * Fetch callback to get data.
 	 */
@@ -51,19 +51,19 @@ export const FetchBlocking = <TData extends any>({fetch, mapper = data => data, 
 				setData(undefined);
 				const token = fetch(
 					appContext,
-					Events<IServerEvents>()
+					Events<IServerEvents<TData>>()
 						.on("request", () => {
 							block && viewContext.blockContext.block();
 						})
-						.on<TData>("success", data => {
+						.on("success", data => {
 							layoutContext.setData(mapper(data));
 							setData(data);
 						})
-						.on("catch", _ => {
+						.on("catch", () => {
 							viewContext.blockContext.unblock(unblock);
 							message.error(moduleContext.t("error-occurred"));
 						})
-						.on("done", _ => {
+						.on("done", () => {
 							viewContext.blockContext.unblock(unblock);
 						}),
 					params,

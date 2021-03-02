@@ -7,7 +7,7 @@ import {IGetCallback, IServerEvents} from "../server/interface";
 import {Events} from "../utils/Events";
 import {useViewContext} from "../view/ViewContext";
 import {FormContext} from "./FormContext";
-import {IFormErrors, IFormHandleFetchCallback, IFormSubmitCallback, IFormSubmitFailedCallback} from "./interface";
+import {IFormContext, IFormErrors, IFormHandleFetchCallback, IFormSubmitCallback, IFormSubmitFailedCallback} from "./interface";
 
 export interface IFormProps<TValues> extends Partial<FormProps<TValues>> {
 	/**
@@ -52,7 +52,7 @@ export const Form = <TValues extends unknown = any>(
 	const [errors, setErrors] = useState<IFormErrors>();
 	const [blocking, setBlocking] = useState<number>(0);
 	const isBlocked = () => blocking > 0;
-	const formContext = {
+	const formContext: IFormContext = {
 		form,
 		errors: errors as IFormErrors,
 		setErrors: (errors: IFormErrors) => {
@@ -70,11 +70,11 @@ export const Form = <TValues extends unknown = any>(
 		block: () => setBlocking(prev => prev + 1),
 		unblock: () => setBlocking(prev => prev - 1),
 		events: () => Events<IServerEvents>()
-			.on("request", _ => {
+			.on("request", () => {
 				layoutContext.blockContext.block();
 			})
-			.on("http-400", errors => formContext.setErrors(errors))
-			.on("http-500", () => formContext.setErrors({
+			.on("http400", errors => formContext.setErrors(errors))
+			.on("http500", () => formContext.setErrors({
 				message: t("common.form.server-error"),
 				errors: [],
 			}))

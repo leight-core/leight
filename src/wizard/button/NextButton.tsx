@@ -14,7 +14,7 @@ export const NextButton = () => {
 			icon={<ForwardIcon/>}
 			onClick={() => {
 				wizardContext.next();
-				wizardContext.events.call("next", {wizardContext, values: formContext.form.getFieldsValue()});
+				wizardContext.events.handler("next")({wizardContext, values: formContext.form.getFieldsValue()});
 			}}
 		/>
 	);
