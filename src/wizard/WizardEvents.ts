@@ -1,6 +1,4 @@
 import {Events} from "../utils/Events";
-import {IWizardEventHandlers, IWizardEvents, IWizardEventTypes} from "./interface";
+import {IWizardEvents} from "./interface";
 
-export const WizardEvents = (): IWizardEvents => {
-	return Events<IWizardEventTypes, IWizardEventHandlers>();
-};
+export const WizardEvents = (): IWizardEvents => Events();
