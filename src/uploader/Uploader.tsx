@@ -47,7 +47,7 @@ export const Uploader = ({limit, events, translation, action, params, ...props}:
 		const current = info.fileList.length - 1;
 		switch (info.fileList[current].status) {
 			case "uploading":
-				setProgress(info.fileList[current].percent ?? 0);
+				setProgress(info.fileList[current].percent || 0);
 				setLoading(true);
 				events.handler("uploading")(info.fileList[current]);
 				break;
