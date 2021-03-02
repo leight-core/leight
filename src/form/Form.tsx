@@ -3,8 +3,8 @@ import React, {PropsWithChildren, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useAppContext} from "../app/AppContext";
 import {useLayoutContext} from "../layout/LayoutContext";
-import {IGetCallback, IServerEvents} from "../server/interface";
-import {Events} from "../utils/Events";
+import {IGetCallback} from "../server/interface";
+import {ServerEvents} from "../server/ServerEvents";
 import {useViewContext} from "../view/ViewContext";
 import {FormContext} from "./FormContext";
 import {IFormContext, IFormErrors, IFormHandleFetchCallback, IFormSubmitCallback, IFormSubmitFailedCallback} from "./interface";
@@ -69,7 +69,7 @@ export const Form = <TValues extends unknown = any>(
 		isBlocked,
 		block: () => setBlocking(prev => prev + 1),
 		unblock: () => setBlocking(prev => prev - 1),
-		events: () => Events<IServerEvents>()
+		events: () => ServerEvents()
 			.on("request", () => {
 				layoutContext.blockContext.block();
 			})
@@ -88,7 +88,7 @@ export const Form = <TValues extends unknown = any>(
 	useEffect(() => {
 		const cancelToken = onFetch ? onFetch(
 			appContext,
-			Events<IServerEvents>()
+			ServerEvents()
 				.on("request", () => {
 					blockContext.block();
 				})

@@ -3,8 +3,7 @@ import {FC} from "react";
 import {LoaderStep} from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
 import {httpGet} from "../../server/httpGet";
-import {IServerEvents} from "../../server/interface";
-import {Events} from "../../utils/Events";
+import {ServerEvents} from "../../server/ServerEvents";
 import {useAppContext} from "../AppContext";
 import {IClient} from "../interface";
 
@@ -22,7 +21,7 @@ export const ClientStep: FC<IClientStepProps> = ({href, ...props}) => {
 		<LoaderStep icon={<CloudDownloadOutlined/>} {...props} onStep={() => {
 			const cancelToken = httpGet(
 				href || "/client.json",
-				Events<IServerEvents<IClient>>()
+				ServerEvents<IClient>()
 					.on("success", client => {
 						appContext.setClient(client);
 						stepLoaderContext.next();

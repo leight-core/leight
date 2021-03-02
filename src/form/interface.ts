@@ -2,7 +2,6 @@ import {FormInstance} from "antd";
 import {NamePath, ValidateErrorEntity} from "rc-field-form/lib/interface";
 import {INavigate} from "../router/interface";
 import {IServerEvents} from "../server/interface";
-import {IEvents} from "../utils/interface";
 
 export type IFormFields = [NamePath, any];
 
@@ -61,7 +60,7 @@ export interface IFormContext<TValues = any> {
 	/**
 	 * Create default events handling some things in the form.
 	 */
-	events: () => IEvents<IServerEvents>
+	events: () => IServerEvents
 }
 
 export type IFormSubmitCallback<TValues> = (values: TValues, formContext: IFormContext) => void

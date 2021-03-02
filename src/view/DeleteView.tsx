@@ -8,11 +8,11 @@ import {IFetchMapper} from "../component/interface";
 import {DeleteItemIcon} from "../icon/DeleteItemIcon";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {useRouterContext} from "../router/RouterContext";
-import {IDeleteCallback, IGetCallback, IServerEvents} from "../server/interface";
-import {Events} from "../utils/Events";
+import {IDeleteCallback, IGetCallback} from "../server/interface";
+import {ServerEvents} from "../server/ServerEvents";
 import {IDeleteOnSuccess} from "./interface";
 
-export interface IDeleteViewProps<TData> {
+export interface IDeleteViewProps<TFetch = any, TResponse = any> {
 	/**
 	 * Base translation key (for example common.delete).
 	 *
@@ -27,7 +27,7 @@ export interface IDeleteViewProps<TData> {
 	/**
 	 * Fetch method if there are some external data needed.
 	 */
-	fetch?: IGetCallback
+	fetch?: IGetCallback<TFetch>
 	/**
 	 * Optional parameters used for calling remote fetch (if needed).
 	 */
@@ -35,11 +35,11 @@ export interface IDeleteViewProps<TData> {
 	/**
 	 * Fetch mapper used to map data into layout context.
 	 */
-	fetchMapper?: IFetchMapper<TData>
+	fetchMapper?: IFetchMapper<TFetch>
 	/**
 	 * Handle delete of the item.
 	 */
-	deleteCallback: IDeleteCallback,
+	deleteCallback: IDeleteCallback<TResponse>,
 	/**
 	 * Optional delete params.
 	 */
@@ -51,7 +51,7 @@ export interface IDeleteViewProps<TData> {
 	/**
 	 * Called on successful delete.
 	 */
-	onSuccess?: IDeleteOnSuccess<TData>
+	onSuccess?: IDeleteOnSuccess<TResponse>
 }
 
 const DeleteViewPlaceholder = ({translation}) => {
@@ -66,11 +66,11 @@ const DeleteViewPlaceholder = ({translation}) => {
 	);
 };
 
-export const DeleteView = <TData extends Object>(
+export const DeleteView = <TFetch extends unknown = any, TResponse extends unknown = any>(
 	{
 		translation,
 		fetch = (_, events) => {
-			events.handler("success")({});
+			events.handler("success")(undefined as unknown as any);
 			events.handler("done")();
 			return {cancel: () => null, token: null as any} as any;
 		},
@@ -78,13 +78,13 @@ export const DeleteView = <TData extends Object>(
 		fetchParams,
 		deleteCallback,
 		onSuccess = () => null,
-	}: IDeleteViewProps<TData>) => {
+	}: IDeleteViewProps<TFetch, TResponse>) => {
 	const appContext = useAppContext();
 	const {t} = useTranslation();
 	const layoutContext = useLayoutContext();
 	const navigate = useRouterContext().useNavigate();
 	return (
-		<FetchBlocking<TData>
+		<FetchBlocking<TFetch>
 			fetch={fetch}
 			mapper={fetchMapper}
 			params={fetchParams}
@@ -102,7 +102,7 @@ export const DeleteView = <TData extends Object>(
 									layoutContext.blockContext.block();
 									deleteCallback(
 										appContext,
-										Events<IServerEvents>()
+										ServerEvents<TResponse>()
 											.on("success", (data) => {
 												onSuccess(navigate, data);
 											})

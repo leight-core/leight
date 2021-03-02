@@ -3,15 +3,15 @@ import {FC, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useAppContext} from "../app/AppContext";
 import {ISearchRequest} from "../interface/interface";
-import {IPostCallback, IServerEvents} from "../server/interface";
-import {Events} from "../utils/Events";
+import {IPostCallback} from "../server/interface";
+import {ServerEvents} from "../server/ServerEvents";
 import {useFormContext} from "./FormContext";
 
 export interface IDebouncedSelectProps extends SelectProps<any> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
-	fetch: IPostCallback<IServerEvents, ISearchRequest>
+	fetch: IPostCallback<ISearchRequest>
 	/**
 	 * Map requested data into Select's options.
 	 */
@@ -36,7 +36,7 @@ export const DebouncedSelect: FC<IDebouncedSelectProps> = ({fetch, mapper, initi
 		fetch(
 			{search: initial},
 			appContext,
-			Events<IServerEvents>()
+			ServerEvents()
 				.on("success", data => {
 					setOptions(data.map(mapper));
 					setLoading(false);
@@ -58,7 +58,7 @@ export const DebouncedSelect: FC<IDebouncedSelectProps> = ({fetch, mapper, initi
 					fetch(
 						{search},
 						appContext,
-						Events<IServerEvents>()
+						ServerEvents()
 							.on("success", data => {
 								setOptions(data.map(mapper));
 								setLoading(false);

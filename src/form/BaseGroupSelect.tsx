@@ -2,16 +2,16 @@ import {Select, SelectProps} from "antd";
 import {useEffect, useState} from "react";
 import {Params} from "react-router";
 import {useAppContext} from "../app/AppContext";
-import {IGetCallback, IServerEvents} from "../server/interface";
-import {Events} from "../utils/Events";
+import {IGetCallback} from "../server/interface";
+import {ServerEvents} from "../server/ServerEvents";
 import {useFormContext} from "./FormContext";
 import {IBaseGroupSelectOption} from "./interface";
 
-export interface IBaseGroupSelectProps<TData> extends SelectProps<any> {
+export interface IBaseGroupSelectProps<TResponse> extends SelectProps<any> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
-	fetch: IGetCallback
+	fetch: IGetCallback<TResponse[]>
 	/**
 	 * Optional parameters provided into fetch method.
 	 */
@@ -19,14 +19,14 @@ export interface IBaseGroupSelectProps<TData> extends SelectProps<any> {
 	/**
 	 * Map requested data into Select options.
 	 */
-	mapper: (item: TData) => IBaseGroupSelectOption
+	mapper: (item: TResponse) => IBaseGroupSelectOption
 	/**
 	 * Dependency used to force redraw (re-fetch data).
 	 */
 	deps?: any[]
 }
 
-export const BaseGroupSelect = <TData extends unknown>({fetch, fetchParams, mapper, deps = [], ...props}: IBaseGroupSelectProps<TData>) => {
+export const BaseGroupSelect = <TResponse extends unknown = any>({fetch, fetchParams, mapper, deps = [], ...props}: IBaseGroupSelectProps<TResponse>) => {
 	const [options, setOptions] = useState<IBaseGroupSelectOption[]>([]);
 	const appContext = useAppContext();
 	const formContext = useFormContext();
@@ -34,7 +34,7 @@ export const BaseGroupSelect = <TData extends unknown>({fetch, fetchParams, mapp
 		formContext.block();
 		const token = fetch(
 			appContext,
-			Events<IServerEvents>()
+			ServerEvents<TResponse[]>()
 				.on("success", data => {
 					setOptions(data.map(mapper));
 					formContext.unblock();

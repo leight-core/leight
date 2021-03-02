@@ -1,15 +1,14 @@
 import axios, {CancelTokenSource} from "axios";
-import {IEvents} from "../utils/interface";
 import {axiosError, axiosSuccess} from "./events";
 import {IServerEvents} from "./interface";
 
-export function httpDelete(
+export function httpDelete<TResponse = any>(
 	href: string,
-	events: IEvents<IServerEvents>,
+	events: IServerEvents<TResponse>,
 ): CancelTokenSource {
 	const cancelToken = axios.CancelToken.source();
 	events.handler("request")();
-	axios.delete(href, {
+	axios.delete<TResponse>(href, {
 		cancelToken: cancelToken.token,
 	})
 		.then(response => axiosSuccess(response, events))

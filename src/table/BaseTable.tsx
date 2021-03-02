@@ -3,8 +3,8 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router";
 import {useAppContext} from "../app/AppContext";
 import {IPageIndex, IRecordItem} from "../interface/interface";
-import {IOnFetchPage, IServerEvents} from "../server/interface";
-import {Events} from "../utils/Events";
+import {IOnFetchPage} from "../server/interface";
+import {ServerEvents} from "../server/ServerEvents";
 import {PageIndex} from "../utils/PageIndex";
 
 export interface IBaseTableProps<TItem extends IRecordItem> extends TableProps<TItem> {
@@ -32,7 +32,7 @@ export const BaseTable = <TItem extends IRecordItem = any>(
 			page,
 			size,
 			appContext,
-			Events<IServerEvents<IPageIndex>>()
+			ServerEvents<IPageIndex>()
 				.on("success", data => {
 					setPage(data);
 				})

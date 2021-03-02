@@ -3,7 +3,7 @@ import {IEvent, IEventHandler, IEvents} from "./interface";
 /**
  * Simple EventBus implementation intended to be used locally on call site near to the execution site (thus not application-wise).
  */
-export function Events<TEvents extends IEventHandler>(): IEvents<TEvents> {
+export function Events<TEventTypes extends string, TEventHandlers extends IEventHandler<TEventTypes>>(): IEvents<TEventTypes, TEventHandlers> {
 	return {
 		events: {} as unknown as any,
 		chains: [],
@@ -32,7 +32,7 @@ export function Events<TEvents extends IEventHandler>(): IEvents<TEvents> {
 		},
 		chain: function (events) {
 			this.chains.push(events);
-			return this as unknown as any;
+			return this;
 		}
 	};
 }

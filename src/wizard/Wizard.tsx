@@ -8,14 +8,13 @@ import {useFormContext} from "../form/FormContext";
 import {IDeepMerge, IOutputMapper} from "../interface/interface";
 import {PushRight} from "../layout/PushRight";
 import {StepLoader} from "../loader/StepLoader";
-import {Events} from "../utils/Events";
-import {IEvents} from "../utils/interface";
 import {CancelButton} from "./button/CancelButton";
 import {FinishButton} from "./button/FinishButton";
 import {NextButton} from "./button/NextButton";
 import {PreviousButton} from "./button/PreviousButton";
 import {IWizardEvents, IWizardStep} from "./interface";
 import {useWizardContext, WizardContext} from "./WizardContext";
+import {WizardEvents} from "./WizardEvents";
 
 export interface IWizardProps {
 	/**
@@ -25,7 +24,7 @@ export interface IWizardProps {
 	/**
 	 * Wizard events; they're chained on top of internal Wizard events.
 	 */
-	events: IEvents<IWizardEvents>
+	events: IWizardEvents
 	/**
 	 * Wizard steps.
 	 */
@@ -111,7 +110,7 @@ export const Wizard: FC<IWizardProps> = (
 	const canNext = () => step < (count - 1);
 	const canPrevious = () => step > 0;
 	const canFinish = () => step === count - 1;
-	const wizardEvents = Events<IWizardEvents>()
+	const wizardEvents = WizardEvents()
 		.on("next", ({values}) => setValues(prev => merge(prev, values)))
 		.on("reset", () => setStep(0))
 		.chain(events);

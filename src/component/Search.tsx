@@ -4,12 +4,12 @@ import {FC, ReactNode, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useAppContext} from "../app/AppContext";
 import {ISearchRequest} from "../interface/interface";
-import {IPostCallback, IServerEvents} from "../server/interface";
-import {Events} from "../utils/Events";
+import {IPostCallback} from "../server/interface";
+import {ServerEvents} from "../server/ServerEvents";
 import {ISearchItem} from "./interface";
 
 export interface ISearchProps extends Partial<SelectProps<any>> {
-	search: IPostCallback<IServerEvents, ISearchRequest>
+	search: IPostCallback<ISearchRequest>
 	mapper?: (data: any) => ISearchItem[]
 	render?: (item: ISearchItem) => ReactNode
 }
@@ -38,7 +38,7 @@ export const Search: FC<ISearchProps> = (
 			search(
 				{search: value},
 				appContext,
-				Events<IServerEvents<ISearchItem[]>>()
+				ServerEvents<ISearchItem[]>()
 					.on("success", data => {
 						setData(mapper(data));
 					})

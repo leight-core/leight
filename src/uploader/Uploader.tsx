@@ -5,7 +5,6 @@ import {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Params} from "react-router";
 import {useAppContext} from "../app/AppContext";
-import {IEvents} from "../utils/interface";
 import {IUploaderEvents} from "./interface";
 
 export interface IUploaderProps {
@@ -16,7 +15,7 @@ export interface IUploaderProps {
 	/**
 	 * Uploader events.
 	 */
-	events: IEvents<IUploaderEvents>
+	events: IUploaderEvents
 	/**
 	 * Translation base for this uploader.
 	 */

@@ -2,8 +2,8 @@ import {Select, SelectProps} from "antd";
 import {useEffect, useState} from "react";
 import {Params} from "react-router";
 import {useAppContext} from "../app/AppContext";
-import {IGetCallback, IServerEvents} from "../server/interface";
-import {Events} from "../utils/Events";
+import {IGetCallback} from "../server/interface";
+import {ServerEvents} from "../server/ServerEvents";
 import {useFormContext} from "./FormContext";
 import {IBaseSelectOption} from "./interface";
 
@@ -11,7 +11,7 @@ export interface IBaseSelectProps<TData> extends SelectProps<any> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
-	fetch: IGetCallback
+	fetch: IGetCallback<TData[]>
 	/**
 	 * Optional parameters provided into fetch method.
 	 */
@@ -34,7 +34,7 @@ export const BaseSelect = <TData extends unknown>({fetch, fetchParams, mapper, d
 		formContext.block();
 		const token = fetch(
 			appContext,
-			Events<IServerEvents>()
+			ServerEvents<TData[]>()
 				.on("success", data => {
 					setOptions(data.map(mapper));
 					formContext.unblock();

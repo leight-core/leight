@@ -1,75 +1,93 @@
 import {AxiosError, CancelTokenSource} from "axios";
 import {Params} from "react-router";
 import {IAppContext} from "../app/interface";
-import {IEventHandler, IEvents} from "../utils/interface";
+import {IPageIndex} from "../interface/interface";
+import {IEventHandler, IEventResult, IEvents} from "../utils/interface";
+
+/**
+ * Available http events.
+ */
+export type IHttpErrorEventTypes = "http400" | "http401" | "http403" | "http500";
+
+/**
+ * Some of events may happen during http transfer.
+ */
+export interface IHttpErrorEvents extends IEventHandler<IHttpErrorEventTypes> {
+	http400: (response: any) => IEventResult
+	http401: (response: any) => IEventResult
+	http403: (response: any) => IEventResult
+	http500: (response: any) => IEventResult
+}
+
+/**
+ * Available server events.
+ */
+export type IServerEventTypes = "request" | IHttpErrorEventTypes;
+
+/**
+ * Events emitted in server util methods.
+ */
+export interface IServerEventHandlers<TSuccess = any> extends IHttpErrorEvents {
+	request: <TRequest>(request?: TRequest) => void
+	success: (data: TSuccess) => void
+	done: () => void
+	error: (error: AxiosError) => void
+	catch: (error: AxiosError) => void
+}
+
+export interface IServerEvents<TResponse = any> extends IEvents<IServerEventTypes, IServerEventHandlers<TResponse>> {
+}
 
 /**
  * Callback used when a new page is required.
  */
-export type IOnFetchPage = (page: number, size: number, appContext: IAppContext, events: IEvents<IServerEvents>, params?: Params) => CancelTokenSource
+export type IOnFetchPage = (page: number, size: number, appContext: IAppContext, events: IServerEvents<IPageIndex>, params?: Params) => CancelTokenSource
 
 export interface IPage {
 	page: number
 	limit: number
 }
 
-export type IGetCallback<TEvents extends IEventHandler = IServerEvents> = (
-	appContext: IAppContext,
-	events: IEvents<TEvents>,
-	params?: Params,
-) => CancelTokenSource;
-
-export type IPostCallback<TEvents extends IEventHandler = IServerEvents, TRequest = any> = (
-	data: TRequest,
-	appContext: IAppContext,
-	events: IEvents<TEvents>,
-	params?: Params,
-) => CancelTokenSource
-
-export type IDeleteCallback<TEvents extends IEventHandler = IServerEvents> = (
-	appContext: IAppContext,
-	events: IEvents<TEvents>,
-	params?: Params,
-) => CancelTokenSource
-
-export type IPutCallback<TEvents extends IEventHandler = IServerEvents, TRequest = any> = (
-	data: TRequest,
-	appContext: IAppContext,
-	events: IEvents<TEvents>,
-	params?: Params,
-) => CancelTokenSource
-
-export type IPatchCallback<TEvents extends IEventHandler = IServerEvents, TRequest = any> = (
-	data: TRequest,
-	appContext: IAppContext,
-	events: IEvents<TEvents>,
-	params?: Params,
-) => CancelTokenSource
-
-export type IUpdateCallback = IPostCallback | IPutCallback | IPatchCallback;
-
-export type IFetchHook<TEvents extends IEventHandler = IServerEvents> = (
-	uuid: string,
-	events: IEvents<TEvents>,
-) => void
-
-/**
- * Some of events may happen during http transfer.
- */
-export interface IHttpErrorEvents extends IEventHandler {
-	http400: (response: any) => void
-	http401: (response: any) => void
-	http403: (response: any) => void
-	http500: (response: any) => void
+export interface IGetCallback<TResponse = any> {
+	(
+		appContext: IAppContext,
+		events: IServerEvents<TResponse>,
+		params?: Params,
+	): CancelTokenSource;
 }
 
 /**
- * Events emitted in server util methods.
+ * Possible callbacks used to update a resource.
  */
-export interface IServerEvents<TSuccess = any> extends IHttpErrorEvents {
-	request: (request?: any) => void
-	success: (data: TSuccess) => void
-	done: () => void
-	error: (error: AxiosError) => void
-	catch: (error: AxiosError) => void
+export interface IUpdateCallback<TRequest = any, TResponse = any> {
+	(
+		data: TRequest,
+		appContext: IAppContext,
+		events: IServerEvents<TResponse>,
+		params?: Params,
+	): CancelTokenSource
+}
+
+export interface IPostCallback<TRequest = any, TResponse = any> extends IUpdateCallback<TRequest, TResponse> {
+}
+
+export interface IPutCallback<TRequest = any, TResponse = any> extends IUpdateCallback<TRequest, TResponse> {
+}
+
+export interface IPatchCallback<TRequest = any, TResponse = any> extends IUpdateCallback<TRequest, TResponse> {
+}
+
+export interface IDeleteCallback<TResponse = any> {
+	(
+		appContext: IAppContext,
+		events: IServerEvents<TResponse>,
+		params?: Params,
+	): CancelTokenSource
+}
+
+/**
+ * Marker type for fetching a resource by an uuid.
+ */
+export interface IFetchHook<TResponse = any> {
+	(uuid: string, events: IServerEvents<TResponse>): void
 }

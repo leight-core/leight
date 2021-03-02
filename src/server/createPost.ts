@@ -1,6 +1,5 @@
 import {Params} from "react-router";
 import {IAppContext} from "../app/interface";
-import {IEvents} from "../utils/interface";
 import {httpPost} from "./httpPost";
 import {IPostCallback, IServerEvents} from "./interface";
 
@@ -9,11 +8,11 @@ import {IPostCallback, IServerEvents} from "./interface";
  *
  * @param link Discovery link id.
  */
-export function createPost<TRequest = any>(link: string): IPostCallback<IServerEvents, TRequest> {
+export function createPost<TRequest = any, TResponse = any>(link: string): IPostCallback<TRequest, TResponse> {
 	return (
 		data: TRequest,
 		appContext: IAppContext,
-		events: IEvents<IServerEvents>,
+		events: IServerEvents<TResponse>,
 		params?: Params,
 	) => httpPost<TRequest>(
 		appContext.link(link, params),

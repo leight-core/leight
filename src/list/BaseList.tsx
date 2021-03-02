@@ -3,8 +3,8 @@ import {ReactNode, useEffect, useState} from "react";
 import {useParams} from "react-router";
 import {useAppContext} from "../app/AppContext";
 import {IPageIndex, IRecordItem} from "../interface/interface";
-import {IOnFetchPage, IServerEvents} from "../server/interface";
-import {Events} from "../utils/Events";
+import {IOnFetchPage} from "../server/interface";
+import {ServerEvents} from "../server/ServerEvents";
 import {PageIndex} from "../utils/PageIndex";
 
 export interface IBaseListProps<TItem extends IRecordItem> extends Partial<ListProps<TItem>> {
@@ -22,7 +22,7 @@ export const BaseList = <TItem extends IRecordItem = any>(
 	}: IBaseListProps<TItem>) => {
 	const appContext = useAppContext();
 	const params = useParams();
-	const [page, setPage] = useState<IPageIndex>(PageIndex());
+	const [page, setPage] = useState<IPageIndex<TItem>>(PageIndex());
 	const [loading, setLoading] = useState<boolean>(true);
 	const items = page.items;
 
@@ -32,7 +32,7 @@ export const BaseList = <TItem extends IRecordItem = any>(
 			page,
 			size,
 			appContext,
-			Events<IServerEvents<IPageIndex>>()
+			ServerEvents<IPageIndex<TItem>>()
 				.on("success", data => {
 					setPage(data);
 				})

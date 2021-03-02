@@ -1,16 +1,15 @@
-import axios, {AxiosError} from "axios";
-import {IEvents} from "../utils/interface";
-import {IServerEvents} from "./interface";
+import axios, {AxiosError, AxiosResponse} from "axios";
+import {IServerEvents, IServerEventTypes} from "./interface";
 
 /**
  * Handle axios error.
  */
-export const axiosError = (error: AxiosError, events: IEvents<IServerEvents>) => {
+export const axiosError = (error: AxiosError, events: IServerEvents) => {
 	if (axios.isCancel(error)) {
 		return;
 	}
 	if (error.response && error.response.status) {
-		events.handler("http" + error.response.status as keyof IServerEvents)(error.response.data);
+		events.handler("http" + error.response.status as IServerEventTypes)(error.response.data);
 	} else {
 		events.handler("error")(error);
 	}
@@ -21,7 +20,7 @@ export const axiosError = (error: AxiosError, events: IEvents<IServerEvents>) =>
 /**
  * Handle axios success.
  */
-export const axiosSuccess = ({data}, events: IEvents<IServerEvents>) => {
-	events.handler("success")(data);
+export const axiosSuccess = <TResponse = any>(axiosResponse: AxiosResponse<TResponse>, events: IServerEvents) => {
+	events.handler("success")(axiosResponse.data);
 	events.handler("done")();
 };

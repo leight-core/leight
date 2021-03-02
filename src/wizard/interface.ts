@@ -6,7 +6,10 @@ export interface IWizardContext {
 	 * Wizard name.
 	 */
 	name: string
-	events: IEvents<IWizardEvents>
+	/**
+	 * Events available in the wizard context.
+	 */
+	events: IWizardEvents
 	/**
 	 * Current step number.
 	 */
@@ -63,9 +66,14 @@ export interface IWizardFinish<TValues extends Object = any> {
 	values: TValues
 }
 
-export interface IWizardEvents extends IEventHandler {
+export type IWizardEventTypes = "reset" | "next" | "previous" | "finish";
+
+export interface IWizardEventHandlers extends IEventHandler<IWizardEventTypes> {
 	reset: () => void
 	next: (wizardNext: IWizardNext) => void
 	previous: (wizardContext: IWizardContext) => void
 	finish: (wizardFinish: IWizardFinish) => void
+}
+
+export interface IWizardEvents extends IEvents<IWizardEventTypes, IWizardEventHandlers> {
 }

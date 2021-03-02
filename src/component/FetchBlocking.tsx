@@ -3,17 +3,17 @@ import {Params} from "react-router";
 import {useAppContext} from "../app/AppContext";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {useModuleContext} from "../module/ModuleContext";
-import {IGetCallback, IServerEvents} from "../server/interface";
-import {Events} from "../utils/Events";
+import {IGetCallback} from "../server/interface";
+import {ServerEvents} from "../server/ServerEvents";
 import {useViewContext} from "../view/ViewContext";
 import {Fetch, IFetchProps} from "./Fetch";
 import {IFetchMapper} from "./interface";
 
-export interface IFetchBlockingProps<TData extends any> extends Omit<IFetchProps<TData>, "fetch"> {
+export interface IFetchBlockingProps<TResponse = any> extends Omit<IFetchProps<TResponse>, "fetch"> {
 	/**
 	 * Fetch callback to get data.
 	 */
-	fetch: IGetCallback
+	fetch: IGetCallback<TResponse>
 	/**
 	 * Optional params for fetch callback.
 	 */
@@ -21,7 +21,7 @@ export interface IFetchBlockingProps<TData extends any> extends Omit<IFetchProps
 	/**
 	 * Mapper used to map fetched data into layout context's data.
 	 */
-	mapper?: IFetchMapper<TData>
+	mapper?: IFetchMapper<TResponse>
 	/**
 	 * Do initial block on request; this could be useful, when there are more fetches on a single page.
 	 *
@@ -37,13 +37,13 @@ export interface IFetchBlockingProps<TData extends any> extends Omit<IFetchProps
 	unblock?: boolean
 }
 
-export const FetchBlocking = <TData extends any>({fetch, mapper = data => data, params, deps = [], block = false, unblock = false, children, ...props}: IFetchBlockingProps<TData>) => {
+export const FetchBlocking = <TResponse extends any>({fetch, mapper = data => data, params, deps = [], block = false, unblock = false, children, ...props}: IFetchBlockingProps<TResponse>) => {
 	const appContext = useAppContext();
 	const viewContext = useViewContext();
 	const layoutContext = useLayoutContext();
 	const moduleContext = useModuleContext();
 	return (
-		<Fetch<TData>
+		<Fetch<TResponse>
 			fetch={(setData) => {
 				/**
 				 * Setting data to undefined forces component to render loading.
@@ -51,7 +51,7 @@ export const FetchBlocking = <TData extends any>({fetch, mapper = data => data, 
 				setData(undefined);
 				const token = fetch(
 					appContext,
-					Events<IServerEvents<TData>>()
+					ServerEvents<TResponse>()
 						.on("request", () => {
 							block && viewContext.blockContext.block();
 						})

@@ -5,8 +5,7 @@ import {ITranslations} from "../../interface/interface";
 import {LoaderStep} from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
 import {httpGet} from "../../server/httpGet";
-import {IServerEvents} from "../../server/interface";
-import {Events} from "../../utils/Events";
+import {ServerEvents} from "../../server/ServerEvents";
 import {useAppContext} from "../AppContext";
 
 export interface ITranslationStepProps {
@@ -23,7 +22,7 @@ export const TranslationStep: FC<ITranslationStepProps> = ({link = "public.trans
 		<LoaderStep icon={<TranslationOutlined/>} {...props} onStep={() => {
 			const cancelToken = httpGet(
 				appContext.link(link),
-				Events<IServerEvents<ITranslations>>()
+				ServerEvents<ITranslations>()
 					.on("success", ({translations}) => {
 						translations.forEach(translation => i18next.addResource(translation.language, translation.namespace, translation.label, translation.text));
 						stepLoaderContext.next();

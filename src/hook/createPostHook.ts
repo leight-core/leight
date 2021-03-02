@@ -3,17 +3,16 @@ import {Params} from "react-router";
 import {useAppContext} from "../app/AppContext";
 import {httpPost} from "../server/httpPost";
 import {IServerEvents} from "../server/interface";
-import {IEvents} from "../utils/interface";
 
 /**
  * Create simple hook using effect under the hood.
  *
  * @param link
  */
-export const createPostHook = (link: string) => {
+export function createPostHook<TResponse = any>(link: string) {
 	return (
 		data: any,
-		events: IEvents<IServerEvents>,
+		events: IServerEvents<TResponse>,
 		params?: Params,
 	) => {
 		const appContext = useAppContext();
@@ -26,4 +25,4 @@ export const createPostHook = (link: string) => {
 			return () => cancelToken.cancel();
 		}, []);
 	};
-};
+}

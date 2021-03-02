@@ -9,4 +9,6 @@ export interface IViewContext {
 	blockContext: IBlockContext
 }
 
-export type IDeleteOnSuccess<TData extends Object> = (navigate: INavigate, data: TData) => void
+export interface IDeleteOnSuccess<TData = any> {
+	(navigate: INavigate, data: TData): void
+}

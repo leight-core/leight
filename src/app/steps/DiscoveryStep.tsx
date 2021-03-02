@@ -2,8 +2,7 @@ import {CompassOutlined} from "@ant-design/icons";
 import {LoaderStep} from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
 import {httpGet} from "../../server/httpGet";
-import {IServerEvents} from "../../server/interface";
-import {Events} from "../../utils/Events";
+import {ServerEvents} from "../../server/ServerEvents";
 import {useAppContext} from "../AppContext";
 import {IDiscovery} from "../interface";
 
@@ -14,7 +13,7 @@ export const DiscoveryStep = (props) => {
 		<LoaderStep icon={<CompassOutlined/>} {...props} onStep={() => {
 			const cancelToken = httpGet(
 				appContext.client.discovery,
-				Events<IServerEvents<IDiscovery>>()
+				ServerEvents<IDiscovery>()
 					.on("success", discovery => {
 						appContext.setDiscovery(discovery);
 						stepLoaderContext.next();

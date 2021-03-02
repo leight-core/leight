@@ -24,7 +24,7 @@ export interface IRecordItem {
 	id: string
 }
 
-export interface IPageIndex<TItem extends Object = any> {
+export interface IPageIndex<TItem = any> {
 	total: number
 	limit: number
 	size: number

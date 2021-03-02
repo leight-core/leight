@@ -3,16 +3,15 @@ import {Params} from "react-router";
 import {useAppContext} from "../app/AppContext";
 import {httpGet} from "../server/httpGet";
 import {IServerEvents} from "../server/interface";
-import {IEvents} from "../utils/interface";
 
 /**
  * Create simple hook using effect under the hood.
  *
  * @param link
  */
-export const createLinkHook = (link: string) => {
+export const createLinkHook = <TResponse = any>(link: string) => {
 	return (
-		events: IEvents<IServerEvents>,
+		events: IServerEvents<TResponse>,
 		params?: Params,
 	) => {
 		const appContext = useAppContext();

@@ -2,8 +2,7 @@ import {useAppContext} from "../app/AppContext";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {useRouterContext} from "../router/RouterContext";
 import {IServerEvents, IUpdateCallback} from "../server/interface";
-import {Events} from "../utils/Events";
-import {IEvents} from "../utils/interface";
+import {ServerEvents} from "../server/ServerEvents";
 import {Form, IFormProps} from "./Form";
 import {IFormInitialMapper, IFormOnSuccess, IFormPostMapper} from "./interface";
 
@@ -35,7 +34,7 @@ export interface ICommonFormProps<TData extends Object, TValues extends Object> 
 	/**
 	 * Optional events if needed to be hooked in.
 	 */
-	events?: IEvents<IServerEvents>
+	events?: IServerEvents
 }
 
 export const CommonForm = <TData extends Object, TValues = any>(
@@ -45,7 +44,7 @@ export const CommonForm = <TData extends Object, TValues = any>(
 		initialMapper = data => data as any,
 		data = null,
 		onSuccess = () => null,
-		events = Events(),
+		events = ServerEvents(),
 		...props
 	}: ICommonFormProps<TData, TValues>) => {
 	const appContext = useAppContext();
@@ -59,9 +58,8 @@ export const CommonForm = <TData extends Object, TValues = any>(
 				post(
 					postMapper(data, values),
 					appContext,
-					formContext
-						.events()
-						.chain(events)
+					events
+						.chain(formContext.events())
 						.on("success", data => {
 							onSuccess(navigate, data);
 							layoutContext.blockContext.unblock();

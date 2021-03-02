@@ -8,8 +8,7 @@ import {BrowserRouter} from "react-router-dom";
 import {StepLoader} from "../loader/StepLoader";
 import {RouterContext, RouterContextClass} from "../router/RouterContext";
 import {httpDelete} from "../server/httpDelete";
-import {IServerEvents} from "../server/interface";
-import {Events} from "../utils/Events";
+import {ServerEvents} from "../server/ServerEvents";
 import {LoaderView} from "../view/LoaderView";
 import {LockedUserView} from "../view/LockedUserView";
 import {AppContext} from "./AppContext";
@@ -100,7 +99,7 @@ export const App: FC<IAppProps> = (
 		const cancelToken = httpDelete(
 			link("public.user.login"),
 			// if we're already logged out, do nothing (as internal stuff could handle 401 errors)
-			Events<IServerEvents>().on("http401", () => false),
+			ServerEvents().on("http401", () => false),
 		);
 		return () => cancelToken.cancel();
 	};

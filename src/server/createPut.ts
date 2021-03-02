@@ -1,6 +1,5 @@
 import {Params} from "react-router";
 import {IAppContext} from "../app/interface";
-import {IEvents} from "../utils/interface";
 import {httpPut} from "./httpPut";
 import {IPutCallback, IServerEvents} from "./interface";
 
@@ -9,11 +8,11 @@ import {IPutCallback, IServerEvents} from "./interface";
  *
  * @param link Discovery link id.
  */
-export function createPut<TRequest = any>(link: string): IPutCallback<IServerEvents, TRequest> {
+export function createPut<TRequest = any, TResponse = any>(link: string): IPutCallback<TRequest, TResponse> {
 	return (
 		data: TRequest,
 		appContext: IAppContext,
-		events: IEvents<IServerEvents>,
+		events: IServerEvents<TResponse>,
 		params?: Params,
 	) => httpPut<TRequest>(
 		appContext.link(link, params),
