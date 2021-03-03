@@ -1,4 +1,4 @@
-import {message, Progress, Typography, Upload} from "antd";
+import {Divider, message, Progress, Typography, Upload} from "antd";
 import {RcFile, UploadChangeParam} from "antd/lib/upload";
 import fileSize from "filesize";
 import {useState} from "react";
@@ -74,8 +74,9 @@ export const Uploader = ({limit, events, translation, action, params, ...props}:
 				{...props}
 			>
 				<Progress size={"default"} type={"circle"} percent={progress} format={item => (item ? item.toFixed(1) : 0) + "%"} status={"active"} {...props}/>
-				<Typography.Text>{t(translation + ".upload")}</Typography.Text>
-				<Typography.Text>{t(translation + ".upload.hint")}</Typography.Text>
+				<Divider type={"horizontal"}/>
+				<Typography.Title level={3}>{t(translation + ".upload")}</Typography.Title>
+				<Typography.Paragraph>{t(translation + ".upload.hint")}</Typography.Paragraph>
 			</Upload.Dragger>
 		</>
 	);
