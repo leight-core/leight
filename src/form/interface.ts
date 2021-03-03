@@ -56,20 +56,35 @@ export interface IFormContext<TValues = any> {
 	 * Updates blocking state of the form; could be called more times as it maintains loader count.
 	 */
 	unblock: () => void
-
 	/**
 	 * Create default events handling some things in the form.
 	 */
 	events: <TResponse = any>() => IServerEvents<TResponse>
 }
 
-export type IFormSubmitCallback<TValues> = (values: TValues, formContext: IFormContext) => void
-export type IFormSubmitFailedCallback<TValues> = (errorInfo: ValidateErrorEntity<TValues>, formContext: IFormContext) => void
-export type IFormHandleFetchCallback<TValues = any> = (formContext: IFormContext, data: TValues) => void
+export interface IFormSubmitCallback<TValues> {
+	(values: TValues, formContext: IFormContext): void
+}
 
-export type IFormPostMapper<TData extends Object, TValues extends Object> = (data: TData | null, values: TValues) => any;
-export type IFormInitialMapper<TData extends Object, TValues extends Object> = (data: TData | null) => TValues
-export type IFormOnSuccess<TData extends Object> = (navigate: INavigate, data: TData) => void
+export interface IFormSubmitFailedCallback<TValues> {
+	(errorInfo: ValidateErrorEntity<TValues>, formContext: IFormContext): void
+}
+
+export interface IFormHandleFetchCallback<TValues = any> {
+	(formContext: IFormContext, data: TValues): void
+}
+
+export interface IFormPostMapper<TData, TValues> {
+	(data: TData | null, values: TValues): any
+}
+
+export interface IFormInitialMapper<TData, TValues> {
+	(data: TData | null): TValues
+}
+
+export interface IFormOnSuccess<TData> {
+	(navigate: INavigate, data: TData): void
+}
 
 export type IBaseSelectItem = any;
 export type IBaseSelectOption = { value: IBaseSelectItem, label: IBaseSelectItem };
