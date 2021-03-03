@@ -1,8 +1,8 @@
 import {AxiosError, CancelTokenSource} from "axios";
 import {Params} from "react-router";
 import {IAppContext} from "../app/interface";
+import {IEventHandlers, IEventResult, IEvents} from "../event/interface";
 import {IPageIndex} from "../interface/interface";
-import {IEventHandlers, IEventResult, IEvents} from "../utils/interface";
 
 /**
  * Available http events.

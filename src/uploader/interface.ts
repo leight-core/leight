@@ -1,5 +1,5 @@
 import {UploadFile} from "antd/lib/upload/interface";
-import {IEventHandlers, IEventResult, IEvents} from "../utils/interface";
+import {IEventHandlers, IEventResult, IEvents} from "../event/interface";
 
 export type IUploaderEventTypes = "uploading" | "error" | "done";
 

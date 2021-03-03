@@ -1,5 +1,5 @@
+import {IEventHandlers, IEvents} from "../event/interface";
 import {IDeepMerge, IOutputMapper} from "../interface/interface";
-import {IEventHandlers, IEvents} from "../utils/interface";
 
 export interface IWizardContext {
 	/**

@@ -1,8 +1,8 @@
-import {IEvent, IEventHandlers, IEvents} from "./interface";
-
 /**
  * Simple EventBus implementation intended to be used locally on call site near to the execution site (thus not application-wise).
  */
+import {IEvent, IEventHandlers, IEvents} from "./interface";
+
 export function Events<TEventTypes extends string, TEventHandlers extends IEventHandlers<TEventTypes>>(): IEvents<TEventTypes, TEventHandlers> {
 	return {
 		events: {},
