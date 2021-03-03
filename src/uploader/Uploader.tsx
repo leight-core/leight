@@ -73,7 +73,7 @@ export const Uploader = ({limit, events, translation, action, params, ...props}:
 				disabled={loading}
 				{...props}
 			>
-				<Progress size={"default"} type={"circle"} percent={progress} format={item => (item?.toFixed(1) ?? 0) + "%"} status={"active"} {...props}/>
+				<Progress size={"default"} type={"circle"} percent={progress} format={item => (item?.toFixed(1) || 0) + "%"} status={"active"} {...props}/>
 				<Typography.Text>{t(translation + ".upload")}</Typography.Text>
 				<Typography.Text>{t(translation + ".upload.hint")}</Typography.Text>
 			</Upload.Dragger>
