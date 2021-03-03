@@ -1,4 +1,4 @@
-import {IEventHandlers, IEvents} from "../event/interface";
+import {IEventHandlers, IEventResult, IEvents} from "../event/interface";
 import {IDeepMerge, IOutputMapper} from "../interface/interface";
 
 export interface IWizardContext {
@@ -69,10 +69,10 @@ export interface IWizardFinish<TValues extends Object = any> {
 export type IWizardEventTypes = "reset" | "next" | "previous" | "finish";
 
 export interface IWizardEventHandlers extends IEventHandlers {
-	reset: () => void
-	next: (wizardNext: IWizardNext) => void
-	previous: (wizardContext: IWizardContext) => void
-	finish: (wizardFinish: IWizardFinish) => void
+	reset: () => IEventResult
+	next: (wizardNext: IWizardNext) => IEventResult
+	previous: (wizardContext: IWizardContext) => IEventResult
+	finish: (wizardFinish: IWizardFinish) => IEventResult
 }
 
 export interface IWizardEvents extends IEvents<IWizardEventTypes, IWizardEventHandlers> {

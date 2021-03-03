@@ -31,22 +31,13 @@ export type IEventHandlers<T extends string = string> = {
  */
 export interface IEvents<TEventTypes extends string, TEventHandlers extends IEventHandlers> {
 	/**
-	 * Internal map of current event handlers, should not be touched directly in any way!
-	 */
-	events: any
-	/**
-	 * Internal array of chained event handlers.
-	 */
-	chains: any[],
-	requires: any[],
-	/**
 	 * Registers a handler of the given event name.
 	 */
-	on: <T extends TEventHandlers, U extends TEventTypes>(event: U, callback: T[U], priority?: number) => IEvents<TEventTypes, TEventHandlers>
+	on: <T extends TEventTypes>(event: T, callback: TEventHandlers[T], priority?: number) => IEvents<TEventTypes, TEventHandlers>
 	/**
 	 * Returns the handler of an event.
 	 */
-	handler: <T extends TEventTypes, U extends TEventHandlers, >(event: T) => U[T];
+	handler: <T extends TEventTypes>(event: T) => TEventHandlers[T];
 	/**
 	 * Set required event handlers; when required event is called, but handler not present, an error is thrown.
 	 *
@@ -61,4 +52,13 @@ export interface IEvents<TEventTypes extends string, TEventHandlers extends IEve
 	 * @return Events instance chain method was called on.
 	 */
 	chain: (events: IEvents<any, any>) => IEvents<TEventTypes, TEventHandlers>
+	/**
+	 * Internal map of current event handlers, should not be touched directly in any way!
+	 */
+	events: { [index in TEventTypes]: IEvent[] }
+	/**
+	 * Internal array of chained event handlers.
+	 */
+	chains: IEvents<any, any>[],
+	requires: TEventTypes[],
 }

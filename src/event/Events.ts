@@ -1,13 +1,10 @@
-/**
- * Simple EventBus implementation intended to be used locally on call site near to the execution site (thus not application-wise).
- */
 import {IEvent, IEventHandlers, IEvents} from "./interface";
 
+/**
+ * Simple EventBus implementation intended to be used locally on call site near to the execution site (thus not application-wide).
+ */
 export function Events<TEventTypes extends string, TEventHandlers extends IEventHandlers<TEventTypes>>(): IEvents<TEventTypes, TEventHandlers> {
 	return {
-		events: {},
-		chains: [],
-		requires: [],
 		on: function (event, callback, priority = 100) {
 			(this.events[event] = this.events[event] || []).push({
 				priority,
@@ -33,6 +30,9 @@ export function Events<TEventTypes extends string, TEventHandlers extends IEvent
 		chain: function (events) {
 			this.chains.push(events);
 			return this;
-		}
+		},
+		events: {} as any,
+		chains: [],
+		requires: [],
 	};
 }
