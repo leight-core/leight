@@ -13,7 +13,7 @@ export function createDelete<TResponse = any>(link: string): IDeleteCallback {
 		appContext: IAppContext,
 		events: IServerEvents<TResponse>,
 		params?: Params,
-	) => httpDelete(
+	) => httpDelete<TResponse>(
 		appContext.link(link, params),
 		events,
 	);

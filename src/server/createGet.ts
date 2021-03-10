@@ -13,7 +13,7 @@ export function createGet<TResponse = any>(link: string): IGetCallback {
 		appContext: IAppContext,
 		events: IServerEvents<TResponse>,
 		params?: Params,
-	) => httpGet(
+	) => httpGet<TResponse>(
 		appContext.link(link, params),
 		events,
 	);

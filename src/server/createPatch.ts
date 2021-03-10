@@ -14,7 +14,7 @@ export function createPatch<TRequest = any, TResponse = any>(link: string): IPat
 		appContext: IAppContext,
 		events: IServerEvents<TResponse>,
 		params?: Params,
-	) => httpPatch<TRequest>(
+	) => httpPatch<TRequest, TResponse>(
 		appContext.link(link, params),
 		data,
 		events,

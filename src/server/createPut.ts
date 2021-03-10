@@ -14,7 +14,7 @@ export function createPut<TRequest = any, TResponse = any>(link: string): IPutCa
 		appContext: IAppContext,
 		events: IServerEvents<TResponse>,
 		params?: Params,
-	) => httpPut<TRequest>(
+	) => httpPut<TRequest, TResponse>(
 		appContext.link(link, params),
 		data,
 		events,

@@ -14,7 +14,7 @@ export function createPost<TRequest = any, TResponse = any>(link: string): IPost
 		appContext: IAppContext,
 		events: IServerEvents<TResponse>,
 		params?: Params,
-	) => httpPost<TRequest>(
+	) => httpPost<TRequest, TResponse>(
 		appContext.link(link, params),
 		data,
 		events,
