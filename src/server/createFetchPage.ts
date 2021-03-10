@@ -16,7 +16,7 @@ export function createFetchPage(link: string): IOnFetchPage {
 		appContext: IAppContext,
 		events: IServerEvents<IPageIndex>,
 		params?: Params,
-	) => httpPost<IPage>(
+	) => httpPost<IPage, IPageIndex>(
 		appContext.link(link, params),
 		{
 			page,

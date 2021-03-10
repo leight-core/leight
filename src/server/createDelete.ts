@@ -8,7 +8,7 @@ import {IDeleteCallback, IServerEvents} from "./interface";
  *
  * @param link Discovery link id.
  */
-export function createDelete<TResponse = any>(link: string): IDeleteCallback {
+export function createDelete<TResponse = any>(link: string): IDeleteCallback<TResponse> {
 	return (
 		appContext: IAppContext,
 		events: IServerEvents<TResponse>,

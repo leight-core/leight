@@ -8,7 +8,7 @@ import {IGetCallback, IServerEvents} from "./interface";
  *
  * @param link Discovery link id.
  */
-export function createGet<TResponse = any>(link: string): IGetCallback {
+export function createGet<TResponse = any>(link: string): IGetCallback<TResponse> {
 	return (
 		appContext: IAppContext,
 		events: IServerEvents<TResponse>,
