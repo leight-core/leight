@@ -4,11 +4,10 @@ import {useParams} from "react-router";
 import {useAppContext} from "../app/AppContext";
 import {IPageIndex, IRecordItem} from "../interface/interface";
 import {IOnFetchPage} from "../server/interface";
-import {ServerEvents} from "../server/ServerEvents";
 import {PageIndex} from "../utils/PageIndex";
 
 export interface IBaseListProps<TItem extends IRecordItem> extends Partial<ListProps<TItem>> {
-	onFetchPage: IOnFetchPage
+	onFetchPage: IOnFetchPage<TItem>
 	pageSize?: number
 	children: (item: TItem, index: number) => ReactNode
 }
@@ -28,23 +27,17 @@ export const BaseList = <TItem extends IRecordItem = any>(
 
 	const onPage = (page, size) => {
 		setLoading(true);
-		return onFetchPage(
-			page,
-			size,
-			appContext,
-			ServerEvents<IPageIndex<TItem>>()
-				.on("response", data => setPage(data))
-				.on("done", () => setLoading(false)),
-			params,
-		);
+		return onFetchPage(page, size, appContext, params)
+			.on("response", data => setPage(data))
+			.on("done", () => setLoading(false));
 	};
 
 	/**
 	 * Without dependency, because onPage is callback which changes overtime (thus forcing re-rendering).
 	 */
 	useEffect(() => {
-		const cancelToken = onPage(0, pageSize);
-		return () => cancelToken.cancel();
+		const events = onPage(0, pageSize);
+		return () => events.dismiss();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

@@ -30,6 +30,27 @@ test("Event order", () => {
 	expect(stack).toEqual(["first", "second", "last"]);
 });
 
+test("Event dismiss", () => {
+	const events = TestEvents();
+	const stack: string[] = [];
+	events.on("test", () => {
+		stack.push("second");
+	}, 50);
+	events.on("test", () => {
+		stack.push("first");
+	}, 0);
+	events.on("test", () => {
+		stack.push("last");
+	}, 1000);
+	events.handler("test")();
+	expect(stack).toEqual(["first", "second", "last"]);
+	events.handler("test")();
+	expect(stack).toEqual(["first", "second", "last", "first", "second", "last"]);
+	events.dismiss();
+	events.handler("test")();
+	expect(stack).toEqual(["first", "second", "last", "first", "second", "last"]);
+});
+
 test("Events chaining", () => {
 	const events = TestEvents();
 	const globals = TestEvents();

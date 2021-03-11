@@ -3,7 +3,6 @@ import {useEffect, useState} from "react";
 import {Params} from "react-router";
 import {useAppContext} from "../app/AppContext";
 import {IGetCallback} from "../server/interface";
-import {ServerEvents} from "../server/ServerEvents";
 import {useFormContext} from "./FormContext";
 import {IBaseSelectOption} from "./interface";
 
@@ -31,17 +30,15 @@ export const BaseSelect = <TData extends unknown>({fetch, fetchParams, mapper, d
 	const appContext = useAppContext();
 	const formContext = useFormContext();
 	useEffect(() => {
-		formContext.block();
-		const token = fetch(
-			appContext,
-			ServerEvents<TData[]>()
-				.on("response", data => {
-					setOptions(data.map(mapper));
-					formContext.unblock();
-				}),
-			fetchParams
-		);
-		return () => token.cancel();
+		const events = fetch(appContext, fetchParams)
+			.on("request", () => {
+				formContext.block();
+			})
+			.on("response", data => {
+				setOptions(data.map(mapper));
+				formContext.unblock();
+			});
+		return () => events.dismiss();
 		// eslint-disable-next-line
 	}, deps);
 	return (

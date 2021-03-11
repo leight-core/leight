@@ -39,6 +39,12 @@ export interface IEvents<TEventTypes extends string, TEventHandlers extends IEve
 	 */
 	handler: <T extends TEventTypes>(event: T) => TEventHandlers[T];
 	/**
+	 * Dismiss this event bus and disable all events (thus handler calls do nothing).
+	 *
+	 * Defaults to true.
+	 */
+	dismiss: (dismiss?: boolean) => void
+	/**
 	 * Set required event handlers; when required event is called, but handler not present, an error is thrown.
 	 *
 	 * @param events
@@ -61,4 +67,8 @@ export interface IEvents<TEventTypes extends string, TEventHandlers extends IEve
 	 */
 	chains: IEvents<any, any>[],
 	requires: TEventTypes[],
+	/**
+	 * Is this event bus dismissed?
+	 */
+	dismissed: boolean,
 }

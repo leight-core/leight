@@ -5,11 +5,10 @@ import {useTranslation} from "react-i18next";
 import {useAppContext} from "../app/AppContext";
 import {ISearchRequest} from "../interface/interface";
 import {IPostCallback} from "../server/interface";
-import {ServerEvents} from "../server/ServerEvents";
 import {ISearchItem} from "./interface";
 
 export interface ISearchProps extends Partial<SelectProps<any>> {
-	search: IPostCallback<ISearchRequest>
+	search: IPostCallback<ISearchRequest, ISearchItem[]>
 	mapper?: (data: any) => ISearchItem[]
 	render?: (item: ISearchItem) => ReactNode
 }
@@ -35,20 +34,16 @@ export const Search: FC<ISearchProps> = (
 		clearTimeout(id);
 		setLoading(true);
 		setId(setTimeout(() => {
-			search(
-				{search: value},
-				appContext,
-				ServerEvents<ISearchItem[]>()
-					.on("response", data => {
-						setData(mapper(data));
-					})
-					.on("done", () => {
-						setLoading(false);
-					})
-					.on("catch", error => {
-						console.error("catch", error);
-					})
-			);
+			search({search: value}, appContext)
+				.on("response", data => {
+					setData(mapper(data));
+				})
+				.on("done", () => {
+					setLoading(false);
+				})
+				.on("catch", error => {
+					console.error("catch", error);
+				});
 		}, 250));
 	}
 

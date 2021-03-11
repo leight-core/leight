@@ -9,7 +9,7 @@ import {DeleteItemIcon} from "../icon/DeleteItemIcon";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {useRouterContext} from "../router/RouterContext";
 import {IDeleteCallback, IGetCallback} from "../server/interface";
-import {ServerEvents} from "../server/ServerEvents";
+import {FakeServerEvents} from "../server/ServerEvents";
 import {IDeleteOnSuccess} from "./interface";
 
 export interface IDeleteViewProps<TFetch = any, TResponse = any> {
@@ -69,11 +69,7 @@ const DeleteViewPlaceholder = ({translation}) => {
 export const DeleteView = <TFetch extends unknown = any, TResponse extends unknown = any>(
 	{
 		translation,
-		fetch = (_, events) => {
-			events.handler("response")(undefined as unknown as any);
-			events.handler("done")();
-			return {cancel: () => null, token: null as any} as any;
-		},
+		fetch = () => FakeServerEvents(),
 		fetchMapper = data => data,
 		fetchParams,
 		deleteCallback,
@@ -100,22 +96,19 @@ export const DeleteView = <TFetch extends unknown = any, TResponse extends unkno
 							<Space split={<Divider type={"vertical"}/>} size={"large"}>
 								<Button type={"primary"} danger icon={<DeleteItemIcon/>} size={"large"} children={t(translation + ".confirm", {data})} onClick={() => {
 									layoutContext.blockContext.block();
-									deleteCallback(
-										appContext,
-										ServerEvents<TResponse>()
-											.on("response", data => {
-												onSuccess(navigate, data);
-											})
-											.on("http500", () => {
-												message.error(t(translation + ".error"));
-											})
-											.on("done", () => {
-												layoutContext.blockContext.unblock();
-											})
-											.on("catch", () => {
-												layoutContext.blockContext.unblock();
-											})
-									);
+									deleteCallback(appContext)
+										.on("response", data => {
+											onSuccess(navigate, data);
+										})
+										.on("http500", () => {
+											message.error(t(translation + ".error"));
+										})
+										.on("done", () => {
+											layoutContext.blockContext.unblock();
+										})
+										.on("catch", () => {
+											layoutContext.blockContext.unblock();
+										});
 								}}/>
 							</Space>
 						}

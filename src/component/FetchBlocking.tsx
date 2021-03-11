@@ -4,7 +4,6 @@ import {useAppContext} from "../app/AppContext";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {useModuleContext} from "../module/ModuleContext";
 import {IGetCallback} from "../server/interface";
-import {ServerEvents} from "../server/ServerEvents";
 import {useViewContext} from "../view/ViewContext";
 import {Fetch, IFetchProps} from "./Fetch";
 import {IFetchMapper} from "./interface";
@@ -49,26 +48,22 @@ export const FetchBlocking = <TResponse extends any>({fetch, mapper = data => da
 				 * Setting data to undefined forces component to render loading.
 				 */
 				setData(undefined);
-				const token = fetch(
-					appContext,
-					ServerEvents<TResponse>()
-						.on("request", () => {
-							block && viewContext.blockContext.block();
-						})
-						.on("response", data => {
-							layoutContext.setData(mapper(data));
-							setData(data);
-						})
-						.on("catch", () => {
-							viewContext.blockContext.unblock(unblock);
-							message.error(moduleContext.t("error-occurred"));
-						})
-						.on("done", () => {
-							viewContext.blockContext.unblock(unblock);
-						}),
-					params,
-				);
-				return () => token.cancel();
+				const events = fetch(appContext, params)
+					.on("request", () => {
+						block && viewContext.blockContext.block();
+					})
+					.on("response", data => {
+						layoutContext.setData(mapper(data));
+						setData(data);
+					})
+					.on("catch", () => {
+						viewContext.blockContext.unblock(unblock);
+						message.error(moduleContext.t("error-occurred"));
+					})
+					.on("done", () => {
+						viewContext.blockContext.unblock(unblock);
+					});
+				return () => events.dismiss();
 			}}
 			children={children}
 			deps={[params].concat(deps)}

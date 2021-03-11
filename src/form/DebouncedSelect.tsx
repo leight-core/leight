@@ -4,7 +4,6 @@ import {useTranslation} from "react-i18next";
 import {useAppContext} from "../app/AppContext";
 import {ISearchRequest} from "../interface/interface";
 import {IPostCallback} from "../server/interface";
-import {ServerEvents} from "../server/ServerEvents";
 import {useFormContext} from "./FormContext";
 
 export interface IDebouncedSelectProps extends SelectProps<any> {
@@ -31,18 +30,16 @@ export const DebouncedSelect: FC<IDebouncedSelectProps> = ({fetch, mapper, initi
 	const [loading, setLoading] = useState(true);
 	const {t} = useTranslation();
 	useEffect(() => {
-		formContext.block();
-		setLoading(true);
-		fetch(
-			{search: initial},
-			appContext,
-			ServerEvents()
-				.on("response", data => {
-					setOptions(data.map(mapper));
-					setLoading(false);
-					formContext.unblock();
-				})
-		);
+		fetch({search: initial}, appContext)
+			.on("request", () => {
+				formContext.block();
+				setLoading(true);
+			})
+			.on("response", data => {
+				setOptions(data.map(mapper));
+				setLoading(false);
+				formContext.unblock();
+			});
 	}, []);
 	return (
 		<Select
@@ -55,15 +52,11 @@ export const DebouncedSelect: FC<IDebouncedSelectProps> = ({fetch, mapper, initi
 				setLoading(true);
 				clearTimeout(tid);
 				setTid(setTimeout(() => {
-					fetch(
-						{search},
-						appContext,
-						ServerEvents()
-							.on("response", data => {
-								setOptions(data.map(mapper));
-								setLoading(false);
-							})
-					);
+					fetch({search}, appContext)
+						.on("response", data => {
+							setOptions(data.map(mapper));
+							setLoading(false);
+						});
 				}, debounce) as unknown as number);
 			}}
 			{...props}

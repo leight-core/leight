@@ -13,6 +13,11 @@ export function Events<TEventTypes extends string, TEventHandlers extends IEvent
 			return this;
 		},
 		handler: function (event) {
+			if (this.dismissed) {
+				console.info(`Calling event [${event}] on dismissed Events.`);
+				return () => {
+				};
+			}
 			const handlers = [this].concat(this.chains)
 				.reduce((array, item) => array.concat(item.events[event] || []), [] as IEvent[])
 				.sort((a, b) => a.priority - b.priority);
@@ -22,6 +27,9 @@ export function Events<TEventTypes extends string, TEventHandlers extends IEvent
 			return ((...args) => {
 				handlers.find(item => item.callback(...args) === false);
 			}) as unknown as any;
+		},
+		dismiss: function (dismiss: boolean = true) {
+			this.dismissed = dismiss;
 		},
 		required: function (...events) {
 			this.requires.push(...events);
@@ -34,5 +42,6 @@ export function Events<TEventTypes extends string, TEventHandlers extends IEvent
 		events: {} as any,
 		chains: [],
 		requires: [],
+		dismissed: false,
 	};
 }

@@ -1,7 +1,7 @@
 import {Params} from "react-router";
 import {IAppContext} from "../app/interface";
 import {httpPut} from "./httpPut";
-import {IPutCallback, IServerEvents} from "./interface";
+import {IPutCallback} from "./interface";
 
 /**
  * Simple factory for creating `put` based on the discovery link id.
@@ -12,11 +12,9 @@ export function createPut<TRequest = any, TResponse = any>(link: string): IPutCa
 	return (
 		data: TRequest,
 		appContext: IAppContext,
-		events: IServerEvents<TResponse>,
 		params?: Params,
 	) => httpPut<TRequest, TResponse>(
 		appContext.link(link, params),
 		data,
-		events,
 	);
 }

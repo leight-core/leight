@@ -2,7 +2,7 @@ import {Params} from "react-router";
 import {IAppContext} from "../app/interface";
 import {IPageIndex} from "../interface/interface";
 import {httpPost} from "./httpPost";
-import {IOnFetchPage, IPage, IServerEvents} from "./interface";
+import {IOnFetchPage, IPage} from "./interface";
 
 /**
  * Simple factory for making HTTP post for paging over resource support.
@@ -14,7 +14,6 @@ export function createFetchPage(link: string): IOnFetchPage {
 		page: number,
 		limit: number,
 		appContext: IAppContext,
-		events: IServerEvents<IPageIndex>,
 		params?: Params,
 	) => httpPost<IPage, IPageIndex>(
 		appContext.link(link, params),
@@ -22,6 +21,5 @@ export function createFetchPage(link: string): IOnFetchPage {
 			page,
 			limit,
 		},
-		events,
 	);
 }

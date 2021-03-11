@@ -14,7 +14,7 @@ export interface ICommonFormProps<TData extends Object, TValues extends Object> 
 	/**
 	 * What to do on form submit.
 	 */
-	post: IUpdateCallback
+	post: IUpdateCallback<any, TData>
 	/**
 	 * Map form data to data being sent to server.
 	 */
@@ -55,16 +55,12 @@ export const CommonForm = <TData extends Object, TValues = any>(
 			colon={false}
 			onSubmit={(values, formContext) => {
 				layoutContext.blockContext.block();
-				post(
-					postMapper(data, values),
-					appContext,
-					events
-						.chain(formContext.events())
-						.on("response", data => {
-							onSuccess(navigate, data);
-							layoutContext.blockContext.unblock();
-						})
-				);
+				post(postMapper(data, values), appContext)
+					.chain(formContext.events())
+					.on("response", data => {
+						onSuccess(navigate, data);
+						layoutContext.blockContext.unblock();
+					});
 			}}
 			labelCol={{span: 8}}
 			labelAlign={"left"}

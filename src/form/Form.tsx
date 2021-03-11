@@ -86,18 +86,17 @@ export const Form = <TValues extends unknown = any>(
 			})
 	};
 	useEffect(() => {
-		const cancelToken = onFetch ? onFetch(
-			appContext,
-			ServerEvents()
+		const events = onFetch ?
+			onFetch(appContext)
 				.on("request", () => {
 					blockContext.block();
 				})
 				.on("response", data => {
 					onHandleFetch(formContext, data);
 					blockContext.unblock();
-				})
-		) : {cancel: () => undefined};
-		return () => cancelToken.cancel();
+				}) :
+			ServerEvents();
+		return () => events.dismiss();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return (
@@ -108,9 +107,7 @@ export const Form = <TValues extends unknown = any>(
 			name={name}
 			{...props}
 		>
-			<FormContext.Provider
-				value={formContext}
-			>
+			<FormContext.Provider value={formContext}>
 				<Spin spinning={isBlocked()} children={children}/>
 			</FormContext.Provider>
 		</CoolForm>

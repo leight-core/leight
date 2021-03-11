@@ -1,7 +1,7 @@
 import {Params} from "react-router";
 import {IAppContext} from "../app/interface";
 import {httpDelete} from "./httpDelete";
-import {IDeleteCallback, IServerEvents} from "./interface";
+import {IDeleteCallback} from "./interface";
 
 /**
  * Simple factory for creating `delete` based on the discovery link id.
@@ -9,12 +9,5 @@ import {IDeleteCallback, IServerEvents} from "./interface";
  * @param link Discovery link id.
  */
 export function createDelete<TResponse = any>(link: string): IDeleteCallback<TResponse> {
-	return (
-		appContext: IAppContext,
-		events: IServerEvents<TResponse>,
-		params?: Params,
-	) => httpDelete<TResponse>(
-		appContext.link(link, params),
-		events,
-	);
+	return (appContext: IAppContext, params?: Params) => httpDelete<TResponse>(appContext.link(link, params));
 }

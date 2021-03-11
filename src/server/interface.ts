@@ -1,4 +1,4 @@
-import {AxiosError, CancelTokenSource} from "axios";
+import {AxiosError} from "axios";
 import {Params} from "react-router";
 import {IAppContext} from "../app/interface";
 import {IEventHandlers, IEventResult, IEvents} from "../event/interface";
@@ -41,7 +41,7 @@ export interface IServerEvents<TResponse = any> extends IEvents<IServerEventType
 /**
  * Callback used when a new page is required.
  */
-export type IOnFetchPage = (page: number, size: number, appContext: IAppContext, events: IServerEvents<IPageIndex>, params?: Params) => CancelTokenSource
+export type IOnFetchPage<TItem = any> = (page: number, size: number, appContext: IAppContext, params?: Params) => IServerEvents<IPageIndex<TItem>>
 
 export interface IPage {
 	page: number
@@ -51,9 +51,8 @@ export interface IPage {
 export interface IGetCallback<TResponse = any> {
 	(
 		appContext: IAppContext,
-		events: IServerEvents<TResponse>,
 		params?: Params,
-	): CancelTokenSource;
+	): IServerEvents<TResponse>;
 }
 
 /**
@@ -63,9 +62,8 @@ export interface IUpdateCallback<TRequest = any, TResponse = any> {
 	(
 		data: TRequest,
 		appContext: IAppContext,
-		events: IServerEvents<TResponse>,
 		params?: Params,
-	): CancelTokenSource
+	): IServerEvents<TResponse>
 }
 
 export interface IPostCallback<TRequest = any, TResponse = any> extends IUpdateCallback<TRequest, TResponse> {
@@ -80,14 +78,6 @@ export interface IPatchCallback<TRequest = any, TResponse = any> extends IUpdate
 export interface IDeleteCallback<TResponse = any> {
 	(
 		appContext: IAppContext,
-		events: IServerEvents<TResponse>,
 		params?: Params,
-	): CancelTokenSource
-}
-
-/**
- * Marker type for fetching a resource by an uuid.
- */
-export interface IFetchHook<TResponse = any> {
-	(uuid: string, events: IServerEvents<TResponse>): void
+	): IServerEvents<TResponse>
 }
