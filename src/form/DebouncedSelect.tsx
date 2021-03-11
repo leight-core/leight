@@ -1,20 +1,20 @@
 import {Select, SelectProps} from "antd";
-import {FC, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useAppContext} from "../app/AppContext";
 import {ISearchRequest} from "../interface/interface";
 import {IPostCallback} from "../server/interface";
 import {useFormContext} from "./FormContext";
 
-export interface IDebouncedSelectProps extends SelectProps<any> {
+export interface IDebouncedSelectProps<TItem = any> extends SelectProps<any> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
-	fetch: IPostCallback<ISearchRequest>
+	fetch: IPostCallback<ISearchRequest, TItem[]>
 	/**
 	 * Map requested data into Select's options.
 	 */
-	mapper: (item) => any
+	mapper: (item: TItem) => any
 	/**
 	 * Debounce interval in ms.
 	 */
@@ -22,9 +22,9 @@ export interface IDebouncedSelectProps extends SelectProps<any> {
 	initial?: string
 }
 
-export const DebouncedSelect: FC<IDebouncedSelectProps> = ({fetch, mapper, initial = "", debounce = 250, ...props}) => {
+export const DebouncedSelect = <TItem extends unknown>({fetch, mapper, initial = "", debounce = 250, ...props}: IDebouncedSelectProps<TItem>) => {
 	const appContext = useAppContext();
-	const [options, setOptions] = useState([]);
+	const [options, setOptions] = useState<any[]>([]);
 	const [tid, setTid] = useState<number>();
 	const formContext = useFormContext();
 	const [loading, setLoading] = useState(true);
