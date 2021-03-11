@@ -11,10 +11,7 @@ export function httpPost<TRequest = any, TResponse = any>(
 	const events = ServerEvents<TResponse>();
 	events.on("request", () => {
 		const cancelToken = axios.CancelToken.source();
-		events.handler("request")(data);
-		axios.post<TResponse>(href, data, {
-			cancelToken: cancelToken.token,
-		})
+		axios.post<TResponse>(href, data, {cancelToken: cancelToken.token})
 			.then(response => axiosSuccess(response, events))
 			.catch(error => axiosError(error, events));
 	}, ServerRequestPriority);
