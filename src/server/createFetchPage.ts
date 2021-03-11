@@ -9,7 +9,7 @@ import {IOnFetchPage, IPage} from "./interface";
  *
  * @param link Discovery Index link id
  */
-export function createFetchPage(link: string): IOnFetchPage {
+export function createFetchPage<TItem = any>(link: string): IOnFetchPage<TItem> {
 	return (
 		page: number,
 		limit: number,
