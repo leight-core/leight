@@ -1,5 +1,5 @@
 import {Divider, message, Progress, Typography, Upload} from "antd";
-import {RcFile, UploadChangeParam} from "antd/lib/upload";
+import {DraggerProps, RcFile, UploadChangeParam} from "antd/lib/upload";
 import fileSize from "filesize";
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
@@ -7,7 +7,11 @@ import {Params} from "react-router";
 import {useAppContext} from "../app/AppContext";
 import {IUploaderEvents} from "./interface";
 
-export interface IUploaderProps {
+export interface IUploaderProps extends Partial<DraggerProps> {
+	/**
+	 * File field name on the server side.
+	 */
+	name: string
 	/**
 	 * File size limit (in MB).
 	 */
@@ -30,7 +34,7 @@ export interface IUploaderProps {
 	params?: Params
 }
 
-export const Uploader = ({limit, events, translation, action, params, ...props}: IUploaderProps) => {
+export const Uploader = ({name, limit, events, translation, action, params, ...props}: IUploaderProps) => {
 	const appContext = useAppContext();
 	const [loading, setLoading] = useState(false);
 	const [progress, setProgress] = useState(0);
@@ -56,14 +60,18 @@ export const Uploader = ({limit, events, translation, action, params, ...props}:
 				events.handler("error")(info.fileList[current]);
 				break;
 			case "done":
-				events.handler("done")(info.fileList[current]);
+				/**
+				 * Any because typing is forced by the Upload component, thus user exactly
+				 * types, what he expects as a result, including null/undefined.
+				 */
+				events.handler("done")(info.fileList[current] as any);
 				break;
 		}
 	};
 	return (
 		<>
 			<Upload.Dragger
-				name={"vendor"}
+				name={name}
 				listType={"text"}
 				action={appContext.link(action, params)}
 				beforeUpload={onBeforeUpload}
@@ -73,7 +81,7 @@ export const Uploader = ({limit, events, translation, action, params, ...props}:
 				disabled={loading}
 				{...props}
 			>
-				<Progress size={"default"} type={"circle"} percent={progress} format={item => (item ? item.toFixed(1) : 0) + "%"} status={"active"} {...props}/>
+				<Progress size={"default"} type={"circle"} percent={progress} format={item => (item ? item.toFixed(1) : 0) + "%"} status={"active"}/>
 				<Divider type={"horizontal"}/>
 				<Typography.Title level={3}>{t(translation + ".upload")}</Typography.Title>
 				<Typography.Paragraph>{t(translation + ".upload.hint")}</Typography.Paragraph>

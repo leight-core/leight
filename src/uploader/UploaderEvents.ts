@@ -1,4 +1,4 @@
 import {Events} from "../event/Events";
 import {IUploaderEvents} from "./interface";
 
-export const UploaderEvents = (): IUploaderEvents => Events();
+export const UploaderEvents = <TResponse = any>(): IUploaderEvents<TResponse> => Events();
