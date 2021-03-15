@@ -1,6 +1,6 @@
 import {Table, TableProps} from "antd";
 import {useEffect, useState} from "react";
-import {useParams} from "react-router";
+import {Params, useParams} from "react-router";
 import {useAppContext} from "../app/AppContext";
 import {IPageIndex, IRecordItem} from "../interface/interface";
 import {IOnFetchPage} from "../server/interface";
@@ -8,6 +8,7 @@ import {PageIndex} from "../utils/PageIndex";
 
 export interface IBaseTableProps<TItem extends IRecordItem> extends TableProps<TItem> {
 	onFetchPage: IOnFetchPage
+	onFetchParams?: Params
 	pageSize?: number
 	deps?: any[]
 }
@@ -15,6 +16,7 @@ export interface IBaseTableProps<TItem extends IRecordItem> extends TableProps<T
 export const BaseTable = <TItem extends IRecordItem = any>(
 	{
 		onFetchPage,
+		onFetchParams,
 		pageSize = 10,
 		deps = [],
 		...props
@@ -31,7 +33,7 @@ export const BaseTable = <TItem extends IRecordItem = any>(
 			page,
 			size,
 			appContext,
-			params,
+			{...params, ...onFetchParams},
 		)
 			.on("response", data => setPage(data))
 			.on("done", () => setLoading(false));
