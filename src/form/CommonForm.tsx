@@ -40,7 +40,7 @@ export interface ICommonFormProps<TData extends Object, TValues extends Object> 
 export const CommonForm = <TData extends Object, TValues = any>(
 	{
 		post,
-		postMapper = data => data,
+		postMapper = (data, values) => values,
 		initialMapper = data => data as any,
 		data = null,
 		onSuccess = () => null,
