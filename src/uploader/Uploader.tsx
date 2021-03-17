@@ -37,6 +37,7 @@ export interface IUploaderProps extends Partial<DraggerProps> {
 export const Uploader = ({name, limit, events, translation, action, params, ...props}: IUploaderProps) => {
 	const appContext = useAppContext();
 	const [loading, setLoading] = useState(false);
+	const [status, setStatus] = useState<any>("active");
 	const [progress, setProgress] = useState(0);
 	const {t} = useTranslation();
 	const onBeforeUpload = (file: RcFile, FileList: RcFile[]): boolean => {
@@ -52,14 +53,19 @@ export const Uploader = ({name, limit, events, translation, action, params, ...p
 			case "uploading":
 				setProgress(info.fileList[current].percent || 0);
 				setLoading(true);
+				setStatus("active");
 				events.handler("uploading")(info.fileList[current]);
 				break;
 			case "error":
 				setLoading(false);
-				setProgress(0);
+				setStatus("exception");
+				setTimeout(() => setProgress(0), 1500);
 				events.handler("error")(info.fileList[current]);
 				break;
 			case "done":
+				setLoading(false);
+				setStatus("success");
+				setTimeout(() => setProgress(0), 1500);
 				/**
 				 * Any because typing is forced by the Upload component, thus user exactly
 				 * types, what he expects as a result, including null/undefined.
@@ -81,7 +87,7 @@ export const Uploader = ({name, limit, events, translation, action, params, ...p
 				disabled={loading}
 				{...props}
 			>
-				<Progress size={"default"} type={"circle"} percent={progress} format={item => (item ? item.toFixed(1) : 0) + "%"} status={"active"}/>
+				<Progress size={"default"} type={"line"} percent={progress} showInfo={false} status={status}/>
 				<Divider type={"horizontal"}/>
 				<Typography.Title level={3}>{t(translation + ".upload")}</Typography.Title>
 				<Typography.Paragraph>{t(translation + ".upload.hint")}</Typography.Paragraph>
