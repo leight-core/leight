@@ -1,5 +1,5 @@
 import {Menu, MenuItemProps} from "antd";
-import {FC} from "react";
+import {FC, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
 import {Params} from "react-router";
 import {Link} from "react-router-dom";
@@ -28,8 +28,24 @@ export const MenuItem: FC<IMenuItemProps> = ({id, icon, href, params, ...props})
 	const {t} = useTranslation();
 	const cleverLink = useCleverLink(href || id, params);
 	return (
-		<Menu.Item icon={icon} {...props} disabled={!cleverLink.enable}>
+		<Menu.Item icon={icon} key={id} {...props} disabled={!cleverLink.enable}>
 			<Link to={cleverLink.link} children={t(id + ".menu")}/>
 		</Menu.Item>
 	);
 };
+
+/**
+ * Because MenuItem component **must have** a key which is duplicate with an ID (as a key is not possible to read),
+ * this function let's user create a menu item with just an ID and icon.
+ *
+ * Basically it has the same behavior as MenuItem component.
+ */
+export function CreateMenuItem(id: string, icon: ReactNode, params?: Params) {
+	const {t} = useTranslation();
+	const cleverLink = useCleverLink(id, params);
+	return (
+		<Menu.Item icon={icon} key={id} disabled={!cleverLink.enable}>
+			<Link to={cleverLink.link} children={t(id + ".menu")}/>
+		</Menu.Item>
+	);
+}
