@@ -59,7 +59,7 @@ export const CommonForm = <TFormValues extends any = any, TRequest extends any =
 			}}
 			labelCol={{span: 8}}
 			labelAlign={"left"}
-			wrapperCol={{span: 16}}
+			wrapperCol={{span: 24}}
 			scrollToFirstError
 			initialValues={initialMapper() as any}
 			{...props}
