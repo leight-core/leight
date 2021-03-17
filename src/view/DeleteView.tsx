@@ -12,7 +12,7 @@ import {IDeleteCallback, IGetCallback} from "../server/interface";
 import {FakeServerEvents} from "../server/ServerEvents";
 import {IDeleteOnSuccess} from "./interface";
 
-export interface IDeleteViewProps<TFetch = any, TResponse = any> {
+export interface IDeleteViewProps<TFetch = any, TResponse = TFetch> {
 	/**
 	 * Base translation key (for example common.delete).
 	 *
@@ -66,7 +66,7 @@ const DeleteViewPlaceholder = ({translation}) => {
 	);
 };
 
-export const DeleteView = <TFetch extends unknown = any, TResponse extends unknown = any>(
+export const DeleteView = <TFetch extends unknown = any, TResponse extends unknown = TFetch>(
 	{
 		translation,
 		fetch = () => FakeServerEvents(),
@@ -85,8 +85,7 @@ export const DeleteView = <TFetch extends unknown = any, TResponse extends unkno
 			mapper={fetchMapper}
 			params={fetchParams}
 			placeholder={() => <DeleteViewPlaceholder translation={translation}/>}
-		>
-			{data => (
+			children={data => (
 				<Card title={<><BackLink/>&nbsp;{t(translation + ".title", {data})}</>}>
 					<Result
 						status={"warning"}
@@ -115,6 +114,6 @@ export const DeleteView = <TFetch extends unknown = any, TResponse extends unkno
 					/>
 				</Card>
 			)}
-		</FetchBlocking>
+		/>
 	);
 };
