@@ -6,7 +6,7 @@ import {ServerEvents} from "../server/ServerEvents";
 import {FormContext} from "./FormContext";
 import {IFormContext, IFormErrors, IFormSubmitCallback, IFormSubmitFailedCallback} from "./interface";
 
-export interface IFormProps<TValues> extends Partial<FormProps<TValues>> {
+export interface IFormProps<TFormValues> extends Partial<FormProps<TFormValues>> {
 	/**
 	 * Form name.
 	 */
@@ -14,11 +14,11 @@ export interface IFormProps<TValues> extends Partial<FormProps<TValues>> {
 	/**
 	 * What to to when a form is submitted (and validated).
 	 */
-	onSubmit: IFormSubmitCallback<TValues>
+	onSubmit: IFormSubmitCallback<TFormValues>
 	/**
 	 * Optional method to handle failed submit.
 	 */
-	onSubmitFailed?: IFormSubmitFailedCallback<TValues>
+	onSubmitFailed?: IFormSubmitFailedCallback<TFormValues>
 }
 
 /**
@@ -26,14 +26,14 @@ export interface IFormProps<TValues> extends Partial<FormProps<TValues>> {
  *
  * Rest of props are sent to underlying Antd Form.
  */
-export const Form = <TValues extends unknown = any>(
+export const Form = <TFormValues extends unknown = any>(
 	{
 		name,
 		onSubmit,
 		onSubmitFailed = () => null,
 		children = null,
 		...props
-	}: PropsWithChildren<IFormProps<TValues>>) => {
+	}: PropsWithChildren<IFormProps<TFormValues>>) => {
 	const layoutContext = useLayoutContext();
 	const [form] = CoolForm.useForm();
 	const {t} = useTranslation();

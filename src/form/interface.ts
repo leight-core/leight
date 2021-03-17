@@ -74,16 +74,16 @@ export interface IFormHandleFetchCallback<TValues = any> {
 	(formContext: IFormContext, data: TValues): void
 }
 
-export interface IFormPostMapper<TData, TValues> {
-	(data: TData | null, values: TValues): any
+export interface IFormPostMapper<TFormValues, TRequest> {
+	(values: TFormValues): TRequest
 }
 
-export interface IFormInitialMapper<TData, TValues> {
-	(data: TData | null): TValues
+export interface IFormInitialMapper<TFormValues> {
+	(): TFormValues
 }
 
-export interface IFormOnSuccess<TData> {
-	(navigate: INavigate, data: TData): void
+export interface IFormOnSuccess<TFormValues, TResponse> {
+	(navigate: INavigate, values: TFormValues, data: TResponse): void
 }
 
 export type IBaseSelectItem = any;

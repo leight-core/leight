@@ -6,7 +6,7 @@ import {ServerEvents} from "../server/ServerEvents";
 import {Form, IFormProps} from "./Form";
 import {IFormInitialMapper, IFormOnSuccess, IFormPostMapper} from "./interface";
 
-export interface ICommonFormProps<TData extends Object, TValues extends Object> extends Partial<Omit<IFormProps<TValues>, "name">> {
+export interface ICommonFormProps<TFormValues = any, TRequest = TFormValues, TResponse = TRequest> extends Partial<Omit<IFormProps<TFormValues>, "name">> {
 	/**
 	 * Name of the form.
 	 */
@@ -14,51 +14,46 @@ export interface ICommonFormProps<TData extends Object, TValues extends Object> 
 	/**
 	 * What to do on form submit.
 	 */
-	post: IUpdateCallback<any, TData>
+	post: IUpdateCallback<TRequest, TResponse>
 	/**
 	 * Map form data to data being sent to server.
 	 */
-	postMapper?: IFormPostMapper<TData, TValues>
+	postMapper?: IFormPostMapper<TFormValues, TRequest>
 	/**
 	 * Map data to the initial state of the form (if any).
 	 */
-	initialMapper?: IFormInitialMapper<TData, TValues>
+	initialMapper?: IFormInitialMapper<TFormValues>
 	/**
 	 * Called when a form is successfully committed.
 	 */
-	onSuccess?: IFormOnSuccess<TData>
-	/**
-	 * Initial form data if any.
-	 */
-	data?: TData | null
+	onSuccess?: IFormOnSuccess<TFormValues, TResponse>
 	/**
 	 * Optional events if needed to be hooked in.
 	 */
-	events?: IServerEvents
+	events?: IServerEvents<TResponse>
 }
 
-export const CommonForm = <TData extends Object, TValues = any>(
+export const CommonForm = <TFormValues extends any = any, TRequest extends any = TFormValues, TResponse extends any = TRequest>(
 	{
 		post,
-		postMapper = (data, values) => values,
-		initialMapper = data => data as any,
-		data = null,
+		postMapper = values => values as any,
+		initialMapper = () => null as any,
 		onSuccess = () => null,
 		events = ServerEvents(),
 		...props
-	}: ICommonFormProps<TData, TValues>) => {
+	}: ICommonFormProps<TFormValues, TRequest, TResponse>) => {
 	const appContext = useAppContext();
 	const layoutContext = useLayoutContext();
 	const navigate = useRouterContext().useNavigate();
 	return (
-		<Form<TValues>
+		<Form<TFormValues>
 			colon={false}
 			onSubmit={(values, formContext) => {
 				layoutContext.blockContext.block();
-				post(postMapper(data, values), appContext)
+				post(postMapper(values), appContext)
 					.chain(formContext.events())
 					.on("response", data => {
-						onSuccess(navigate, data);
+						onSuccess(navigate, values, data);
 						layoutContext.blockContext.unblock();
 					});
 			}}
@@ -66,7 +61,7 @@ export const CommonForm = <TData extends Object, TValues = any>(
 			labelAlign={"left"}
 			wrapperCol={{span: 16}}
 			scrollToFirstError
-			initialValues={initialMapper(data)}
+			initialValues={initialMapper() as any}
 			{...props}
 		/>
 	);
