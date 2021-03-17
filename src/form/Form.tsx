@@ -1,13 +1,10 @@
 import {Form as CoolForm, FormProps, message, Spin} from "antd";
-import React, {PropsWithChildren, useEffect, useState} from "react";
+import React, {PropsWithChildren, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {useAppContext} from "../app/AppContext";
 import {useLayoutContext} from "../layout/LayoutContext";
-import {IGetCallback} from "../server/interface";
 import {ServerEvents} from "../server/ServerEvents";
-import {useViewContext} from "../view/ViewContext";
 import {FormContext} from "./FormContext";
-import {IFormContext, IFormErrors, IFormHandleFetchCallback, IFormSubmitCallback, IFormSubmitFailedCallback} from "./interface";
+import {IFormContext, IFormErrors, IFormSubmitCallback, IFormSubmitFailedCallback} from "./interface";
 
 export interface IFormProps<TValues> extends Partial<FormProps<TValues>> {
 	/**
@@ -22,11 +19,6 @@ export interface IFormProps<TValues> extends Partial<FormProps<TValues>> {
 	 * Optional method to handle failed submit.
 	 */
 	onSubmitFailed?: IFormSubmitFailedCallback<TValues>
-	/**
-	 * Optional callback to fill-up the form (for example remote data).
-	 */
-	onFetch?: IGetCallback
-	onHandleFetch?: IFormHandleFetchCallback<TValues>
 }
 
 /**
@@ -39,14 +31,10 @@ export const Form = <TValues extends unknown = any>(
 		name,
 		onSubmit,
 		onSubmitFailed = () => null,
-		onFetch,
-		onHandleFetch = (formContext, data) => formContext.setValues(data),
 		children = null,
 		...props
 	}: PropsWithChildren<IFormProps<TValues>>) => {
-	const appContext = useAppContext();
 	const layoutContext = useLayoutContext();
-	const {blockContext} = useViewContext();
 	const [form] = CoolForm.useForm();
 	const {t} = useTranslation();
 	const [errors, setErrors] = useState<IFormErrors>();
@@ -85,20 +73,6 @@ export const Form = <TValues extends unknown = any>(
 				layoutContext.blockContext.unblock();
 			})
 	};
-	useEffect(() => {
-		const events = onFetch ?
-			onFetch(appContext)
-				.on("request", () => {
-					blockContext.block();
-				})
-				.on("response", data => {
-					onHandleFetch(formContext, data);
-					blockContext.unblock();
-				}) :
-			ServerEvents();
-		return () => events.dismiss();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
 	return (
 		<CoolForm
 			form={form}
