@@ -2,7 +2,6 @@ import {Button, ButtonProps} from "antd";
 import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {Params} from "react-router";
-import {Link} from "react-router-dom";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {useRouterContext} from "../router/RouterContext";
 
@@ -27,16 +26,22 @@ export const ButtonLink: FC<IButtonLinkProps> = ({href, title, params, ...props}
 	const layoutContext = useLayoutContext();
 	try {
 		return (
-			<Link to={routerContext.generate(href, {...layoutContext.data, ...params})}>
-				<Button type={"primary"} children={title ? t(title) : null} {...props}/>
-			</Link>
+			<Button
+				href={routerContext.generate(href, {...layoutContext.data, ...params})}
+				type={"primary"}
+				children={title ? t(title) : null}
+				{...props}
+			/>
 		);
 	} catch (e) {
 		console.warn(`Cannot generate link [${href}] for ButtonLink. Params:`, params, e);
 		return (
-			<Link to={""}>
-				<Button type={"primary"} children={title ? t(title) : null} disabled {...props}/>
-			</Link>
+			<Button
+				type={"primary"}
+				children={title ? t(title) : null}
+				disabled
+				{...props}
+			/>
 		);
 	}
 };
