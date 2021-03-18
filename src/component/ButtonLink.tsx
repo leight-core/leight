@@ -31,7 +31,8 @@ export const ButtonLink: FC<IButtonLinkProps> = ({href, title, params, ...props}
 				<Button type={"primary"} children={title ? t(title) : null} {...props}/>
 			</Link>
 		);
-	} catch {
+	} catch (e) {
+		console.warn(`Cannot generate link [${href}] for ButtonLink. Params:`, params, e);
 		return (
 			<Link to={""}>
 				<Button type={"primary"} children={title ? t(title) : null} disabled {...props}/>
