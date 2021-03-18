@@ -1,6 +1,6 @@
 import {Form, FormItemProps, Input} from "antd";
 import {NamePath, Rule} from "rc-field-form/lib/interface";
-import {cloneElement, FC} from "react";
+import {cloneElement, FC, useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import {useFormContext} from "./FormContext";
 
@@ -23,6 +23,7 @@ export interface IFormItemProps extends Partial<FormItemProps> {
 	noMargin?: boolean
 	children?: (label: string) => JSX.Element
 	labels?: string[]
+	clearOn?: any
 }
 
 export const FormItem: FC<IFormItemProps> = (
@@ -33,6 +34,7 @@ export const FormItem: FC<IFormItemProps> = (
 		noMargin = false,
 		children = _ => <Input/>,
 		labels = [],
+		clearOn,
 		...props
 	}) => {
 	const {t} = useTranslation();
@@ -51,6 +53,11 @@ export const FormItem: FC<IFormItemProps> = (
 			message: t(["form-item." + fieldName + ".required"].concat(labels.map(item => item + ".required"))) as string,
 		});
 	}
+	useEffect(() => {
+		clearOn && formContext.form.setFields([
+			{name: field, value: undefined},
+		]);
+	}, [clearOn]);
 	/**
 	 * This is... a hack I really don't understand! But it works.
 	 *
