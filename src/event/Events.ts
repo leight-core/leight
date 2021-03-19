@@ -14,7 +14,7 @@ export function Events<TEventTypes extends string, TEventHandlers extends IEvent
 		},
 		handler: function (event) {
 			if (this.dismissed) {
-				console.info(`Calling event [${event}] on dismissed Events.`);
+				console.debug(`Calling event [${event}] on dismissed Events.`);
 				return () => {
 				};
 			}
