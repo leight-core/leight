@@ -25,4 +25,5 @@ export interface IMenuContext {
 	 * @param select optionally select item(s) of the menu
 	 */
 	useMenu: (menu: ReactNode, select?: string[]) => void
+	setMenu: (menu: ReactNode) => void
 }
