@@ -12,6 +12,7 @@ export * from "./FormSubmitButton";
 export * from "./FormUtils";
 export * from "./Input";
 export * from "./interface";
+export * from "./PasswordInput";
 export * from "./SubmitButton";
 export * from "./SwitchItem";
 export * from "./TextArea";
