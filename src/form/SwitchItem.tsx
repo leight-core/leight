@@ -30,7 +30,7 @@ export const SwitchItem: FC<ISwitchItemProps> = ({field, labels = [], switchProp
 			valuePropName={"checked"}
 			labels={labels}
 			{...props}
-			children={_ => <CoolSwitch {...switchProps}/>}
+			children={<CoolSwitch {...switchProps}/>}
 		/>
 	);
 };

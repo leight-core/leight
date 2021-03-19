@@ -5,7 +5,7 @@ import {ViewContext} from "../view/ViewContext";
 
 export const StoryApp = ({children}) => {
 	return (
-		<AppContext.Provider value={{} as unknown as any}>
+		<AppContext.Provider value={{appContext: true} as unknown as any}>
 			<LayoutContext.Provider value={{} as unknown as any}>
 				<ViewContext.Provider value={{} as unknown as any}>
 					{children}

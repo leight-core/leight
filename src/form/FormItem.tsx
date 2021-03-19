@@ -58,20 +58,19 @@ export const FormItem: FC<IFormItemProps> = (
 	 */
 	rules.push(() => ({validator: () => Promise.resolve()}));
 	return (
-		<Form.Item
-			name={field}
-			label={showLabel === false ? null : t(["form-item." + fieldName + ".label"].concat(labels))}
-			rules={rules}
-			children={
-				<FormItemContext.Provider
-					value={{
-						field,
-						label: t(["form-item." + fieldName + ".label"].concat(labels)) as string,
-					}}
-					children={children ? cloneElement(children as any, {["data-required"]: required}) : null}
-				/>
-			}
-			{...props}
-		/>
+		<FormItemContext.Provider
+			value={{
+				field,
+				label: t(["form-item." + fieldName + ".label"].concat(labels)) as string,
+			}}
+		>
+			<Form.Item
+				name={field}
+				label={showLabel === false ? null : t(["form-item." + fieldName + ".label"].concat(labels))}
+				rules={rules}
+				{...props}
+				children={children ? cloneElement(children as any, {["data-required"]: required}) : null}
+			/>
+		</FormItemContext.Provider>
 	);
 };

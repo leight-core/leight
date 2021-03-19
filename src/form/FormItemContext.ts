@@ -6,4 +6,4 @@ export const FormItemContext = createContext<IFormItemContext>(null as unknown a
 
 export const useFormItemContext = () => useContext<IFormItemContext>(FormItemContext, "FormItemContext");
 
-export const useOptionalFormItemContext = () => useOptionalContext<IFormItemContext>(FormItemContext as any);
+export const useOptionalFormItem = () => useOptionalContext<IFormItemContext>(FormItemContext as any);

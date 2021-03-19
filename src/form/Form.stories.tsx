@@ -114,6 +114,7 @@ export const SubmitWithPostInitials = () => {
 				<FormItem field={"some-value"} children={<Input usePlaceholder/>}/>
 				<FormItem required field={"required-value"} children={<Input usePlaceholder/>}/>
 				<FormItem field={"another-value"} children={<Input usePlaceholder/>}/>
+				<FormItem field={["without", "placeholder"]} children={<Input/>}/>
 				<FormSubmitButton label={"Submit!"} icon={<SubmitIcon/>}/>
 			</>
 		);
