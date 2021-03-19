@@ -1,10 +1,11 @@
-import {Divider, message, Progress, Typography, Upload} from "antd";
+import {message, Progress, Typography, Upload} from "antd";
 import {DraggerProps, RcFile, UploadChangeParam} from "antd/lib/upload";
 import fileSize from "filesize";
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Params} from "react-router";
 import {useAppContext} from "../app/AppContext";
+import {Centered} from "../layout/Centered";
 import {IUploaderEvents} from "./interface";
 
 export interface IUploaderProps extends Partial<DraggerProps> {
@@ -83,12 +84,12 @@ export const Uploader = ({name, limit, events, translation, action, params, ...p
 				beforeUpload={onBeforeUpload}
 				onChange={onChange}
 				showUploadList={false}
-				style={{padding: "0 1em"}}
 				disabled={loading}
 				{...props}
 			>
-				<Progress size={"default"} type={"line"} percent={progress} showInfo={false} status={status}/>
-				<Divider type={"horizontal"}/>
+				<Centered span={22}>
+					<Progress size={"default"} type={"line"} percent={progress} showInfo={false} status={status}/>
+				</Centered>
 				<Typography.Title level={3}>{t(translation + ".upload")}</Typography.Title>
 				<Typography.Paragraph>{t(translation + ".upload.hint")}</Typography.Paragraph>
 			</Upload.Dragger>
