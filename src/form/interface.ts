@@ -3,6 +3,11 @@ import {NamePath, ValidateErrorEntity} from "rc-field-form/lib/interface";
 import {INavigate} from "../router/interface";
 import {IServerEvents} from "../server/interface";
 
+export interface IFormItemContext {
+	field: NamePath
+	label: string
+}
+
 export type IFormFields = [NamePath, any];
 
 export interface IFormError {

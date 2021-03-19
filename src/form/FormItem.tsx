@@ -1,8 +1,9 @@
 import {Form, FormItemProps, Input} from "antd";
 import {NamePath, Rule} from "rc-field-form/lib/interface";
-import {cloneElement, FC, useEffect} from "react";
+import {cloneElement, FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useFormContext} from "./FormContext";
+import {FormItemContext} from "./FormItemContext";
 
 export interface IFormItemProps extends Partial<FormItemProps> {
 	/**
@@ -21,9 +22,7 @@ export interface IFormItemProps extends Partial<FormItemProps> {
 	 * Disable default Antd Form.Item margin.
 	 */
 	noMargin?: boolean
-	children?: (label: string) => JSX.Element
 	labels?: string[]
-	clearOn?: any
 }
 
 export const FormItem: FC<IFormItemProps> = (
@@ -32,9 +31,8 @@ export const FormItem: FC<IFormItemProps> = (
 		required = false,
 		showLabel = true,
 		noMargin = false,
-		children = _ => <Input/>,
+		children = <Input/>,
 		labels = [],
-		clearOn,
 		...props
 	}) => {
 	const {t} = useTranslation();
@@ -53,11 +51,6 @@ export const FormItem: FC<IFormItemProps> = (
 			message: t(["form-item." + fieldName + ".required"].concat(labels.map(item => item + ".required"))) as string,
 		});
 	}
-	useEffect(() => {
-		clearOn && formContext.form.setFields([
-			{name: field, value: undefined},
-		]);
-	}, [clearOn]);
 	/**
 	 * This is... a hack I really don't understand! But it works.
 	 *
@@ -69,7 +62,15 @@ export const FormItem: FC<IFormItemProps> = (
 			name={field}
 			label={showLabel === false ? null : t(["form-item." + fieldName + ".label"].concat(labels))}
 			rules={rules}
-			children={cloneElement(children(t(["form-item." + fieldName + ".label"].concat(labels)) as string), {["data-required"]: required})}
+			children={
+				<FormItemContext.Provider
+					value={{
+						field,
+						label: t(["form-item." + fieldName + ".label"].concat(labels)) as string,
+					}}
+					children={children ? cloneElement(children as any, {["data-required"]: required}) : null}
+				/>
+			}
 			{...props}
 		/>
 	);
