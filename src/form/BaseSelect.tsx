@@ -35,17 +35,17 @@ export const BaseSelect = <TData extends unknown>({fetch, fetchParams, mapper, d
 	useEffect(() => {
 		const events = fetch(appContext, fetchParams)
 			.on("request", () => {
+				formContext.block();
+				setOptions([]);
+			})
+			.on("response", data => {
 				if (!first && formItemContext) {
 					formContext.form.setFields([
 						{name: formItemContext.field, value: undefined},
 					]);
 				}
-				formContext.block();
-				setOptions([]);
-				setFirst(false);
-			})
-			.on("response", data => {
 				setOptions(data.map(mapper));
+				setFirst(false);
 				formContext.unblock();
 			});
 		return () => events.dismiss();
