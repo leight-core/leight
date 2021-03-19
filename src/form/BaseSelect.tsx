@@ -4,6 +4,7 @@ import {Params} from "react-router";
 import {useAppContext} from "../app/AppContext";
 import {IGetCallback} from "../server/interface";
 import {useFormContext} from "./FormContext";
+import {useOptionalFormItemContext} from "./FormItemContext";
 import {IBaseSelectOption} from "./interface";
 
 export interface IBaseSelectProps<TData> extends SelectProps<any> {
@@ -27,13 +28,21 @@ export interface IBaseSelectProps<TData> extends SelectProps<any> {
 
 export const BaseSelect = <TData extends unknown>({fetch, fetchParams, mapper, deps = [], ...props}: IBaseSelectProps<TData>) => {
 	const [options, setOptions] = useState<IBaseSelectOption[]>([]);
+	const [first, setFirst] = useState(true);
 	const appContext = useAppContext();
 	const formContext = useFormContext();
+	const formItemContext = useOptionalFormItemContext();
 	useEffect(() => {
 		const events = fetch(appContext, fetchParams)
 			.on("request", () => {
+				if (!first && formItemContext) {
+					formContext.form.setFields([
+						{name: formItemContext.field, value: undefined},
+					]);
+				}
 				formContext.block();
 				setOptions([]);
+				setFirst(false);
 			})
 			.on("response", data => {
 				setOptions(data.map(mapper));
