@@ -81,6 +81,7 @@ export const DeleteView = <TFetch extends unknown = any, TResponse extends unkno
 	const navigate = useRouterContext().useNavigate();
 	return (
 		<FetchBlocking<TFetch>
+			translation={translation}
 			fetch={fetch}
 			mapper={fetchMapper}
 			params={fetchParams}

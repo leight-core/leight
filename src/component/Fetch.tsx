@@ -14,7 +14,7 @@ export interface IFetchProps<TData = any> {
 	/**
 	 * Actual children rendered when data are available.
 	 */
-	children: (data: TData) => ReactNode
+	children?: (data: TData) => ReactNode
 	/**
 	 * Placeholder rendered when data are not available.
 	 */
@@ -25,7 +25,7 @@ export interface IFetchProps<TData = any> {
  * Simple fetch component used for providing fetch callback and rendering children when data is available delegating setting data state to an upper
  * component.
  */
-export const Fetch = <TData extends unknown>({fetch, deps = [], children, placeholder = () => <Result icon={<Loader isLoading={true}/>}/>}: IFetchProps<TData>) => {
+export const Fetch = <TData extends unknown>({fetch, deps = [], children = () => null, placeholder = () => <Result icon={<Loader isLoading={true}/>}/>}: IFetchProps<TData>) => {
 	const [data, setData] = useState<TData | undefined>(undefined as TData);
 	useEffect(() => {
 		return fetch(setData);

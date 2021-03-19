@@ -1,14 +1,17 @@
 import {message} from "antd";
 import {Params} from "react-router";
 import {useAppContext} from "../app/AppContext";
+import {useBlockContext} from "../block/BlockContext";
 import {useLayoutContext} from "../layout/LayoutContext";
-import {useModuleContext} from "../module/ModuleContext";
 import {IGetCallback} from "../server/interface";
-import {useViewContext} from "../view/ViewContext";
 import {Fetch, IFetchProps} from "./Fetch";
 import {IFetchMapper} from "./interface";
 
 export interface IFetchBlockingProps<TResponse = any> extends Omit<IFetchProps<TResponse>, "fetch"> {
+	/**
+	 * Base translation for the component.
+	 */
+	translation: string
 	/**
 	 * Fetch callback to get data.
 	 */
@@ -36,11 +39,10 @@ export interface IFetchBlockingProps<TResponse = any> extends Omit<IFetchProps<T
 	unblock?: boolean
 }
 
-export const FetchBlocking = <TResponse extends any>({fetch, mapper = data => data, params, deps = [], block = false, unblock = false, children, ...props}: IFetchBlockingProps<TResponse>) => {
+export const FetchBlocking = <TResponse extends any>({translation, fetch, mapper = data => data, params, deps = [], block = false, unblock = false, children, ...props}: IFetchBlockingProps<TResponse>) => {
 	const appContext = useAppContext();
-	const viewContext = useViewContext();
+	const blockContext = useBlockContext();
 	const layoutContext = useLayoutContext();
-	const moduleContext = useModuleContext();
 	return (
 		<Fetch<TResponse>
 			fetch={(setData) => {
@@ -50,18 +52,18 @@ export const FetchBlocking = <TResponse extends any>({fetch, mapper = data => da
 				setData(undefined);
 				const events = fetch(appContext, params)
 					.on("request", () => {
-						block && viewContext.blockContext.block();
+						block && blockContext.block();
 					})
 					.on("response", data => {
 						layoutContext.setData(mapper(data));
 						setData(data);
 					})
 					.on("catch", () => {
-						viewContext.blockContext.unblock(unblock);
-						message.error(moduleContext.t("error-occurred"));
+						blockContext.unblock(unblock);
+						message.error(translation + ".fetch.error-occurred");
 					})
 					.on("done", () => {
-						viewContext.blockContext.unblock(unblock);
+						blockContext.unblock(unblock);
 					});
 				return () => events.dismiss();
 			}}
