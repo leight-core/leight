@@ -5,6 +5,7 @@ import {useAppContext} from "../app/AppContext";
 import {ISearchRequest} from "../interface/interface";
 import {IPostCallback} from "../server/interface";
 import {useFormContext} from "./FormContext";
+import {useOptionalFormItemContext} from "./FormItemContext";
 
 export interface IDebouncedSelectProps<TItem = any> extends SelectProps<any> {
 	/**
@@ -20,15 +21,18 @@ export interface IDebouncedSelectProps<TItem = any> extends SelectProps<any> {
 	 */
 	debounce?: number
 	initial?: string
+	usePlaceholder?: boolean
 }
 
-export const DebouncedSelect = <TItem extends unknown>({fetch, mapper, initial = "", debounce = 250, ...props}: IDebouncedSelectProps<TItem>) => {
+export const DebouncedSelect = <TItem extends unknown>({fetch, mapper, usePlaceholder, initial = "", debounce = 250, ...props}: IDebouncedSelectProps<TItem>) => {
 	const appContext = useAppContext();
 	const [options, setOptions] = useState<any[]>([]);
 	const [tid, setTid] = useState<number>();
 	const formContext = useFormContext();
 	const [loading, setLoading] = useState(true);
 	const {t} = useTranslation();
+	const formItemContext = useOptionalFormItemContext();
+	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
 	useEffect(() => {
 		fetch({search: initial}, appContext)
 			.on("request", () => {

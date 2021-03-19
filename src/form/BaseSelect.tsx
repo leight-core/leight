@@ -24,14 +24,16 @@ export interface IBaseSelectProps<TData> extends SelectProps<any> {
 	 * Dependency used to force redraw (re-fetch data).
 	 */
 	deps?: any[]
+	usePlaceholder?: boolean
 }
 
-export const BaseSelect = <TData extends unknown>({fetch, fetchParams, mapper, deps = [], ...props}: IBaseSelectProps<TData>) => {
+export const BaseSelect = <TData extends unknown>({fetch, fetchParams, mapper, usePlaceholder, deps = [], ...props}: IBaseSelectProps<TData>) => {
 	const [options, setOptions] = useState<IBaseSelectOption[]>([]);
 	const [first, setFirst] = useState(true);
 	const appContext = useAppContext();
 	const formContext = useFormContext();
 	const formItemContext = useOptionalFormItemContext();
+	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
 	useEffect(() => {
 		const events = fetch(appContext, fetchParams)
 			.on("request", () => {

@@ -14,3 +14,4 @@ export * from "./Input";
 export * from "./interface";
 export * from "./SubmitButton";
 export * from "./SwitchItem";
+export * from "./TextArea";
