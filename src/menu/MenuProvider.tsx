@@ -1,4 +1,5 @@
-import {FC, ReactNode, useEffect, useState} from "react";
+import {FC, ReactNode, useEffect, useRef, useState} from "react";
+import {useForceUpdate} from "../hook/useForceUpdate";
 import {MenuContext} from "./MenuContext";
 
 export interface IMenuProviderProps {
@@ -6,13 +7,14 @@ export interface IMenuProviderProps {
 
 export const MenuProvider: FC<IMenuProviderProps> = ({children}) => {
 	const [current, setCurrent] = useState<string[]>([]);
-	const [params, setParams] = useState<any>();
+	const params = useRef();
+	const rerender = useForceUpdate();
 	const [menu, setMenu] = useState<ReactNode>(null);
 	return (
 		<MenuContext.Provider
 			value={{
 				params,
-				setParams,
+				setParams: value => params.current = value,
 				menu,
 				current,
 				useSelect: select => useEffect(() => {
@@ -21,6 +23,7 @@ export const MenuProvider: FC<IMenuProviderProps> = ({children}) => {
 				}, []),
 				useMenu: (menu) => useEffect(() => setMenu(menu), []),
 				setMenu,
+				rerender,
 			}}
 			children={children}
 		/>
