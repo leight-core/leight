@@ -2,7 +2,7 @@ export interface IClientContext {
 	/**
 	 * Access to current client data.
 	 */
-	client: IClient
+	readonly client: IClient
 	/**
 	 * Change current client data.
 	 *

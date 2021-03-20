@@ -4,11 +4,11 @@ export interface IModuleContext {
 	/**
 	 * Module id, usually could be used for translating stuff.
 	 */
-	id: string
+	readonly id: string
 	/**
 	 * Default module icon.
 	 */
-	icon: JSX.Element
+	readonly icon: JSX.Element
 	/**
 	 * Generate module link using module ID as a prefix
 	 */

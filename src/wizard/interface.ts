@@ -5,23 +5,23 @@ export interface IWizardContext {
 	/**
 	 * Wizard name.
 	 */
-	name: string
+	readonly name: string
 	/**
 	 * Events available in the wizard context.
 	 */
-	events: IWizardEvents
+	readonly events: IWizardEvents
 	/**
 	 * Current step number.
 	 */
-	step: number
+	readonly step: number
 	/**
 	 * Total number of steps.
 	 */
-	count: number
+	readonly count: number
 	/**
 	 * Values collected from form in the wizard, if any.
 	 */
-	values: Object
+	readonly values: Object
 	/**
 	 * Compute previous step (update state).
 	 */
@@ -33,7 +33,7 @@ export interface IWizardContext {
 	canNext: () => boolean
 	canPrevious: () => boolean
 	canFinish: () => boolean
-	dependencies: Object
+	readonly dependencies: Object
 	/**
 	 * Set or get data a wizard might depend on (for example when Wizard prefetches some data required by a component in later step to
 	 * ensure the wizard has all the data).
@@ -47,8 +47,8 @@ export interface IWizardContext {
 	 *
 	 * @param values
 	 */
-	outputMapper: IOutputMapper
-	merge: IDeepMerge
+	readonly outputMapper: IOutputMapper
+	readonly merge: IDeepMerge
 }
 
 export interface IWizardStep {

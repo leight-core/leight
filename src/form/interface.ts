@@ -24,11 +24,11 @@ export interface IFormContext<TValues = any> {
 	/**
 	 * Antd form instance.
 	 */
-	form: FormInstance
+	readonly form: FormInstance
 	/**
 	 * Current form errors.
 	 */
-	errors: IFormErrors
+	readonly errors: IFormErrors
 	/**
 	 * Set field errors.
 	 *
@@ -48,7 +48,7 @@ export interface IFormContext<TValues = any> {
 	/**
 	 * Direct access to blocking state of the layout (**not a bool!**).
 	 */
-	blocking: number
+	readonly blocking: number
 	/**
 	 * Tells if there is requested blocking state of the form.
 	 */

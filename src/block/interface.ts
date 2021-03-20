@@ -5,7 +5,7 @@ export interface IBlockContext {
 	/**
 	 * Number of request blockings (could be more than one).
 	 */
-	count: number
+	readonly count: number
 	/**
 	 * Tells if this context is blocked.
 	 */

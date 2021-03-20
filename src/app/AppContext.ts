@@ -12,4 +12,4 @@ export const AppContext = createContext<IAppContext>(null as unknown as IAppCont
 /**
  * Use the global application context (like title and so).
  */
-export const useAppContext = <TSession = any>() => useContext<IAppContext<TSession>>(AppContext, "AppContext");
+export const useAppContext = () => useContext<IAppContext>(AppContext, "AppContext");

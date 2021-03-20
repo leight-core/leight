@@ -4,7 +4,7 @@ export interface ISessionContext<TSession extends ISession = ISession> {
 	/**
 	 * Directly access current session data.
 	 */
-	session: TSession
+	readonly session: TSession
 	/**
 	 * Access to current session events.
 	 */

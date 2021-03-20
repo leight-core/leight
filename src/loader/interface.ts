@@ -4,7 +4,7 @@ export interface IStepLoaderContext {
 	/**
 	 * Current step.
 	 */
-	current: number
+	readonly current: number
 	/**
 	 * Directly set current state.
 	 *
@@ -18,7 +18,7 @@ export interface IStepLoaderContext {
 	/**
 	 * Direct access to current status.
 	 */
-	status: IStepStatus
+	readonly status: IStepStatus
 	/**
 	 * Set status of the current step.
 	 *
