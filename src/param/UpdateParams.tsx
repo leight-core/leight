@@ -9,8 +9,8 @@ export interface IUpdateParamsProps {
 }
 
 /**
- * Forces redraw of components using MenuContext (thus be careful when using in data fetching and other async
- * components to prevent infinite loop).
+ * Sets new parameters into ParamsContext; it's useful for sharing data pieces across whole application; the original
+ * idea and purpose is an ability to generate links in menu. And elsewhere.
  */
 export const UpdateParams: FC<IUpdateParamsProps> = ({params, update = false, children}) => {
 	const paramContext = useParamContext();
