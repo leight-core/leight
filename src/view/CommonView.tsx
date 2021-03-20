@@ -23,6 +23,10 @@ export interface ICommonViewProps {
 	 */
 	menu: () => ReactNode
 	/**
+	 * Name of used menu; used to prevent redraws.
+	 */
+	menuName?: string
+	/**
 	 * Currently selected menu items (if any).
 	 */
 	menuItems?: string[]
@@ -70,6 +74,7 @@ export const CommonView: FC<ICommonViewProps> = (
 		name,
 		title,
 		menu,
+		menuName,
 		menuItems = undefined,
 		fullscreen = false,
 		restore = true,
@@ -79,7 +84,7 @@ export const CommonView: FC<ICommonViewProps> = (
 	const {t} = useTranslation();
 	const menuContext = useMenuContext();
 	const layoutContext = useLayoutContext();
-	menuContext.useMenu(menu());
+	menuContext.useMenu(menu(), menuName);
 	menuContext.useSelect(menuItems || [name]);
 	layoutContext.useEnableFullscreen(fullscreen, restore);
 	return (

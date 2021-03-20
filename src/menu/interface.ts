@@ -9,8 +9,10 @@ export interface IMenuContext {
 	/**
 	 * When a menu needs generate a link, params are the way how to provide it
 	 * to the menu items.
+	 *
+	 * If update is true, re-render will be forced. Default to false.
 	 */
-	setParams: (params: IParams) => void
+	setParams: (params: IParams, update?: boolean) => void
 	/**
 	 * Currently selected menu items.
 	 */
@@ -29,13 +31,14 @@ export interface IMenuContext {
 	 * Use the selected menu
 	 *
 	 * @param menu use the given menu
-	 * @param deps
+	 * @param name optional menu name used to prevent redraws when a same menu (by name) is used
 	 */
-	useMenu: (menu: ReactNode) => void
+	useMenu: (menu: ReactNode, name?: string) => void
 	/**
 	 * Directly set current menu.
 	 *
 	 * @param menu
 	 */
 	setMenu: (menu: ReactNode) => void
+	reload: () => void
 }

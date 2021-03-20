@@ -27,6 +27,7 @@
 		"deepmerge": "^4.2.2",
 		"filesize": "^6.1.0",
 		"i18next": "^19.9.2",
+		"is-equal": "^1.6.1",
 		"is-plain-object": "^5.0.0",
 		"omit-empty": "^1.0.0",
 		"rc-picker": "^2.5.10",
