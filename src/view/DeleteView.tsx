@@ -3,15 +3,14 @@ import {useTranslation} from "react-i18next";
 import {Params} from "react-router";
 import {BackLink} from "../component/BackLink";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {FetchBlocking} from "../fetch/FetchBlocking";
 import {DeleteItemIcon} from "../icon/DeleteItemIcon";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {useRouterContext} from "../router/RouterContext";
-import {IDeleteCallback, IGetCallback} from "../server/interface";
-import {FakeServerEvents} from "../server/ServerEvents";
+import {IDeleteCallback, IServerEvents} from "../server/interface";
+import {ServerEvents} from "../server/ServerEvents";
 import {IDeleteOnSuccess} from "./interface";
 
-export interface IDeleteViewProps<TFetch = any, TResponse = TFetch> {
+export interface IDeleteViewProps<TResponse = any> {
 	/**
 	 * Base translation key (for example common.delete).
 	 *
@@ -24,32 +23,32 @@ export interface IDeleteViewProps<TFetch = any, TResponse = TFetch> {
 	 */
 	translation: string
 	/**
-	 * Fetch method if there are some external data needed.
+	 * Optional data just used for translation interpolation.
 	 */
-	fetch?: IGetCallback<TFetch>
-	/**
-	 * Optional parameters used for calling remote fetch (if needed).
-	 */
-	fetchParams?: Params
+	data?: any
 	/**
 	 * Handle delete of the item.
 	 */
-	deleteCallback: IDeleteCallback<TResponse>,
+	onDelete: IDeleteCallback<TResponse>,
 	/**
 	 * Optional delete params.
 	 */
-	deleteParams?: Params,
+	params?: Params,
 	/**
 	 * Placeholder title rendered during fetch if needed.
 	 */
 	placeholderTitle?: string
 	/**
-	 * Called on successful delete.
+	 * Exposed events of delete action.
+	 */
+	events?: IServerEvents<TResponse>
+	/**
+	 * Exposed events of delete action.
 	 */
 	onSuccess?: IDeleteOnSuccess<TResponse>
 }
 
-const DeleteViewPlaceholder = ({translation}) => {
+export const DeleteViewPlaceholder = ({translation}) => {
 	const {t} = useTranslation();
 	return (
 		<Card title={<><BackLink/>&nbsp;{t(translation + ".placeholder")}</>}>
@@ -61,53 +60,47 @@ const DeleteViewPlaceholder = ({translation}) => {
 	);
 };
 
-export const DeleteView = <TFetch extends unknown = any, TResponse extends unknown = TFetch>(
+export const DeleteView = <TResponse extends unknown = any>(
 	{
 		translation,
-		fetch = () => FakeServerEvents(),
-		fetchParams,
-		deleteCallback,
+		data = {},
+		params,
+		onDelete,
+		events = ServerEvents(),
 		onSuccess = () => null,
-	}: IDeleteViewProps<TFetch, TResponse>) => {
+	}: IDeleteViewProps<TResponse>) => {
 	const discoveryContext = useDiscoveryContext();
 	const {t} = useTranslation();
 	const layoutContext = useLayoutContext();
 	const navigate = useRouterContext().useNavigate();
 	return (
-		<FetchBlocking<TFetch>
-			translation={translation}
-			fetch={fetch}
-			params={fetchParams}
-			placeholder={() => <DeleteViewPlaceholder translation={translation}/>}
-			children={data => (
-				<Card title={<><BackLink/>&nbsp;{t(translation + ".title", {data})}</>}>
-					<Result
-						status={"warning"}
-						title={t(translation + ".title", {data})}
-						subTitle={t(translation + ".subtitle", {data})}
-						extra={
-							<Space split={<Divider type={"vertical"}/>} size={"large"}>
-								<Button type={"primary"} danger icon={<DeleteItemIcon/>} size={"large"} children={t(translation + ".confirm", {data})} onClick={() => {
-									layoutContext.blockContext.block();
-									deleteCallback(discoveryContext)
-										.on("response", data => {
-											onSuccess(navigate, data);
-										})
-										.on("http500", () => {
-											message.error(t(translation + ".error"));
-										})
-										.on("done", () => {
-											layoutContext.blockContext.unblock();
-										})
-										.on("catch", () => {
-											layoutContext.blockContext.unblock();
-										});
-								}}/>
-							</Space>
-						}
-					/>
-				</Card>
-			)}
-		/>
+		<Card title={<><BackLink/>&nbsp;{t(translation + ".title", {data})}</>}>
+			<Result
+				status={"warning"}
+				title={t(translation + ".title", {data})}
+				subTitle={t(translation + ".subtitle", {data})}
+				extra={
+					<Space split={<Divider type={"vertical"}/>} size={"large"}>
+						<Button type={"primary"} danger icon={<DeleteItemIcon/>} size={"large"} children={t(translation + ".confirm", {data})} onClick={() => {
+							layoutContext.blockContext.block();
+							onDelete(discoveryContext, params)
+								.on("response", data => {
+									onSuccess(navigate, data);
+								})
+								.on("http500", () => {
+									message.error(t(translation + ".error"));
+								})
+								.on("done", () => {
+									layoutContext.blockContext.unblock();
+								})
+								.on("catch", () => {
+									layoutContext.blockContext.unblock();
+								})
+								.chain(events);
+						}}/>
+					</Space>
+				}
+			/>
+		</Card>
 	);
 };
