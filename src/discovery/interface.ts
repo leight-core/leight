@@ -1,4 +1,4 @@
-import {Params} from "react-router";
+import {IParams} from "../interface/interface";
 
 export interface IDiscoveryContext {
 	/**
@@ -12,7 +12,7 @@ export interface IDiscoveryContext {
 	 * @param id
 	 * @param params
 	 */
-	link: (id: string, params ?: Params) => string
+	link: (id: string, params ?: IParams) => string
 }
 
 export interface IIDiscoveryItem {

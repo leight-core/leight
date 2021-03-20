@@ -1,5 +1,6 @@
 import {FC, useRef} from "react";
 import {generatePath, Params, useNavigate} from "react-router";
+import {IParams} from "../interface/interface";
 import {RouterContext} from "./RouterContext";
 
 export interface IRouterContextProviderProps {
@@ -30,7 +31,7 @@ export const RouterContextProvider: FC<IRouterContextProviderProps> = ({children
 		}
 	};
 
-	const generate = (href: string, params?: Params) => generatePath(link(href), params);
+	const generate = (href: string, params?: IParams) => generatePath(link(href), params as Params);
 
 	return (
 		<RouterContext.Provider
@@ -47,7 +48,7 @@ export const RouterContextProvider: FC<IRouterContextProviderProps> = ({children
 				generate,
 				useNavigate: () => {
 					const navigate = useNavigate();
-					return (href: string, params?: Params) => navigate(generate(href, params));
+					return (href: string, params?: IParams) => navigate(generate(href, params));
 				}
 			}}
 			children={children}

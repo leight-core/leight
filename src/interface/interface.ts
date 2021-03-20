@@ -1,3 +1,8 @@
+import {Params} from "react-router";
+
+export interface IParams extends Partial<Params> {
+}
+
 export interface IOutputMapper {
 	<T extends Object = any>(values: T): T
 }

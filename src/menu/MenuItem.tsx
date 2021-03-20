@@ -1,9 +1,9 @@
 import {Menu, MenuItemProps} from "antd";
 import {FC, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
-import {Params} from "react-router";
 import {Link} from "react-router-dom";
 import {useCleverLink} from "../hook/useCleverLink";
+import {IParams} from "../interface/interface";
 import {useMenuContext} from "./MenuContext";
 
 export interface IMenuItemProps extends Partial<MenuItemProps> {
@@ -22,7 +22,7 @@ export interface IMenuItemProps extends Partial<MenuItemProps> {
 	/**
 	 * Optional params for link generator.
 	 */
-	params?: Params
+	params?: IParams
 }
 
 export const MenuItem: FC<IMenuItemProps> = ({id, icon, href, params, ...props}) => {
@@ -42,7 +42,7 @@ export const MenuItem: FC<IMenuItemProps> = ({id, icon, href, params, ...props})
  *
  * Basically it has the same behavior as MenuItem component.
  */
-export function CreateMenuItem(id: string, icon: ReactNode, params?: Params) {
+export function CreateMenuItem(id: string, icon: ReactNode, params?: IParams) {
 	return (
 		<MenuItem id={id} key={id} icon={icon} params={params}/>
 	);

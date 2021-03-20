@@ -2,7 +2,7 @@ import {BareView} from "./BareView";
 import {CommonView} from "./CommonView";
 import {CreateView} from "./CreateView";
 import {DashboardView} from "./DashboardView";
-import {DeleteView} from "./DeleteView";
+import {DeleteView, DeleteViewPlaceholder} from "./DeleteView";
 import {EditView} from "./EditView";
 import {HomeView} from "./HomeView";
 import {ListView} from "./ListView";
@@ -42,6 +42,7 @@ export const View = {
 	Create: CreateView,
 	Dashboard: DashboardView,
 	Delete: DeleteView,
+	DeletePlaceholder: DeleteViewPlaceholder,
 	Edit: EditView,
 	Home: HomeView,
 	List: ListView,

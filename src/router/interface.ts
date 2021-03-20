@@ -1,4 +1,4 @@
-import {Params} from "react-router";
+import {IParams} from "../interface/interface";
 
 export interface IRouteCallback {
 	/**
@@ -32,7 +32,7 @@ export interface IRouterContext {
 	 */
 	link(id: string): string
 
-	generate(href: string, params?: Params): string
+	generate(href: string, params?: IParams): string
 
 	/**
 	 * Execute navigation to the given target; internally uses generate method (thus using named routes).
@@ -40,4 +40,4 @@ export interface IRouterContext {
 	useNavigate(): INavigate
 }
 
-export type INavigate = (href: string, params?: Params) => void
+export type INavigate = (href: string, params?: IParams) => void

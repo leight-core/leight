@@ -1,5 +1,5 @@
 import omitEmpty from "omit-empty";
-import {Params} from "react-router";
+import {IParams} from "../interface/interface";
 import {useRouterContext} from "../router/RouterContext";
 
 export interface ICleverLink {
@@ -19,7 +19,7 @@ export interface ICleverLink {
  * @param to
  * @param params
  */
-export function useCleverLink(to: string, params?: Params): ICleverLink {
+export function useCleverLink(to: string, params?: IParams): ICleverLink {
 	const current = omitEmpty(params);
 	try {
 		return {

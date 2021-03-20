@@ -3,8 +3,8 @@ import {DraggerProps, RcFile, UploadChangeParam} from "antd/lib/upload";
 import fileSize from "filesize";
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
-import {Params} from "react-router";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
+import {IParams} from "../interface/interface";
 import {Centered} from "../layout/Centered";
 import {IUploaderEvents} from "./interface";
 
@@ -32,7 +32,7 @@ export interface IUploaderProps extends Partial<DraggerProps> {
 	/**
 	 * Optional params for the action.
 	 */
-	params?: Params
+	params?: IParams
 }
 
 export const Uploader = ({name, limit, events, translation, action, params, ...props}: IUploaderProps) => {
