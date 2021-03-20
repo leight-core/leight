@@ -1,6 +1,7 @@
 import {QuestionCircleFilled} from "@ant-design/icons";
 import {Card, Divider, Result, Space} from "antd";
 import React from "react";
+import {Helmet} from "react-helmet";
 import {useTranslation} from "react-i18next";
 import {BackLink} from "../component/BackLink";
 import {ScrollToTop} from "../component/ScrollToTop";
@@ -15,6 +16,7 @@ export const SignOutView = () => {
 	useMenuContext().useSelect(["common.sign-out"]);
 	return (
 		<Card>
+			<Helmet title={t("common.sign-out.title")}/>
 			<ScrollToTop/>
 			<Result
 				icon={<QuestionCircleFilled/>}
