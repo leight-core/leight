@@ -1,11 +1,9 @@
 import {message} from "antd";
 import {Params} from "react-router";
-import {useAppContext} from "../app/AppContext";
 import {useBlockContext} from "../block/BlockContext";
-import {useLayoutContext} from "../layout/LayoutContext";
+import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IGetCallback} from "../server/interface";
 import {Fetch, IFetchProps} from "./Fetch";
-import {IFetchMapper} from "./interface";
 
 export interface IFetchBlockingProps<TResponse = any> extends Omit<IFetchProps<TResponse>, "fetch"> {
 	/**
@@ -21,10 +19,6 @@ export interface IFetchBlockingProps<TResponse = any> extends Omit<IFetchProps<T
 	 */
 	params?: Params
 	/**
-	 * Mapper used to map fetched data into layout context's data.
-	 */
-	mapper?: IFetchMapper<TResponse>
-	/**
 	 * Do initial block on request; this could be useful, when there are more fetches on a single page.
 	 *
 	 * Defaults to false as usually a view is blocked by default.
@@ -39,10 +33,9 @@ export interface IFetchBlockingProps<TResponse = any> extends Omit<IFetchProps<T
 	unblock?: boolean
 }
 
-export const FetchBlocking = <TResponse extends any>({translation, fetch, mapper = data => data, params, deps = [], block = false, unblock = false, children, ...props}: IFetchBlockingProps<TResponse>) => {
-	const appContext = useAppContext();
+export const FetchBlocking = <TResponse extends any>({translation, fetch, params, deps = [], block = false, unblock = false, children, ...props}: IFetchBlockingProps<TResponse>) => {
+	const discoveryContext = useDiscoveryContext();
 	const blockContext = useBlockContext();
-	const layoutContext = useLayoutContext();
 	return (
 		<Fetch<TResponse>
 			fetch={(setData) => {
@@ -50,12 +43,11 @@ export const FetchBlocking = <TResponse extends any>({translation, fetch, mapper
 				 * Setting data to undefined forces component to render loading.
 				 */
 				setData(undefined);
-				const events = fetch(appContext, params)
+				const events = fetch(discoveryContext, params)
 					.on("request", () => {
 						block && blockContext.block();
 					})
 					.on("response", data => {
-						layoutContext.setData(mapper(data));
 						setData(data);
 					})
 					.on("catch", () => {

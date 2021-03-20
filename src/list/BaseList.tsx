@@ -1,7 +1,7 @@
 import {List, ListProps} from "antd";
 import {ReactNode, useEffect, useState} from "react";
 import {useParams} from "react-router";
-import {useAppContext} from "../app/AppContext";
+import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IPageIndex, IRecordItem} from "../interface/interface";
 import {IOnFetchPage} from "../server/interface";
 import {PageIndex} from "../utils/PageIndex";
@@ -19,7 +19,7 @@ export const BaseList = <TItem extends IRecordItem = any>(
 		children,
 		...props
 	}: IBaseListProps<TItem>) => {
-	const appContext = useAppContext();
+	const discoveryContext = useDiscoveryContext();
 	const params = useParams();
 	const [page, setPage] = useState<IPageIndex<TItem>>(PageIndex());
 	const [loading, setLoading] = useState<boolean>(true);
@@ -27,7 +27,7 @@ export const BaseList = <TItem extends IRecordItem = any>(
 
 	const onPage = (page, size) => {
 		setLoading(true);
-		return onFetchPage(page, size, appContext, params)
+		return onFetchPage(page, size, discoveryContext, params)
 			.on("response", data => setPage(data))
 			.on("done", () => setLoading(false));
 	};

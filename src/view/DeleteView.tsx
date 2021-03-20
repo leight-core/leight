@@ -1,10 +1,9 @@
 import {Button, Card, Divider, message, Result, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {Params} from "react-router";
-import {useAppContext} from "../app/AppContext";
 import {BackLink} from "../component/BackLink";
 import {FetchBlocking} from "../component/FetchBlocking";
-import {IFetchMapper} from "../component/interface";
+import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {DeleteItemIcon} from "../icon/DeleteItemIcon";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {useRouterContext} from "../router/RouterContext";
@@ -32,10 +31,6 @@ export interface IDeleteViewProps<TFetch = any, TResponse = TFetch> {
 	 * Optional parameters used for calling remote fetch (if needed).
 	 */
 	fetchParams?: Params
-	/**
-	 * Fetch mapper used to map data into layout context.
-	 */
-	fetchMapper?: IFetchMapper<TFetch>
 	/**
 	 * Handle delete of the item.
 	 */
@@ -70,12 +65,11 @@ export const DeleteView = <TFetch extends unknown = any, TResponse extends unkno
 	{
 		translation,
 		fetch = () => FakeServerEvents(),
-		fetchMapper = data => data,
 		fetchParams,
 		deleteCallback,
 		onSuccess = () => null,
 	}: IDeleteViewProps<TFetch, TResponse>) => {
-	const appContext = useAppContext();
+	const discoveryContext = useDiscoveryContext();
 	const {t} = useTranslation();
 	const layoutContext = useLayoutContext();
 	const navigate = useRouterContext().useNavigate();
@@ -83,7 +77,6 @@ export const DeleteView = <TFetch extends unknown = any, TResponse extends unkno
 		<FetchBlocking<TFetch>
 			translation={translation}
 			fetch={fetch}
-			mapper={fetchMapper}
 			params={fetchParams}
 			placeholder={() => <DeleteViewPlaceholder translation={translation}/>}
 			children={data => (
@@ -96,7 +89,7 @@ export const DeleteView = <TFetch extends unknown = any, TResponse extends unkno
 							<Space split={<Divider type={"vertical"}/>} size={"large"}>
 								<Button type={"primary"} danger icon={<DeleteItemIcon/>} size={"large"} children={t(translation + ".confirm", {data})} onClick={() => {
 									layoutContext.blockContext.block();
-									deleteCallback(appContext)
+									deleteCallback(discoveryContext)
 										.on("response", data => {
 											onSuccess(navigate, data);
 										})

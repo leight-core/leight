@@ -1,10 +1,10 @@
 import {useEffect} from "react";
-import {useAppContext} from "../app/AppContext";
+import {useSessionContext} from "../session/SessionContext";
 
 export const SessionEndedView = () => {
-	const appContext = useAppContext();
+	const sessionContext = useSessionContext();
 	useEffect(() => {
-		appContext.logout();
+		sessionContext.events.handler("logout")();
 		// eslint-disable-next-line
 	}, []);
 	return null;

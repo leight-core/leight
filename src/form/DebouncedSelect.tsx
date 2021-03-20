@@ -1,7 +1,7 @@
 import {Select, SelectProps} from "antd";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {useAppContext} from "../app/AppContext";
+import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {ISearchRequest} from "../interface/interface";
 import {IPostCallback} from "../server/interface";
 import {useFormContext} from "./FormContext";
@@ -25,7 +25,7 @@ export interface IDebouncedSelectProps<TItem = any> extends SelectProps<any> {
 }
 
 export const DebouncedSelect = <TItem extends unknown>({fetch, mapper, usePlaceholder, initial = "", debounce = 250, ...props}: IDebouncedSelectProps<TItem>) => {
-	const appContext = useAppContext();
+	const discoveryContext = useDiscoveryContext();
 	const [options, setOptions] = useState<any[]>([]);
 	const [tid, setTid] = useState<number>();
 	const formContext = useFormContext();
@@ -34,7 +34,7 @@ export const DebouncedSelect = <TItem extends unknown>({fetch, mapper, usePlaceh
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
 	useEffect(() => {
-		fetch({search: initial}, appContext)
+		fetch({search: initial}, discoveryContext)
 			.on("request", () => {
 				formContext.block();
 				setLoading(true);
@@ -56,7 +56,7 @@ export const DebouncedSelect = <TItem extends unknown>({fetch, mapper, usePlaceh
 				setLoading(true);
 				clearTimeout(tid);
 				setTid(setTimeout(() => {
-					fetch({search}, appContext)
+					fetch({search}, discoveryContext)
 						.on("response", data => {
 							setOptions(data.map(mapper));
 							setLoading(false);

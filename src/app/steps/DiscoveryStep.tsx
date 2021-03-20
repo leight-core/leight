@@ -1,18 +1,20 @@
 import {CompassOutlined} from "@ant-design/icons";
+import {useClientContext} from "../../client/ClientContext";
+import {useDiscoveryContext} from "../../discovery/DiscoveryContext";
+import {IDiscovery} from "../../discovery/interface";
 import {LoaderStep} from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
 import {httpGet} from "../../server/httpGet";
-import {useAppContext} from "../AppContext";
-import {IDiscovery} from "../interface";
 
 export const DiscoveryStep = (props) => {
-	const appContext = useAppContext();
+	const clientContext = useClientContext();
+	const discoveryContext = useDiscoveryContext();
 	const stepLoaderContext = useStepLoaderContext();
 	return (
 		<LoaderStep icon={<CompassOutlined/>} {...props} onStep={() => {
-			const events = httpGet<IDiscovery>(appContext.client.discovery)
+			const events = httpGet<IDiscovery>(clientContext.client.discovery)
 				.on("response", discovery => {
-					appContext.setDiscovery(discovery);
+					discoveryContext.setDiscovery(discovery);
 					stepLoaderContext.next();
 				})
 				.on("catch", () => {

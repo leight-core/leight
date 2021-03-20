@@ -1,7 +1,7 @@
 import {Result} from "antd";
 import React, {FC} from "react";
+import {Helmet} from "react-helmet";
 import {useTranslation} from "react-i18next";
-import {useAppContext} from "../app/AppContext";
 import {ButtonLink} from "../component/ButtonLink";
 import {ScrollToTop} from "../component/ScrollToTop";
 import {HomeIcon} from "../icon/HomeIcon";
@@ -20,9 +20,9 @@ export interface INotFoundViewProps {
 export const NotFoundView: FC<INotFoundViewProps> = ({href}) => {
 	const {t} = useTranslation();
 	useLayoutContext().useEnableFullscreen(true, true);
-	useAppContext().useTitle("error.not-found.title");
 	return (
 		<>
+			<Helmet title={t("error.not-found.title")}/>
 			<ScrollToTop/>
 			<Result
 				status="404"

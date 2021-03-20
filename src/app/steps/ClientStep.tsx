@@ -1,10 +1,10 @@
 import {CloudDownloadOutlined} from "@ant-design/icons";
 import {FC} from "react";
+import {useClientContext} from "../../client/ClientContext";
+import {IClient} from "../../client/interface";
 import {LoaderStep} from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
 import {httpGet} from "../../server/httpGet";
-import {useAppContext} from "../AppContext";
-import {IClient} from "../interface";
 
 export interface IClientStepProps {
 	/**
@@ -14,13 +14,13 @@ export interface IClientStepProps {
 }
 
 export const ClientStep: FC<IClientStepProps> = ({href, ...props}) => {
-	const appContext = useAppContext();
+	const clientContext = useClientContext();
 	const stepLoaderContext = useStepLoaderContext();
 	return (
 		<LoaderStep icon={<CloudDownloadOutlined/>} {...props} onStep={() => {
 			const events = httpGet<IClient>(href || "/client.json")
 				.on("response", client => {
-					appContext.setClient(client);
+					clientContext.setClient(client);
 					stepLoaderContext.next();
 				})
 				.on("catch", () => {

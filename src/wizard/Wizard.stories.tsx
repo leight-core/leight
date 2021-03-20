@@ -64,7 +64,7 @@ const FirstStep = () => {
 			<Centered span={8}>
 				<FormItem field={["another", "value"]}/>
 				<FormItem field={["some", "value"]} required>
-					{label => <Select options={wizardContext.dependency("select")} placeholder={label}/>}
+					<Select options={wizardContext.dependency("select")} placeholder={"some.value"}/>
 				</FormItem>
 			</Centered>
 		</WizardStep>

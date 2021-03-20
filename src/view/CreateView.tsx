@@ -1,6 +1,6 @@
 import {Card} from "antd";
 import {FC} from "react";
-import {useAppContext} from "../app/AppContext";
+import {Helmet} from "react-helmet";
 import {BackLink} from "../component/BackLink";
 import {useMenuContext} from "../menu/MenuContext";
 import {useModuleContext} from "../module/ModuleContext";
@@ -14,12 +14,14 @@ export interface ICreateViewProps {
  * Do some steps like setting application title and selecting menu (setting menu state).
  */
 export const CreateView: FC<ICreateViewProps> = ({children}) => {
-    const moduleContext = useModuleContext();
-    useAppContext().useTitle(moduleContext.tid("create.title"));
-    useMenuContext().useSelect([moduleContext.id + ".create"]);
-    return (
-        <Card title={<><BackLink/>&nbsp;{moduleContext.t("create.title")}</>}>
-            {children}
-        </Card>
-    );
+	const moduleContext = useModuleContext();
+	useMenuContext().useSelect([moduleContext.id + ".create"]);
+	return (
+		<>
+			<Helmet title={moduleContext.tid("create.title")}/>
+			<Card title={<><BackLink/>&nbsp;{moduleContext.t("create.title")}</>}>
+				{children}
+			</Card>
+		</>
+	);
 };

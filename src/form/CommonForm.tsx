@@ -1,4 +1,4 @@
-import {useAppContext} from "../app/AppContext";
+import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {useRouterContext} from "../router/RouterContext";
 import {IServerEvents, IUpdateCallback} from "../server/interface";
@@ -42,7 +42,7 @@ export const CommonForm = <TFormValues extends any = any, TRequest extends any =
 		events = ServerEvents(),
 		...props
 	}: ICommonFormProps<TFormValues, TRequest, TResponse>) => {
-	const appContext = useAppContext();
+	const discoveryContext = useDiscoveryContext();
 	const layoutContext = useLayoutContext();
 	const navigate = useRouterContext().useNavigate();
 	return (
@@ -50,7 +50,7 @@ export const CommonForm = <TFormValues extends any = any, TRequest extends any =
 			colon={false}
 			onSubmit={(values, formContext) => {
 				layoutContext.blockContext.block();
-				post(postMapper(values), appContext)
+				post(postMapper(values), discoveryContext)
 					.chain(formContext.events())
 					.on("response", data => {
 						onSuccess(navigate, values, data);

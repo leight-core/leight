@@ -1,7 +1,7 @@
 import {Card, Result} from "antd";
 import {FC} from "react";
+import {Helmet} from "react-helmet";
 import {useTranslation} from "react-i18next";
-import {useAppContext} from "../app/AppContext";
 import {BackLink} from "../component/BackLink";
 import {LoaderIcon} from "../icon/LoaderIcon";
 
@@ -13,15 +13,17 @@ export interface IPlaceholderViewProps {
  * to show at least "something".
  */
 export const PlaceholderView: FC<IPlaceholderViewProps> = () => {
-	useAppContext().useTitle("common.placeholder.title");
 	const {t} = useTranslation();
 	return (
-		<Card title={<BackLink title={t("common.placeholder.back") as string}/>} style={{minHeight: "65vh"}}>
-			<Result
-				icon={<LoaderIcon spin/>}
-				title={t("common.placeholder.title")}
-				subTitle={t("common.placeholder.subtitle")}
-			/>
-		</Card>
+		<>
+			<Helmet title={t("common.placeholder.title")}/>
+			<Card title={<BackLink title={t("common.placeholder.back") as string}/>} style={{minHeight: "65vh"}}>
+				<Result
+					icon={<LoaderIcon spin/>}
+					title={t("common.placeholder.title")}
+					subTitle={t("common.placeholder.subtitle")}
+				/>
+			</Card>
+		</>
 	);
 };

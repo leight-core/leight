@@ -4,7 +4,7 @@ import fileSize from "filesize";
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Params} from "react-router";
-import {useAppContext} from "../app/AppContext";
+import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {Centered} from "../layout/Centered";
 import {IUploaderEvents} from "./interface";
 
@@ -36,7 +36,7 @@ export interface IUploaderProps extends Partial<DraggerProps> {
 }
 
 export const Uploader = ({name, limit, events, translation, action, params, ...props}: IUploaderProps) => {
-	const appContext = useAppContext();
+	const discoveryContext = useDiscoveryContext();
 	const [loading, setLoading] = useState(false);
 	const [status, setStatus] = useState<any>("active");
 	const [progress, setProgress] = useState(0);
@@ -80,7 +80,7 @@ export const Uploader = ({name, limit, events, translation, action, params, ...p
 			<Upload.Dragger
 				name={name}
 				listType={"text"}
-				action={appContext.link(action, params)}
+				action={discoveryContext.link(action, params)}
 				beforeUpload={onBeforeUpload}
 				onChange={onChange}
 				showUploadList={false}

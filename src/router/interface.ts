@@ -1,25 +1,21 @@
 import {Params} from "react-router";
 
-export interface IRouterContext {
-	params: Params
-
+export interface IRouteCallback {
 	/**
-	 * Set current params to be available through whole Router Context.
-	 *
-	 * @param params
-	 */
-	setParams(params: Params)
-
-	routes(callback: (route: (id: string, match: string, href: string) => void) => void): void
-
-	/**
-	 * Register a new route with the given id matching "match" and making href to "href".
-	 *
 	 * @param id id of the route
 	 * @param match match rule for the router (react router or whatever)
 	 * @param href template for generating links
 	 */
-	route(id: string, match: string, href: string): void
+	(id: string, match: string, href: string): void
+}
+
+export interface IRouterContext {
+	routes(callback: (route: IRouteCallback) => void): void
+
+	/**
+	 * Register a new route with the given id matching "match" and making href to "href".
+	 */
+	route: IRouteCallback
 
 	/**
 	 * Return match string for the given id or throws an error if unknown.

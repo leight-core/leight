@@ -1,14 +1,12 @@
 import {Spin} from "antd";
-import {FC, ReactNode, useEffect} from "react";
+import {FC, ReactNode} from "react";
+import {Helmet} from "react-helmet";
 import {useTranslation} from "react-i18next";
-import {useParams} from "react-router";
-import {useAppContext} from "../app/AppContext";
 import {Block} from "../block/Block";
 import {useBlockContext} from "../block/BlockContext";
 import {ScrollToTop} from "../component/ScrollToTop";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {useMenuContext} from "../menu/MenuContext";
-import {useRouterContext} from "../router/RouterContext";
 import {ViewContext} from "./ViewContext";
 
 export interface ICommonViewProps {
@@ -78,17 +76,18 @@ export const CommonView: FC<ICommonViewProps> = (
 		children,
 		blocked = false,
 	}) => {
+	const {t} = useTranslation();
 	const menuContext = useMenuContext();
 	const layoutContext = useLayoutContext();
-	useRouterContext().setParams(useParams());
-	useAppContext().useTitle(title ? title : name + ".title");
 	menuContext.useMenu(menu());
 	menuContext.useSelect(menuItems || [name]);
 	layoutContext.useEnableFullscreen(fullscreen, restore);
-	useEffect(() => layoutContext.setData({}), []);
 	return (
-		<Block locked={blocked}>
-			<CommonViewInternal children={children}/>
-		</Block>
+		<>
+			<Helmet title={t(title ? title : name + ".title")}/>
+			<Block locked={blocked}>
+				<CommonViewInternal children={children}/>
+			</Block>
+		</>
 	);
 };

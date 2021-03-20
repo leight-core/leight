@@ -1,6 +1,6 @@
 import {Card} from "antd";
 import {FC} from "react";
-import {useAppContext} from "../app/AppContext";
+import {Helmet} from "react-helmet";
 import {BackLink} from "../component/BackLink";
 import {useMenuContext} from "../menu/MenuContext";
 import {useModuleContext} from "../module/ModuleContext";
@@ -13,11 +13,13 @@ export interface IEditViewProps {
  */
 export const EditView: FC<IEditViewProps> = ({children}) => {
 	const moduleContext = useModuleContext();
-	useAppContext().useTitle(moduleContext.tid("edit.title"));
 	useMenuContext().useSelect([moduleContext.id + ".edit"]);
 	return (
-		<Card title={<><BackLink/>&nbsp;{moduleContext.t("edit.title")}</>}>
-			{children}
-		</Card>
+		<>
+			<Helmet title={moduleContext.tid("edit.title")}/>
+			<Card title={<><BackLink/>&nbsp;{moduleContext.t("edit.title")}</>}>
+				{children}
+			</Card>
+		</>
 	);
 };

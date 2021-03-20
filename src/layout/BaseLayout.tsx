@@ -13,7 +13,6 @@ export interface IBaseLayoutProps {
 const BaseLayoutInternal = ({children}) => {
 	const [fullscreen, setFullscreen] = useState<boolean>(false);
 	const [collapsed, setCollapsed] = useState<boolean>(false);
-	const [data, setData] = useState<any>();
 	const blockContext = useBlockContext();
 	return (
 		<LayoutContext.Provider
@@ -28,8 +27,6 @@ const BaseLayoutInternal = ({children}) => {
 				}, []),
 				collapsed,
 				setCollapsed,
-				data,
-				setData,
 			}}
 			children={
 				<Loader isLoading={blockContext.isBlocked()}>

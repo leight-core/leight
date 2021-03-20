@@ -1,6 +1,6 @@
 import {Card, Result} from "antd";
 import {FC} from "react";
-import {useAppContext} from "../app/AppContext";
+import {Helmet} from "react-helmet";
 import {BackLink} from "../component/BackLink";
 import {useMenuContext} from "../menu/MenuContext";
 import {useModuleContext} from "../module/ModuleContext";
@@ -21,17 +21,19 @@ export const DashboardView: FC<IDashboardViewProps> = (
 		children,
 	}) => {
 	const moduleContext = useModuleContext();
-	useAppContext().useTitle(moduleContext.tid("dashboard.title"));
 	useMenuContext().useSelect([moduleContext.id + ".dashboard"]);
 	return (
-		<Card title={<><BackLink/>&nbsp;{moduleContext.t("dashboard.title")}</>}>
-			<Result
-				status={"info"}
-				title={title || moduleContext.t("dashboard.title")}
-				subTitle={subTitle || moduleContext.t("dashboard.subtitle")}
-				icon={moduleContext.icon}
-				children={children}
-			/>
-		</Card>
+		<>
+			<Helmet title={moduleContext.tid("dashboard.title")}/>
+			<Card title={<><BackLink/>&nbsp;{moduleContext.t("dashboard.title")}</>}>
+				<Result
+					status={"info"}
+					title={title || moduleContext.t("dashboard.title")}
+					subTitle={subTitle || moduleContext.t("dashboard.subtitle")}
+					icon={moduleContext.icon}
+					children={children}
+				/>
+			</Card>
+		</>
 	);
 };

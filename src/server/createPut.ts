@@ -1,5 +1,5 @@
 import {Params} from "react-router";
-import {IAppContext} from "../app/interface";
+import {IDiscoveryContext} from "../discovery/interface";
 import {httpPut} from "./httpPut";
 import {IPutCallback} from "./interface";
 
@@ -11,10 +11,10 @@ import {IPutCallback} from "./interface";
 export function createPut<TRequest = any, TResponse = any>(link: string): IPutCallback<TRequest, TResponse> {
 	return (
 		data: TRequest,
-		appContext: IAppContext,
+		discoveryContext: IDiscoveryContext,
 		params?: Params,
 	) => httpPut<TRequest, TResponse>(
-		appContext.link(link, params),
+		discoveryContext.link(link, params),
 		data,
 	);
 }

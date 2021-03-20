@@ -2,7 +2,7 @@ import {LoadingOutlined, SearchOutlined} from "@ant-design/icons";
 import {Empty, Select, SelectProps} from "antd";
 import {FC, ReactNode, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {useAppContext} from "../app/AppContext";
+import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {ISearchRequest} from "../interface/interface";
 import {IPostCallback} from "../server/interface";
 import {ISearchItem} from "./interface";
@@ -24,7 +24,7 @@ export const Search: FC<ISearchProps> = (
 		render = (item => item.name),
 		...props
 	}) => {
-	const appContext = useAppContext();
+	const discoveryContext = useDiscoveryContext();
 	const {t} = useTranslation();
 	const [loading, setLoading] = useState<boolean>(false);
 	const [data, setData] = useState<ISearchItem[]>([]);
@@ -34,7 +34,7 @@ export const Search: FC<ISearchProps> = (
 		clearTimeout(id);
 		setLoading(true);
 		setId(setTimeout(() => {
-			search({search: value}, appContext)
+			search({search: value}, discoveryContext)
 				.on("response", data => {
 					setData(mapper(data));
 				})

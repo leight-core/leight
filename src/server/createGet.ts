@@ -1,5 +1,5 @@
 import {Params} from "react-router";
-import {IAppContext} from "../app/interface";
+import {IDiscoveryContext} from "../discovery/interface";
 import {httpGet} from "./httpGet";
 import {IGetCallback} from "./interface";
 
@@ -9,5 +9,5 @@ import {IGetCallback} from "./interface";
  * @param link Discovery link id.
  */
 export function createGet<TResponse = any>(link: string): IGetCallback<TResponse> {
-	return (appContext: IAppContext, params?: Params) => httpGet<TResponse>(appContext.link(link, params));
+	return (discoveryContext: IDiscoveryContext, params?: Params) => httpGet<TResponse>(discoveryContext.link(link, params));
 }

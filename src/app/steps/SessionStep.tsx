@@ -1,9 +1,11 @@
 import {UserOutlined} from "@ant-design/icons";
 import {FC} from "react";
+import {useDiscoveryContext} from "../../discovery/DiscoveryContext";
 import {LoaderStep} from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
 import {httpGet} from "../../server/httpGet";
-import {useAppContext} from "../AppContext";
+import {ISession} from "../../session/interface";
+import {useSessionContext} from "../../session/SessionContext";
 
 export interface ISessionStepProps {
 	/**
@@ -13,13 +15,14 @@ export interface ISessionStepProps {
 }
 
 export const SessionStep: FC<ISessionStepProps> = ({link = "public.user.login", ...props}) => {
-	const appContext = useAppContext();
+	const discoveryContext = useDiscoveryContext();
+	const sessionContext = useSessionContext();
 	const stepLoaderContext = useStepLoaderContext();
 	return (
 		<LoaderStep icon={<UserOutlined/>} {...props} onStep={() => {
-			const events = httpGet(appContext.link(link))
+			const events = httpGet<ISession>(discoveryContext.link(link))
 				.on("response", session => {
-					appContext.login(session);
+					sessionContext.events.handler("login")(session);
 					stepLoaderContext.next();
 				})
 				.on("http401", () => {

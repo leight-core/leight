@@ -1,7 +1,7 @@
 import {Table, TableProps} from "antd";
 import {useEffect, useState} from "react";
 import {Params, useParams} from "react-router";
-import {useAppContext} from "../app/AppContext";
+import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IPageIndex, IRecordItem} from "../interface/interface";
 import {IOnFetchPage} from "../server/interface";
 import {PageIndex} from "../utils/PageIndex";
@@ -21,7 +21,7 @@ export const BaseTable = <TItem extends IRecordItem = any>(
 		deps = [],
 		...props
 	}: IBaseTableProps<TItem>) => {
-	const appContext = useAppContext();
+	const discoveryContext = useDiscoveryContext();
 	const params = useParams();
 	const [page, setPage] = useState<IPageIndex>(PageIndex());
 	const [loading, setLoading] = useState<boolean>(true);
@@ -32,7 +32,7 @@ export const BaseTable = <TItem extends IRecordItem = any>(
 		return onFetchPage(
 			page,
 			size,
-			appContext,
+			discoveryContext,
 			{...params, ...onFetchParams},
 		)
 			.on("response", data => setPage(data))

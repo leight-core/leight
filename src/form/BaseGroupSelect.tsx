@@ -1,7 +1,7 @@
 import {Select, SelectProps} from "antd";
 import {useEffect, useState} from "react";
 import {Params} from "react-router";
-import {useAppContext} from "../app/AppContext";
+import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IGetCallback} from "../server/interface";
 import {useFormContext} from "./FormContext";
 import {IBaseGroupSelectOption} from "./interface";
@@ -27,10 +27,10 @@ export interface IBaseGroupSelectProps<TResponse> extends SelectProps<any> {
 
 export const BaseGroupSelect = <TResponse extends unknown = any>({fetch, fetchParams, mapper, deps = [], ...props}: IBaseGroupSelectProps<TResponse>) => {
 	const [options, setOptions] = useState<IBaseGroupSelectOption[]>([]);
-	const appContext = useAppContext();
+	const discoveryContext = useDiscoveryContext();
 	const formContext = useFormContext();
 	useEffect(() => {
-		const events = fetch(appContext, fetchParams)
+		const events = fetch(discoveryContext, fetchParams)
 			.on("request", () => {
 				formContext.block();
 			})

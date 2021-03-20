@@ -22,9 +22,9 @@ export interface IMenuContext {
 	 * Use the selected menu
 	 *
 	 * @param menu use the given menu
-	 * @param select optionally select item(s) of the menu
+	 * @param deps
 	 */
-	useMenu: (menu: ReactNode, select?: string[]) => void
+	useMenu: (menu: ReactNode) => void
 	/**
 	 * Directly set current menu.
 	 *

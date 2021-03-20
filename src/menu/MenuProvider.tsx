@@ -16,7 +16,7 @@ export const MenuProvider: FC<IMenuProviderProps> = ({children}) => {
 					const id = setTimeout(() => setCurrent(select), 0);
 					return () => clearTimeout(id);
 				}, []),
-				useMenu: menu => useEffect(() => setMenu(menu), []),
+				useMenu: (menu) => useEffect(() => setMenu(menu), []),
 				setMenu,
 			}}
 			children={children}

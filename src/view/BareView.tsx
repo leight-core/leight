@@ -1,6 +1,6 @@
 import {Card} from "antd";
 import {FC} from "react";
-import {useAppContext} from "../app/AppContext";
+import {Helmet} from "react-helmet";
 import {BackLink} from "../component/BackLink";
 import {useMenuContext} from "../menu/MenuContext";
 import {useModuleContext} from "../module/ModuleContext";
@@ -19,11 +19,13 @@ export interface IBareViewProps {
  */
 export const BareView: FC<IBareViewProps> = ({name, children}) => {
 	const moduleContext = useModuleContext();
-	useAppContext().useTitle(moduleContext.tid(name + ".title"));
 	useMenuContext().useSelect([moduleContext.id + "." + name]);
 	return (
-		<Card title={<><BackLink/>&nbsp;{moduleContext.t(name + ".title")}</>}>
-			{children}
-		</Card>
+		<>
+			<Helmet title={moduleContext.tid(name + ".title")}/>
+			<Card title={<><BackLink/>&nbsp;{moduleContext.t(name + ".title")}</>}>
+				{children}
+			</Card>
+		</>
 	);
 };

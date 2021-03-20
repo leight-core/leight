@@ -1,7 +1,7 @@
 import {Select, SelectProps} from "antd";
 import {useEffect, useState} from "react";
 import {Params} from "react-router";
-import {useAppContext} from "../app/AppContext";
+import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IGetCallback} from "../server/interface";
 import {useFormContext} from "./FormContext";
 import {useOptionalFormItemContext} from "./FormItemContext";
@@ -30,12 +30,12 @@ export interface IBaseSelectProps<TData> extends SelectProps<any> {
 export const BaseSelect = <TData extends unknown>({fetch, fetchParams, mapper, usePlaceholder, deps = [], ...props}: IBaseSelectProps<TData>) => {
 	const [options, setOptions] = useState<IBaseSelectOption[]>([]);
 	const [first, setFirst] = useState(true);
-	const appContext = useAppContext();
+	const discoveryContext = useDiscoveryContext();
 	const formContext = useFormContext();
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
 	useEffect(() => {
-		const events = fetch(appContext, fetchParams)
+		const events = fetch(discoveryContext, fetchParams)
 			.on("request", () => {
 				formContext.block();
 				setOptions([]);

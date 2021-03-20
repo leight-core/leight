@@ -1,9 +1,9 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import {useEffect} from "react";
+import {useSessionContext} from "../session/SessionContext";
 import {Random} from "../utils/Random";
 import {App} from "./App";
-import {useAppContext} from "./AppContext";
 
 export default {
 	title: "Leight/App/App",
@@ -11,9 +11,9 @@ export default {
 };
 
 const ExampleSite = () => {
-	const appContext = useAppContext();
+	const sessionContext = useSessionContext<{ site: string, login: string }>();
 	return (
-		<h1>Default Site! Logged in: {appContext.session.login || "unknown"}</h1>
+		<h1>Default Site! Logged in: {sessionContext?.session?.login || "unknown"}</h1>
 	);
 };
 

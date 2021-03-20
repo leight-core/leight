@@ -34,11 +34,11 @@ export interface ILayoutContext {
 	/**
 	 * Access to current arbitrary data on the layout; this is the place where some loaded piece of something could be hidden.
 	 */
-	data: any
+	// data: any
 	/**
 	 * Direct access to state function setting arbitrary data on the layout.
 	 *
 	 * @param data
 	 */
-	setData: (data: any) => void
+	// setData: (data: any) => void
 }

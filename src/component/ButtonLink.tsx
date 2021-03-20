@@ -3,7 +3,6 @@ import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {Params} from "react-router";
 import {Link} from "react-router-dom";
-import {useLayoutContext} from "../layout/LayoutContext";
 import {useRouterContext} from "../router/RouterContext";
 
 export interface IButtonLinkProps extends ButtonProps {
@@ -24,10 +23,9 @@ export interface IButtonLinkProps extends ButtonProps {
 export const ButtonLink: FC<IButtonLinkProps> = ({href, title, params, ...props}) => {
 	const {t} = useTranslation();
 	const routerContext = useRouterContext();
-	const layoutContext = useLayoutContext();
 	try {
 		return (
-			<Link to={routerContext.generate(href, {...layoutContext.data, ...params})}>
+			<Link to={routerContext.generate(href, params)}>
 				<Button
 					type={"primary"}
 					children={title ? t(title) : null}
