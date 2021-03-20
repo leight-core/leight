@@ -1,14 +1,10 @@
 import {Layout} from "antd";
 import {FC, useEffect, useState} from "react";
-import {Block} from "../block/Block";
 import {useBlockContext} from "../block/BlockContext";
+import {BlockContextProvider} from "../block/BlockContextProvider";
 import {Loader} from "../component/Loader";
 import {useMenuContext} from "../menu/MenuContext";
-import {MenuProvider} from "../menu/MenuProvider";
 import {LayoutContext} from "./LayoutContext";
-
-export interface IBaseLayoutProps {
-}
 
 const BaseLayoutInternal = ({children}) => {
 	const [fullscreen, setFullscreen] = useState<boolean>(false);
@@ -37,12 +33,13 @@ const BaseLayoutInternal = ({children}) => {
 	);
 };
 
+export interface IBaseLayoutProps {
+}
+
 export const BaseLayout: FC<IBaseLayoutProps> = ({children}) => {
 	return (
-		<Block>
-			<MenuProvider>
-				<BaseLayoutInternal children={children}/>
-			</MenuProvider>
-		</Block>
+		<BlockContextProvider>
+			<BaseLayoutInternal children={children}/>
+		</BlockContextProvider>
 	);
 };

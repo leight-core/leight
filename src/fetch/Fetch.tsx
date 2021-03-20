@@ -1,6 +1,6 @@
 import {Result} from "antd";
 import {Dispatch, ReactNode, SetStateAction, useEffect, useState} from "react";
-import {Loader} from "./Loader";
+import {Loader} from "../component/Loader";
 
 export interface IFetchProps<TData = any> {
 	/**

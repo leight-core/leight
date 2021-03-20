@@ -2,8 +2,8 @@ import {Spin} from "antd";
 import {FC, ReactNode} from "react";
 import {Helmet} from "react-helmet";
 import {useTranslation} from "react-i18next";
-import {Block} from "../block/Block";
 import {useBlockContext} from "../block/BlockContext";
+import {BlockContextProvider} from "../block/BlockContextProvider";
 import {ScrollToTop} from "../component/ScrollToTop";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {useMenuContext} from "../menu/MenuContext";
@@ -85,9 +85,9 @@ export const CommonView: FC<ICommonViewProps> = (
 	return (
 		<>
 			<Helmet title={t(title ? title : name + ".title")}/>
-			<Block locked={blocked}>
+			<BlockContextProvider locked={blocked}>
 				<CommonViewInternal children={children}/>
-			</Block>
+			</BlockContextProvider>
 		</>
 	);
 };

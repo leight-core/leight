@@ -6,6 +6,7 @@ import {BrowserRouter} from "react-router-dom";
 import {ClientContextProvider} from "../client/ClientContextProvider";
 import {DiscoveryContextProvider} from "../discovery/DiscoveryContextProvider";
 import {StepLoader} from "../loader/StepLoader";
+import {MenuProvider} from "../menu/MenuProvider";
 import {RouterContextProvider} from "../router/RouterContextProvider";
 import {useSessionContext} from "../session/SessionContext";
 import {SessionContextProvider} from "../session/SessionContextProvider";
@@ -65,26 +66,28 @@ const AppInternal = (
 			<ClientContextProvider>
 				<DiscoveryContextProvider>
 					<SessionContextProvider>
-						<BrowserRouter>
-							<Helmet titleTemplate={titleTemplate}/>
-							{appContext.isReady ?
-								<Suspense fallback={<LoaderView/>}>
-									<SiteSelector sites={sites}/>
-								</Suspense> :
-								<Result icon={icon || <AntDesignOutlined/>}>
-									<div style={{display: "flex", justifyContent: "center"}}>
-										<StepLoader steps={[
-											<InitialStep key={"initial"}/>,
-											<ClientStep key={"client"} href={clientHref}/>,
-											<DiscoveryStep key={"discovery"}/>,
-											<TranslationStep key={"translation"}/>,
-											<SessionStep key={"session"}/>,
-											<FinishStep key={"finish"}/>,
-										]}/>
-									</div>
-								</Result>
-							}
-						</BrowserRouter>
+						<MenuProvider>
+							<BrowserRouter>
+								<Helmet titleTemplate={titleTemplate}/>
+								{appContext.isReady ?
+									<Suspense fallback={<LoaderView/>}>
+										<SiteSelector sites={sites}/>
+									</Suspense> :
+									<Result icon={icon || <AntDesignOutlined/>}>
+										<div style={{display: "flex", justifyContent: "center"}}>
+											<StepLoader steps={[
+												<InitialStep key={"initial"}/>,
+												<ClientStep key={"client"} href={clientHref}/>,
+												<DiscoveryStep key={"discovery"}/>,
+												<TranslationStep key={"translation"}/>,
+												<SessionStep key={"session"}/>,
+												<FinishStep key={"finish"}/>,
+											]}/>
+										</div>
+									</Result>
+								}
+							</BrowserRouter>
+						</MenuProvider>
 					</SessionContextProvider>
 				</DiscoveryContextProvider>
 			</ClientContextProvider>

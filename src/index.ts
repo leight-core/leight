@@ -4,6 +4,7 @@ export * from "./component";
 export * from "./date";
 export * from "./discovery";
 export * from "./event";
+export * from "./fetch";
 export * from "./form";
 export * from "./hook";
 export * from "./icon";

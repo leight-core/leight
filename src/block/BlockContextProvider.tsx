@@ -1,14 +1,14 @@
 import {FC, useState} from "react";
 import {BlockContext} from "./BlockContext";
 
-export interface IBlockProps {
+export interface IBlockContextProviderProps {
 	/**
 	 * Default blocking state; "false" if not specified.
 	 */
 	locked?: boolean
 }
 
-export const Block: FC<IBlockProps> = ({locked = false, children}) => {
+export const BlockContextProvider: FC<IBlockContextProviderProps> = ({locked = false, children}) => {
 	const [lock, setLock] = useState<boolean>(locked);
 	const [count, setCount] = useState<number>(0);
 	const isBlocking = () => count > 0 || lock;
