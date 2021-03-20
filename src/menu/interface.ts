@@ -40,8 +40,4 @@ export interface IMenuContext {
 	 * @param menu
 	 */
 	setMenu: (menu: ReactNode) => void
-	/**
-	 * Force menu re-render.
-	 */
-	rerender: () => void
 }
