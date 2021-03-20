@@ -1,3 +1,4 @@
+import {ReactNode} from "react";
 import {Params} from "react-router";
 
 export interface IModuleContext {
@@ -8,7 +9,7 @@ export interface IModuleContext {
 	/**
 	 * Default module icon.
 	 */
-	readonly icon: JSX.Element
+	readonly icon: ReactNode
 	/**
 	 * Generate module link using module ID as a prefix
 	 */

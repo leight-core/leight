@@ -1,5 +1,5 @@
 import {TFunction} from "i18next";
-import {createContext} from "react";
+import {createContext, ReactNode} from "react";
 import {IRouterContext} from "../router/interface";
 import {useContext} from "../utils/useContext";
 import {IModuleContext} from "./interface";
@@ -29,7 +29,7 @@ export const useModuleContext = () => useContext<IModuleContext>(ModuleContext, 
  * @param module
  * @param t
  */
-export const createModule = (id: string, icon: JSX.Element, t: TFunction, routerContext: IRouterContext): IModuleContext => ({
+export const createModule = (id: string, icon: ReactNode, t: TFunction, routerContext: IRouterContext): IModuleContext => ({
 	id,
 	icon,
 	generate: (link, params) => routerContext.generate(id + "." + link, params),
