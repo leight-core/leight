@@ -13,6 +13,7 @@ export * from "./layout";
 export * from "./list";
 export * from "./loader";
 export * from "./menu";
+export * from "./param";
 export * from "./router";
 export * from "./server";
 export * from "./table";

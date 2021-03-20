@@ -1,18 +1,6 @@
 import {ReactNode} from "react";
-import {IParams} from "../interface/interface";
 
 export interface IMenuContext {
-	/**
-	 * An access to current params of the menu (read only).
-	 */
-	readonly params?: IParams
-	/**
-	 * When a menu needs generate a link, params are the way how to provide it
-	 * to the menu items.
-	 *
-	 * If update is true, re-render will be forced. Default to false.
-	 */
-	setParams: (params: IParams, update?: boolean) => void
 	/**
 	 * Currently selected menu items.
 	 */
@@ -40,5 +28,4 @@ export interface IMenuContext {
 	 * @param menu
 	 */
 	setMenu: (menu: ReactNode) => void
-	reload: () => void
 }

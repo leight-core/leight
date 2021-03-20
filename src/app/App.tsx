@@ -7,6 +7,7 @@ import {ClientContextProvider} from "../client/ClientContextProvider";
 import {DiscoveryContextProvider} from "../discovery/DiscoveryContextProvider";
 import {StepLoader} from "../loader/StepLoader";
 import {MenuProvider} from "../menu/MenuProvider";
+import {ParamContextProvider} from "../param/ParamContextProvider";
 import {RouterContextProvider} from "../router/RouterContextProvider";
 import {useSessionContext} from "../session/SessionContext";
 import {SessionContextProvider} from "../session/SessionContextProvider";
@@ -66,28 +67,30 @@ const AppInternal = (
 			<ClientContextProvider>
 				<DiscoveryContextProvider>
 					<SessionContextProvider>
-						<MenuProvider>
-							<BrowserRouter>
-								<Helmet titleTemplate={titleTemplate}/>
-								{appContext.isReady ?
-									<Suspense fallback={<LoaderView/>}>
-										<SiteSelector sites={sites}/>
-									</Suspense> :
-									<Result icon={icon || <AntDesignOutlined/>}>
-										<div style={{display: "flex", justifyContent: "center"}}>
-											<StepLoader steps={[
-												<InitialStep key={"initial"}/>,
-												<ClientStep key={"client"} href={clientHref}/>,
-												<DiscoveryStep key={"discovery"}/>,
-												<TranslationStep key={"translation"}/>,
-												<SessionStep key={"session"}/>,
-												<FinishStep key={"finish"}/>,
-											]}/>
-										</div>
-									</Result>
-								}
-							</BrowserRouter>
-						</MenuProvider>
+						<ParamContextProvider>
+							<MenuProvider>
+								<BrowserRouter>
+									<Helmet titleTemplate={titleTemplate}/>
+									{appContext.isReady ?
+										<Suspense fallback={<LoaderView/>}>
+											<SiteSelector sites={sites}/>
+										</Suspense> :
+										<Result icon={icon || <AntDesignOutlined/>}>
+											<div style={{display: "flex", justifyContent: "center"}}>
+												<StepLoader steps={[
+													<InitialStep key={"initial"}/>,
+													<ClientStep key={"client"} href={clientHref}/>,
+													<DiscoveryStep key={"discovery"}/>,
+													<TranslationStep key={"translation"}/>,
+													<SessionStep key={"session"}/>,
+													<FinishStep key={"finish"}/>,
+												]}/>
+											</div>
+										</Result>
+									}
+								</BrowserRouter>
+							</MenuProvider>
+						</ParamContextProvider>
 					</SessionContextProvider>
 				</DiscoveryContextProvider>
 			</ClientContextProvider>
