@@ -19,7 +19,10 @@ export const MenuProvider: FC<IMenuProviderProps> = ({children}) => {
 					return () => clearTimeout(id);
 				}, []),
 				useMenu: (menu, name) => useEffect(() => {
-					!name && setMenu(menu);
+					if (!name) {
+						setMenu(menu);
+						menuKey.current = undefined;
+					}
 					if (name && menuKey.current !== name) {
 						setMenu(menu);
 						menuKey.current = name;
