@@ -1,23 +1,25 @@
 import {Card} from "antd";
 import {FC} from "react";
 import {Helmet} from "react-helmet";
+import {useTranslation} from "react-i18next";
 import {BackLink} from "../component/BackLink";
-import {useMenuContext} from "../menu/MenuContext";
-import {useModuleContext} from "../module/ModuleContext";
 
 export interface IEditViewProps {
+	/**
+	 * Base translation key.
+	 */
+	translation: string
 }
 
 /**
  * Common edit view.
  */
-export const EditView: FC<IEditViewProps> = ({children}) => {
-	const moduleContext = useModuleContext();
-	useMenuContext().useSelect([moduleContext.id + ".edit"]);
+export const EditView: FC<IEditViewProps> = ({translation, children}) => {
+	const {t} = useTranslation();
 	return (
 		<>
-			<Helmet title={moduleContext.tid("edit.title")}/>
-			<Card title={<><BackLink/>&nbsp;{moduleContext.t("edit.title")}</>}>
+			<Helmet title={t(translation + ".edit.title")}/>
+			<Card title={<><BackLink/>&nbsp;{t(translation + ".edit.title")}</>}>
 				{children}
 			</Card>
 		</>

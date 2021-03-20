@@ -7,8 +7,6 @@ import {SubmitIcon} from "../icon/SubmitIcon";
 import {Centered} from "../layout/Centered";
 import {LoaderStep} from "../loader/LoaderStep";
 import {useStepLoaderContext} from "../loader/StepLoaderContext";
-import {createModule, ModuleContext} from "../module/ModuleContext";
-import {IRouterContext} from "../router/interface";
 import {StoryApp} from "../storybook/StoryApp";
 import {Wizard} from "./Wizard";
 import {useWizardContext} from "./WizardContext";
@@ -110,15 +108,13 @@ export const Default = () => {
 					<Button size={"large"} type={"primary"} onClick={() => setFinish(false)} children={"Reset"}/>
 				</Centered>
 			</Result> :
-			<ModuleContext.Provider value={createModule("story", <SubmitIcon/>, t => t, {} as unknown as IRouterContext)}>
-				<StoryApp>
-					<Wizard name={"story"} events={events} steps={[
-						{id: "first", component: <FirstStep/>},
-						{id: "second", component: <SecondStep/>},
-						{id: "third", component: <ThirdStep/>},
-					]} defaultDependencies={{select: [{label: "foo", value: "bar"},]}}/>
-				</StoryApp>
-			</ModuleContext.Provider>
+			<StoryApp>
+				<Wizard name={"story"} events={events} steps={[
+					{id: "first", component: <FirstStep/>},
+					{id: "second", component: <SecondStep/>},
+					{id: "third", component: <ThirdStep/>},
+				]} defaultDependencies={{select: [{label: "foo", value: "bar"},]}}/>
+			</StoryApp>
 	);
 };
 
@@ -136,22 +132,20 @@ export const WithPrefetch = () => {
 					<Button size={"large"} type={"primary"} onClick={() => setFinish(false)} children={"Reset"}/>
 				</Centered>
 			</Result> :
-			<ModuleContext.Provider value={createModule("story", <SubmitIcon/>, t => t, {} as unknown as IRouterContext)}>
-				<StoryApp>
-					<Wizard
-						name={"story"}
-						events={events}
-						steps={[
-							{id: "first", component: <FirstStep/>},
-							{id: "second", component: <SecondStep/>},
-							{id: "third", component: <ThirdStep/>},
-						]}
-						loaders={[
-							<SomeLoader key={"SomeLoader"}/>,
-							<LoaderOfSomethingElse key={"LoaderOfSomethingElse"}/>,
-						]}
-					/>
-				</StoryApp>
-			</ModuleContext.Provider>
+			<StoryApp>
+				<Wizard
+					name={"story"}
+					events={events}
+					steps={[
+						{id: "first", component: <FirstStep/>},
+						{id: "second", component: <SecondStep/>},
+						{id: "third", component: <ThirdStep/>},
+					]}
+					loaders={[
+						<SomeLoader key={"SomeLoader"}/>,
+						<LoaderOfSomethingElse key={"LoaderOfSomethingElse"}/>,
+					]}
+				/>
+			</StoryApp>
 	);
 };

@@ -1,23 +1,25 @@
 import {Card} from "antd";
 import {FC} from "react";
 import {Helmet} from "react-helmet";
+import {useTranslation} from "react-i18next";
 import {BackLink} from "../component/BackLink";
-import {useMenuContext} from "../menu/MenuContext";
-import {useModuleContext} from "../module/ModuleContext";
 
 export interface IListViewProps {
+	/**
+	 * Base translation key.
+	 */
+	translation: string
 }
 
 /**
  * Common list view used to make a listing.
  */
-export const ListView: FC<IListViewProps> = ({children}) => {
-	const moduleContext = useModuleContext();
-	useMenuContext().useSelect([moduleContext.id + ".list"]);
+export const ListView: FC<IListViewProps> = ({translation, children}) => {
+	const {t} = useTranslation();
 	return (
 		<>
-			<Helmet title={moduleContext.tid("list.title")}/>
-			<Card title={<><BackLink/>&nbsp;{moduleContext.t("list.title")}</>}>
+			<Helmet title={t(translation + ".list.title")}/>
+			<Card title={<><BackLink/>&nbsp;{t(translation + ".list.title")}</>}>
 				{children}
 			</Card>
 		</>

@@ -1,23 +1,25 @@
 import {Card} from "antd";
 import {FC} from "react";
 import {Helmet} from "react-helmet";
+import {useTranslation} from "react-i18next";
 import {BackLink} from "../component/BackLink";
-import {useMenuContext} from "../menu/MenuContext";
-import {useModuleContext} from "../module/ModuleContext";
 
 export interface IHomeViewProps {
+	/**
+	 * Base translation key.
+	 */
+	translation: string
 }
 
 /**
  * Common home view - just to make same shape for all views for showing home of things.
  */
-export const HomeView: FC<IHomeViewProps> = ({children}) => {
-	const moduleContext = useModuleContext();
-	useMenuContext().useSelect([moduleContext.id + ".home"]);
+export const HomeView: FC<IHomeViewProps> = ({translation, children}) => {
+	const {t} = useTranslation();
 	return (
 		<>
-			<Helmet title={moduleContext.tid("home.title")}/>
-			<Card title={<><BackLink/>&nbsp;{moduleContext.t("home.title")}</>}>
+			<Helmet title={t(translation + ".home.title")}/>
+			<Card title={<><BackLink/>&nbsp;{t(translation + ".home.title")}</>}>
 				{children}
 			</Card>
 		</>

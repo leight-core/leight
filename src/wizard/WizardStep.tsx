@@ -1,18 +1,18 @@
 import {Divider} from "antd";
 import {FC} from "react";
+import {useTranslation} from "react-i18next";
 import {ScrollToTop} from "../component/ScrollToTop";
-import {useModuleContext} from "../module/ModuleContext";
 
 export interface IWizardStepProps {
 	title: string
 }
 
 export const WizardStep: FC<IWizardStepProps> = ({title, children}) => {
-	const moduleContext = useModuleContext();
+	const {t} = useTranslation();
 	return (
 		<>
 			<ScrollToTop/>
-			<h2>{moduleContext.t(title)}</h2>
+			<h2>{t(title)}</h2>
 			<Divider type={"horizontal"}/>
 			{children}
 		</>

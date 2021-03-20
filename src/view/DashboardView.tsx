@@ -1,13 +1,17 @@
 import {Card, Result} from "antd";
-import {FC} from "react";
+import {FC, ReactNode} from "react";
 import {Helmet} from "react-helmet";
+import {useTranslation} from "react-i18next";
 import {BackLink} from "../component/BackLink";
-import {useMenuContext} from "../menu/MenuContext";
-import {useModuleContext} from "../module/ModuleContext";
 
 export interface IDashboardViewProps {
-	title?: string | JSX.Element
-	subTitle?: string | JSX.Element
+	/**
+	 * Base translation key.
+	 */
+	translation: string
+	icon?: ReactNode
+	title?: ReactNode
+	subTitle?: ReactNode
 }
 
 /**
@@ -16,21 +20,22 @@ export interface IDashboardViewProps {
  */
 export const DashboardView: FC<IDashboardViewProps> = (
 	{
+		translation,
+		icon,
 		title,
 		subTitle,
 		children,
 	}) => {
-	const moduleContext = useModuleContext();
-	useMenuContext().useSelect([moduleContext.id + ".dashboard"]);
+	const {t} = useTranslation();
 	return (
 		<>
-			<Helmet title={moduleContext.tid("dashboard.title")}/>
-			<Card title={<><BackLink/>&nbsp;{moduleContext.t("dashboard.title")}</>}>
+			<Helmet title={t(translation + ".dashboard.title")}/>
+			<Card title={<><BackLink/>&nbsp;{t(translation + ".dashboard.title")}</>}>
 				<Result
 					status={"info"}
-					title={title || moduleContext.t("dashboard.title")}
-					subTitle={subTitle || moduleContext.t("dashboard.subtitle")}
-					icon={moduleContext.icon}
+					title={title || t(translation + ".dashboard.title")}
+					subTitle={subTitle || t(translation + ".dashboard.subtitle")}
+					icon={icon}
 					children={children}
 				/>
 			</Card>

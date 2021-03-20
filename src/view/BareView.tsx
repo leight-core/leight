@@ -1,15 +1,14 @@
 import {Card} from "antd";
 import {FC} from "react";
 import {Helmet} from "react-helmet";
+import {useTranslation} from "react-i18next";
 import {BackLink} from "../component/BackLink";
-import {useMenuContext} from "../menu/MenuContext";
-import {useModuleContext} from "../module/ModuleContext";
 
 export interface IBareViewProps {
 	/**
-	 * Name uses internally module prefix
+	 * Translation key for the bare view,
 	 */
-	name: string
+	translation: string
 }
 
 /**
@@ -17,13 +16,12 @@ export interface IBareViewProps {
  *
  * This should be good starting point for very custom views.
  */
-export const BareView: FC<IBareViewProps> = ({name, children}) => {
-	const moduleContext = useModuleContext();
-	useMenuContext().useSelect([moduleContext.id + "." + name]);
+export const BareView: FC<IBareViewProps> = ({translation, children}) => {
+	const {t} = useTranslation();
 	return (
 		<>
-			<Helmet title={moduleContext.tid(name + ".title")}/>
-			<Card title={<><BackLink/>&nbsp;{moduleContext.t(name + ".title")}</>}>
+			<Helmet title={t(translation + ".title")}/>
+			<Card title={<><BackLink/>&nbsp;{t(translation + ".title")}</>}>
 				{children}
 			</Card>
 		</>
