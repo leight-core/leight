@@ -1,4 +1,5 @@
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
+import {IParams} from "../interface/interface";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {useRouterContext} from "../router/RouterContext";
 import {IServerEvents, IUpdateCallback} from "../server/interface";
@@ -15,6 +16,10 @@ export interface ICommonFormProps<TFormValues = any, TRequest = TFormValues, TRe
 	 * What to do on form submit.
 	 */
 	post: IUpdateCallback<TRequest, TResponse>
+	/**
+	 * Optional POSt param.
+	 */
+	postParams?: IParams
 	/**
 	 * Map form data to data being sent to server.
 	 */
@@ -36,6 +41,7 @@ export interface ICommonFormProps<TFormValues = any, TRequest = TFormValues, TRe
 export const CommonForm = <TFormValues extends any = any, TRequest extends any = TFormValues, TResponse extends any = TRequest>(
 	{
 		post,
+		postParams,
 		postMapper = values => values as any,
 		initialMapper = () => null as any,
 		onSuccess = () => null,
@@ -50,7 +56,7 @@ export const CommonForm = <TFormValues extends any = any, TRequest extends any =
 			colon={false}
 			onSubmit={(values, formContext) => {
 				layoutContext.blockContext.block();
-				post(postMapper(values), discoveryContext)
+				post(postMapper(values), discoveryContext, postParams)
 					.chain(formContext.events())
 					.on("response", data => {
 						onSuccess(navigate, values, data);

@@ -1,6 +1,5 @@
-import {Params} from "react-router";
 import {IDiscoveryContext} from "../discovery/interface";
-import {IPageIndex} from "../interface/interface";
+import {IPageIndex, IParams} from "../interface/interface";
 import {httpPost} from "./httpPost";
 import {IOnFetchPage, IPage} from "./interface";
 
@@ -14,7 +13,7 @@ export function createFetchPage<TItem = any>(link: string): IOnFetchPage<TItem> 
 		page: number,
 		limit: number,
 		discoveryContext: IDiscoveryContext,
-		params?: Params,
+		params?: IParams,
 	) => httpPost<IPage, IPageIndex>(
 		discoveryContext.link(link, params),
 		{

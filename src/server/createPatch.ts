@@ -1,5 +1,5 @@
-import {Params} from "react-router";
 import {IDiscoveryContext} from "../discovery/interface";
+import {IParams} from "../interface/interface";
 import {httpPatch} from "./httpPatch";
 import {IPatchCallback} from "./interface";
 
@@ -12,7 +12,7 @@ export function createPatch<TRequest = any, TResponse = any>(link: string): IPat
 	return (
 		data: TRequest,
 		discoveryContext: IDiscoveryContext,
-		params?: Params,
+		params?: IParams,
 	) => httpPatch<TRequest, TResponse>(
 		discoveryContext.link(link, params),
 		data,

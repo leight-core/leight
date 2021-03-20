@@ -1,5 +1,5 @@
-import {Params} from "react-router";
 import {IDiscoveryContext} from "../discovery/interface";
+import {IParams} from "../interface/interface";
 import {httpPost} from "./httpPost";
 import {IPostCallback} from "./interface";
 
@@ -12,7 +12,7 @@ export function createPost<TRequest = any, TResponse = any>(link: string): IPost
 	return (
 		data: TRequest,
 		discoveryContext: IDiscoveryContext,
-		params?: Params,
+		params?: IParams,
 	) => httpPost<TRequest, TResponse>(
 		discoveryContext.link(link, params),
 		data,

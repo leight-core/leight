@@ -1,8 +1,7 @@
 import {AxiosError} from "axios";
-import {Params} from "react-router";
 import {IDiscoveryContext} from "../discovery/interface";
 import {IEventHandlers, IEventResult, IEvents} from "../event/interface";
-import {IPageIndex} from "../interface/interface";
+import {IPageIndex, IParams} from "../interface/interface";
 
 /**
  * Available http events.
@@ -41,7 +40,7 @@ export interface IServerEvents<TResponse = any> extends IEvents<IServerEventType
 /**
  * Callback used when a new page is required.
  */
-export type IOnFetchPage<TItem = any> = (page: number, size: number, discoveryContext: IDiscoveryContext, params?: Params) => IServerEvents<IPageIndex<TItem>>
+export type IOnFetchPage<TItem = any> = (page: number, size: number, discoveryContext: IDiscoveryContext, params?: IParams) => IServerEvents<IPageIndex<TItem>>
 
 export interface IPage {
 	page: number
@@ -51,7 +50,7 @@ export interface IPage {
 export interface IGetCallback<TResponse = any> {
 	(
 		discoveryContext: IDiscoveryContext,
-		params?: Params,
+		params?: IParams,
 	): IServerEvents<TResponse>;
 }
 
@@ -62,7 +61,7 @@ export interface IUpdateCallback<TRequest = any, TResponse = any> {
 	(
 		data: TRequest,
 		discoveryContext: IDiscoveryContext,
-		params?: Params,
+		params?: IParams,
 	): IServerEvents<TResponse>
 }
 
@@ -78,6 +77,6 @@ export interface IPatchCallback<TRequest = any, TResponse = any> extends IUpdate
 export interface IDeleteCallback<TResponse = any> {
 	(
 		discoveryContext: IDiscoveryContext,
-		params?: Params,
+		params?: IParams,
 	): IServerEvents<TResponse>
 }
