@@ -14,7 +14,7 @@ export interface IMenuItemProps extends Partial<MenuItemProps> {
 	/**
 	 * Menu icon
 	 */
-	icon: JSX.Element
+	icon: ReactNode
 	/**
 	 * Optional href (link id) if id should not be used.
 	 */
@@ -43,11 +43,7 @@ export const MenuItem: FC<IMenuItemProps> = ({id, icon, href, params, ...props})
  * Basically it has the same behavior as MenuItem component.
  */
 export function CreateMenuItem(id: string, icon: ReactNode, params?: Params) {
-	const {t} = useTranslation();
-	const cleverLink = useCleverLink(id, params);
 	return (
-		<Menu.Item icon={icon} key={id} disabled={!cleverLink.enable}>
-			<Link to={cleverLink.link} children={t(id + ".menu")}/>
-		</Menu.Item>
+		<MenuItem id={id} key={id} icon={icon} params={params}/>
 	);
 }
