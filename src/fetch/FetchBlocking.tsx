@@ -2,7 +2,8 @@ import {message} from "antd";
 import {Params} from "react-router";
 import {useBlockContext} from "../block/BlockContext";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {IGetCallback} from "../server/interface";
+import {IGetCallback, IServerEvents} from "../server/interface";
+import {ServerEvents} from "../server/ServerEvents";
 import {Fetch, IFetchProps} from "./Fetch";
 
 export interface IFetchBlockingProps<TResponse = any> extends Omit<IFetchProps<TResponse>, "fetch"> {
@@ -31,9 +32,10 @@ export interface IFetchBlockingProps<TResponse = any> extends Omit<IFetchProps<T
 	 * Defaults to false.
 	 */
 	unblock?: boolean
+	events?: IServerEvents<TResponse>
 }
 
-export const FetchBlocking = <TResponse extends any>({translation, fetch, params, deps = [], block = false, unblock = false, children, ...props}: IFetchBlockingProps<TResponse>) => {
+export const FetchBlocking = <TResponse extends any>({translation, fetch, params, events = ServerEvents(), deps = [], block = false, unblock = false, children, ...props}: IFetchBlockingProps<TResponse>) => {
 	const discoveryContext = useDiscoveryContext();
 	const blockContext = useBlockContext();
 	return (
@@ -43,7 +45,7 @@ export const FetchBlocking = <TResponse extends any>({translation, fetch, params
 				 * Setting data to undefined forces component to render loading.
 				 */
 				setData(undefined);
-				const events = fetch(discoveryContext, params)
+				const current = fetch(discoveryContext, params)
 					.on("request", () => {
 						block && blockContext.block();
 					})
@@ -56,8 +58,9 @@ export const FetchBlocking = <TResponse extends any>({translation, fetch, params
 					})
 					.on("done", () => {
 						blockContext.unblock(unblock);
-					});
-				return () => events.dismiss();
+					})
+					.chain(events);
+				return () => current.dismiss();
 			}}
 			children={children}
 			deps={[params].concat(deps)}
