@@ -15,6 +15,6 @@ export const UpdateMenuParams = <TParams extends IParams>({params, children}: IU
 	const menuContext = useMenuContext();
 	useEffect(() => {
 		menuContext.setParams(params);
-	}, [params]);
+	}, []);
 	return <>{children}</>;
 };
