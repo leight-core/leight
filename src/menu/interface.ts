@@ -1,18 +1,16 @@
-/**
- * Currently selected menu items, menu and other cool menu stuff.
- */
 import {ReactNode} from "react";
+import {Params} from "react-router";
 
 export interface IMenuContext {
 	/**
 	 * An access to current params of the menu (read only).
 	 */
-	readonly params?: any
+	readonly params?: Params
 	/**
 	 * When a menu needs generate a link, params are the way how to provide it
 	 * to the menu items.
 	 */
-	setParams: (params: any) => void
+	setParams: (params: Params) => void
 	/**
 	 * Currently selected menu items.
 	 */

@@ -1,4 +1,5 @@
 import {FC, ReactNode, useEffect, useState} from "react";
+import {Params} from "react-router";
 import {MenuContext} from "./MenuContext";
 
 export interface IMenuProviderProps {
@@ -6,7 +7,7 @@ export interface IMenuProviderProps {
 
 export const MenuProvider: FC<IMenuProviderProps> = ({children}) => {
 	const [current, setCurrent] = useState<string[]>([]);
-	const [params, setParams] = useState<any>([]);
+	const [params, setParams] = useState<Params>({});
 	const [menu, setMenu] = useState<ReactNode>(null);
 	return (
 		<MenuContext.Provider
