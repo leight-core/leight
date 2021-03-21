@@ -1,3 +1,4 @@
+import {AxiosRequestConfig} from "axios";
 import {IDiscoveryContext} from "../discovery/interface";
 import {IParams} from "../interface/interface";
 import {httpPost} from "./httpPost";
@@ -13,8 +14,10 @@ export function createPost<TRequest = any, TResponse = any>(link: string): IPost
 		data: TRequest,
 		discoveryContext: IDiscoveryContext,
 		params?: IParams,
+		config?: AxiosRequestConfig,
 	) => httpPost<TRequest, TResponse>(
 		discoveryContext.link(link, params),
 		data,
+		config,
 	);
 }

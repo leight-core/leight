@@ -1,3 +1,4 @@
+import {AxiosRequestConfig} from "axios";
 import {IDiscoveryContext} from "../discovery/interface";
 import {IParams} from "../interface/interface";
 import {httpPut} from "./httpPut";
@@ -13,8 +14,10 @@ export function createPut<TRequest = any, TResponse = any>(link: string): IPutCa
 		data: TRequest,
 		discoveryContext: IDiscoveryContext,
 		params?: IParams,
+		config?: AxiosRequestConfig,
 	) => httpPut<TRequest, TResponse>(
 		discoveryContext.link(link, params),
 		data,
+		config,
 	);
 }
