@@ -12,7 +12,7 @@ export const BaseMenu: FC<IBaseMenuProps> = ({children}) => {
 			mode={"inline"}
 			selectable={true}
 			selectedKeys={menuContext.current}
-			style={{height: "100vh"}}
+			style={{minHeight: "100vh"}}
 			children={children}
 		/>
 	);
