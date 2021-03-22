@@ -15,8 +15,7 @@ export const Sider: FC<ISiderProps> = (
 	return (
 		layoutContext.fullwidth ? null :
 			<Layout.Sider
-				collapsible
-				width={220}
+				width={layoutContext.siderSize}
 				style={{
 					overflow: "auto",
 					height: "100vh",

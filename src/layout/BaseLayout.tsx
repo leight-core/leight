@@ -8,12 +8,15 @@ import {LayoutContext} from "./LayoutContext";
 
 const BaseLayoutInternal = ({children}) => {
 	const [fullwidth, setFullwidth] = useState<boolean>(false);
+	const [siderSize, setSiderSize] = useState<number>(240);
 	const blockContext = useBlockContext();
 	return (
 		<LayoutContext.Provider
 			value={{
 				blockContext,
 				menuContext: useMenuContext(),
+				siderSize,
+				setSiderSize,
 				fullwidth,
 				useEnableFullwidth: (enable = true, restore = true) => useEffect(() => {
 					setFullwidth(enable);

@@ -1,13 +1,13 @@
 import {Layout, PageHeader} from "antd";
-import {FC, Suspense} from "react";
+import React, {FC, Suspense} from "react";
 import {PlaceholderView} from "../view/PlaceholderView";
 import {BaseLayout} from "./BaseLayout";
-import {CollapsibleContent} from "./CollapsibleContent";
 import {useLayoutContext} from "./LayoutContext";
 import {Sider} from "./Sider";
 
 const SiderLayoutInternal = ({header, footer, children}) => {
 	const {menuContext} = useLayoutContext();
+	const layoutContext = useLayoutContext();
 	return (
 		<>
 			{header}
@@ -17,11 +17,15 @@ const SiderLayoutInternal = ({header, footer, children}) => {
 				marginTop: 64
 			}}>
 				<Sider children={menuContext.menu}/>
-				<CollapsibleContent>
+				<Layout.Content
+					style={{
+						minHeight: "100vh",
+						marginLeft: layoutContext.fullwidth ? 0 : layoutContext.siderSize,
+					}}>
 					<PageHeader title={""}/>
 					<Suspense fallback={<PlaceholderView/>} children={children}/>
 					{footer}
-				</CollapsibleContent>
+				</Layout.Content>
 			</Layout>
 		</>
 	);

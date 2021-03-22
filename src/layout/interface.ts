@@ -15,6 +15,14 @@ export interface ILayoutContext {
 	 */
 	readonly fullwidth: boolean
 	/**
+	 * Width of the side menu (sider).
+	 */
+	readonly siderSize: number
+	/**
+	 * Set the width of the menu (sider).
+	 */
+	setSiderSize: (size: number) => void
+	/**
 	 * SwitchItem current fullscreen flag by an Effect.
 	 *
 	 * @param enable
