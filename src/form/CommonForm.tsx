@@ -59,6 +59,7 @@ export const CommonForm = <TFormValues extends any = any, TRequest extends any =
 				layoutContext.blockContext.block();
 				post(postMapper(values), discoveryContext, postParams)
 					.chain(formContext.events())
+					.chain(events)
 					.on("response", data => {
 						onSuccess(navigate, values, data);
 						layoutContext.blockContext.unblock();
