@@ -1,4 +1,4 @@
-import {SettingFilled} from "@ant-design/icons";
+import {SettingOutlined} from "@ant-design/icons";
 import React from "react";
 
-export const LoaderIcon = (props) => <SettingFilled {...props}/>;
+export const LoaderIcon = (props) => <SettingOutlined {...props}/>;
