@@ -7,8 +7,18 @@ import {IOnFetchPage} from "../server/interface";
 import {PageIndex} from "../utils/PageIndex";
 
 export interface IBaseTableProps<TItem extends IRecordItem> extends TableProps<TItem> {
+	/**
+	 * Callback for getting page for the table.
+	 */
 	onFetchPage: IOnFetchPage
+	/**
+	 * Optional parameter for the URL.
+	 */
 	onFetchParams?: IParams
+	/**
+	 * Extra parameters for the Paging.
+	 */
+	onPageParams?: any
 	pageSize?: number
 	deps?: any[]
 }
@@ -17,6 +27,7 @@ export const BaseTable = <TItem extends IRecordItem = any>(
 	{
 		onFetchPage,
 		onFetchParams,
+		onPageParams,
 		pageSize = 10,
 		deps = [],
 		...props
@@ -34,6 +45,7 @@ export const BaseTable = <TItem extends IRecordItem = any>(
 			size,
 			discoveryContext,
 			{...params, ...onFetchParams},
+			onPageParams,
 		)
 			.on("response", data => setPage(data))
 			.on("done", () => setLoading(false));

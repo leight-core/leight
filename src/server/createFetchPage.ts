@@ -14,11 +14,13 @@ export function createFetchPage<TItem = any>(link: string): IOnFetchPage<TItem> 
 		limit: number,
 		discoveryContext: IDiscoveryContext,
 		params?: IParams,
+		extra?: any,
 	) => httpPost<IPage, IPageIndex>(
 		discoveryContext.link(link, params),
 		{
 			page,
 			limit,
+			params: extra,
 		},
 	);
 }
