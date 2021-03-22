@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import {LoaderIcon} from "./LoaderIcon";
 
 export interface ISpinner {
-	done: boolean,
+	done?: boolean,
 }
 
 /**
@@ -11,7 +11,7 @@ export interface ISpinner {
  */
 export const Spinner: FC<ISpinner> = (
 	{
-		done,
+		done = false,
 		children
 	}) => {
 	return (done ? <>{children}</> : <LoaderIcon spin/>);
