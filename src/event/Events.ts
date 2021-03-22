@@ -25,7 +25,7 @@ export function Events<TEventTypes extends string, TEventHandlers extends IEvent
 				throw new Error(`Missing required Event handler [${event}].`);
 			}
 			return ((...args) => {
-				handlers.find(item => item.callback(...args) === false);
+				handlers.find(item => !this.dismissed && item.callback(...args) === false);
 			}) as unknown as any;
 		},
 		dismiss: function (dismiss: boolean = true) {
