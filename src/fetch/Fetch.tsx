@@ -1,6 +1,4 @@
-import {Result} from "antd";
 import {Dispatch, ReactNode, SetStateAction, useEffect, useState} from "react";
-import {Loader} from "../component/Loader";
 
 export interface IFetchProps<TData = any> {
 	/**
@@ -25,12 +23,9 @@ export interface IFetchProps<TData = any> {
  * Simple fetch component used for providing fetch callback and rendering children when data is available delegating setting data state to an upper
  * component.
  */
-export const Fetch = <TData extends unknown>({fetch, deps = [], children = () => null, placeholder = () => <Result icon={<Loader isLoading={true}/>}/>}: IFetchProps<TData>) => {
+export const Fetch = <TData extends unknown>({fetch, deps = [], children = () => null, placeholder = () => null}: IFetchProps<TData>) => {
 	const [data, setData] = useState<TData | undefined>(undefined as TData);
-	useEffect(() => {
-		return fetch(setData);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, deps);
+	useEffect(() => fetch(setData), deps);
 	return (
 		<>
 			{data !== undefined ? children(data) : placeholder()}
