@@ -19,7 +19,7 @@ export interface INotFoundViewProps {
  */
 export const NotFoundView: FC<INotFoundViewProps> = ({href}) => {
 	const {t} = useTranslation();
-	useLayoutContext().useEnableFullscreen(true, true);
+	useLayoutContext().useEnableFullwidth(true, true);
 	return (
 		<>
 			<Helmet title={t("error.not-found.title")}/>

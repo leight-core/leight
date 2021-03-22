@@ -7,22 +7,19 @@ import {useMenuContext} from "../menu/MenuContext";
 import {LayoutContext} from "./LayoutContext";
 
 const BaseLayoutInternal = ({children}) => {
-	const [fullscreen, setFullscreen] = useState<boolean>(false);
-	const [collapsed, setCollapsed] = useState<boolean>(false);
+	const [fullwidth, setFullwidth] = useState<boolean>(false);
 	const blockContext = useBlockContext();
 	return (
 		<LayoutContext.Provider
 			value={{
 				blockContext,
 				menuContext: useMenuContext(),
-				fullscreen,
-				useEnableFullscreen: (enable = true, restore = true) => useEffect(() => {
-					setFullscreen(enable);
-					return () => setFullscreen(!restore);
+				fullwidth,
+				useEnableFullwidth: (enable = true, restore = true) => useEffect(() => {
+					setFullwidth(enable);
+					return () => setFullwidth(!restore);
 					// eslint-disable-next-line
 				}, []),
-				collapsed,
-				setCollapsed,
 			}}
 			children={
 				<Loader isLoading={blockContext.isBlocked()}>

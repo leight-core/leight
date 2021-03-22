@@ -16,7 +16,7 @@ export const CollapsibleContent: FC<ICollapsibleContentProps> = (
 		<Layout.Content
 			style={{
 				minHeight: "100vh",
-				marginLeft: layoutContext.fullscreen ? 0 : (layoutContext.collapsed ? 80 : 220),
+				marginLeft: layoutContext.fullwidth ? 0 : 220,
 			}}
 			children={children}
 			{...props}

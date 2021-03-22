@@ -13,12 +13,9 @@ export const Sider: FC<ISiderProps> = (
 	}) => {
 	const layoutContext = useLayoutContext();
 	return (
-		layoutContext.fullscreen ? null :
+		layoutContext.fullwidth ? null :
 			<Layout.Sider
 				collapsible
-				collapsed={layoutContext.collapsed}
-				defaultCollapsed={layoutContext.collapsed}
-				onCollapse={layoutContext.setCollapsed}
 				width={220}
 				style={{
 					overflow: "auto",

@@ -19,7 +19,7 @@ export interface ISignedInViewProps {
 
 export const SignedInView: FC<ISignedInViewProps> = ({href, title = ""}) => {
 	const {t} = useTranslation();
-	useLayoutContext().useEnableFullscreen(true, true);
+	useLayoutContext().useEnableFullwidth(true, true);
 	return (
 		<Card>
 			<ScrollToTop/>

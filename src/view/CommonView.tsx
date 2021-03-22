@@ -36,7 +36,7 @@ export interface ICommonViewProps {
 	 *
 	 * Defaults to `false`.
 	 */
-	fullscreen?: boolean
+	fullwidth?: boolean
 	/**
 	 * Restore the original fullscreen mode when a view is left.
 	 *
@@ -76,7 +76,7 @@ export const CommonView: FC<ICommonViewProps> = (
 		menu,
 		menuName,
 		menuItems = undefined,
-		fullscreen = false,
+		fullwidth = false,
 		restore = true,
 		children,
 		blocked = false,
@@ -86,7 +86,7 @@ export const CommonView: FC<ICommonViewProps> = (
 	const layoutContext = useLayoutContext();
 	menuContext.useMenu(menu(), menuName);
 	menuContext.useSelect(menuItems || [name]);
-	layoutContext.useEnableFullscreen(fullscreen, restore);
+	layoutContext.useEnableFullwidth(fullwidth, restore);
 	return (
 		<>
 			<Helmet title={t(title ? title : name + ".title")}/>

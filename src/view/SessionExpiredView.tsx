@@ -16,7 +16,7 @@ export interface ISessionExpiredViewProps {
 export const SessionExpiredView: FC<ISessionExpiredViewProps> = ({href}) => {
 	const {t} = useTranslation();
 	const routerContext = useRouterContext();
-	useLayoutContext().useEnableFullscreen(true, true);
+	useLayoutContext().useEnableFullwidth(true, true);
 	return (
 		<Card>
 			<ScrollToTop/>

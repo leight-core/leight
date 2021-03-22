@@ -12,7 +12,7 @@ import {useMenuContext} from "../menu/MenuContext";
 export const SignOutView = () => {
 	const {t} = useTranslation();
 	const layoutContext = useLayoutContext();
-	layoutContext.useEnableFullscreen(true, true);
+	layoutContext.useEnableFullwidth(true, true);
 	useMenuContext().useSelect(["common.sign-out"]);
 	return (
 		<Card>

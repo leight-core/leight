@@ -15,7 +15,7 @@ export interface ISignedOutViewProps {
 
 export const SignedOutView: FC<ISignedOutViewProps> = ({href}) => {
 	const {t} = useTranslation();
-	useLayoutContext().useEnableFullscreen(true, true);
+	useLayoutContext().useEnableFullwidth(true, true);
 	return (
 		<Card>
 			<ScrollToTop/>
