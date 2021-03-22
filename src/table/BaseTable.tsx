@@ -1,14 +1,14 @@
 import {Table, TableProps} from "antd";
 import {useEffect, useState} from "react";
-import {Params, useParams} from "react-router";
+import {useParams} from "react-router";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {IPageIndex, IRecordItem} from "../interface/interface";
+import {IPageIndex, IParams, IRecordItem} from "../interface/interface";
 import {IOnFetchPage} from "../server/interface";
 import {PageIndex} from "../utils/PageIndex";
 
 export interface IBaseTableProps<TItem extends IRecordItem> extends TableProps<TItem> {
 	onFetchPage: IOnFetchPage
-	onFetchParams?: Params
+	onFetchParams?: IParams
 	pageSize?: number
 	deps?: any[]
 }
