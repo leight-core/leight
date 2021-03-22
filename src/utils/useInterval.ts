@@ -13,7 +13,7 @@ export function useInterval(callback: IIntervalCallback, delay: number | null, d
 
 	useEffect(() => {
 		function tick() {
-			ref.current();
+			return ref.current();
 		}
 
 		if (delay !== null) {
