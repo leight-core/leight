@@ -54,11 +54,7 @@ export const BaseTable = <TItem extends IRecordItem = any>(
 	/**
 	 * Without dependency, because onPage is callback which changes overtime (thus forcing re-rendering).
 	 */
-	useEffect(() => {
-		const events = onPage(0, pageSize);
-		return () => events.dismiss();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, deps);
+	useEffect(() => onPage(0, pageSize).cleaner(), deps);
 
 	return (
 		<Table

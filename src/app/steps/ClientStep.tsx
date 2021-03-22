@@ -18,15 +18,15 @@ export const ClientStep: FC<IClientStepProps> = ({href, ...props}) => {
 	const stepLoaderContext = useStepLoaderContext();
 	return (
 		<LoaderStep icon={<CloudDownloadOutlined/>} {...props} onStep={() => {
-			const events = httpGet<IClient>(href || "/client.json")
+			return httpGet<IClient>(href || "/client.json")
 				.on("response", client => {
 					clientContext.setClient(client);
 					stepLoaderContext.next();
 				})
 				.on("catch", () => {
 					stepLoaderContext.setStatus("error");
-				});
-			return () => events.dismiss();
+				})
+				.cleaner();
 		}}/>
 	);
 };

@@ -71,4 +71,8 @@ export interface IEvents<TEventTypes extends string, TEventHandlers extends IEve
 	 * Is this event bus dismissed?
 	 */
 	dismissed: boolean,
+	/**
+	 * Function useful for hooks - return back cleaner callback for this events.
+	 */
+	cleaner: () => () => void
 }

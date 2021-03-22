@@ -2,20 +2,32 @@ import {List, ListProps} from "antd";
 import {ReactNode, useEffect, useState} from "react";
 import {useParams} from "react-router";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {IPageIndex, IRecordItem} from "../interface/interface";
+import {IPageIndex, IParams, IRecordItem} from "../interface/interface";
 import {IOnFetchPage} from "../server/interface";
 import {PageIndex} from "../utils/PageIndex";
 
 export interface IBaseListProps<TItem extends IRecordItem> extends Partial<ListProps<TItem>> {
 	onFetchPage: IOnFetchPage<TItem>
+	/**
+	 * Optional parameter for the URL.
+	 */
+	onFetchParams?: IParams
+	/**
+	 * Extra parameters for the Paging.
+	 */
+	onPageParams?: any
 	pageSize?: number
 	children: (item: TItem, index: number) => ReactNode
+	deps?: any[]
 }
 
 export const BaseList = <TItem extends IRecordItem = any>(
 	{
 		onFetchPage,
+		onFetchParams,
+		onPageParams,
 		pageSize = 10,
+		deps = [],
 		children,
 		...props
 	}: IBaseListProps<TItem>) => {
@@ -27,7 +39,13 @@ export const BaseList = <TItem extends IRecordItem = any>(
 
 	const onPage = (page, size) => {
 		setLoading(true);
-		return onFetchPage(page, size, discoveryContext, params)
+		return onFetchPage(
+			page,
+			size,
+			discoveryContext,
+			{...params, ...onFetchParams},
+			onPageParams,
+		)
 			.on("response", data => setPage(data))
 			.on("done", () => setLoading(false));
 	};
@@ -35,11 +53,7 @@ export const BaseList = <TItem extends IRecordItem = any>(
 	/**
 	 * Without dependency, because onPage is callback which changes overtime (thus forcing re-rendering).
 	 */
-	useEffect(() => {
-		const events = onPage(0, pageSize);
-		return () => events.dismiss();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	useEffect(() => onPage(0, pageSize).dismiss(), deps);
 
 	return (
 		<List

@@ -45,7 +45,7 @@ export const FetchBlocking = <TResponse extends any>({translation, fetch, params
 				 * Setting data to undefined forces component to render loading.
 				 */
 				setData(undefined);
-				const current = fetch(discoveryContext, params)
+				return fetch(discoveryContext, params)
 					.on("request", () => {
 						block && blockContext.block();
 					})
@@ -59,8 +59,8 @@ export const FetchBlocking = <TResponse extends any>({translation, fetch, params
 					.on("done", () => {
 						blockContext.unblock(unblock);
 					})
-					.chain(events);
-				return () => current.dismiss();
+					.chain(events)
+					.cleaner();
 			}}
 			children={children}
 			deps={[params].concat(deps)}

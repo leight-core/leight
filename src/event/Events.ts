@@ -43,5 +43,8 @@ export function Events<TEventTypes extends string, TEventHandlers extends IEvent
 		chains: [],
 		requires: [],
 		dismissed: false,
+		cleaner: function () {
+			return () => this.dismiss();
+		}
 	};
 }

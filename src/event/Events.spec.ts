@@ -46,7 +46,7 @@ test("Event dismiss", () => {
 	expect(stack).toEqual(["first", "second", "last"]);
 	events.handler("test")();
 	expect(stack).toEqual(["first", "second", "last", "first", "second", "last"]);
-	events.dismiss();
+	events.cleaner()();
 	events.handler("test")();
 	expect(stack).toEqual(["first", "second", "last", "first", "second", "last"]);
 });
