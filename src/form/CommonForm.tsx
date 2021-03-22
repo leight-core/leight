@@ -54,6 +54,7 @@ export const CommonForm = <TFormValues extends any = any, TRequest extends any =
 	return (
 		<Form<TFormValues>
 			colon={false}
+			size={"large"}
 			onSubmit={(values, formContext) => {
 				layoutContext.blockContext.block();
 				post(postMapper(values), discoveryContext, postParams)
