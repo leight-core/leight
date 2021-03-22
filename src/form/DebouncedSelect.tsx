@@ -2,9 +2,9 @@ import {Select, SelectProps} from "antd";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {ISearchRequest} from "../interface/interface";
+import {IParams, ISearchRequest} from "../interface/interface";
 import {IPostCallback} from "../server/interface";
-import {useFormContext} from "./FormContext";
+import {useOptionalFormContext} from "./FormContext";
 import {useOptionalFormItemContext} from "./FormItemContext";
 
 export interface IDebouncedSelectProps<TItem = any> extends SelectProps<any> {
@@ -12,6 +12,10 @@ export interface IDebouncedSelectProps<TItem = any> extends SelectProps<any> {
 	 * Fetch used in effect to fetch data.
 	 */
 	fetch: IPostCallback<ISearchRequest, TItem[]>
+	/**
+	 * Optional fetch params
+	 */
+	params?: IParams
 	/**
 	 * Map requested data into Select's options.
 	 */
@@ -24,25 +28,30 @@ export interface IDebouncedSelectProps<TItem = any> extends SelectProps<any> {
 	usePlaceholder?: boolean
 }
 
-export const DebouncedSelect = <TItem extends unknown>({fetch, mapper, usePlaceholder, initial = "", debounce = 250, ...props}: IDebouncedSelectProps<TItem>) => {
+export const DebouncedSelect = <TItem extends unknown>({fetch, params, mapper, usePlaceholder, initial = "", debounce = 250, ...props}: IDebouncedSelectProps<TItem>) => {
 	const discoveryContext = useDiscoveryContext();
 	const [options, setOptions] = useState<any[]>([]);
 	const [tid, setTid] = useState<number>();
-	const formContext = useFormContext();
+	const formContext = useOptionalFormContext();
 	const [loading, setLoading] = useState(true);
 	const {t} = useTranslation();
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
 	useEffect(() => {
-		fetch({search: initial}, discoveryContext)
+		fetch({search: initial}, discoveryContext, params)
 			.on("request", () => {
-				formContext.block();
+				formContext && formContext.block();
 				setLoading(true);
 			})
 			.on("response", data => {
 				setOptions(data.map(mapper));
+			})
+			.on("catch", (e) => {
+				console.error(e);
+			})
+			.on("done", () => {
 				setLoading(false);
-				formContext.unblock();
+				formContext && formContext.unblock();
 			});
 	}, []);
 	return (
@@ -56,7 +65,7 @@ export const DebouncedSelect = <TItem extends unknown>({fetch, mapper, usePlaceh
 				setLoading(true);
 				clearTimeout(tid);
 				setTid(setTimeout(() => {
-					fetch({search}, discoveryContext)
+					fetch({search}, discoveryContext, params)
 						.on("response", data => {
 							setOptions(data.map(mapper));
 							setLoading(false);
