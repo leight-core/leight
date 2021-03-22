@@ -56,7 +56,7 @@ const CommonViewInternal = ({children}) => {
 	const blockContext = useBlockContext();
 	return (
 		<ViewContext.Provider value={{blockContext}}>
-			<Spin spinning={blockContext.isBlocked()} tip={t("common.loading") as string}>
+			<Spin spinning={blockContext.isBlocked()} indicator={null as any} tip={t("common.loading") as string}>
 				<ScrollToTop/>
 				{children}
 			</Spin>
