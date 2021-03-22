@@ -1,4 +1,5 @@
 import {Dispatch, ReactNode, SetStateAction, useEffect, useState} from "react";
+import {ResultSpinner} from "../component/ResultSpinner";
 
 export interface IFetchProps<TData = any> {
 	/**
@@ -23,7 +24,7 @@ export interface IFetchProps<TData = any> {
  * Simple fetch component used for providing fetch callback and rendering children when data is available delegating setting data state to an upper
  * component.
  */
-export const Fetch = <TData extends unknown>({fetch, deps = [], children = () => null, placeholder = () => null}: IFetchProps<TData>) => {
+export const Fetch = <TData extends unknown>({fetch, deps = [], children = () => null, placeholder = () => <ResultSpinner/>}: IFetchProps<TData>) => {
 	const [data, setData] = useState<TData | undefined>(undefined as TData);
 	useEffect(() => fetch(setData), deps);
 	return (

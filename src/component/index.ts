@@ -4,6 +4,7 @@ export * from "./ButtonLink";
 export * from "./interface";
 export * from "./Loader";
 export * from "./Placeholder";
+export * from "./ResultSpinner";
 export * from "./ScrollToTop";
 export * from "./Search";
 export * from "./SessionCloseButton";

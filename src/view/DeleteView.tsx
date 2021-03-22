@@ -48,18 +48,6 @@ export interface IDeleteViewProps<TResponse = any> {
 	onSuccess?: IDeleteOnSuccess<TResponse>
 }
 
-export const DeleteViewPlaceholder = ({translation}) => {
-	const {t} = useTranslation();
-	return (
-		<Card title={<><BackLink/>&nbsp;{t(translation + ".placeholder")}</>}>
-			<Result
-				status={"warning"}
-				title={t(translation + ".placeholder")}
-			/>
-		</Card>
-	);
-};
-
 export const DeleteView = <TResponse extends unknown = any>(
 	{
 		translation,
@@ -91,9 +79,6 @@ export const DeleteView = <TResponse extends unknown = any>(
 									message.error(t(translation + ".error"));
 								})
 								.on("done", () => {
-									layoutContext.blockContext.unblock();
-								})
-								.on("catch", () => {
 									layoutContext.blockContext.unblock();
 								})
 								.chain(events);
