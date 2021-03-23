@@ -1,5 +1,5 @@
 import {Spin} from "antd";
-import {FC, ReactNode} from "react";
+import {FC, ReactNode, useState} from "react";
 import {Helmet} from "react-helmet";
 import {useTranslation} from "react-i18next";
 import {useBlockContext} from "../block/BlockContext";
@@ -54,8 +54,9 @@ export interface ICommonViewProps {
 const CommonViewInternal = ({children}) => {
 	const {t} = useTranslation();
 	const blockContext = useBlockContext();
+	const [title, setTitle] = useState<ReactNode>();
 	return (
-		<ViewContext.Provider value={{blockContext}}>
+		<ViewContext.Provider value={{blockContext, title, setTitle}}>
 			<Spin spinning={blockContext.isBlocked()} indicator={null as any} tip={t("common.loading") as string}>
 				<ScrollToTop/>
 				{children}

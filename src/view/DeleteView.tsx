@@ -1,7 +1,7 @@
 import {Button, Card, Divider, message, Result, Space} from "antd";
+import {ReactNode} from "react";
 import {useTranslation} from "react-i18next";
 import {Params} from "react-router";
-import {BackLink} from "../component/BackLink";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {DeleteItemIcon} from "../icon/DeleteItemIcon";
 import {useLayoutContext} from "../layout/LayoutContext";
@@ -9,6 +9,7 @@ import {useRouterContext} from "../router/RouterContext";
 import {IDeleteCallback, IServerEvents} from "../server/interface";
 import {ServerEvents} from "../server/ServerEvents";
 import {IDeleteOnSuccess} from "./interface";
+import {useViewContext} from "./ViewContext";
 
 export interface IDeleteViewProps<TResponse = any> {
 	/**
@@ -22,6 +23,7 @@ export interface IDeleteViewProps<TResponse = any> {
 	 * - .placeholder
 	 */
 	translation: string
+	title?: ReactNode
 	/**
 	 * Optional data just used for translation interpolation.
 	 */
@@ -51,6 +53,7 @@ export interface IDeleteViewProps<TResponse = any> {
 export const DeleteView = <TResponse extends unknown = any>(
 	{
 		translation,
+		title,
 		data = {},
 		params,
 		onDelete,
@@ -61,8 +64,9 @@ export const DeleteView = <TResponse extends unknown = any>(
 	const {t} = useTranslation();
 	const layoutContext = useLayoutContext();
 	const navigate = useRouterContext().useNavigate();
+	const viewContext = useViewContext();
 	return (
-		<Card title={<><BackLink/>&nbsp;{t(translation + ".title", {data})}</>}>
+		<Card title={title || viewContext.title || t(translation + ".delete.title")}>
 			<Result
 				status={"warning"}
 				title={t(translation + ".title", {data})}

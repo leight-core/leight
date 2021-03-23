@@ -1,27 +1,27 @@
 import {Card} from "antd";
-import {FC} from "react";
+import {FC, ReactNode} from "react";
 import {Helmet} from "react-helmet";
 import {useTranslation} from "react-i18next";
-import {BackLink} from "../component/BackLink";
+import {useViewContext} from "./ViewContext";
 
 export interface IHomeViewProps {
 	/**
 	 * Base translation key.
 	 */
 	translation: string
+	title?: ReactNode
 }
 
 /**
  * Common home view - just to make same shape for all views for showing home of things.
  */
-export const HomeView: FC<IHomeViewProps> = ({translation, children}) => {
+export const HomeView: FC<IHomeViewProps> = ({translation, title, children}) => {
 	const {t} = useTranslation();
+	const viewContext = useViewContext();
 	return (
 		<>
 			<Helmet title={t(translation + ".home.title")}/>
-			<Card title={<><BackLink/>&nbsp;{t(translation + ".home.title")}</>}>
-				{children}
-			</Card>
+			<Card title={title || viewContext.title || t(translation + ".home.title")} children={children}/>
 		</>
 	);
 };

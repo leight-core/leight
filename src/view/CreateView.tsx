@@ -1,14 +1,15 @@
 import {Card} from "antd";
-import {FC} from "react";
+import {FC, ReactNode} from "react";
 import {Helmet} from "react-helmet";
 import {useTranslation} from "react-i18next";
-import {BackLink} from "../component/BackLink";
+import {useViewContext} from "./ViewContext";
 
 export interface ICreateViewProps {
 	/**
 	 * Base translation key used in the view.
 	 */
 	translation: string
+	title?: ReactNode
 }
 
 /**
@@ -16,14 +17,13 @@ export interface ICreateViewProps {
  *
  * Do some steps like setting application title and selecting menu (setting menu state).
  */
-export const CreateView: FC<ICreateViewProps> = ({translation, children}) => {
+export const CreateView: FC<ICreateViewProps> = ({translation, title, children}) => {
 	const {t} = useTranslation();
+	const viewContext = useViewContext();
 	return (
 		<>
 			<Helmet title={t(translation + ".create.title")}/>
-			<Card title={<><BackLink/>&nbsp;{t(translation + ".create.title")}</>}>
-				{children}
-			</Card>
+			<Card title={title || viewContext.title || t(translation + ".create.title")} children={children}/>
 		</>
 	);
 };
