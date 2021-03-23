@@ -9,7 +9,7 @@ import {LayoutContext} from "./LayoutContext";
 const BaseLayoutInternal = ({children}) => {
 	const [fullwidth, setFullwidth] = useState<boolean>(false);
 	const [siderSize, setSiderSize] = useState<number>(240);
-	const [header, setHeader] = useState<ReactNode>();
+	const [header, setHeader] = useState<ReactNode>(<div style={{padding: "0.25em 0 0 0"}}>&nbsp;</div>);
 	const blockContext = useBlockContext();
 	return (
 		<LayoutContext.Provider
