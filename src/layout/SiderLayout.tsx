@@ -22,7 +22,7 @@ const SiderLayoutInternal = ({header, footer, children}) => {
 						minHeight: "100vh",
 						marginLeft: layoutContext.fullwidth ? 0 : layoutContext.siderSize,
 					}}>
-					<PageHeader title={""}/>
+					<PageHeader style={{padding: 0}} title={layoutContext.header}/>
 					<Suspense fallback={<PlaceholderView/>} children={children}/>
 					{footer}
 				</Layout.Content>

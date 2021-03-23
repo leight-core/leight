@@ -1,5 +1,5 @@
 import {Layout} from "antd";
-import {FC, useEffect, useState} from "react";
+import {FC, ReactNode, useEffect, useState} from "react";
 import {useBlockContext} from "../block/BlockContext";
 import {BlockContextProvider} from "../block/BlockContextProvider";
 import {Loader} from "../component/Loader";
@@ -9,6 +9,7 @@ import {LayoutContext} from "./LayoutContext";
 const BaseLayoutInternal = ({children}) => {
 	const [fullwidth, setFullwidth] = useState<boolean>(false);
 	const [siderSize, setSiderSize] = useState<number>(240);
+	const [header, setHeader] = useState<ReactNode>();
 	const blockContext = useBlockContext();
 	return (
 		<LayoutContext.Provider
@@ -23,6 +24,8 @@ const BaseLayoutInternal = ({children}) => {
 					return () => setFullwidth(!restore);
 					// eslint-disable-next-line
 				}, []),
+				header,
+				setHeader,
 			}}
 			children={
 				<Loader isLoading={blockContext.isBlocked()}>

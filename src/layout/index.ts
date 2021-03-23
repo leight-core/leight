@@ -6,3 +6,4 @@ export * from "./LayoutContext";
 export * from "./PushRight";
 export * from "./Sider";
 export * from "./SiderLayout";
+export * from "./UpdateHeader";

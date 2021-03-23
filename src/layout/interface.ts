@@ -1,3 +1,4 @@
+import {ReactNode} from "react";
 import {IBlockContext} from "../block/interface";
 import {IMenuContext} from "../menu/interface";
 
@@ -29,4 +30,12 @@ export interface ILayoutContext {
 	 * @param restore
 	 */
 	useEnableFullwidth: (enable: boolean, restore: boolean) => void
+	/**
+	 * Header used in "page" header (usually above a view).
+	 */
+	readonly header?: ReactNode
+	/**
+	 * Set/unset page header.
+	 */
+	setHeader: (header?: ReactNode) => void
 }
