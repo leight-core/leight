@@ -4,12 +4,13 @@ import {useBlockContext} from "../block/BlockContext";
 import {BlockContextProvider} from "../block/BlockContextProvider";
 import {Loader} from "../component/Loader";
 import {useMenuContext} from "../menu/MenuContext";
+import {HeaderPlaceholder} from "./HeaderPlaceholder";
 import {LayoutContext} from "./LayoutContext";
 
 const BaseLayoutInternal = ({children}) => {
 	const [fullwidth, setFullwidth] = useState<boolean>(false);
 	const [siderSize, setSiderSize] = useState<number>(240);
-	const [header, setHeader] = useState<ReactNode>(<div style={{padding: "0.25em 0 0 0"}}>&nbsp;</div>);
+	const [header, setHeader] = useState<ReactNode>(<HeaderPlaceholder/>);
 	const blockContext = useBlockContext();
 	return (
 		<LayoutContext.Provider
