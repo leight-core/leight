@@ -6,7 +6,9 @@ import {useTranslation} from "react-i18next";
 import {BackLink} from "../component/BackLink";
 import {ScrollToTop} from "../component/ScrollToTop";
 import {SessionCloseButton} from "../component/SessionCloseButton";
+import {HeaderPlaceholder} from "../layout/HeaderPlaceholder";
 import {useLayoutContext} from "../layout/LayoutContext";
+import {UpdateHeader} from "../layout/UpdateHeader";
 import {useMenuContext} from "../menu/MenuContext";
 
 export const SignOutView = () => {
@@ -17,6 +19,7 @@ export const SignOutView = () => {
 	return (
 		<Card>
 			<Helmet title={t("common.sign-out.title")}/>
+			<UpdateHeader header={() => <HeaderPlaceholder/>}/>
 			<ScrollToTop/>
 			<Result
 				icon={<QuestionCircleFilled/>}
