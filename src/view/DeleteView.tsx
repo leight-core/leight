@@ -66,7 +66,7 @@ export const DeleteView = <TResponse extends unknown = any>(
 	const navigate = useRouterContext().useNavigate();
 	const viewContext = useViewContext();
 	return (
-		<Card title={title || viewContext.title || t(translation + ".delete.title")}>
+		<Card title={title || viewContext.title || t(translation + ".title")}>
 			<Result
 				status={"warning"}
 				title={t(translation + ".title", {data})}
