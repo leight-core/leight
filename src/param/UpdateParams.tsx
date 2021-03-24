@@ -5,7 +5,7 @@ import {useParamContext} from "./ParamContext";
 export interface IUpdateParamsProps {
 	params?: IParams
 	update?: boolean
-	children: ReactNode
+	children?: ReactNode
 }
 
 /**
