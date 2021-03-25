@@ -5,6 +5,7 @@ import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IPageIndex, IParams, IRecordItem} from "../interface/interface";
 import {IOnFetchPage} from "../server/interface";
 import {PageIndex} from "../utils/PageIndex";
+import {useInterval} from "../utils/useInterval";
 
 export interface IBaseTableProps<TItem extends IRecordItem> extends TableProps<TItem> {
 	/**
@@ -20,6 +21,10 @@ export interface IBaseTableProps<TItem extends IRecordItem> extends TableProps<T
 	 */
 	onPageParams?: any
 	pageSize?: number
+	/**
+	 * Enable live data fetching; live is number in milliseconds between fetches.
+	 */
+	live?: number
 	deps?: any[]
 }
 
@@ -29,6 +34,7 @@ export const BaseTable = <TItem extends IRecordItem = any>(
 		onFetchParams,
 		onPageParams,
 		pageSize = 10,
+		live,
 		deps = [],
 		...props
 	}: IBaseTableProps<TItem>) => {
@@ -55,6 +61,8 @@ export const BaseTable = <TItem extends IRecordItem = any>(
 	 * Without dependency, because onPage is callback which changes overtime (thus forcing re-rendering).
 	 */
 	useEffect(() => onPage(0, pageSize).cleaner(), deps);
+
+	useInterval(() => onPage(0, pageSize), live);
 
 	return (
 		<Table
