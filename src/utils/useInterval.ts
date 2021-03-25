@@ -9,7 +9,7 @@ export function useInterval(callback: IIntervalCallback, delay: number | null, d
 		ref.current = callback;
 	}, [callback]);
 
-	useEffect(() => callback(), []);
+	useEffect(() => delay && callback(), []);
 
 	useEffect(() => {
 		function tick() {
