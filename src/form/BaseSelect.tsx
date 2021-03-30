@@ -19,7 +19,7 @@ export interface IBaseSelectProps<TData> extends SelectProps<any> {
 	/**
 	 * Map requested data into Select options.
 	 */
-	mapper: (item: TData) => IBaseSelectOption
+	mapper: (item: TData) => IBaseSelectOption | false
 	/**
 	 * Dependency used to force redraw (re-fetch data).
 	 */
@@ -46,7 +46,7 @@ export const BaseSelect = <TData extends unknown>({fetch, fetchParams, mapper, u
 						{name: formItemContext.field, value: undefined},
 					]);
 				}
-				setOptions(data.map(mapper));
+				setOptions(data.map(mapper).filter(item => item !== false) as IBaseSelectOption[]);
 				setFirst(false);
 				formContext.unblock();
 			});
