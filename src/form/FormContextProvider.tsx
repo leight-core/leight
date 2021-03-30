@@ -16,19 +16,23 @@ export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) =
 	const [blocking, setBlocking] = useState<number>(0);
 	const isBlocked = () => blocking > 0;
 	const [form] = CoolForm.useForm();
+
+	const setErrorsInternal = (errors: IFormErrors) => {
+		setErrors(errors);
+		errors.message && message.error(t("error." + errors.message));
+		console.info("errors", errors);
+		form.setFields(((errors || {}).errors || []).map(item => ({
+			name: item.id,
+			errors: [t("error." + item.error)],
+		})));
+	};
+
 	return (
 		<FormContext.Provider
 			value={{
 				form,
 				errors: errors as IFormErrors,
-				setErrors: (errors: IFormErrors) => {
-					setErrors(errors);
-					errors.message && message.error(t("error." + errors.message));
-					form.setFields(((errors || {}).errors || []).map(item => ({
-						name: item.id,
-						errors: [t("error." + item.error)],
-					})));
-				},
+				setErrors: setErrorsInternal,
 				setValues: values => form.setFieldsValue(values),
 				reset: () => form.resetFields(),
 				blocking,
@@ -36,20 +40,14 @@ export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) =
 				block: () => setBlocking(prev => prev + 1),
 				unblock: () => setBlocking(prev => prev - 1),
 				events: () => ServerEvents()
-					.on("request", () => {
-						layoutContext.blockContext.block();
-					})
-					.on("http400", errors => setErrors(errors))
-					.on("http500", () => setErrors({
+					.on("request", () => layoutContext.blockContext.block())
+					.on("http400", errors => setErrorsInternal(errors))
+					.on("http500", () => setErrorsInternal({
 						message: t("common.form.server-error"),
 						errors: [],
 					}))
-					.on("catch", () => {
-						layoutContext.blockContext.unblock(true);
-					})
-					.on("done", () => {
-						layoutContext.blockContext.unblock();
-					})
+					.on("catch", () => layoutContext.blockContext.unblock(true))
+					.on("done", () => layoutContext.blockContext.unblock())
 			}}
 			children={children}
 		/>
