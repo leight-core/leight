@@ -1,4 +1,5 @@
 export * from "./app";
+export * from "./block";
 export * from "./client";
 export * from "./component";
 export * from "./date";
@@ -16,6 +17,7 @@ export * from "./menu";
 export * from "./param";
 export * from "./router";
 export * from "./server";
+export * from "./session";
 export * from "./table";
 export * from "./uploader";
 export * from "./utils";
