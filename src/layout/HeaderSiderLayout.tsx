@@ -15,7 +15,7 @@ const HeaderSiderLayoutInternal = ({header, footer, contentStyle, headerStyle, c
 	return (
 		<Layout>
 			<Drawer/>
-			<Layout.Header style={...{...{backgroundColor: "#fff"}, ...headerStyle}} children={header}/>
+			<Layout.Header style={...{...{backgroundColor: "#fff", padding: 0}, ...headerStyle}} children={header}/>
 			<Layout>
 				{layoutContext.fullwidth ? null :
 					<Layout.Sider
