@@ -53,8 +53,8 @@ export interface ICommonViewProps {
 
 const CommonViewInternal = ({children}) => {
 	const {t} = useTranslation();
-	const blockContext = useBlockContext();
 	const [title, setTitle] = useState<ReactNode>();
+	const blockContext = useBlockContext();
 	return (
 		<ViewContext.Provider value={{blockContext, title, setTitle}}>
 			<Spin spinning={blockContext.isBlocked()} indicator={null as any} tip={t("common.loading") as string}>

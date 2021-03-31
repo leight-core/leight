@@ -33,9 +33,9 @@ export interface ILayoutContext {
 	/**
 	 * Header used in "page" header (usually above a view).
 	 */
-	readonly header?: ReactNode
+	readonly pageHeader?: ReactNode
 	/**
 	 * Set/unset page header.
 	 */
-	setHeader: (header?: ReactNode) => void
+	setPageHeader: (header?: ReactNode) => void
 }
