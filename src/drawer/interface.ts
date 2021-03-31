@@ -27,4 +27,10 @@ export interface IDrawerContext {
 	 * @param content
 	 */
 	display: (content: ReactNode) => void
+	/**
+	 * Display Markdown content.
+	 *
+	 * @param content
+	 */
+	markdown: (content: string) => void
 }
