@@ -7,13 +7,17 @@ export interface IMarkdownDrawerButtonProps extends Partial<ButtonProps> {
 	 * Markdown content to show.
 	 */
 	markdown: string
+	/**
+	 * Optional drawer width.
+	 */
+	width?: number
 }
 
-export const MarkdownDrawerButton: FC<IMarkdownDrawerButtonProps> = ({markdown, ...props}) => {
+export const MarkdownDrawerButton: FC<IMarkdownDrawerButtonProps> = ({markdown, width, ...props}) => {
 	const drawerContext = useDrawerContext();
 	return (
 		<Button
-			onClick={() => drawerContext.markdown(markdown)}
+			onClick={() => drawerContext.markdown(markdown, width)}
 			{...props}
 		/>
 	);
