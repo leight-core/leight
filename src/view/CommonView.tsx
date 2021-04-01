@@ -6,6 +6,7 @@ import {useBlockContext} from "../block/BlockContext";
 import {BlockContextProvider} from "../block/BlockContextProvider";
 import {ScrollToTop} from "../component/ScrollToTop";
 import {useLayoutContext} from "../layout/LayoutContext";
+import {UpdatePageHeader} from "../layout/UpdatePageHeader";
 import {useMenuContext} from "../menu/MenuContext";
 import {ViewContext} from "./ViewContext";
 
@@ -49,6 +50,10 @@ export interface ICommonViewProps {
 	 * Defaults to `false`.
 	 */
 	blocked?: boolean
+	/**
+	 * When provided, page header will be updated.
+	 */
+	pageHeader?: ReactNode
 }
 
 const CommonViewInternal = ({children}) => {
@@ -81,6 +86,7 @@ export const CommonView: FC<ICommonViewProps> = (
 		restore = true,
 		children,
 		blocked = false,
+		pageHeader,
 	}) => {
 	const {t} = useTranslation();
 	const menuContext = useMenuContext();
@@ -91,6 +97,7 @@ export const CommonView: FC<ICommonViewProps> = (
 	return (
 		<>
 			<Helmet title={t(title ? title : name + ".title")}/>
+			{pageHeader && <UpdatePageHeader children={pageHeader}/>}
 			<BlockContextProvider locked={blocked}>
 				<CommonViewInternal children={children}/>
 			</BlockContextProvider>
