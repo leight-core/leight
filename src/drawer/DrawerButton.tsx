@@ -1,12 +1,12 @@
 import {Button, ButtonProps} from "antd";
-import {FC} from "react";
+import {FC, ReactNode} from "react";
 import {useDrawerContext} from "./DrawerContext";
 
 export interface IDrawerButtonProps extends Partial<ButtonProps> {
 	/**
 	 * Content to show.
 	 */
-	content: string
+	content: ReactNode
 }
 
 /**
