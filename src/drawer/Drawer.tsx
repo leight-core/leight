@@ -17,6 +17,7 @@ export const Drawer: FC<IDrawerProps> = (props) => {
 			onClose={() => drawerContext.setVisible(false)}
 			visible={drawerContext.visible}
 			children={drawerContext.content}
+			width={drawerContext.width}
 			destroyOnClose
 			{...props}
 		/>

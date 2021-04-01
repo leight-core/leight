@@ -22,15 +22,25 @@ export interface IDrawerContext {
 	 */
 	setContent: (content: ReactNode) => void
 	/**
+	 * Current drawer width.
+	 */
+	readonly width: number
+	/**
+	 * Set drawer width.
+	 *
+	 * @param width
+	 */
+	setWidth: (width: number) => void
+	/**
 	 * Show drawer with the given content.
 	 *
 	 * @param content
 	 */
-	display: (content: ReactNode) => void
+	display: (content: ReactNode, width?: number) => void
 	/**
 	 * Display Markdown content.
 	 *
 	 * @param content
 	 */
-	markdown: (content: string) => void
+	markdown: (content: string, width?: number) => void
 }

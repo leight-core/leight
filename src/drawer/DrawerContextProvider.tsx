@@ -6,7 +6,9 @@ export interface IDrawerContextProviderProps {
 }
 
 export const DrawerContextProvider: FC<IDrawerContextProviderProps> = ({children}) => {
+	const defaultWidth = 256;
 	const [visible, setVisible] = useState<boolean>(false);
+	const [width, setWidth] = useState<number>(defaultWidth);
 	const [content, setContent] = useState<ReactNode>();
 	return (
 		<DrawerContext.Provider
@@ -15,12 +17,16 @@ export const DrawerContextProvider: FC<IDrawerContextProviderProps> = ({children
 				setVisible,
 				content,
 				setContent,
-				display: content => {
+				width,
+				setWidth,
+				display: (content, width) => {
 					setContent(content);
+					setWidth(width ? width : defaultWidth);
 					setVisible(true);
 				},
-				markdown: content => {
+				markdown: (content, width) => {
 					setContent(<ReactMarkdown children={content}/>);
+					setWidth(width ? width : defaultWidth);
 					setVisible(true);
 				},
 			}}
