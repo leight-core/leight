@@ -18,16 +18,20 @@ export const TranslationStep: FC<ITranslationStepProps> = ({link = "public.trans
 	const discoveryContext = useDiscoveryContext();
 	const stepLoaderContext = useStepLoaderContext();
 	return (
-		<LoaderStep icon={<TranslationOutlined/>} {...props} onStep={() => {
-			const events = httpGet<ITranslations>(discoveryContext.link(link))
-				.on("response", ({translations}) => {
-					translations.forEach(translation => i18next.addResource(translation.language, translation.namespace, translation.label, translation.text));
-					stepLoaderContext.next();
-				})
-				.on("catch", () => {
-					stepLoaderContext.setStatus("error");
-				});
-			return () => events.dismiss();
-		}}/>
+		<LoaderStep
+			icon={<TranslationOutlined/>}
+			{...props}
+			onStep={() => {
+				return httpGet<ITranslations>(discoveryContext.link(link))
+					.on("response", ({translations}) => {
+						translations.forEach(translation => i18next.addResource(translation.language, translation.namespace, translation.label, translation.text));
+						stepLoaderContext.next();
+					})
+					.on("catch", () => {
+						stepLoaderContext.setStatus("error");
+					})
+					.cleaner();
+			}}
+		/>
 	);
 };

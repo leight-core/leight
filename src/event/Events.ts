@@ -1,50 +1,62 @@
-import {IEvent, IEventHandlers, IEvents} from "./interface";
+import {IBaseEventTypes, IEvent, IEventHandlers, IEventIndex, IEvents} from "./interface";
 
 /**
  * Simple EventBus implementation intended to be used locally on call site near to the execution site (thus not application-wide).
  */
-export function Events<TEventTypes extends string, TEventHandlers extends IEventHandlers<TEventTypes>>(): IEvents<TEventTypes, TEventHandlers> {
-	return {
-		on: function (event, callback, priority = 100) {
-			(this.events[event] = this.events[event] || []).push({
-				priority,
-				callback,
-			});
-			return this;
-		},
-		handler: function (event) {
-			if (this.dismissed) {
-				console.debug(`Calling event [${event}] on dismissed Events.`);
-				return () => {
-				};
-			}
-			const handlers = [this].concat(this.chains)
-				.reduce((array, item) => array.concat(item.events[event] || []), [] as IEvent[])
-				.sort((a, b) => a.priority - b.priority);
-			if (this.requires.filter(name => event === name).length > 0 && !handlers.length) {
-				throw new Error(`Missing required Event handler [${event}].`);
-			}
-			return ((...args) => {
-				handlers.find(item => !this.dismissed && item.callback(...args) === false);
-			}) as unknown as any;
-		},
-		dismiss: function (dismiss: boolean = true) {
-			this.dismissed = dismiss;
-		},
-		required: function (...events) {
-			this.requires.push(...events);
-			return this;
-		},
-		chain: function (events) {
-			this.chains.push(events);
-			return this;
-		},
-		events: {} as any,
-		chains: [],
-		requires: [],
-		dismissed: false,
-		cleaner: function () {
-			return () => this.dismiss();
+export function Events<TEventTypes extends IBaseEventTypes, TEventHandlers extends IEventHandlers<TEventTypes>>(): IEvents<TEventTypes, TEventHandlers> {
+	return new EventsClass();
+}
+
+class EventsClass<TEventTypes extends IBaseEventTypes, TEventHandlers extends IEventHandlers<TEventTypes>> implements IEvents<TEventTypes, TEventHandlers> {
+	events: IEventIndex<TEventTypes> = {} as any;
+	chains: IEvents<any, any>[] = [];
+	requires: TEventTypes[] = [];
+	dismissed: boolean = false;
+
+	on(event, callback, priority = 100): IEvents<TEventTypes, TEventHandlers> {
+		(this.events[event] = this.events[event] || []).push({
+			priority,
+			callback,
+		});
+		return this;
+	}
+
+	handler<T extends TEventTypes>(event): TEventHandlers[T] {
+		if (this.dismissed) {
+			console.debug(`Calling event [${event}] on dismissed Events.`);
+			return (() => {
+			}) as any;
 		}
-	};
+		const handlers = [this].concat(this.chains as any)
+			.reduce((array, item) => array.concat(item.events[event] || []), [] as IEvent[])
+			.sort((a, b) => a.priority - b.priority);
+		if (this.requires.filter(name => event === name).length > 0 && !handlers.length) {
+			throw new Error(`Missing required Event handler [${event}].`);
+		}
+		return ((...args) => {
+			handlers.find(item => !this.dismissed && item.callback(...args) === false);
+		}) as any;
+	}
+
+	dismiss(dismiss: boolean = true): IEvents<TEventTypes, TEventHandlers> {
+		this.dismissed = dismiss;
+		return this;
+	}
+
+	required(...events: TEventTypes[]): IEvents<TEventTypes, TEventHandlers> {
+		this.requires.push(...events);
+		return this;
+	}
+
+	chain(events: IEvents<any, any>): IEvents<TEventTypes, TEventHandlers> {
+		this.chains.push(events);
+		return this;
+	}
+
+	cleaner() {
+		return () => {
+			this.handler("dismiss")();
+			this.dismiss();
+		};
+	}
 }

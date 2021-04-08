@@ -30,15 +30,15 @@ export const BaseGroupSelect = <TResponse extends unknown = any>({fetch, fetchPa
 	const discoveryContext = useDiscoveryContext();
 	const formContext = useFormContext();
 	useEffect(() => {
-		const events = fetch(discoveryContext, fetchParams)
+		return fetch(discoveryContext, fetchParams)
 			.on("request", () => {
 				formContext.block();
 			})
 			.on("response", data => {
 				setOptions(data.map(mapper));
 				formContext.unblock();
-			});
-		return () => events.dismiss();
+			})
+			.cleaner();
 		// eslint-disable-next-line
 	}, deps);
 	return (

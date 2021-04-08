@@ -19,22 +19,26 @@ export const SessionStep: FC<ISessionStepProps> = ({link = "public.user.login", 
 	const sessionContext = useSessionContext();
 	const stepLoaderContext = useStepLoaderContext();
 	return (
-		<LoaderStep icon={<UserOutlined/>} {...props} onStep={() => {
-			const events = httpGet<ISession>(discoveryContext.link(link))
-				.on("response", session => {
-					sessionContext.events.handler("login")(session);
-					stepLoaderContext.next();
-				})
-				.on("http401", () => {
-					/**
-					 * 401 is OK here, because if we're on public, we'll get one when session is checked.
-					 */
-					stepLoaderContext.next();
-				})
-				.on("error", () => {
-					stepLoaderContext.setStatus("error");
-				});
-			return () => events.dismiss();
-		}}/>
+		<LoaderStep
+			icon={<UserOutlined/>}
+			{...props}
+			onStep={() => {
+				return httpGet<ISession>(discoveryContext.link(link))
+					.on("response", session => {
+						sessionContext.events.handler("login")(session);
+						stepLoaderContext.next();
+					})
+					.on("http401", () => {
+						/**
+						 * 401 is OK here, because if we're on public, we'll get one when session is checked.
+						 */
+						stepLoaderContext.next();
+					})
+					.on("error", () => {
+						stepLoaderContext.setStatus("error");
+					})
+					.cleaner();
+			}}
+		/>
 	);
 };

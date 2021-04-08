@@ -18,38 +18,46 @@ export interface IEvent {
 	callback: IEventCallback
 }
 
+export type IBaseEventTypes = "dismiss" | string;
+
+export type IEventIndex<TEventTypes extends IBaseEventTypes> = { [index in TEventTypes]: IEvent[] }
+
 /**
  * Base interface for any event handlers - it's just marker interface
  * to keep types on track (aligned to what IEvents expects).
  */
-export type IEventHandlers<T extends string = string> = {
+export type IEventHandlers<T extends IBaseEventTypes = IBaseEventTypes> = {
 	[index in T]: IEventCallback
 }
 
 /**
  * Simple EventBus nicely typed to keep all the things in the right way.
  */
-export interface IEvents<TEventTypes extends string, TEventHandlers extends IEventHandlers> {
+export interface IEvents<TEventTypes extends IBaseEventTypes, TEventHandlers extends IEventHandlers> {
 	/**
 	 * Registers a handler of the given event name.
 	 */
-	on: <T extends TEventTypes>(event: T, callback: TEventHandlers[T], priority?: number) => IEvents<TEventTypes, TEventHandlers>
+	on<T extends TEventTypes>(event: T, callback: TEventHandlers[T], priority?: number): IEvents<TEventTypes, TEventHandlers>
+
 	/**
 	 * Returns the handler of an event.
 	 */
-	handler: <T extends TEventTypes>(event: T) => TEventHandlers[T];
+	handler<T extends TEventTypes>(event: T): TEventHandlers[T];
+
 	/**
 	 * Dismiss this event bus and disable all events (thus handler calls do nothing).
 	 *
 	 * Defaults to true.
 	 */
-	dismiss: (dismiss?: boolean) => void
+	dismiss(dismiss?: boolean): IEvents<TEventTypes, TEventHandlers>
+
 	/**
 	 * Set required event handlers; when required event is called, but handler not present, an error is thrown.
 	 *
 	 * @param events
 	 */
-	required: (...events: TEventTypes[]) => IEvents<TEventTypes, TEventHandlers>
+	required(...events: TEventTypes[]): IEvents<TEventTypes, TEventHandlers>
+
 	/**
 	 * Chain with the given events (events still respects event handler priority).
 	 *
@@ -57,22 +65,10 @@ export interface IEvents<TEventTypes extends string, TEventHandlers extends IEve
 	 *
 	 * @return Events instance chain method was called on.
 	 */
-	chain: (events: IEvents<any, any>) => IEvents<TEventTypes, TEventHandlers>
-	/**
-	 * Internal map of current event handlers, should not be touched directly in any way!
-	 */
-	events: { [index in TEventTypes]: IEvent[] }
-	/**
-	 * Internal array of chained event handlers.
-	 */
-	chains: IEvents<any, any>[],
-	requires: TEventTypes[],
-	/**
-	 * Is this event bus dismissed?
-	 */
-	dismissed: boolean,
+	chain(events: IEvents<any, any>): IEvents<TEventTypes, TEventHandlers>
+
 	/**
 	 * Function useful for hooks - return back cleaner callback for this events.
 	 */
-	cleaner: () => () => void
+	cleaner(): () => void
 }

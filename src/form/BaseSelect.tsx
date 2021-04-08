@@ -35,7 +35,7 @@ export const BaseSelect = <TData extends unknown>({fetch, fetchParams, mapper, u
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
 	useEffect(() => {
-		const events = fetch(discoveryContext, fetchParams)
+		return fetch(discoveryContext, fetchParams)
 			.on("request", () => {
 				formContext.block();
 				setOptions([]);
@@ -49,8 +49,8 @@ export const BaseSelect = <TData extends unknown>({fetch, fetchParams, mapper, u
 				setOptions(data.map(mapper).filter(item => item !== false) as IBaseSelectOption[]);
 				setFirst(false);
 				formContext.unblock();
-			});
-		return () => events.dismiss();
+			})
+			.cleaner();
 		// eslint-disable-next-line
 	}, deps);
 	return (

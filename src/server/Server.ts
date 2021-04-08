@@ -1,5 +1,5 @@
 import axios from "axios";
-import {ServerRequestPriority} from "./constants";
+import {ServerRequestTimeout} from "./constants";
 import {createDelete} from "./createDelete";
 import {createFetchPage} from "./createFetchPage";
 import {createGet} from "./createGet";
@@ -12,7 +12,7 @@ import {httpPatch} from "./httpPatch";
 import {httpPost} from "./httpPost";
 import {httpPut} from "./httpPut";
 
-axios.defaults.timeout = ServerRequestPriority;
+axios.defaults.timeout = ServerRequestTimeout;
 
 /**
  * Server just covers basic http method with Axios under the hood.

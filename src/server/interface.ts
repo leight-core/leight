@@ -1,12 +1,12 @@
 import {AxiosError} from "axios";
 import {IDiscoveryContext} from "../discovery/interface";
-import {IEventHandlers, IEventResult, IEvents} from "../event/interface";
+import {IBaseEventTypes, IEventHandlers, IEventResult, IEvents} from "../event/interface";
 import {IPageIndex, IParams} from "../interface/interface";
 
 /**
  * Available http events.
  */
-export type IHttpErrorEventTypes = "http400" | "http401" | "http403" | "http500";
+export type IHttpErrorEventTypes = "http400" | "http401" | "http403" | "http500" | IBaseEventTypes;
 
 /**
  * Some of events may happen during http transfer.
