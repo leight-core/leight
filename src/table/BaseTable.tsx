@@ -1,6 +1,7 @@
 import {Table, TableProps} from "antd";
 import isCallable from "is-callable";
 import {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 import {useParams} from "react-router";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IPageIndex, IParams, IRecordItem} from "../interface/interface";
@@ -42,6 +43,7 @@ export const BaseTable = <TItem extends IRecordItem = any>(
 		children,
 		...props
 	}: IBaseTableProps<TItem>) => {
+	const {t} = useTranslation();
 	const discoveryContext = useDiscoveryContext();
 	const params = useParams();
 	const [page, setPage] = useState<IPageIndex>(PageIndex());
@@ -86,7 +88,12 @@ export const BaseTable = <TItem extends IRecordItem = any>(
 				hideOnSinglePage: true,
 				onChange: (current, size) => onPage(current - 1, size),
 			}}
-			children={isCallable(children) ? (children as IBaseTableChildrenCallback<TItem>)(props => <Table.Column<TItem> {...props}/>) : children}
+			children={isCallable(children) ? (children as IBaseTableChildrenCallback<TItem>)(props => {
+				if (props.title) {
+					props.title = t(props.title as string);
+				}
+				return <Table.Column<TItem> {...props}/>;
+			}) : children}
 			{...props}
 		/>
 	);
