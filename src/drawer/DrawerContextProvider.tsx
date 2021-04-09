@@ -6,7 +6,7 @@ export interface IDrawerContextProviderProps {
 }
 
 export const DrawerContextProvider: FC<IDrawerContextProviderProps> = ({children}) => {
-	const defaultWidth = 256;
+	const defaultWidth = 450;
 	const [visible, setVisible] = useState<boolean>(false);
 	const [width, setWidth] = useState<number>(defaultWidth);
 	const [content, setContent] = useState<ReactNode>();
