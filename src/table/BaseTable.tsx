@@ -1,4 +1,5 @@
 import {Table, TableProps} from "antd";
+import {ColumnProps} from "antd/lib/table";
 import isCallable from "is-callable";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
@@ -92,7 +93,7 @@ export const BaseTable = <TItem extends IRecordItem = any>(
 				if (props.title) {
 					props.title = t(props.title as string);
 				}
-				return <Table.Column<TItem> {...props}/>;
+				return <Table.Column<TItem> {...(props as ColumnProps<TItem>)}/>;
 			}) : children}
 			{...props}
 		/>
