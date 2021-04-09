@@ -40,7 +40,7 @@ export interface IServerEvents<TResponse = any> extends IEvents<IServerEventType
 /**
  * Callback used when a new page is required.
  */
-export type IOnFetchPage<TItem = any> = (
+export type IFetchPageCallback<TItem = any> = (
 	page: number,
 	size: number,
 	discoveryContext: IDiscoveryContext,

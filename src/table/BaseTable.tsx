@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IPageIndex, IParams, IRecordItem} from "../interface/interface";
-import {IOnFetchPage} from "../server/interface";
+import {IFetchPageCallback} from "../server/interface";
 import {PageIndex} from "../utils/PageIndex";
 import {useInterval} from "../utils/useInterval";
 import {IBaseTableChildrenCallback} from "./interface";
@@ -13,7 +13,7 @@ export interface IBaseTableProps<TItem extends IRecordItem> extends TableProps<T
 	/**
 	 * Callback for getting page for the table.
 	 */
-	onFetchPage: IOnFetchPage
+	onFetchPage: IFetchPageCallback
 	/**
 	 * Optional parameter for the URL.
 	 */

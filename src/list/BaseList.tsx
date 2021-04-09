@@ -3,11 +3,11 @@ import {ReactNode, useEffect, useState} from "react";
 import {useParams} from "react-router";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IPageIndex, IParams, IRecordItem} from "../interface/interface";
-import {IOnFetchPage} from "../server/interface";
+import {IFetchPageCallback} from "../server/interface";
 import {PageIndex} from "../utils/PageIndex";
 
 export interface IBaseListProps<TItem extends IRecordItem> extends Partial<ListProps<TItem>> {
-	onFetchPage: IOnFetchPage<TItem>
+	onFetchPage: IFetchPageCallback<TItem>
 	/**
 	 * Optional parameter for the URL.
 	 */
