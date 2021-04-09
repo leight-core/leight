@@ -1,4 +1,5 @@
 import {Table, TableProps} from "antd";
+import isCallable from "is-callable";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
@@ -6,6 +7,7 @@ import {IPageIndex, IParams, IRecordItem} from "../interface/interface";
 import {IOnFetchPage} from "../server/interface";
 import {PageIndex} from "../utils/PageIndex";
 import {useInterval} from "../utils/useInterval";
+import {IBaseTableChildrenCallback} from "./interface";
 
 export interface IBaseTableProps<TItem extends IRecordItem> extends TableProps<TItem> {
 	/**
@@ -26,6 +28,7 @@ export interface IBaseTableProps<TItem extends IRecordItem> extends TableProps<T
 	 */
 	live?: number
 	deps?: any[]
+	children: IBaseTableChildrenCallback<TItem>
 }
 
 export const BaseTable = <TItem extends IRecordItem = any>(
@@ -36,6 +39,7 @@ export const BaseTable = <TItem extends IRecordItem = any>(
 		pageSize = 10,
 		live,
 		deps = [],
+		children,
 		...props
 	}: IBaseTableProps<TItem>) => {
 	const discoveryContext = useDiscoveryContext();
@@ -82,6 +86,7 @@ export const BaseTable = <TItem extends IRecordItem = any>(
 				hideOnSinglePage: true,
 				onChange: (current, size) => onPage(current - 1, size),
 			}}
+			children={isCallable(children) ? (children as IBaseTableChildrenCallback<TItem>)(props => <Table.Column<TItem> {...props}/>) : children}
 			{...props}
 		/>
 	);
