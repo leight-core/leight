@@ -1,4 +1,10 @@
+import {State} from "history";
 import {IParams} from "../interface/interface";
+
+export interface INavigateOptions {
+	replace?: boolean
+	state?: State
+}
 
 export interface IRouteCallback {
 	/**
@@ -37,7 +43,7 @@ export interface IRouterContext {
 	/**
 	 * Execute navigation to the given target; internally uses generate method (thus using named routes).
 	 */
-	useNavigate(): INavigate
+	useNavigate(options?: INavigateOptions): INavigate
 }
 
 export type INavigate = (href: string, params?: IParams) => void
