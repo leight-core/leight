@@ -27,6 +27,9 @@ export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) =
 		})));
 	};
 
+	const block = () => setBlocking(prev => prev + 1);
+	const unblock = () => setBlocking(prev => prev - 1);
+
 	return (
 		<FormContext.Provider
 			value={{
@@ -37,17 +40,23 @@ export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) =
 				reset: () => form.resetFields(),
 				blocking,
 				isBlocked,
-				block: () => setBlocking(prev => prev + 1),
-				unblock: () => setBlocking(prev => prev - 1),
+				block,
+				unblock,
 				events: () => ServerEvents()
-					.on("request", () => layoutContext.blockContext.block())
+					.on("request", () => {
+						block();
+						layoutContext.blockContext.block();
+					})
 					.on("http400", errors => setErrorsInternal(errors))
 					.on("http500", () => setErrorsInternal({
 						message: t("common.form.server-error"),
 						errors: [],
 					}))
 					.on("catch", () => layoutContext.blockContext.unblock(true))
-					.on("done", () => layoutContext.blockContext.unblock())
+					.on("done", () => {
+						unblock();
+						layoutContext.blockContext.unblock();
+					})
 			}}
 			children={children}
 		/>
