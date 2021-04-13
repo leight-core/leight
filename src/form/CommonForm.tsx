@@ -11,7 +11,7 @@ export interface ICommonFormProps<TFormValues = any, TRequest = TFormValues, TRe
 	/**
 	 * Name of the form.
 	 */
-	name: string
+	name?: string
 	/**
 	 * What to do on form submit.
 	 */
@@ -57,11 +57,13 @@ export const CommonForm = <TFormValues extends any = any, TRequest extends any =
 			size={"large"}
 			onSubmit={(values, formContext) => {
 				layoutContext.blockContext.block();
+				formContext.block();
 				post(postMapper(values), discoveryContext, postParams)
 					.chain(formContext.events())
 					.chain(events)
 					.on("response", data => {
 						onSuccess(navigate, values, data);
+						formContext.unblock();
 						layoutContext.blockContext.unblock();
 					});
 			}}

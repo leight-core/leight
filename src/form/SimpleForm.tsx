@@ -10,5 +10,5 @@ export interface ISimpleFormProps<TFormValues = any, TRequest = TFormValues, TRe
  * CommonForm, so everything just works.
  */
 export const SimpleForm = <TFormValues extends any = any, TRequest extends any = TFormValues, TResponse extends any = TRequest>(props: ISimpleFormProps<TFormValues, TRequest, TResponse>) => {
-	return <CommonForm name={"common"} post={() => FakeServerEvents()} {...props}/>;
+	return <CommonForm post={() => FakeServerEvents()} {...props}/>;
 };

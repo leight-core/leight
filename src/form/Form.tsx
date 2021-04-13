@@ -1,10 +1,16 @@
 import {Form as CoolForm, FormProps, Spin} from "antd";
-import React, {PropsWithChildren} from "react";
+import React, {FC, PropsWithChildren} from "react";
 import {useFormContext} from "./FormContext";
 import {FormContextProvider} from "./FormContextProvider";
 import {IFormSubmitCallback, IFormSubmitFailedCallback} from "./interface";
 
-const FormInternal = ({name, onSubmit, onSubmitFailed, children, ...props}: IFormProps) => {
+interface IFormInternalProps {
+	name?: string
+	onSubmit: IFormSubmitCallback<any>
+	onSubmitFailed: IFormSubmitFailedCallback<any>
+}
+
+const FormInternal: FC<IFormInternalProps> = ({name, onSubmit, onSubmitFailed, children, ...props}: IFormProps) => {
 	const formContext = useFormContext();
 	return (
 		<CoolForm
@@ -22,7 +28,7 @@ export interface IFormProps<TFormValues = any> extends Partial<FormProps<TFormVa
 	/**
 	 * Form name.
 	 */
-	name: string
+	name?: string
 	/**
 	 * What to to when a form is submitted (and validated).
 	 */
