@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {Params} from "react-router";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IGetCallback} from "../server/interface";
-import {useFormContext} from "./FormContext";
+import {useOptionalFormContext} from "./FormContext";
 import {IBaseGroupSelectOption} from "./interface";
 
 export interface IBaseGroupSelectProps<TResponse> extends SelectProps<any> {
@@ -28,15 +28,15 @@ export interface IBaseGroupSelectProps<TResponse> extends SelectProps<any> {
 export const BaseGroupSelect = <TResponse extends unknown = any>({fetch, fetchParams, mapper, deps = [], ...props}: IBaseGroupSelectProps<TResponse>) => {
 	const [options, setOptions] = useState<IBaseGroupSelectOption[]>([]);
 	const discoveryContext = useDiscoveryContext();
-	const formContext = useFormContext();
+	const formContext = useOptionalFormContext();
 	useEffect(() => {
 		return fetch(discoveryContext, fetchParams)
 			.on("request", () => {
-				formContext.block();
+				formContext && formContext.block();
 			})
 			.on("response", data => {
 				setOptions(data.map(mapper));
-				formContext.unblock();
+				formContext && formContext.unblock();
 			})
 			.cleaner();
 		// eslint-disable-next-line
