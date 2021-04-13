@@ -2,7 +2,7 @@ import {AntDesignOutlined} from "@ant-design/icons";
 import {Result} from "antd";
 import {FC, Suspense} from "react";
 import {Helmet} from "react-helmet";
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, HashRouter} from "react-router-dom";
 import {ClientContextProvider} from "../client/ClientContextProvider";
 import {DiscoveryContextProvider} from "../discovery/DiscoveryContextProvider";
 import {StepLoader} from "../loader/StepLoader";
@@ -44,6 +44,10 @@ export interface IAppProps {
 	 * Optional icon shown when an application bootstraps.
 	 */
 	icon?: JSX.Element
+	/**
+	 * Option to use HashRouter.
+	 */
+	useHashRouter?: boolean
 }
 
 const SiteSelector = ({sites}) => {
@@ -53,15 +57,41 @@ const SiteSelector = ({sites}) => {
 	);
 };
 
+const RoutedInternal = ({icon, clientHref, sites, titleTemplate}) => {
+	const appContext = useAppContext();
+	return (
+		<>
+			<Helmet titleTemplate={titleTemplate}/>
+			{appContext.isReady ?
+				<Suspense fallback={<LoaderView/>}>
+					<SiteSelector sites={sites}/>
+				</Suspense> :
+				<Result icon={icon || <AntDesignOutlined/>}>
+					<div style={{display: "flex", justifyContent: "center"}}>
+						<StepLoader steps={[
+							<InitialStep key={"initial"}/>,
+							<ClientStep key={"client"} href={clientHref}/>,
+							<DiscoveryStep key={"discovery"}/>,
+							<TranslationStep key={"translation"}/>,
+							<SessionStep key={"session"}/>,
+							<FinishStep key={"finish"}/>,
+						]}/>
+					</div>
+				</Result>
+			}
+		</>
+	);
+};
+
 const AppInternal = (
 	{
 		titleTemplate,
 		sites,
 		clientHref = process.env.REACT_APP_CLIENT,
 		icon,
+		useHashRouter = false,
 	}: IAppProps
 ) => {
-	const appContext = useAppContext();
 	return (
 		<RouterContextProvider>
 			<ClientContextProvider>
@@ -69,26 +99,19 @@ const AppInternal = (
 					<SessionContextProvider>
 						<ParamContextProvider>
 							<MenuProvider>
-								<BrowserRouter>
-									<Helmet titleTemplate={titleTemplate}/>
-									{appContext.isReady ?
-										<Suspense fallback={<LoaderView/>}>
-											<SiteSelector sites={sites}/>
-										</Suspense> :
-										<Result icon={icon || <AntDesignOutlined/>}>
-											<div style={{display: "flex", justifyContent: "center"}}>
-												<StepLoader steps={[
-													<InitialStep key={"initial"}/>,
-													<ClientStep key={"client"} href={clientHref}/>,
-													<DiscoveryStep key={"discovery"}/>,
-													<TranslationStep key={"translation"}/>,
-													<SessionStep key={"session"}/>,
-													<FinishStep key={"finish"}/>,
-												]}/>
-											</div>
-										</Result>
-									}
-								</BrowserRouter>
+								{useHashRouter ? <HashRouter
+									children={<RoutedInternal
+										titleTemplate={titleTemplate}
+										sites={sites}
+										clientHref={clientHref}
+										icon={icon}
+									/>}/> : <BrowserRouter
+									children={<RoutedInternal
+										titleTemplate={titleTemplate}
+										sites={sites}
+										clientHref={clientHref}
+										icon={icon}
+									/>}/>}
 							</MenuProvider>
 						</ParamContextProvider>
 					</SessionContextProvider>
