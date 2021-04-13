@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {Params} from "react-router";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IGetCallback} from "../server/interface";
-import {useFormContext} from "./FormContext";
+import {useOptionalFormContext} from "./FormContext";
 import {useOptionalFormItemContext} from "./FormItemContext";
 import {IBaseSelectOption} from "./interface";
 
@@ -31,24 +31,24 @@ export const BaseSelect = <TData extends unknown>({fetch, fetchParams, mapper, u
 	const [options, setOptions] = useState<IBaseSelectOption[]>([]);
 	const [first, setFirst] = useState(true);
 	const discoveryContext = useDiscoveryContext();
-	const formContext = useFormContext();
+	const formContext = useOptionalFormContext();
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
 	useEffect(() => {
 		return fetch(discoveryContext, fetchParams)
 			.on("request", () => {
-				formContext.block();
+				formContext && formContext.block();
 				setOptions([]);
 			})
 			.on("response", data => {
-				if (!first && formItemContext) {
+				if (!first && formItemContext && formContext) {
 					formContext.form.setFields([
 						{name: formItemContext.field, value: undefined},
 					]);
 				}
 				setOptions(data.map(mapper).filter(item => item !== false) as IBaseSelectOption[]);
 				setFirst(false);
-				formContext.unblock();
+				formContext && formContext.unblock();
 			})
 			.cleaner();
 		// eslint-disable-next-line
