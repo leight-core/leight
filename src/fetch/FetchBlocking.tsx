@@ -1,4 +1,5 @@
 import {message} from "antd";
+import {useTranslation} from "react-i18next";
 import {Params} from "react-router";
 import {useBlockContext} from "../block/BlockContext";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
@@ -38,6 +39,7 @@ export interface IFetchBlockingProps<TResponse = any> extends Omit<IFetchProps<T
 export const FetchBlocking = <TResponse extends any>({translation, fetch, params, events = ServerEvents(), deps = [], block = false, unblock = false, children, ...props}: IFetchBlockingProps<TResponse>) => {
 	const discoveryContext = useDiscoveryContext();
 	const blockContext = useBlockContext();
+	const {t} = useTranslation();
 	return (
 		<Fetch<TResponse>
 			fetch={(setData) => {
@@ -49,16 +51,12 @@ export const FetchBlocking = <TResponse extends any>({translation, fetch, params
 					.on("request", () => {
 						block && blockContext.block();
 					})
-					.on("response", data => {
-						setData(data);
-					})
+					.on("response", setData)
 					.on("catch", () => {
 						blockContext.unblock(unblock);
-						message.error(translation + ".fetch.error-occurred");
+						message.error(t(translation + ".fetch.error-occurred"));
 					})
-					.on("done", () => {
-						blockContext.unblock(unblock);
-					})
+					.on("done", () => blockContext.unblock(unblock))
 					.chain(events)
 					.cleaner();
 			}}
