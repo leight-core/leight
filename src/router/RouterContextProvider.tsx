@@ -47,9 +47,9 @@ export const RouterContextProvider: FC<IRouterContextProviderProps> = ({children
 				},
 				link,
 				generate,
-				useNavigate: (options?: INavigateOptions) => {
+				useNavigate: () => {
 					const navigate = useNavigate();
-					return (href: string, params?: IParams) => navigate(generate(href, params), options);
+					return (href: string, params?: IParams, options?: INavigateOptions) => navigate(generate(href, params), options);
 				}
 			}}
 			children={children}
