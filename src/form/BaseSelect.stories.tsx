@@ -63,8 +63,7 @@ BaseSelectSandbox.decorators = [Story => (
 					beta: [1, 3]
 				}
 			}}
-		>
-			<Story/>
-		</CommonForm>
+			children={<Story/>}
+		/>
 	</StoryApp>
 )];

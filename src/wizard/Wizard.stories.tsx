@@ -1,12 +1,14 @@
 import {action} from "@storybook/addon-actions";
 import {Button, Card, Result, Select} from "antd";
 import React, {useState} from "react";
+import {DebouncedSelect} from "../form/DebouncedSelect";
 import {FormItem} from "../form/FormItem";
 import {EditIcon} from "../icon/EditIcon";
 import {SubmitIcon} from "../icon/SubmitIcon";
 import {Centered} from "../layout/Centered";
 import {LoaderStep} from "../loader/LoaderStep";
 import {useStepLoaderContext} from "../loader/StepLoaderContext";
+import {FakeServerEvents} from "../server/ServerEvents";
 import {StoryApp} from "../storybook/StoryApp";
 import {Wizard} from "./Wizard";
 import {useWizardContext} from "./WizardContext";
@@ -55,25 +57,17 @@ const LoaderOfSomethingElse = props => {
 	);
 };
 
-const Selelelelect = (props) => {
-	return (
-		<Select placeholder={"some.value"} {...props}>
-			<Select.Option value={"a"}>a</Select.Option>
-		</Select>
-	);
-};
-
 const FirstStep = () => {
 	return (
 		<WizardStep title={"first"}>
 			<Centered span={8}>
 				<FormItem field={["another", "value"]}/>
 				<FormItem field={["some", "debounced"]} required>
-					<Selelelelect/>
-					{/*<DebouncedSelect<string>*/}
-					{/*	fetch={() => FakeServerEvents(["a", "b", "c"], 2000)}*/}
-					{/*	mapper={item => ({label: item, value: item})}*/}
-					{/*/>*/}
+					<DebouncedSelect<string>
+						allowClear
+						fetch={() => FakeServerEvents(["a", "b", "c"], 2000)}
+						mapper={item => ({label: item, value: item})}
+					/>
 				</FormItem>
 			</Centered>
 		</WizardStep>
