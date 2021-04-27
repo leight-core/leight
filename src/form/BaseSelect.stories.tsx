@@ -13,10 +13,10 @@ export default {
 export const BaseSelectSandbox = () => {
 	const alfaEvents = ServerEvents();
 	const betaEvents = ServerEvents();
-	const [value, setValue] = useState();
+	const [value, setValue] = useState<any>();
 	return <>
 		<FormItem field={["some", "alfa"]}>
-			<BaseSelect
+			<BaseSelect<{ label: string, value: number }>
 				fetch={() => {
 					alfaEvents.handler("request")();
 					setTimeout(() => {
@@ -33,7 +33,7 @@ export const BaseSelectSandbox = () => {
 			/>
 		</FormItem>
 		<FormItem field={["some", "beta"]}>
-			<BaseSelect
+			<BaseSelect<{ label: string, value: number }>
 				mode={"multiple"}
 				fetch={() => {
 					betaEvents.handler("request")();

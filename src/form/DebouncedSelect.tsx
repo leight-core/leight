@@ -7,7 +7,7 @@ import {IPostCallback} from "../server/interface";
 import {useOptionalFormContext} from "./FormContext";
 import {useOptionalFormItemContext} from "./FormItemContext";
 
-export interface IDebouncedSelectProps<TItem = any> extends SelectProps<any> {
+export interface IDebouncedSelectProps<TItem> extends SelectProps<TItem> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
@@ -25,10 +25,13 @@ export interface IDebouncedSelectProps<TItem = any> extends SelectProps<any> {
 	 */
 	debounce?: number
 	initial?: string
+	/**
+	 * Use label as placeholder for the select.
+	 */
 	usePlaceholder?: boolean
 }
 
-export const DebouncedSelect = forwardRef(<TItem extends any = any>({fetch, params, mapper, usePlaceholder, initial = undefined, debounce = 250, ...props}: IDebouncedSelectProps<TItem>, ref) => {
+export const DebouncedSelect = forwardRef(({fetch, params, mapper, usePlaceholder, initial = undefined, debounce = 250, ...props}: IDebouncedSelectProps<any>, ref) => {
 	const discoveryContext = useDiscoveryContext();
 	const [options, setOptions] = useState<any[]>([]);
 	const [tid, setTid] = useState<number>();
@@ -76,4 +79,4 @@ export const DebouncedSelect = forwardRef(<TItem extends any = any>({fetch, para
 			{...props}
 		/>
 	);
-});
+}) as <TItem extends any>(props: IDebouncedSelectProps<TItem>) => JSX.Element;
