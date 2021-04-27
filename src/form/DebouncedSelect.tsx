@@ -28,7 +28,7 @@ export interface IDebouncedSelectProps<TItem = any> extends SelectProps<any> {
 	usePlaceholder?: boolean
 }
 
-export const DebouncedSelect = forwardRef(<TItem extends unknown>({fetch, params, mapper, usePlaceholder, initial = undefined, debounce = 250, ...props}: IDebouncedSelectProps<TItem>, ref) => {
+export const DebouncedSelect = forwardRef(<TItem extends any = any>({fetch, params, mapper, usePlaceholder, initial = undefined, debounce = 250, ...props}: IDebouncedSelectProps<TItem>, ref) => {
 	const discoveryContext = useDiscoveryContext();
 	const [options, setOptions] = useState<any[]>([]);
 	const [tid, setTid] = useState<number>();
