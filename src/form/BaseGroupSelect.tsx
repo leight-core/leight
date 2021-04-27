@@ -6,7 +6,7 @@ import {IGetCallback} from "../server/interface";
 import {useOptionalFormContext} from "./FormContext";
 import {IBaseGroupSelectOption} from "./interface";
 
-export interface IBaseGroupSelectProps<TResponse> extends SelectProps<any> {
+export interface IBaseGroupSelectProps<TResponse, TSelected = any> extends SelectProps<TSelected> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
@@ -57,4 +57,4 @@ export const BaseGroupSelect = forwardRef(({fetch, fetchParams, mapper, deps = [
 			))}
 		</Select>
 	);
-}) as <TResponse extends any>(props: IBaseGroupSelectProps<TResponse>) => JSX.Element;
+}) as <TResponse extends any, TSelected = any>(props: IBaseGroupSelectProps<TResponse, TSelected>) => JSX.Element;

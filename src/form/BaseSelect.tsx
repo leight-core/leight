@@ -7,7 +7,7 @@ import {useOptionalFormContext} from "./FormContext";
 import {useOptionalFormItemContext} from "./FormItemContext";
 import {IBaseSelectOption} from "./interface";
 
-export interface IBaseSelectProps<TData> extends SelectProps<any> {
+export interface IBaseSelectProps<TData, TSelected = any> extends SelectProps<TSelected> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
@@ -64,4 +64,4 @@ export const BaseSelect = forwardRef(({fetch, fetchParams, mapper, usePlaceholde
 			{...props}
 		/>
 	);
-}) as <TData extends any>(props: IBaseSelectProps<TData>) => JSX.Element;
+}) as <TData extends any, TSelected = any>(props: IBaseSelectProps<TData, TSelected>) => JSX.Element;

@@ -7,7 +7,7 @@ import {IPostCallback} from "../server/interface";
 import {useOptionalFormContext} from "./FormContext";
 import {useOptionalFormItemContext} from "./FormItemContext";
 
-export interface IDebouncedSelectProps<TItem> extends SelectProps<any> {
+export interface IDebouncedSelectProps<TItem, TSelected = any> extends SelectProps<TSelected> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
@@ -79,4 +79,4 @@ export const DebouncedSelect = forwardRef(({fetch, params, mapper, usePlaceholde
 			{...props}
 		/>
 	);
-}) as <TItem extends any>(props: IDebouncedSelectProps<TItem>) => JSX.Element;
+}) as <TItem extends any, TSelected = any>(props: IDebouncedSelectProps<TItem, TSelected>) => JSX.Element;
