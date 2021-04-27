@@ -33,9 +33,15 @@ export interface IDebouncedSelectProps<TItem, TSelected = any> extends SelectPro
 	 * An ability to forward refs as the control itself does not behave correctly if used without forwardRef.
 	 */
 	ref?: Ref<any>
+	/**
+	 * Select a first value.
+	 *
+	 * Defaults to false.
+	 */
+	useFirst?: boolean
 }
 
-export const DebouncedSelect = forwardRef(({fetch, params, mapper, usePlaceholder, initial = undefined, debounce = 250, ...props}: IDebouncedSelectProps<any>, ref) => {
+export const DebouncedSelect = forwardRef(({fetch, params, mapper, usePlaceholder, useFirst = false, initial = undefined, debounce = 250, ...props}: IDebouncedSelectProps<any>, ref) => {
 	const discoveryContext = useDiscoveryContext();
 	const [options, setOptions] = useState<any[]>([]);
 	const [tid, setTid] = useState<number>();
@@ -44,43 +50,42 @@ export const DebouncedSelect = forwardRef(({fetch, params, mapper, usePlaceholde
 	const {t} = useTranslation();
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
-	useEffect(() => {
-		fetch({search: initial || ""}, discoveryContext, params)
-			.on("request", () => {
-				formContext && formContext.block();
-				setLoading(true);
-			})
-			.on("response", data => {
-				setOptions(data.map(mapper));
-			})
-			.on("catch", (e) => {
-				console.error(e);
-			})
-			.on("done", () => {
-				setLoading(false);
-				formContext && formContext.unblock();
-			});
-	}, []);
-	return (
-		<Select
-			ref={ref as any}
-			options={options}
-			showSearch={true}
-			loading={loading}
-			filterOption={() => true}
-			notFoundContent={t("common.nothing-found")}
-			onSearch={search => {
-				setLoading(true);
-				clearTimeout(tid);
-				setTid(setTimeout(() => {
-					fetch({search}, discoveryContext, params)
-						.on("response", data => {
-							setOptions(data.map(mapper));
-							setLoading(false);
-						});
-				}, debounce) as unknown as number);
-			}}
-			{...props}
-		/>
-	);
+	useEffect(() => fetch({search: initial || ""}, discoveryContext, params)
+		.on("request", () => {
+			formContext && formContext.block();
+			setLoading(true);
+		})
+		.on("response", data => {
+			const options = data.map(mapper);
+			setOptions(options);
+			if (useFirst && options.length > 0) {
+				formItemContext && formItemContext.setValue(options[0].value);
+				props.onChange && props.onChange(options[0].value, options[0]);
+			}
+		})
+		.on("done", () => {
+			setLoading(false);
+			formContext && formContext.unblock();
+		})
+		.cleaner(), []);
+	return <Select
+		ref={ref as any}
+		options={options}
+		showSearch={true}
+		loading={loading}
+		filterOption={() => true}
+		notFoundContent={t("common.nothing-found")}
+		onSearch={search => {
+			setLoading(true);
+			clearTimeout(tid);
+			setTid(setTimeout(() => {
+				fetch({search}, discoveryContext, params)
+					.on("response", data => {
+						setOptions(data.map(mapper));
+						setLoading(false);
+					});
+			}, debounce) as unknown as number);
+		}}
+		{...props}
+	/>;
 }) as <TItem extends any, TSelected = any>(props: IDebouncedSelectProps<TItem, TSelected>) => JSX.Element;

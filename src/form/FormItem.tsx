@@ -40,9 +40,6 @@ export const FormItem: FC<IFormItemProps> = (
 		props.style = {margin: 0};
 	}
 	const formContext = useFormContext();
-	if (!formContext) {
-		throw new Error("FormItem must be used with FormContext (for example Form component from leight-core package).");
-	}
 	const fieldName = Array.isArray(field) ? field.join(".") : field;
 	const rules: Rule[] = [];
 	if (required) {
@@ -62,6 +59,8 @@ export const FormItem: FC<IFormItemProps> = (
 			value={{
 				field,
 				label: t(["form-item." + fieldName + ".label"].concat(labels)) as string,
+				getValue: () => formContext.form.getFieldValue(field),
+				setValue: value => formContext.form.setFields([{name: field, value}])
 			}}
 		>
 			<Form.Item

@@ -6,6 +6,8 @@ import {IServerEvents} from "../server/interface";
 export interface IFormItemContext {
 	field: NamePath
 	label: string
+	setValue: (value: any) => void
+	getValue: () => any
 }
 
 export type IFormFields = [NamePath, any];

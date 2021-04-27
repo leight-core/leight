@@ -33,32 +33,29 @@ export const BaseGroupSelect = forwardRef(({fetch, fetchParams, mapper, deps = [
 	const [options, setOptions] = useState<IBaseGroupSelectOption[]>([]);
 	const discoveryContext = useDiscoveryContext();
 	const formContext = useOptionalFormContext();
-	useEffect(() => {
-		return fetch(discoveryContext, fetchParams)
-			.on("request", () => {
-				formContext && formContext.block();
-			})
-			.on("response", data => {
-				setOptions(data.map(mapper));
-				formContext && formContext.unblock();
-			})
-			.cleaner();
-		// eslint-disable-next-line
-	}, deps);
-	return (
-		<Select
-			ref={ref as any}
-			showSearch={true}
-			{...props}
-		>
-			{options.map(item => (
-				item.children.length &&
-				<Select.OptGroup key={item.label} label={item.label}>
-					{item.children.map(item => (
-						<Select.Option key={item.value} value={item.value} children={item.label}/>
-					))}
-				</Select.OptGroup>
-			))}
-		</Select>
-	);
+	useEffect(() => fetch(discoveryContext, fetchParams)
+		.on("request", () => {
+			formContext && formContext.block();
+		})
+		.on("response", data => {
+			setOptions(data.map(mapper));
+		})
+		.on("done", () => {
+			formContext && formContext.unblock();
+		})
+		.cleaner(), deps);
+	return <Select
+		ref={ref as any}
+		showSearch={true}
+		{...props}
+	>
+		{options.map(item => (
+			item.children.length &&
+			<Select.OptGroup key={item.label} label={item.label}>
+				{item.children.map(item => (
+					<Select.Option key={item.value} value={item.value} children={item.label}/>
+				))}
+			</Select.OptGroup>
+		))}
+	</Select>;
 }) as <TResponse extends any, TSelected = any>(props: IBaseGroupSelectProps<TResponse, TSelected>) => JSX.Element;
