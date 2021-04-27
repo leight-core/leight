@@ -23,7 +23,7 @@ export const FinishButton = () => {
 				});
 				events.handler("finish")({
 					wizardContext,
-					values: wizardContext.outputMapper(wizardContext.merge(wizardContext.values, values))
+					values: wizardContext.outputMapper<any>(wizardContext.merge(wizardContext.values, values))
 				});
 			}}
 			noStyle

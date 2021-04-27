@@ -56,6 +56,11 @@ export interface IWizardStep {
 	component: JSX.Element
 }
 
+export interface IWizardFirst<TValues extends Object = any> {
+	wizardContext: IWizardContext
+	values: TValues
+}
+
 export interface IWizardNext<TValues extends Object = any> {
 	wizardContext: IWizardContext
 	values: TValues
@@ -66,12 +71,13 @@ export interface IWizardFinish<TValues extends Object = any> {
 	values: TValues
 }
 
-export type IWizardEventTypes = "reset" | "next" | "previous" | "finish";
+export type IWizardEventTypes = "reset" | "next" | "previous" | "finish" | "first";
 
 export interface IWizardEventHandlers extends IEventHandlers {
 	reset: () => IEventResult
 	next: (wizardNext: IWizardNext) => IEventResult
 	previous: (wizardContext: IWizardContext) => IEventResult
+	first: (wizardFirst: IWizardFirst) => IEventResult
 	finish: (wizardFinish: IWizardFinish) => IEventResult
 }
 
