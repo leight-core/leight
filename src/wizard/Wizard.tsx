@@ -153,6 +153,7 @@ export const Wizard: FC<IWizardProps> = (
 					steps={loaders}
 					children={
 						<Form
+							preserve={false}
 							onSubmit={() => null}
 							layout={"vertical"}
 							children={<WizardInternal name={name} steps={steps}/>}

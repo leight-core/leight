@@ -71,6 +71,14 @@ export interface IFormContext<TValues = any> {
 	 * Return current form values.
 	 */
 	values: () => any
+	/**
+	 * Throw away all error messages of all fields.
+	 */
+	resetErrors: () => void
+	/**
+	 * Force form refresh (just revalidate and reset fields to get current sync with visible fields).
+	 */
+	refresh: () => void
 }
 
 export interface IFormSubmitCallback<TValues> {
