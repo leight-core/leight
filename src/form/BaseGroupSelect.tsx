@@ -1,5 +1,5 @@
 import {Select, SelectProps} from "antd";
-import {useEffect, useState} from "react";
+import {forwardRef, useEffect, useState} from "react";
 import {Params} from "react-router";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IGetCallback} from "../server/interface";
@@ -25,7 +25,7 @@ export interface IBaseGroupSelectProps<TResponse> extends SelectProps<any> {
 	deps?: any[]
 }
 
-export const BaseGroupSelect = <TResponse extends unknown = any>({fetch, fetchParams, mapper, deps = [], ...props}: IBaseGroupSelectProps<TResponse>) => {
+export const BaseGroupSelect = forwardRef(<TResponse extends unknown = any>({fetch, fetchParams, mapper, deps = [], ...props}: IBaseGroupSelectProps<TResponse>, ref) => {
 	const [options, setOptions] = useState<IBaseGroupSelectOption[]>([]);
 	const discoveryContext = useDiscoveryContext();
 	const formContext = useOptionalFormContext();
@@ -43,6 +43,7 @@ export const BaseGroupSelect = <TResponse extends unknown = any>({fetch, fetchPa
 	}, deps);
 	return (
 		<Select
+			ref={ref as any}
 			showSearch={true}
 			{...props}
 		>
@@ -56,4 +57,4 @@ export const BaseGroupSelect = <TResponse extends unknown = any>({fetch, fetchPa
 			))}
 		</Select>
 	);
-};
+});
