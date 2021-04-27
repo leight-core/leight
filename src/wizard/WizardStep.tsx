@@ -1,4 +1,4 @@
-import {Divider} from "antd";
+import {Divider, Typography} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {ScrollToTop} from "../component/ScrollToTop";
@@ -9,12 +9,10 @@ export interface IWizardStepProps {
 
 export const WizardStep: FC<IWizardStepProps> = ({title, children}) => {
 	const {t} = useTranslation();
-	return (
-		<>
-			<ScrollToTop/>
-			<h2>{t(title)}</h2>
-			<Divider type={"horizontal"}/>
-			{children}
-		</>
-	);
+	return <>
+		<ScrollToTop/>
+		<Typography.Title level={2} children={t(title)}/>
+		<Divider type={"horizontal"}/>
+		{children}
+	</>;
 };

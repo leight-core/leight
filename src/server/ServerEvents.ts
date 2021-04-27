@@ -9,11 +9,11 @@ export const ServerEvents = <TResponse = any>(): IServerEvents<TResponse> => Eve
 /**
  * In case where there is no real server request, but one is expecting some result, use this.
  */
-export const FakeServerEvents = <TResponse>(data?: TResponse): IServerEvents<TResponse> => {
+export const FakeServerEvents = <TResponse>(data?: TResponse, timeout: number = 0): IServerEvents<TResponse> => {
 	const events = ServerEvents();
 	setTimeout(() => {
 		events.handler("response")(data);
 		events.handler("done")();
-	}, 0);
+	}, timeout);
 	return events;
 };

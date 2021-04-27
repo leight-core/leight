@@ -1,12 +1,14 @@
 import {action} from "@storybook/addon-actions";
 import {Button, Card, Result, Select} from "antd";
 import React, {useState} from "react";
+import {DebouncedSelect} from "../form/DebouncedSelect";
 import {FormItem} from "../form/FormItem";
 import {EditIcon} from "../icon/EditIcon";
 import {SubmitIcon} from "../icon/SubmitIcon";
 import {Centered} from "../layout/Centered";
 import {LoaderStep} from "../loader/LoaderStep";
 import {useStepLoaderContext} from "../loader/StepLoaderContext";
+import {FakeServerEvents} from "../server/ServerEvents";
 import {StoryApp} from "../storybook/StoryApp";
 import {Wizard} from "./Wizard";
 import {useWizardContext} from "./WizardContext";
@@ -56,13 +58,15 @@ const LoaderOfSomethingElse = props => {
 };
 
 const FirstStep = () => {
-	const wizardContext = useWizardContext();
 	return (
 		<WizardStep title={"first"}>
 			<Centered span={8}>
 				<FormItem field={["another", "value"]}/>
-				<FormItem field={["some", "value"]} required>
-					<Select options={wizardContext.dependency("select")} placeholder={"some.value"}/>
+				<FormItem field={["some", "debounced"]} required>
+					<DebouncedSelect<string>
+						fetch={() => FakeServerEvents(["a", "b", "c"], 2000)}
+						mapper={item => ({label: item, value: item})}
+					/>
 				</FormItem>
 			</Centered>
 		</WizardStep>
@@ -70,10 +74,14 @@ const FirstStep = () => {
 };
 
 const SecondStep = () => {
+	const wizardContext = useWizardContext();
 	return (
 		<WizardStep title={"second"}>
 			<Centered span={8}>
 				<FormItem field={["wanna-this"]}/>
+				<FormItem field={["some", "value"]} required>
+					<Select options={wizardContext.dependency("select")} placeholder={"some.value"}/>
+				</FormItem>
 			</Centered>
 		</WizardStep>
 	);

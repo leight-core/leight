@@ -60,30 +60,28 @@ const WizardInternal = ({name, steps}) => {
 	const formContext = useFormContext();
 	const {t} = useTranslation();
 	wizardContext.events.on("reset", () => formContext.reset());
-	return (
-		<>
-			<Steps current={wizardContext.step} size={"default"}>
-				{steps.map(item => (
-					<Steps.Step
-						key={item.id}
-						title={t("wizard." + name + ".step." + item.id + ".title")}
-						description={t("wizard." + name + ".step." + item.id + ".description")}
-					/>
-				))}
-			</Steps>
-			<Divider type={"horizontal"}/>
-			{steps[wizardContext.step].component}
-			<Divider type={"horizontal"}/>
-			<PushRight>
-				<Space split={<Divider type={"vertical"}/>} size={"large"}>
-					<CancelButton key={"cancel"}/>
-					{wizardContext.canPrevious() && <PreviousButton key={"previous"}/>}
-					{wizardContext.canNext() && <NextButton key={"next"}/>}
-					{wizardContext.canFinish() && <FinishButton key={"finish"}/>}
-				</Space>
-			</PushRight>
-		</>
-	);
+	return <>
+		<Steps current={wizardContext.step} size={"default"}>
+			{steps.map(item => (
+				<Steps.Step
+					key={item.id}
+					title={t("wizard." + name + ".step." + item.id + ".title")}
+					description={t("wizard." + name + ".step." + item.id + ".description")}
+				/>
+			))}
+		</Steps>
+		<Divider type={"horizontal"}/>
+		{steps[wizardContext.step].component}
+		<Divider type={"horizontal"}/>
+		<PushRight>
+			<Space split={<Divider type={"vertical"}/>} size={"large"}>
+				<CancelButton key={"cancel"}/>
+				{wizardContext.canPrevious() && <PreviousButton key={"previous"}/>}
+				{wizardContext.canNext() && <NextButton key={"next"}/>}
+				{wizardContext.canFinish() && <FinishButton key={"finish"}/>}
+			</Space>
+		</PushRight>
+	</>;
 };
 
 export const Wizard: FC<IWizardProps> = (
@@ -145,7 +143,6 @@ export const Wizard: FC<IWizardProps> = (
 					steps={loaders}
 					children={
 						<Form
-							name={name}
 							onSubmit={() => null}
 							layout={"vertical"}
 							children={<WizardInternal name={name} steps={steps}/>}
