@@ -7,7 +7,7 @@ import {useOptionalFormContext} from "./FormContext";
 import {useOptionalFormItemContext} from "./FormItemContext";
 import {IBaseSelectOption} from "./interface";
 
-export interface IBaseSelectProps<TData> extends SelectProps<TData> {
+export interface IBaseSelectProps<TData> extends SelectProps<any> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */

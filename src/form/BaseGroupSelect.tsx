@@ -6,7 +6,7 @@ import {IGetCallback} from "../server/interface";
 import {useOptionalFormContext} from "./FormContext";
 import {IBaseGroupSelectOption} from "./interface";
 
-export interface IBaseGroupSelectProps<TResponse> extends SelectProps<TResponse> {
+export interface IBaseGroupSelectProps<TResponse> extends SelectProps<any> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */

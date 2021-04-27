@@ -7,7 +7,7 @@ import {IPostCallback} from "../server/interface";
 import {useOptionalFormContext} from "./FormContext";
 import {useOptionalFormItemContext} from "./FormItemContext";
 
-export interface IDebouncedSelectProps<TItem> extends SelectProps<TItem> {
+export interface IDebouncedSelectProps<TItem> extends SelectProps<any> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
