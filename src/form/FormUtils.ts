@@ -28,10 +28,11 @@ export const FormUtils = {
 					return false;
 				}
 				if (item.dataset) {
-					return !!item.dataset.required;
+					return item.dataset.required === "true";
 				} else if (item.props) {
-					return item.props["data-required"];
+					return !!item.props["data-required"];
 				}
+				return false;
 			}));
 		}));
 	},
