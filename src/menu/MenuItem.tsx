@@ -42,8 +42,8 @@ export const MenuItem: FC<IMenuItemProps> = ({id, icon, href, params, ...props})
  *
  * Basically it has the same behavior as MenuItem component.
  */
-export function CreateMenuItem(id: string, icon: ReactNode, params?: IParams) {
+export function CreateMenuItem(id: string, icon: ReactNode, params?: IParams, rest?: IMenuItemProps) {
 	return (
-		<MenuItem id={id} key={id} icon={icon} params={params}/>
+		<MenuItem id={id} key={id} icon={icon} params={params} {...rest}/>
 	);
 }
