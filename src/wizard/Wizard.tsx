@@ -1,4 +1,4 @@
-import {Divider, Space, Steps} from "antd";
+import {Col, Divider, Row, Space, Steps} from "antd";
 import deepmerge from "deepmerge";
 import {isPlainObject} from "is-plain-object";
 import {FC, useState} from "react";
@@ -62,28 +62,31 @@ const WizardInternal = ({name, steps}) => {
 	wizardContext.events
 		.on("reset", () => formContext.reset())
 		.on("first", () => formContext.reset());
-	return <>
-		<Steps current={wizardContext.step} size={"default"}>
-			{steps.map(item => (
-				<Steps.Step
-					key={item.id}
-					title={t("wizard." + name + ".step." + item.id + ".title")}
-					description={t("wizard." + name + ".step." + item.id + ".description")}
-				/>
-			))}
-		</Steps>
-		<Divider type={"horizontal"}/>
-		{steps[wizardContext.step].component}
-		<Divider type={"horizontal"}/>
-		<PushRight>
-			<Space split={<Divider type={"vertical"}/>} size={"large"}>
-				<CancelButton key={"cancel"}/>
-				{wizardContext.canPrevious() && <PreviousButton key={"previous"}/>}
-				{wizardContext.canNext() && <NextButton key={"next"}/>}
-				{wizardContext.canFinish() && <FinishButton key={"finish"}/>}
-			</Space>
-		</PushRight>
-	</>;
+	return <Row gutter={16}>
+		<Col span={6}>
+			<Steps current={wizardContext.step} size={"default"} direction={"vertical"}>
+				{steps.map(item => (
+					<Steps.Step
+						key={item.id}
+						title={t("wizard." + name + ".step." + item.id + ".title")}
+						description={t("wizard." + name + ".step." + item.id + ".description")}
+					/>
+				))}
+			</Steps>
+		</Col>
+		<Col span={18}>
+			{steps[wizardContext.step].component}
+			<Divider type={"horizontal"}/>
+			<PushRight>
+				<Space split={<Divider type={"vertical"}/>} size={"large"}>
+					<CancelButton key={"cancel"}/>
+					{wizardContext.canPrevious() && <PreviousButton key={"previous"}/>}
+					{wizardContext.canNext() && <NextButton key={"next"}/>}
+					{wizardContext.canFinish() && <FinishButton key={"finish"}/>}
+				</Space>
+			</PushRight>
+		</Col>
+	</Row>;
 };
 
 export const Wizard: FC<IWizardProps> = (
