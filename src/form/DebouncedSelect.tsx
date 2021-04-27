@@ -28,7 +28,7 @@ export interface IDebouncedSelectProps<TItem = any> extends SelectProps<any> {
 	usePlaceholder?: boolean
 }
 
-export const DebouncedSelect = <TItem extends unknown>({fetch, params, mapper, usePlaceholder, initial = "", debounce = 250, ...props}: IDebouncedSelectProps<TItem>) => {
+export const DebouncedSelect = <TItem extends unknown>({fetch, params, mapper, usePlaceholder, initial = undefined, debounce = 250, ...props}: IDebouncedSelectProps<TItem>) => {
 	const discoveryContext = useDiscoveryContext();
 	const [options, setOptions] = useState<any[]>([]);
 	const [tid, setTid] = useState<number>();
@@ -38,7 +38,7 @@ export const DebouncedSelect = <TItem extends unknown>({fetch, params, mapper, u
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
 	useEffect(() => {
-		fetch({search: initial}, discoveryContext, params)
+		fetch({search: initial || ""}, discoveryContext, params)
 			.on("request", () => {
 				formContext && formContext.block();
 				setLoading(true);

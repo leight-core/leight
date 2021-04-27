@@ -52,26 +52,25 @@ export interface ISubmitButtonProps extends Partial<ButtonProps> {
 export const SubmitButton: FC<ISubmitButtonProps> = ({formInstance, noStyle, label, icon, disabledIcon, ...props}) => {
 	const [disabled, setDisabled] = useState(true);
 	const formContext = useFormContext();
-	if (!formContext) {
-		throw new Error("SubmitButton must be under FormContext (Form component) or get [form] prop!");
-	}
 
 	const Internal = () => {
 		const {t} = useTranslation();
 		useEffect(() => {
 			/**
-			 * Because we need to ensure all item forms are created, can submit works asynchronously.
+			 * Because we need to ensure all item forms are created, "canSubmit" works asynchronously.
 			 */
 			const promise = FormUtils.canSubmit(formContext.form).then(enabled => setDisabled(!enabled));
 			return () => promise.cancel();
 		});
-		return <Button
-			type={"primary"}
-			disabled={disabled}
-			children={t(label)}
-			icon={<Spinner done={!formContext.isBlocked()} children={disabled ? (disabledIcon || <SubmitDisabledIcon/>) : icon}/>}
-			{...props}
-		/>;
+		return <>
+			<Button
+				type={"primary"}
+				disabled={disabled}
+				children={t(label)}
+				icon={<Spinner done={!formContext.isBlocked()} children={disabled ? (disabledIcon || <SubmitDisabledIcon/>) : icon}/>}
+				{...props}
+			/>
+		</>;
 	};
 
 	return (

@@ -6,6 +6,7 @@ import {useWizardContext} from "../WizardContext";
 export const FinishButton = () => {
 	const wizardContext = useWizardContext();
 	const formContext = useFormContext();
+	const {events} = wizardContext;
 	return (
 		<FormSubmitButton
 			label={[
@@ -15,12 +16,12 @@ export const FinishButton = () => {
 			size={"large"}
 			icon={<SubmitIcon/>}
 			onClick={() => {
-				const values = formContext.form.getFieldsValue();
-				wizardContext.events.handler("next")({
+				const values = formContext.values();
+				events.handler("next")({
 					wizardContext,
 					values
 				});
-				wizardContext.events.handler("finish")({
+				events.handler("finish")({
 					wizardContext,
 					values: wizardContext.outputMapper(wizardContext.merge(wizardContext.values, values))
 				});

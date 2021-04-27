@@ -65,6 +65,10 @@ export interface IFormContext<TValues = any> {
 	 * Create default events handling some things in the form.
 	 */
 	events: <TResponse = any>() => IServerEvents<TResponse>
+	/**
+	 * Return current form values.
+	 */
+	values: () => any
 }
 
 export interface IFormSubmitCallback<TValues> {

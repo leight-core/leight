@@ -56,7 +56,8 @@ export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) =
 					.on("done", () => {
 						unblock();
 						layoutContext.blockContext.unblock();
-					})
+					}),
+				values: form.getFieldsValue
 			}}
 			children={children}
 		/>

@@ -1,5 +1,5 @@
 import {action} from "@storybook/addon-actions";
-import {Button, Card, DatePicker, Divider} from "antd";
+import {Button, Card, DatePicker, Divider, InputNumber} from "antd";
 import React, {useEffect} from "react";
 import {CreateItemIcon} from "../icon/CreateItemIcon";
 import {DeleteItemIcon} from "../icon/DeleteItemIcon";
@@ -23,9 +23,10 @@ export default {
 export const SubmitWithRequired = () => (
 	<StoryApp>
 		<Centered span={14}>
-			<Form name={"story"} layout={"vertical"} onSubmit={action("onSubmit")}>
+			<Form layout={"vertical"} onSubmit={action("onSubmit")}>
 				<FormItem required field={"login"} children={<Input usePlaceholder/>}/>
 				<FormItem required field={"password"} children={<Input type={"password"} usePlaceholder/>}/>
+				<FormItem required field={"native-number"} children={<InputNumber/>}/>
 				<FormSubmitButton label={"Submit!"} icon={<SubmitIcon/>}/>
 			</Form>
 		</Centered>
@@ -42,7 +43,7 @@ SubmitWithRequired.parameters = {
 export const SubmitWithRequiredDate = () => (
 	<StoryApp>
 		<Centered span={14}>
-			<Form name={"story"} layout={"vertical"} onSubmit={action("onSubmit")}>
+			<Form layout={"vertical"} onSubmit={action("onSubmit")}>
 				<FormItem required field={"input"} children={<Input usePlaceholder/>}/>
 				<FormItem required field={["hidden", "date"]} children={<DatePicker style={{width: "100%"}}/>}/>
 				<FormSubmitButton label={"Submit!"} icon={<SubmitIcon/>}/>
@@ -109,15 +110,13 @@ export const SubmitWithPostInitials = () => {
 				formContext.unblock();
 			}, 1250);
 		}, []);
-		return (
-			<>
-				<FormItem field={"some-value"} children={<Input usePlaceholder/>}/>
-				<FormItem required field={"required-value"} children={<Input usePlaceholder/>}/>
-				<FormItem field={"another-value"} children={<Input usePlaceholder/>}/>
-				<FormItem field={["without", "placeholder"]} children={<Input/>}/>
-				<FormSubmitButton label={"Submit!"} icon={<SubmitIcon/>}/>
-			</>
-		);
+		return <>
+			<FormItem field={"some-value"} children={<Input usePlaceholder/>}/>
+			<FormItem required field={"required-value"} children={<Input usePlaceholder/>}/>
+			<FormItem field={"another-value"} children={<Input usePlaceholder/>}/>
+			<FormItem field={["without", "placeholder"]} children={<Input/>}/>
+			<FormSubmitButton label={"Submit!"} icon={<SubmitIcon/>}/>
+		</>;
 	};
 
 	return (
@@ -171,45 +170,43 @@ export const SubmitWithPostInitialsErrors = () => {
 			}, 1250);
 			return () => clearTimeout(id);
 		}, []);
-		return (
-			<>
-				<FormItem field={"some-value"} children={<Input usePlaceholder/>}/>
-				<FormItem required field={"required-value"} children={<Input usePlaceholder/>}/>
-				<FormItem field={"another-value"} children={<Input usePlaceholder/>}/>
-				<FormList field={["some", "internal", "dynamic", "form"]}>
-					{(fields, {
-						add,
-						remove
-					}) => (
-						<Card>
-							{fields.map(field => (
-								<div key={field.key}>
-									<FormItem key={field.key + ".type"} field={[field.fieldKey, "type"]} fieldKey={[field.fieldKey, "type"]}/>
-									<FormItem required key={field.key + ".value"} field={[field.fieldKey, "value"]} fieldKey={[field.fieldKey, "value"]}/>
-									<FormItem required key={field.key + ".date"} field={[field.fieldKey, "date"]} fieldKey={[field.fieldKey, "date"]} children={<DatePicker/>}/>
-									<Button
-										type="primary"
-										ghost
-										onClick={() => remove(field.name)}
-										children={"remove"}
-										icon={<DeleteItemIcon/>}
-									/>
-									<Divider type={"horizontal"}/>
-								</div>
-							))}
-							<Button
-								type="primary"
-								ghost
-								onClick={() => add()}
-								children={"add"}
-								icon={<CreateItemIcon/>}
-							/>
-						</Card>
-					)}
-				</FormList>
-				<FormSubmitButton label={"Submit!"} icon={<SubmitIcon/>}/>
-			</>
-		);
+		return <>
+			<FormItem field={"some-value"} children={<Input usePlaceholder/>}/>
+			<FormItem required field={"required-value"} children={<Input usePlaceholder/>}/>
+			<FormItem field={"another-value"} children={<Input usePlaceholder/>}/>
+			<FormList field={["some", "internal", "dynamic", "form"]}>
+				{(fields, {
+					add,
+					remove
+				}) => (
+					<Card>
+						{fields.map(field => (
+							<div key={field.key}>
+								<FormItem key={field.key + ".type"} field={[field.fieldKey, "type"]} fieldKey={[field.fieldKey, "type"]}/>
+								<FormItem required key={field.key + ".value"} field={[field.fieldKey, "value"]} fieldKey={[field.fieldKey, "value"]}/>
+								<FormItem required key={field.key + ".date"} field={[field.fieldKey, "date"]} fieldKey={[field.fieldKey, "date"]} children={<DatePicker/>}/>
+								<Button
+									type="primary"
+									ghost
+									onClick={() => remove(field.name)}
+									children={"remove"}
+									icon={<DeleteItemIcon/>}
+								/>
+								<Divider type={"horizontal"}/>
+							</div>
+						))}
+						<Button
+							type="primary"
+							ghost
+							onClick={() => add()}
+							children={"add"}
+							icon={<CreateItemIcon/>}
+						/>
+					</Card>
+				)}
+			</FormList>
+			<FormSubmitButton label={"Submit!"} icon={<SubmitIcon/>}/>
+		</>;
 	};
 
 	return (

@@ -1,5 +1,5 @@
 import {Select, SelectProps} from "antd";
-import {useEffect, useState} from "react";
+import {forwardRef, useEffect, useState} from "react";
 import {Params} from "react-router";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IGetCallback} from "../server/interface";
@@ -24,10 +24,13 @@ export interface IBaseSelectProps<TData> extends SelectProps<any> {
 	 * Dependency used to force redraw (re-fetch data).
 	 */
 	deps?: any[]
+	/**
+	 * Use form item label as a placeholder.
+	 */
 	usePlaceholder?: boolean
 }
 
-export const BaseSelect = <TData extends unknown>({fetch, fetchParams, mapper, usePlaceholder, deps = [], ...props}: IBaseSelectProps<TData>) => {
+export const BaseSelect = forwardRef(<TData extends unknown>({fetch, fetchParams, mapper, usePlaceholder, deps = [], ...props}: IBaseSelectProps<TData>, ref) => {
 	const [options, setOptions] = useState<IBaseSelectOption[]>([]);
 	const [first, setFirst] = useState(true);
 	const discoveryContext = useDiscoveryContext();
@@ -55,9 +58,10 @@ export const BaseSelect = <TData extends unknown>({fetch, fetchParams, mapper, u
 	}, deps);
 	return (
 		<Select
+			ref={ref as any}
 			options={options}
 			showSearch={true}
 			{...props}
 		/>
 	);
-};
+});

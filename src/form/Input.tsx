@@ -1,5 +1,5 @@
 import {Input as CoolInput, InputProps} from "antd";
-import {FC} from "react";
+import {FC, forwardRef} from "react";
 import {useOptionalFormItemContext} from "./FormItemContext";
 
 export interface IInputProps extends Partial<InputProps> {
@@ -9,10 +9,8 @@ export interface IInputProps extends Partial<InputProps> {
 	usePlaceholder?: boolean
 }
 
-export const Input: FC<IInputProps> = ({usePlaceholder, ...props}) => {
+export const Input: FC<IInputProps> = forwardRef(({usePlaceholder, ...props}, ref) => {
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
-	return (
-		<CoolInput {...props}/>
-	);
-};
+	return <CoolInput ref={ref as any} {...props}/>;
+});

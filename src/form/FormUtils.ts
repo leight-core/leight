@@ -10,7 +10,11 @@ export const FormUtils = {
 	 * @param form Antd form instance
 	 */
 	fields: function (form: FormInstance): CancelablePromiseType<IFormFields[]> {
-		return new CancelablePromise(resolve => setTimeout(() => resolve(form.getFieldsError().map(item => [item.name, form.getFieldInstance(item.name)]) as IFormFields), 0));
+		return new CancelablePromise(resolve => setTimeout(() => {
+			resolve(form.getFieldsError().map(item => {
+				return [item.name, form.getFieldInstance(item.name)];
+			}));
+		}, 0));
 	},
 	/**
 	 * Returns array of [names, Field] of required fields.
@@ -19,7 +23,16 @@ export const FormUtils = {
 	 */
 	required: function (form: FormInstance): CancelablePromiseType<IFormFields[]> {
 		return new CancelablePromise(resolve => this.fields(form).then(fields => {
-			resolve(fields.filter(([_, item]) => (item ? (item.props ? item.props : {}) : {})["data-required"]));
+			resolve(fields.filter(([_, item]) => {
+				if (!item) {
+					return false;
+				}
+				if (item.dataset) {
+					return !!item.dataset.required;
+				} else if (item.props) {
+					return item.props["data-required"];
+				}
+			}));
 		}));
 	},
 	/**
