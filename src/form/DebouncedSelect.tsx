@@ -1,5 +1,5 @@
 import {Select, SelectProps} from "antd";
-import {forwardRef, useEffect, useState} from "react";
+import {forwardRef, Ref, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IParams, ISearchRequest} from "../interface/interface";
@@ -29,6 +29,10 @@ export interface IDebouncedSelectProps<TItem, TSelected = any> extends SelectPro
 	 * Use label as placeholder for the select.
 	 */
 	usePlaceholder?: boolean
+	/**
+	 * An ability to forward refs as the control itself does not behave correctly if used without forwardRef.
+	 */
+	ref?: Ref<any>
 }
 
 export const DebouncedSelect = forwardRef(({fetch, params, mapper, usePlaceholder, initial = undefined, debounce = 250, ...props}: IDebouncedSelectProps<any>, ref) => {

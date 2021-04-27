@@ -1,5 +1,5 @@
 import {Select, SelectProps} from "antd";
-import {forwardRef, useEffect, useState} from "react";
+import {forwardRef, Ref, useEffect, useState} from "react";
 import {Params} from "react-router";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IGetCallback} from "../server/interface";
@@ -23,6 +23,10 @@ export interface IBaseGroupSelectProps<TResponse, TSelected = any> extends Selec
 	 * Dependency used to force redraw (re-fetch data).
 	 */
 	deps?: any[]
+	/**
+	 * An ability to forward refs as the control itself does not behave correctly if used without forwardRef.
+	 */
+	ref?: Ref<any>
 }
 
 export const BaseGroupSelect = forwardRef(({fetch, fetchParams, mapper, deps = [], ...props}: IBaseGroupSelectProps<any>, ref) => {

@@ -1,5 +1,5 @@
 import {Select, SelectProps} from "antd";
-import {forwardRef, useEffect, useState} from "react";
+import {forwardRef, Ref, useEffect, useState} from "react";
 import {Params} from "react-router";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IGetCallback} from "../server/interface";
@@ -28,6 +28,10 @@ export interface IBaseSelectProps<TData, TSelected = any> extends SelectProps<TS
 	 * Use form item label as a placeholder.
 	 */
 	usePlaceholder?: boolean
+	/**
+	 * An ability to forward refs as the control itself does not behave correctly if used without forwardRef.
+	 */
+	ref?: Ref<any>
 }
 
 export const BaseSelect = forwardRef(({fetch, fetchParams, mapper, usePlaceholder, deps = [], ...props}: IBaseSelectProps<any>, ref) => {
