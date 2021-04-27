@@ -21,7 +21,7 @@ export interface IWizardContext {
 	/**
 	 * Values collected from form in the wizard, if any.
 	 */
-	readonly values: Object
+	readonly values: any
 	/**
 	 * Compute previous step (update state).
 	 */
