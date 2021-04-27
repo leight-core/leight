@@ -1,5 +1,5 @@
 import {Select, SelectProps} from "antd";
-import {useEffect, useState} from "react";
+import {forwardRef, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IParams, ISearchRequest} from "../interface/interface";
@@ -28,7 +28,7 @@ export interface IDebouncedSelectProps<TItem = any> extends SelectProps<any> {
 	usePlaceholder?: boolean
 }
 
-export const DebouncedSelect = <TItem extends unknown>({fetch, params, mapper, usePlaceholder, initial = undefined, debounce = 250, ...props}: IDebouncedSelectProps<TItem>) => {
+export const DebouncedSelect = forwardRef(<TItem extends unknown>({fetch, params, mapper, usePlaceholder, initial = undefined, debounce = 250, ...props}: IDebouncedSelectProps<TItem>, ref) => {
 	const discoveryContext = useDiscoveryContext();
 	const [options, setOptions] = useState<any[]>([]);
 	const [tid, setTid] = useState<number>();
@@ -56,6 +56,7 @@ export const DebouncedSelect = <TItem extends unknown>({fetch, params, mapper, u
 	}, []);
 	return (
 		<Select
+			ref={ref as any}
 			options={options}
 			showSearch={true}
 			loading={loading}
@@ -75,4 +76,4 @@ export const DebouncedSelect = <TItem extends unknown>({fetch, params, mapper, u
 			{...props}
 		/>
 	);
-};
+});

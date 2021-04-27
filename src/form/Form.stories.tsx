@@ -5,7 +5,9 @@ import {CreateItemIcon} from "../icon/CreateItemIcon";
 import {DeleteItemIcon} from "../icon/DeleteItemIcon";
 import {SubmitIcon} from "../icon/SubmitIcon";
 import {Centered} from "../layout/Centered";
+import {FakeServerEvents} from "../server/ServerEvents";
 import {StoryApp} from "../storybook/StoryApp";
+import {DebouncedSelect} from "./DebouncedSelect";
 import {Form} from "./Form";
 import {useFormContext} from "./FormContext";
 import {FormItem} from "./FormItem";
@@ -27,6 +29,7 @@ export const SubmitWithRequired = () => (
 				<FormItem required field={"login"} children={<Input usePlaceholder/>}/>
 				<FormItem required field={"password"} children={<Input type={"password"} usePlaceholder/>}/>
 				<FormItem required field={"native-number"} children={<InputNumber/>}/>
+				<FormItem required field={["debounced"]} children={<DebouncedSelect allowClear fetch={() => FakeServerEvents<any>(["a", "b", "c"], 100)} mapper={item => ({value: item, label: item})}/>}/>
 				<FormSubmitButton label={"Submit!"} icon={<SubmitIcon/>}/>
 			</Form>
 		</Centered>
