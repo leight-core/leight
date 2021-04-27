@@ -25,7 +25,7 @@ export interface IBaseGroupSelectProps<TResponse> extends SelectProps<any> {
 	deps?: any[]
 }
 
-export const BaseGroupSelect = forwardRef(<TResponse extends unknown = any>({fetch, fetchParams, mapper, deps = [], ...props}: IBaseGroupSelectProps<TResponse>, ref) => {
+export const BaseGroupSelect = forwardRef(<TResponse extends any = any>({fetch, fetchParams, mapper, deps = [], ...props}: IBaseGroupSelectProps<any>, ref) => {
 	const [options, setOptions] = useState<IBaseGroupSelectOption[]>([]);
 	const discoveryContext = useDiscoveryContext();
 	const formContext = useOptionalFormContext();

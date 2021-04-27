@@ -30,7 +30,7 @@ export interface IBaseSelectProps<TData> extends SelectProps<any> {
 	usePlaceholder?: boolean
 }
 
-export const BaseSelect = forwardRef(<TData extends unknown>({fetch, fetchParams, mapper, usePlaceholder, deps = [], ...props}: IBaseSelectProps<TData>, ref) => {
+export const BaseSelect = forwardRef(<TData extends any = any>({fetch, fetchParams, mapper, usePlaceholder, deps = [], ...props}: IBaseSelectProps<any>, ref) => {
 	const [options, setOptions] = useState<IBaseSelectOption[]>([]);
 	const [first, setFirst] = useState(true);
 	const discoveryContext = useDiscoveryContext();
