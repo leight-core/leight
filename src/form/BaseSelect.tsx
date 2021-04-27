@@ -7,7 +7,7 @@ import {useOptionalFormContext} from "./FormContext";
 import {useOptionalFormItemContext} from "./FormItemContext";
 import {IBaseSelectOption} from "./interface";
 
-export interface IBaseSelectProps<TData> extends SelectProps<any> {
+export interface IBaseSelectProps<TData = any> extends SelectProps<TData> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
@@ -30,7 +30,7 @@ export interface IBaseSelectProps<TData> extends SelectProps<any> {
 	usePlaceholder?: boolean
 }
 
-export const BaseSelect = forwardRef(<TData extends any = any>({fetch, fetchParams, mapper, usePlaceholder, deps = [], ...props}: IBaseSelectProps<any>, ref) => {
+export const BaseSelect = forwardRef(<TData extends any = any>({fetch, fetchParams, mapper, usePlaceholder, deps = [], ...props}: IBaseSelectProps, ref) => {
 	const [options, setOptions] = useState<IBaseSelectOption[]>([]);
 	const [first, setFirst] = useState(true);
 	const discoveryContext = useDiscoveryContext();

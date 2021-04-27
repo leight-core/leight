@@ -6,7 +6,7 @@ import {IGetCallback} from "../server/interface";
 import {useOptionalFormContext} from "./FormContext";
 import {IBaseGroupSelectOption} from "./interface";
 
-export interface IBaseGroupSelectProps<TResponse> extends SelectProps<any> {
+export interface IBaseGroupSelectProps<TResponse = any> extends SelectProps<any> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
@@ -25,7 +25,7 @@ export interface IBaseGroupSelectProps<TResponse> extends SelectProps<any> {
 	deps?: any[]
 }
 
-export const BaseGroupSelect = forwardRef(<TResponse extends any = any>({fetch, fetchParams, mapper, deps = [], ...props}: IBaseGroupSelectProps<any>, ref) => {
+export const BaseGroupSelect = forwardRef(<TResponse extends any = any>({fetch, fetchParams, mapper, deps = [], ...props}: IBaseGroupSelectProps, ref) => {
 	const [options, setOptions] = useState<IBaseGroupSelectOption[]>([]);
 	const discoveryContext = useDiscoveryContext();
 	const formContext = useOptionalFormContext();
