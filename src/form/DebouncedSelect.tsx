@@ -46,11 +46,11 @@ export const DebouncedSelect = forwardRef(({fetch, params, mapper, usePlaceholde
 	const [options, setOptions] = useState<any[]>([]);
 	const [tid, setTid] = useState<number>();
 	const formContext = useOptionalFormContext();
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 	const {t} = useTranslation();
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
-	useEffect(() => fetch({search: initial || ""}, discoveryContext, params)
+	useEffect(() => fetch({search: formItemContext ? (formItemContext.getValue() || "") : ""}, discoveryContext, params)
 		.on("request", () => {
 			formContext && formContext.block();
 			setLoading(true);
@@ -67,7 +67,20 @@ export const DebouncedSelect = forwardRef(({fetch, params, mapper, usePlaceholde
 			setLoading(false);
 			formContext && formContext.unblock();
 		})
-		.cleaner(), []);
+		.cleaner(), [formItemContext && formItemContext.getValue()]);
+
+	const onSearch = search => {
+		setLoading(true);
+		clearTimeout(tid);
+		setTid(setTimeout(() => {
+			fetch({search}, discoveryContext, params)
+				.on("response", data => {
+					setOptions(data.map(mapper));
+					setLoading(false);
+				});
+		}, debounce) as unknown as number);
+	};
+
 	return <Select
 		ref={ref as any}
 		options={options}
@@ -75,17 +88,7 @@ export const DebouncedSelect = forwardRef(({fetch, params, mapper, usePlaceholde
 		loading={loading}
 		filterOption={() => true}
 		notFoundContent={t("common.nothing-found")}
-		onSearch={search => {
-			setLoading(true);
-			clearTimeout(tid);
-			setTid(setTimeout(() => {
-				fetch({search}, discoveryContext, params)
-					.on("response", data => {
-						setOptions(data.map(mapper));
-						setLoading(false);
-					});
-			}, debounce) as unknown as number);
-		}}
+		onSearch={onSearch}
 		{...props}
 	/>;
 }) as <TItem extends any, TSelected = any>(props: IDebouncedSelectProps<TItem, TSelected>) => JSX.Element;
