@@ -13,7 +13,17 @@ export interface IDebouncedSelectProps<TItem, TSelected = any> extends SelectPro
 	 */
 	fetch: IPostCallback<ISearchRequest, TItem[]>
 	/**
-	 * Optional fetch params
+	 * Extra (optional) search request parameters.
+	 */
+	extra?: any
+	/**
+	 * Limit number of items (if the fetch side respects this setting).
+	 *
+	 * Defaults to 10.
+	 */
+	limit?: number
+	/**
+	 * Optional fetch params.
 	 */
 	params?: IParams
 	/**
@@ -24,6 +34,9 @@ export interface IDebouncedSelectProps<TItem, TSelected = any> extends SelectPro
 	 * Debounce interval in ms.
 	 */
 	debounce?: number
+	/**
+	 * Initial value.
+	 */
 	initial?: string
 	/**
 	 * Use label as placeholder for the select.
@@ -41,7 +54,7 @@ export interface IDebouncedSelectProps<TItem, TSelected = any> extends SelectPro
 	useFirst?: boolean
 }
 
-export const DebouncedSelect = forwardRef(({fetch, params, mapper, usePlaceholder, useFirst = false, initial = undefined, debounce = 250, ...props}: IDebouncedSelectProps<any>, ref) => {
+export const DebouncedSelect = forwardRef(({fetch, params, extra, limit = 10, mapper, usePlaceholder, useFirst = false, initial = undefined, debounce = 250, ...props}: IDebouncedSelectProps<any>, ref) => {
 	const discoveryContext = useDiscoveryContext();
 	const [options, setOptions] = useState<any[]>([]);
 	const [tid, setTid] = useState<number>();
@@ -51,7 +64,11 @@ export const DebouncedSelect = forwardRef(({fetch, params, mapper, usePlaceholde
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
 	useEffect(
-		() => fetch({search: formItemContext ? (formItemContext.getValue() || "") : ""}, discoveryContext, params)
+		() => fetch({
+			search: formItemContext ? (formItemContext.getValue() || "") : "",
+			extra,
+			limit,
+		}, discoveryContext, params)
 			.on("request", () => {
 				formContext && formContext.block();
 				setLoading(true);
@@ -76,7 +93,7 @@ export const DebouncedSelect = forwardRef(({fetch, params, mapper, usePlaceholde
 		setLoading(true);
 		clearTimeout(tid);
 		setTid(setTimeout(() => {
-			fetch({search}, discoveryContext, params)
+			fetch({search, extra, limit}, discoveryContext, params)
 				.on("response", data => {
 					setOptions(data.map(mapper));
 					setLoading(false);

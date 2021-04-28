@@ -38,4 +38,6 @@ export interface IPageIndex<TItem = any> {
 
 export interface ISearchRequest {
 	search: string
+	extra?: any
+	limit?: number
 }
