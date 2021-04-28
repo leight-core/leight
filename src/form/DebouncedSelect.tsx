@@ -50,24 +50,27 @@ export const DebouncedSelect = forwardRef(({fetch, params, mapper, usePlaceholde
 	const {t} = useTranslation();
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
-	useEffect(() => fetch({search: formItemContext ? (formItemContext.getValue() || "") : ""}, discoveryContext, params)
-		.on("request", () => {
-			formContext && formContext.block();
-			setLoading(true);
-		})
-		.on("response", data => {
-			const options = data.map(mapper);
-			setOptions(options);
-			if (useFirst && options.length > 0) {
-				formItemContext && formItemContext.setValue(options[0].value);
-				props.onChange && props.onChange(options[0].value, options[0]);
-			}
-		})
-		.on("done", () => {
-			setLoading(false);
-			formContext && formContext.unblock();
-		})
-		.cleaner(), [formItemContext && formItemContext.getValue()]);
+	useEffect(
+		() => fetch({search: formItemContext ? (formItemContext.getValue() || "") : ""}, discoveryContext, params)
+			.on("request", () => {
+				formContext && formContext.block();
+				setLoading(true);
+			})
+			.on("response", data => {
+				const options = data.map(mapper);
+				setOptions(options);
+				if (useFirst && options.length > 0) {
+					formItemContext && formItemContext.setValue(options[0].value);
+					props.onChange && props.onChange(options[0].value, options[0]);
+				}
+			})
+			.on("done", () => {
+				setLoading(false);
+				formContext && formContext.unblock();
+			})
+			.cleaner(),
+		[formItemContext && formItemContext.getValue()]
+	);
 
 	const onSearch = search => {
 		setLoading(true);
