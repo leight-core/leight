@@ -147,6 +147,15 @@ export const Wizard: FC<IWizardProps> = (
 				},
 				outputMapper,
 				merge,
+				useRefreshForm: () => {
+					const formContext = useFormContext();
+					return (initials?: any, current?: any) => {
+						initials && formContext.setValues(initials);
+						values && formContext.setValues(values);
+						current && formContext.setValues(current);
+						formContext.refresh();
+					};
+				},
 			}}
 			children={
 				<StepLoader

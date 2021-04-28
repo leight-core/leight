@@ -49,6 +49,10 @@ export interface IWizardContext {
 	 */
 	readonly outputMapper: IOutputMapper
 	readonly merge: IDeepMerge
+	/**
+	 * Useful hook when one step contains a dynamic form which needs to be refilled when rendered.
+	 */
+	useRefreshForm: () => (initials?: any, current?: any) => void
 }
 
 export interface IWizardStep {
