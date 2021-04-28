@@ -65,7 +65,7 @@ export const DebouncedSelect = forwardRef(({fetch, params, extra, limit = 10, ma
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
 	useEffect(
 		() => fetch({
-			search: formItemContext ? (formItemContext.getValue() || "") : "",
+			search: initial || (formItemContext ? (formItemContext.getValue() || "") : ""),
 			extra,
 			limit,
 		}, discoveryContext, params)
