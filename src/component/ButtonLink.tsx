@@ -5,7 +5,7 @@ import {Params} from "react-router";
 import {Link} from "react-router-dom";
 import {useRouterContext} from "../router/RouterContext";
 
-export interface IButtonLinkProps extends ButtonProps {
+export interface IButtonLinkProps extends Omit<ButtonProps, "title"> {
 	/**
 	 * Href goes to generate method (clever link).
 	 */
@@ -13,7 +13,7 @@ export interface IButtonLinkProps extends ButtonProps {
 	/**
 	 * Title of a button.
 	 */
-	title?: string
+	title?: string | null
 	/**
 	 * Optional params for the link generator.
 	 */
