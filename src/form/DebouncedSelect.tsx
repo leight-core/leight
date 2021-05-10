@@ -66,7 +66,7 @@ export const DebouncedSelect = forwardRef(({fetch, params, extra, limit = 10, ma
 	useEffect(
 		() => fetch({
 			search: initial || (formItemContext ? (formItemContext.getValue() || "") : ""),
-			extra,
+			params: extra,
 			limit,
 		}, discoveryContext, params)
 			.on("request", () => {
@@ -93,7 +93,7 @@ export const DebouncedSelect = forwardRef(({fetch, params, extra, limit = 10, ma
 		setLoading(true);
 		clearTimeout(tid);
 		setTid(setTimeout(() => {
-			fetch({search, extra, limit}, discoveryContext, params)
+			fetch({search, params: extra, limit}, discoveryContext, params)
 				.on("response", data => {
 					setOptions(data.map(mapper));
 					setLoading(false);

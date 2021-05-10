@@ -5,8 +5,7 @@ import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useParams} from "react-router";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {IPageIndex, IPageRequest, IParams, IRecordItem} from "../interface/interface";
-import {IPostCallback} from "../server/interface";
+import {IPageCallback, IPageIndex, IParams, IRecordItem} from "../interface/interface";
 import {PageIndex} from "../utils/PageIndex";
 import {useInterval} from "../utils/useInterval";
 import {IBaseTableChildrenCallback} from "./interface";
@@ -15,7 +14,7 @@ export interface IBaseTableProps<TItem extends IRecordItem> extends TableProps<T
 	/**
 	 * Callback for getting page for the table.
 	 */
-	onFetchPage: IPostCallback<IPageRequest, IPageIndex<TItem>>
+	onFetchPage: IPageCallback<TItem>
 	/**
 	 * Optional parameter for the URL.
 	 */
@@ -57,7 +56,7 @@ export const BaseTable = <TItem extends IRecordItem>(
 			{
 				page,
 				size,
-				extra: onPageParams,
+				params: onPageParams,
 			},
 			discoveryContext,
 			{...params, ...onFetchParams},

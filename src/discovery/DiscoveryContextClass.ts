@@ -38,7 +38,6 @@ export class DiscoveryContextClass implements IDiscoveryContext {
 	}
 
 	public setDiscovery(discovery: IDiscovery): void {
-		const [, setDiscovery] = this.state;
-		setDiscovery(discovery);
+		this.state[1](discovery);
 	}
 }

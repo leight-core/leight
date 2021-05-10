@@ -8,9 +8,6 @@ export interface IDiscoveryContext {
 	/**
 	 * Generate link from the given discovery index ID. Or throws an error if
 	 * the ID does not exist.
-	 *
-	 * @param id
-	 * @param params
 	 */
 	link: (id: string, params ?: IParams) => string
 }
