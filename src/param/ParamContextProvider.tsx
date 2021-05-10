@@ -1,4 +1,4 @@
-import isEqual from "is-equal";
+import equal from "fast-deep-equal";
 import {FC, useState} from "react";
 import {useForceUpdate} from "../hook/useForceUpdate";
 import {IParams} from "../interface/interface";
@@ -18,7 +18,7 @@ export const ParamContextProvider: FC<IParamContextProviderProps> = ({children})
 				 * Update params just when they're different. This will prevent unnecessary redraws.
 				 */
 				setParams: (values, update = false) => {
-					!isEqual(params, values) && setParams(values);
+					!equal(params, values) && setParams(values);
 					update && reload();
 				},
 				reload,

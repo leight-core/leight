@@ -1,4 +1,4 @@
-import isEqual from "is-equal";
+import equal from "fast-deep-equal";
 import {FC, ReactNode, useEffect, useRef, useState} from "react";
 import {MenuContext} from "./MenuContext";
 
@@ -15,7 +15,7 @@ export const MenuProvider: FC<IMenuProviderProps> = ({children}) => {
 				menu,
 				current,
 				useSelect: select => useEffect(() => {
-					const id = setTimeout(() => !isEqual(select, current) && setCurrent(select), 0);
+					const id = setTimeout(() => !equal(select, current) && setCurrent(select), 0);
 					return () => clearTimeout(id);
 				}, []),
 				useMenu: (menu, name) => useEffect(() => {
