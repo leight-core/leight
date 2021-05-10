@@ -1,4 +1,4 @@
-import equal from "fast-deep-equal";
+import equal from "fast-deep-equal/es6/react";
 import {FC, useState} from "react";
 import {useForceUpdate} from "../hook/useForceUpdate";
 import {IParams} from "../interface/interface";

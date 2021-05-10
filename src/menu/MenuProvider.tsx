@@ -1,4 +1,4 @@
-import equal from "fast-deep-equal";
+import equal from "fast-deep-equal/es6/react";
 import {FC, ReactNode, useEffect, useRef, useState} from "react";
 import {MenuContext} from "./MenuContext";
 
