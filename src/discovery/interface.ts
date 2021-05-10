@@ -12,21 +12,29 @@ export interface IDiscoveryContext {
 	link: (id: string, params ?: IParams) => string
 }
 
-export interface IIDiscoveryItem {
+export interface IDiscoveryItem {
+	/**
+	 * ID of this discovery item; should be simply rememberable.
+	 */
+	id: string
 	/**
 	 * Link on the server side (thus discovery index id is an interface between the
 	 * client application and remote application).
 	 */
-	link: string
+	href: string
 	/**
 	 * Optional description of an endpoint.
 	 */
 	description: string | null
 }
 
+export interface IDiscoveryIndex {
+	[index: string]: IDiscoveryItem
+}
+
 /**
  * Discovery index. Simple map of discovery index id and discovery item.
  */
 export interface IDiscovery {
-	[index: string]: IIDiscoveryItem
+	index: IDiscoveryIndex
 }

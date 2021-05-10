@@ -16,13 +16,16 @@ export class DiscoveryContextClass implements IDiscoveryContext {
 		if (!discovery) {
 			throw new Error(`Cannot resolve link from Discovery for linkId [${id}]; discovery is not initialized yet!`);
 		}
-		if (!discovery[id]) {
+		if (Object.keys(discovery.index).length === 0) {
+			throw new Error(`Cannot resolve link from Discovery for linkId [${id}]; discovery index is empty! Check if backend returns good and nice data.`);
+		}
+		if (!discovery.index[id]) {
 			throw new Error(`Cannot resolve link from Discovery for linkId [${id}]; discovery link does not exist.`);
 		}
 		/**
 		 * A little replace hack to convert `/{foo}/bar` form into `/:foo/bar` form.
 		 */
-		const link = discovery[id].link.replaceAll(/{(.*?)}/g, ":$1");
+		const link = discovery.index[id].href.replaceAll(/{(.*?)}/g, ":$1");
 		try {
 			const url = new URL(link);
 			url.pathname = generatePath(url.pathname, params as Params);
