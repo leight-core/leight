@@ -1,7 +1,6 @@
 import axios from "axios";
 import {ServerRequestTimeout} from "./constants";
 import {createDelete} from "./createDelete";
-import {createFetchPage} from "./createFetchPage";
 import {createGet} from "./createGet";
 import {createPatch} from "./createPatch";
 import {createPost} from "./createPost";
@@ -19,7 +18,6 @@ axios.defaults.timeout = ServerRequestTimeout;
  */
 export const Server = {
 	createDelete,
-	createFetchPage,
 	createGet,
 	createPatch,
 	createPost,

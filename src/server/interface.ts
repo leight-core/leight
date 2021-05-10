@@ -1,7 +1,7 @@
 import {AxiosError} from "axios";
 import {IDiscoveryContext} from "../discovery/interface";
 import {IBaseEventTypes, IEventHandlers, IEventResult, IEvents} from "../event/interface";
-import {IPageIndex, IParams} from "../interface/interface";
+import {IParams} from "../interface/interface";
 
 /**
  * Available http events.
@@ -37,21 +37,10 @@ export interface IServerEventHandlers<TResponse = any> extends IHttpErrorEvents 
 export interface IServerEvents<TResponse = any> extends IEvents<IServerEventTypes, IServerEventHandlers<TResponse>> {
 }
 
-/**
- * Callback used when a new page is required.
- */
-export type IFetchPageCallback<TItem = any> = (
-	page: number,
-	size: number,
-	discoveryContext: IDiscoveryContext,
-	params?: IParams,
-	extra?: any,
-) => IServerEvents<IPageIndex<TItem>>
-
-export interface IPage {
+export interface IPage<TParams = any> {
 	page: number
 	limit: number
-	params?: any
+	params?: TParams
 }
 
 export interface IGetCallback<TResponse = any> {

@@ -5,8 +5,8 @@ import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useParams} from "react-router";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {IPageIndex, IParams, IRecordItem} from "../interface/interface";
-import {IFetchPageCallback} from "../server/interface";
+import {IPageIndex, IPageRequest, IParams, IRecordItem} from "../interface/interface";
+import {IPostCallback} from "../server/interface";
 import {PageIndex} from "../utils/PageIndex";
 import {useInterval} from "../utils/useInterval";
 import {IBaseTableChildrenCallback} from "./interface";
@@ -15,7 +15,7 @@ export interface IBaseTableProps<TItem extends IRecordItem> extends TableProps<T
 	/**
 	 * Callback for getting page for the table.
 	 */
-	onFetchPage: IFetchPageCallback
+	onFetchPage: IPostCallback<IPageRequest, IPageIndex<TItem>>
 	/**
 	 * Optional parameter for the URL.
 	 */
@@ -33,7 +33,7 @@ export interface IBaseTableProps<TItem extends IRecordItem> extends TableProps<T
 	children: IBaseTableChildrenCallback<TItem>
 }
 
-export const BaseTable = <TItem extends IRecordItem = any>(
+export const BaseTable = <TItem extends IRecordItem>(
 	{
 		onFetchPage,
 		onFetchParams,
@@ -47,18 +47,20 @@ export const BaseTable = <TItem extends IRecordItem = any>(
 	const {t} = useTranslation();
 	const discoveryContext = useDiscoveryContext();
 	const params = useParams();
-	const [page, setPage] = useState<IPageIndex>(PageIndex());
+	const [page, setPage] = useState<IPageIndex<TItem>>(PageIndex());
 	const [loading, setLoading] = useState<boolean>(true);
 	const items = page.items;
 
-	const onPage = (page, size) => {
+	const onPage = (page: number, size: number) => {
 		setLoading(true);
 		return onFetchPage(
-			page,
-			size,
+			{
+				page,
+				size,
+				extra: onPageParams,
+			},
 			discoveryContext,
 			{...params, ...onFetchParams},
-			onPageParams,
 		)
 			.on("response", data => setPage(data))
 			.on("done", () => setLoading(false));
@@ -87,7 +89,7 @@ export const BaseTable = <TItem extends IRecordItem = any>(
 				defaultPageSize: page.size,
 				showQuickJumper: true,
 				hideOnSinglePage: true,
-				onChange: (current, size) => onPage(current - 1, size),
+				onChange: (current, size) => onPage(current - 1, size || 10),
 			}}
 			children={isCallable(children) ? (children as IBaseTableChildrenCallback<TItem>)(props => {
 				if (props.title) {

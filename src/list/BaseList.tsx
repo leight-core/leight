@@ -2,12 +2,12 @@ import {List, ListProps} from "antd";
 import {ReactNode, useEffect, useState} from "react";
 import {useParams} from "react-router";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {IPageIndex, IParams, IRecordItem} from "../interface/interface";
-import {IFetchPageCallback} from "../server/interface";
+import {IPageIndex, IPageRequest, IParams, IRecordItem} from "../interface/interface";
+import {IPostCallback} from "../server/interface";
 import {PageIndex} from "../utils/PageIndex";
 
 export interface IBaseListProps<TItem extends IRecordItem> extends Partial<ListProps<TItem>> {
-	onFetchPage: IFetchPageCallback<TItem>
+	onFetchPage: IPostCallback<IPageRequest, IPageIndex<TItem>>
 	/**
 	 * Optional parameter for the URL.
 	 */
@@ -40,11 +40,13 @@ export const BaseList = <TItem extends IRecordItem = any>(
 	const onPage = (page, size) => {
 		setLoading(true);
 		return onFetchPage(
-			page,
-			size,
+			{
+				page,
+				size,
+				extra: onPageParams,
+			},
 			discoveryContext,
 			{...params, ...onFetchParams},
-			onPageParams,
 		)
 			.on("response", data => setPage(data))
 			.on("done", () => setLoading(false));

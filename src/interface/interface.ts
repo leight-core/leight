@@ -29,7 +29,13 @@ export interface IRecordItem {
 	id: string
 }
 
-export interface IPageIndex<TItem = any> {
+export interface IPageRequest<TExtra = any> {
+	page: number
+	size: number
+	extra?: TExtra
+}
+
+export interface IPageIndex<TItem> {
 	total: number
 	limit: number
 	size: number

@@ -1,6 +1,6 @@
 import {IPageIndex} from "../interface/interface";
 
-export function PageIndex(): IPageIndex {
+export function PageIndex(): IPageIndex<any> {
 	return {
 		total: 0,
 		limit: 0,
