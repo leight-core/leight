@@ -63,28 +63,26 @@ const SiteSelector = ({sites}) => {
 
 const RoutedInternal = ({icon, clientHref, sessionHref, sites, titleTemplate}) => {
 	const appContext = useAppContext();
-	return (
-		<>
-			<Helmet titleTemplate={titleTemplate}/>
-			{appContext.isReady ?
-				<Suspense fallback={<LoaderView/>}>
-					<SiteSelector sites={sites}/>
-				</Suspense> :
-				<Result icon={icon || <AntDesignOutlined/>}>
-					<div style={{display: "flex", justifyContent: "center"}}>
-						<StepLoader steps={[
-							<InitialStep key={"initial"}/>,
-							<ClientStep key={"client"} href={clientHref}/>,
-							<DiscoveryStep key={"discovery"}/>,
-							<TranslationStep key={"translation"}/>,
-							<SessionStep key={"session"} link={sessionHref}/>,
-							<FinishStep key={"finish"}/>,
-						]}/>
-					</div>
-				</Result>
-			}
-		</>
-	);
+	return <>
+		<Helmet titleTemplate={titleTemplate}/>
+		{appContext.isReady ?
+			<Suspense fallback={<LoaderView/>}>
+				<SiteSelector sites={sites}/>
+			</Suspense> :
+			<Result icon={icon || <AntDesignOutlined/>}>
+				<div style={{display: "flex", justifyContent: "center"}}>
+					<StepLoader steps={[
+						<InitialStep key={"initial"}/>,
+						<ClientStep key={"client"} href={clientHref}/>,
+						<DiscoveryStep key={"discovery"}/>,
+						<TranslationStep key={"translation"}/>,
+						<SessionStep key={"session"} link={sessionHref}/>,
+						<FinishStep key={"finish"}/>,
+					]}/>
+				</div>
+			</Result>
+		}
+	</>;
 };
 
 const AppInternal = (
