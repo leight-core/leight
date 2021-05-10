@@ -14,7 +14,7 @@ export interface ISessionStepProps {
 	link?: string
 }
 
-export const SessionStep: FC<ISessionStepProps> = ({link = "public.user.login", ...props}) => {
+export const SessionStep: FC<ISessionStepProps> = ({link = "public.user.user-ticket", ...props}) => {
 	const discoveryContext = useDiscoveryContext();
 	const sessionContext = useSessionContext();
 	const stepLoaderContext = useStepLoaderContext();

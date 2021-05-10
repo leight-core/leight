@@ -35,6 +35,10 @@ export interface IAppProps {
 	 */
 	clientHref?: string
 	/**
+	 * Optional href to obtain user ticket (user session) when app starts; defaults to "public.user.user-ticket".
+	 */
+	sessionHref?: string
+	/**
 	 * Site map - when an user is authenticated, it's bound to the site he can use.
 	 *
 	 * Prop is {site: () => `<Component/>`}, for example {root: () => `<RootSite/>`}
@@ -57,7 +61,7 @@ const SiteSelector = ({sites}) => {
 	);
 };
 
-const RoutedInternal = ({icon, clientHref, sites, titleTemplate}) => {
+const RoutedInternal = ({icon, clientHref, sessionHref, sites, titleTemplate}) => {
 	const appContext = useAppContext();
 	return (
 		<>
@@ -73,7 +77,7 @@ const RoutedInternal = ({icon, clientHref, sites, titleTemplate}) => {
 							<ClientStep key={"client"} href={clientHref}/>,
 							<DiscoveryStep key={"discovery"}/>,
 							<TranslationStep key={"translation"}/>,
-							<SessionStep key={"session"}/>,
+							<SessionStep key={"session"} link={sessionHref}/>,
 							<FinishStep key={"finish"}/>,
 						]}/>
 					</div>
@@ -88,6 +92,7 @@ const AppInternal = (
 		titleTemplate,
 		sites,
 		clientHref = process.env.REACT_APP_CLIENT,
+		sessionHref,
 		icon,
 		useHashRouter = false,
 	}: IAppProps
@@ -104,12 +109,14 @@ const AppInternal = (
 										titleTemplate={titleTemplate}
 										sites={sites}
 										clientHref={clientHref}
+										sessionHref={sessionHref}
 										icon={icon}
 									/>}/> : <BrowserRouter
 									children={<RoutedInternal
 										titleTemplate={titleTemplate}
 										sites={sites}
 										clientHref={clientHref}
+										sessionHref={sessionHref}
 										icon={icon}
 									/>}/>}
 							</MenuProvider>
