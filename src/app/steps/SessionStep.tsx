@@ -34,7 +34,8 @@ export const SessionStep: FC<ISessionStepProps> = ({link = "public.user.login", 
 						 */
 						stepLoaderContext.next();
 					})
-					.on("error", () => {
+					.on("catch", e => {
+						console.error(e);
 						stepLoaderContext.setStatus("error");
 					})
 					.cleaner();
