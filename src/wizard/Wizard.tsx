@@ -75,7 +75,7 @@ const WizardInternal = ({name, steps}) => {
 			</Steps>
 		</Col>
 		<Col span={18}>
-			{steps[wizardContext.step].component}
+			{steps[wizardContext.step].component()}
 			<Divider type={"horizontal"}/>
 			<PushRight>
 				<Space split={<Divider type={"vertical"}/>} size={"large"}>

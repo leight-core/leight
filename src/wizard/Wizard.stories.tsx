@@ -119,9 +119,9 @@ export const Default = () => {
 			</Result> :
 			<StoryApp>
 				<Wizard name={"story"} events={events} steps={[
-					{id: "first", component: <FirstStep/>},
-					{id: "second", component: <SecondStep/>},
-					{id: "third", component: <ThirdStep/>},
+					{id: "first", component: () => <FirstStep/>},
+					{id: "second", component: () => <SecondStep/>},
+					{id: "third", component: () => <ThirdStep/>},
 				]} defaultDependencies={{select: [{label: "foo", value: "bar"},]}}/>
 			</StoryApp>
 	);
@@ -146,9 +146,9 @@ export const WithPrefetch = () => {
 					name={"story"}
 					events={events}
 					steps={[
-						{id: "first", component: <FirstStep/>},
-						{id: "second", component: <SecondStep/>},
-						{id: "third", component: <ThirdStep/>},
+						{id: "first", component: () => <FirstStep/>},
+						{id: "second", component: () => <SecondStep/>},
+						{id: "third", component: () => <ThirdStep/>},
 					]}
 					loaders={[
 						<SomeLoader key={"SomeLoader"}/>,
