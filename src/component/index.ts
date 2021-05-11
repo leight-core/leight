@@ -1,7 +1,6 @@
 export * from "./BackLink";
 export * from "./BulletCard";
 export * from "./ButtonLink";
-export * from "./interface";
 export * from "./Loader";
 export * from "./Placeholder";
 export * from "./ResultSpinner";

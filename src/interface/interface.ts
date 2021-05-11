@@ -69,5 +69,17 @@ export interface ISearchRequest<TParams = any> {
 	params?: any[] | null
 }
 
+export interface ISearchItem {
+	id: string
+
+	name: string
+
+	type: string
+}
+
+export interface ISearchResult {
+	items: ISearchItem[]
+}
+
 export interface IPageCallback<TItem> extends IPostCallback<IPageRequest, IPageIndex<TItem>> {
 }

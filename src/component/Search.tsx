@@ -3,31 +3,24 @@ import {Empty, Select, SelectProps} from "antd";
 import {FC, ReactNode, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {ISearchRequest} from "../interface/interface";
+import {ISearchItem, ISearchRequest, ISearchResult} from "../interface/interface";
 import {IPostCallback} from "../server/interface";
-import {ISearchItem} from "./interface";
 
 export interface ISearchProps extends Partial<SelectProps<any>> {
-	search: IPostCallback<ISearchRequest, ISearchItem[]>
-	mapper?: (data: any) => ISearchItem[]
+	search: IPostCallback<ISearchRequest, ISearchResult>
 	render?: (item: ISearchItem) => ReactNode
 }
 
 export const Search: FC<ISearchProps> = (
 	{
 		search,
-		mapper = data => data.items.map(item => ({
-			label: item.name,
-			value: item.id,
-			...item
-		})),
 		render = (item => item.name),
 		...props
 	}) => {
 	const discoveryContext = useDiscoveryContext();
 	const {t} = useTranslation();
 	const [loading, setLoading] = useState<boolean>(false);
-	const [data, setData] = useState<ISearchItem[]>([]);
+	const [result, setResult] = useState<ISearchResult>();
 	const [id, setId] = useState<any>();
 
 	function doSearch(value = "") {
@@ -35,9 +28,7 @@ export const Search: FC<ISearchProps> = (
 		setLoading(true);
 		setId(setTimeout(() => {
 			search({search: value}, discoveryContext)
-				.on("response", data => {
-					setData(mapper(data));
-				})
+				.on("response", setResult)
 				.on("done", () => {
 					setLoading(false);
 				})
@@ -61,12 +52,9 @@ export const Search: FC<ISearchProps> = (
 			placeholder={t("common.search.placeholder")}
 			notFoundContent={<Empty description={t("common.search.empty")} image={Empty.PRESENTED_IMAGE_SIMPLE}/>}
 			{...props}
-		>
-			{(data ? data : []).map(item => (
-				<Select.Option key={item.id} value={item.id} item={item}>
-					{render(item)}
-				</Select.Option>
+			children={result && result.items.map(item => (
+				<Select.Option key={item.id} value={item.id} item={item} children={render(item)}/>
 			))}
-		</Select>
+		/>
 	);
 };
