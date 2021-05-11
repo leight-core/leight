@@ -1,9 +1,9 @@
-import {Switch as CoolSwitch, SwitchProps} from "antd";
+import {Checkbox as CoolCheckbox, CheckboxProps} from "antd";
 import {NamePath} from "rc-field-form/lib/interface";
 import React, {FC} from "react";
-import {FormItem, IFormItemProps} from "./FormItem";
+import {FormItem, IFormItemProps} from "../FormItem";
 
-export interface ISwitchItemProps extends Partial<IFormItemProps> {
+export interface ICheckboxItemProps extends Partial<IFormItemProps> {
 	/**
 	 * Field name:
 	 *
@@ -11,7 +11,7 @@ export interface ISwitchItemProps extends Partial<IFormItemProps> {
 	 */
 	field: NamePath
 	labels?: string[]
-	switchProps?: Partial<SwitchProps>
+	checkboxProps?: Partial<CheckboxProps>
 }
 
 /**
@@ -21,16 +21,16 @@ export interface ISwitchItemProps extends Partial<IFormItemProps> {
  *
  * Others:
  *
- * - https://ant.design/components/switch/
+ * - https://ant.design/components/checkbox/
  */
-export const SwitchItem: FC<ISwitchItemProps> = ({field, labels = [], switchProps, ...props}) => {
+export const CheckboxItem: FC<ICheckboxItemProps> = ({field, labels = [], checkboxProps, ...props}) => {
 	return (
 		<FormItem
 			field={field}
 			valuePropName={"checked"}
 			labels={labels}
 			{...props}
-			children={<CoolSwitch {...switchProps}/>}
+			children={<CoolCheckbox {...checkboxProps}/>}
 		/>
 	);
 };

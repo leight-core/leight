@@ -1,9 +1,9 @@
 import React, {useState} from "react";
-import {ServerEvents} from "../server/ServerEvents";
-import {StoryApp} from "../storybook/StoryApp";
+import {ServerEvents} from "../../server/ServerEvents";
+import {StoryApp} from "../../storybook/StoryApp";
+import {CommonForm} from "../CommonForm";
+import {FormItem} from "../FormItem";
 import {BaseSelect} from "./BaseSelect";
-import {CommonForm} from "./CommonForm";
-import {FormItem} from "./FormItem";
 
 export default {
 	title: "Leight/Form/BaseSelect Sandbox",

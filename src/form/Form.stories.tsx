@@ -7,16 +7,16 @@ import {SubmitIcon} from "../icon/SubmitIcon";
 import {Centered} from "../layout/Centered";
 import {FakeServerEvents} from "../server/ServerEvents";
 import {StoryApp} from "../storybook/StoryApp";
-import {BaseSelect} from "./BaseSelect";
-import {DebouncedSelect} from "./DebouncedSelect";
 import {Form} from "./Form";
 import {useFormContext} from "./FormContext";
 import {FormItem} from "./FormItem";
 import {FormList} from "./FormList";
 import {FormSubmitButton} from "./FormSubmitButton";
-import {Input} from "./Input";
-import {PasswordInput} from "./PasswordInput";
-import {SwitchItem} from "./SwitchItem";
+import {BaseSelect} from "./inputs/BaseSelect";
+import {DebouncedSelect} from "./inputs/DebouncedSelect";
+import {Input} from "./inputs/Input";
+import {PasswordInput} from "./inputs/PasswordInput";
+import {SwitchItem} from "./inputs/SwitchItem";
 
 export default {
 	title: "Leight/Form/Form",

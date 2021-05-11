@@ -1,10 +1,10 @@
 import {Select, SelectProps} from "antd";
 import {forwardRef, Ref, useEffect, useState} from "react";
 import {Params} from "react-router";
-import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {IGetCallback} from "../server/interface";
-import {useOptionalFormContext} from "./FormContext";
-import {IBaseGroupSelectOption} from "./interface";
+import {useDiscoveryContext} from "../../discovery/DiscoveryContext";
+import {IGetCallback} from "../../server/interface";
+import {useOptionalFormContext} from "../FormContext";
+import {IBaseGroupSelectOption} from "../interface";
 
 export interface IBaseGroupSelectProps<TResponse, TSelected = any> extends SelectProps<TSelected> {
 	/**

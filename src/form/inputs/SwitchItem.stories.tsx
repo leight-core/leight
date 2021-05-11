@@ -1,6 +1,6 @@
 import React from "react";
-import {StoryApp} from "../storybook/StoryApp";
-import {Form} from "./Form";
+import {StoryApp} from "../../storybook/StoryApp";
+import {Form} from "../Form";
 import {SwitchItem} from "./SwitchItem";
 
 export default {

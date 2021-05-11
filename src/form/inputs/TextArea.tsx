@@ -1,7 +1,7 @@
 import {Input} from "antd";
 import {TextAreaProps} from "antd/lib/input";
 import {FC, forwardRef} from "react";
-import {useOptionalFormItemContext} from "./FormItemContext";
+import {useOptionalFormItemContext} from "../FormItemContext";
 
 export interface ITextAreaProps extends Partial<TextAreaProps> {
 	usePlaceholder?: boolean

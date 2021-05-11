@@ -1,7 +1,7 @@
 import React from "react";
-import {StoryApp} from "../storybook/StoryApp";
+import {StoryApp} from "../../storybook/StoryApp";
+import {Form} from "../Form";
 import {CheckboxItem} from "./CheckboxItem";
-import {Form} from "./Form";
 
 export default {
 	title: "Leight/Form/CheckboxItem Sandbox",

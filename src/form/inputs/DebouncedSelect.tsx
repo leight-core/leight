@@ -1,11 +1,11 @@
 import {Select, SelectProps} from "antd";
 import {forwardRef, Ref, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {IParams, ISearchRequest} from "../interface/interface";
-import {IPostCallback} from "../server/interface";
-import {useOptionalFormContext} from "./FormContext";
-import {useOptionalFormItemContext} from "./FormItemContext";
+import {useDiscoveryContext} from "../../discovery/DiscoveryContext";
+import {IParams, ISearchRequest} from "../../interface/interface";
+import {IPostCallback} from "../../server/interface";
+import {useOptionalFormContext} from "../FormContext";
+import {useOptionalFormItemContext} from "../FormItemContext";
 
 export interface IDebouncedSelectProps<TItem, TSelected = any> extends SelectProps<TSelected> {
 	/**

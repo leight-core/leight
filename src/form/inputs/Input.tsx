@@ -1,6 +1,6 @@
 import {Input as CoolInput, InputProps} from "antd";
 import {FC, forwardRef} from "react";
-import {useOptionalFormItemContext} from "./FormItemContext";
+import {useOptionalFormItemContext} from "../FormItemContext";
 
 export interface IInputProps extends Partial<InputProps> {
 	/**

@@ -1,7 +1,7 @@
 import {Input} from "antd";
 import {PasswordProps} from "antd/lib/input";
 import {FC, forwardRef} from "react";
-import {useOptionalFormItemContext} from "./FormItemContext";
+import {useOptionalFormItemContext} from "../FormItemContext";
 
 export interface IPasswordInputProps extends Partial<PasswordProps> {
 	usePlaceholder?: boolean

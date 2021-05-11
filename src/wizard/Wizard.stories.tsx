@@ -1,8 +1,8 @@
 import {action} from "@storybook/addon-actions";
 import {Button, Card, Result, Select} from "antd";
 import React, {FC, useState} from "react";
-import {DebouncedSelect} from "../form/DebouncedSelect";
 import {FormItem} from "../form/FormItem";
+import {DebouncedSelect} from "../form/inputs/DebouncedSelect";
 import {EditIcon} from "../icon/EditIcon";
 import {SubmitIcon} from "../icon/SubmitIcon";
 import {Centered} from "../layout/Centered";
