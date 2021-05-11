@@ -3,17 +3,28 @@ import {Empty, Select, SelectProps} from "antd";
 import {FC, ReactNode, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {ISearchItem, ISearchRequest, ISearchResult} from "../interface/interface";
+import {IParams, ISearchItem, ISearchRequest, ISearchResult} from "../interface/interface";
 import {IPostCallback} from "../server/interface";
 
 export interface ISearchProps extends Partial<SelectProps<any>> {
+	/**
+	 * Search handler
+	 */
 	search: IPostCallback<ISearchRequest, ISearchResult>
+	/**
+	 * Optional search parameters
+	 */
+	params?: IParams
+	/**
+	 * Optional method responsible for rendering an item
+	 */
 	render?: (item: ISearchItem) => ReactNode
 }
 
 export const Search: FC<ISearchProps> = (
 	{
 		search,
+		params,
 		render = (item => item.name),
 		...props
 	}) => {
@@ -27,7 +38,7 @@ export const Search: FC<ISearchProps> = (
 		clearTimeout(id);
 		setLoading(true);
 		setId(setTimeout(() => {
-			search({search: value}, discoveryContext)
+			search({search: value}, discoveryContext, params)
 				.on("response", setResult)
 				.on("done", () => {
 					setLoading(false);
