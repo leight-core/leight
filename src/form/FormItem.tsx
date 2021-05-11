@@ -42,7 +42,7 @@ export const FormItem: FC<IFormItemProps> = (
 	}
 	const formContext = useFormContext();
 	const itemGroupContext = useOptionalItemGroupContext();
-	field = ([] as (string | number)[]).concat(itemGroupContext?.prefix || [], Array.isArray(field) ? field : [field]);
+	field = ([] as (string | number)[]).concat(itemGroupContext ? itemGroupContext.prefix : [], Array.isArray(field) ? field : [field]);
 	const fieldName = Array.isArray(field) ? field.join(".") : field;
 	const rules: Rule[] = [];
 	if (required) {

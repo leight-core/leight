@@ -16,7 +16,7 @@ export interface IItemGroupProps {
  */
 export const ItemGroup: FC<IItemGroupProps> = ({prefix, children}) => {
 	const itemGroupContext = useOptionalItemGroupContext();
-	const name = ([] as (string | number)[]).concat(itemGroupContext?.prefix || [], Array.isArray(prefix) ? prefix : [prefix]);
+	const name = ([] as (string | number)[]).concat(itemGroupContext ? itemGroupContext.prefix : [], Array.isArray(prefix) ? prefix : [prefix]);
 	return (
 		<ItemGroupContextProvider prefix={name} children={children}/>
 	);
