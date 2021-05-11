@@ -10,6 +10,7 @@ export function Events<TEventTypes extends IBaseEventTypes, TEventHandlers exten
 class EventsClass<TEventTypes extends IBaseEventTypes, TEventHandlers extends IEventHandlers<TEventTypes>> implements IEvents<TEventTypes, TEventHandlers> {
 	events: IEventIndex<TEventTypes> = {} as any;
 	chains: IEvents<any, any>[] = [];
+	binds: { [index: string]: IEvents<any, any> } = {};
 	requires: TEventTypes[] = [];
 	dismissed: boolean = false;
 
@@ -27,7 +28,7 @@ class EventsClass<TEventTypes extends IBaseEventTypes, TEventHandlers extends IE
 			return (() => {
 			}) as any;
 		}
-		const handlers = [this].concat(this.chains as any)
+		const handlers = [this].concat(this.chains as any).concat(Object.values(this.binds as any))
 			.reduce((array, item) => array.concat(item.events[event] || []), [] as IEvent[])
 			.sort((a, b) => a.priority - b.priority);
 		if (this.requires.filter(name => event === name).length > 0 && !handlers.length) {
@@ -51,6 +52,11 @@ class EventsClass<TEventTypes extends IBaseEventTypes, TEventHandlers extends IE
 	chain(events: IEvents<any, any>): IEvents<TEventTypes, TEventHandlers> {
 		this.chains.push(events);
 		return this;
+	}
+
+	bind(name: string, events: IEvents<any, any>): IEvents<any, any> {
+		this.binds[name] = events;
+		return events;
 	}
 
 	cleaner() {

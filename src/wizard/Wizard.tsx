@@ -16,6 +16,49 @@ import {IWizardEvents, IWizardStep} from "./interface";
 import {useWizardContext, WizardContext} from "./WizardContext";
 import {WizardEvents} from "./WizardEvents";
 
+interface IWizardInternalProps {
+	name: string
+	steps: IWizardStep[]
+}
+
+const WizardInternal: FC<IWizardInternalProps> = ({name, steps}) => {
+	const wizardContext = useWizardContext();
+	const formContext = useFormContext();
+	const {t} = useTranslation();
+	useEffect(() => {
+		wizardContext.events
+			.on("reset", () => formContext.reset(), 1000)
+			.on("first", () => formContext.reset(), 1000)
+			.on("previous", () => wizardContext.previous(), 1000)
+			.on("next", () => wizardContext.next(), 1000);
+	}, [wizardContext.step]);
+	return <Row gutter={16}>
+		<Col span={6}>
+			<Steps current={wizardContext.step} size={"default"} direction={"vertical"}>
+				{steps.map(item => (
+					<Steps.Step
+						key={item.id}
+						title={t("wizard." + name + ".step." + item.id + ".title")}
+						description={t("wizard." + name + ".step." + item.id + ".description")}
+					/>
+				))}
+			</Steps>
+		</Col>
+		<Col span={18}>
+			{steps[wizardContext.step].component(wizardContext.events.bind("step", WizardEvents()))}
+			<Divider type={"horizontal"}/>
+			<PushRight>
+				<Space split={<Divider type={"vertical"}/>} size={"large"}>
+					<CancelButton key={"cancel"}/>
+					{wizardContext.canPrevious() && <PreviousButton key={"previous"}/>}
+					{wizardContext.canNext() && <NextButton key={"next"}/>}
+					{wizardContext.canFinish() && <FinishButton key={"finish"}/>}
+				</Space>
+			</PushRight>
+		</Col>
+	</Row>;
+};
+
 export interface IWizardProps {
 	/**
 	 * Name of the wizard (and also underlying form).
@@ -54,47 +97,6 @@ export interface IWizardProps {
 	 */
 	merge?: IDeepMerge
 }
-
-const WizardInternal = ({name, steps}) => {
-	const wizardContext = useWizardContext();
-	const formContext = useFormContext();
-	const {t} = useTranslation();
-	useEffect(() => {
-		wizardContext.events
-			.on("reset", () => formContext.reset(), 1000)
-			.on("first", () => formContext.reset(), 1000)
-			.on("previous", () => wizardContext.previous(), 1000)
-			.on("next", () => wizardContext.next(), 1000);
-	}, []);
-	useEffect(() => {
-		console.log("step cahnge?");
-	}, [wizardContext.step]);
-	return <Row gutter={16}>
-		<Col span={6}>
-			<Steps current={wizardContext.step} size={"default"} direction={"vertical"}>
-				{steps.map(item => (
-					<Steps.Step
-						key={item.id}
-						title={t("wizard." + name + ".step." + item.id + ".title")}
-						description={t("wizard." + name + ".step." + item.id + ".description")}
-					/>
-				))}
-			</Steps>
-		</Col>
-		<Col span={18}>
-			{steps[wizardContext.step].component()}
-			<Divider type={"horizontal"}/>
-			<PushRight>
-				<Space split={<Divider type={"vertical"}/>} size={"large"}>
-					<CancelButton key={"cancel"}/>
-					{wizardContext.canPrevious() && <PreviousButton key={"previous"}/>}
-					{wizardContext.canNext() && <NextButton key={"next"}/>}
-					{wizardContext.canFinish() && <FinishButton key={"finish"}/>}
-				</Space>
-			</PushRight>
-		</Col>
-	</Row>;
-};
 
 export const Wizard: FC<IWizardProps> = (
 	{

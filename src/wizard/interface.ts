@@ -57,7 +57,7 @@ export interface IWizardContext {
 
 export interface IWizardStep {
 	id: string
-	component: () => JSX.Element
+	component: (wizardEvents: IWizardEvents) => JSX.Element
 }
 
 export interface IWizardFirst<TValues extends Object = any> {

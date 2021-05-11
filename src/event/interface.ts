@@ -68,6 +68,14 @@ export interface IEvents<TEventTypes extends IBaseEventTypes, TEventHandlers ext
 	chain(events: IEvents<any, any>): IEvents<TEventTypes, TEventHandlers>
 
 	/**
+	 * Like a chain, but with the name: when used same name, the previous events are replaced. Useful if there is need for
+	 * some kind of "local" events (originally used for WizardStep).
+	 *
+	 * Returns input events for convenience (as it's expected to pass them somewhere else).
+	 */
+	bind(name: string, events: IEvents<any, any>): IEvents<any, any>;
+
+	/**
 	 * Function useful for hooks - return back cleaner callback for this events.
 	 */
 	cleaner(): () => void
