@@ -18,10 +18,10 @@ export interface ISession {
 	site: string
 }
 
-export type ISessionEventTypes = "login" | "logout";
+export type ISessionEventTypes = "ticket" | "logout";
 
 export interface ISessionEventHandlers<TSession extends ISession = any> extends IEventHandlers {
-	login: (session: TSession) => void
+	ticket: (session: TSession) => void
 	logout: () => void
 }
 

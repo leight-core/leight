@@ -1,6 +1,7 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import {useEffect} from "react";
+import {IDiscovery} from "../discovery/interface";
 import {useSessionContext} from "../session/SessionContext";
 import {Random} from "../utils/Random";
 import {App} from "./App";
@@ -40,11 +41,13 @@ Default.decorators = [Story => {
 				}, Random(300, 600));
 			}))
 			.onGet("/api/discovery")
-			.reply(() => new Promise(resolve => {
+			.reply<IDiscovery>(() => new Promise(resolve => {
 				setTimeout(() => {
 					resolve([200, {
-						"public.translation": {"link": "/api/public/translation"},
-						"public.user.login": {"link": "/api/public/user/login"},
+						index: {
+							"public.translation": {"href": "/api/public/translation"},
+							"public.user.ticket": {"href": "/api/public/user/ticket"},
+						}
 					}]);
 				}, Random(300, 600));
 			}))
@@ -56,7 +59,7 @@ Default.decorators = [Story => {
 					}]);
 				}, Random(300, 600));
 			}))
-			.onGet("/api/public/user/login")
+			.onGet("/api/public/user/ticket")
 			.reply(() => new Promise(resolve => {
 				setTimeout(() => {
 					resolve([200, {

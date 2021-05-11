@@ -14,7 +14,7 @@ export interface ISessionStepProps {
 	link?: string
 }
 
-export const SessionStep: FC<ISessionStepProps> = ({link = "public.user.user-ticket", ...props}) => {
+export const SessionStep: FC<ISessionStepProps> = ({link = "public.user.ticket", ...props}) => {
 	const discoveryContext = useDiscoveryContext();
 	const sessionContext = useSessionContext();
 	const stepLoaderContext = useStepLoaderContext();
@@ -22,24 +22,23 @@ export const SessionStep: FC<ISessionStepProps> = ({link = "public.user.user-tic
 		<LoaderStep
 			icon={<UserOutlined/>}
 			{...props}
-			onStep={() => {
-				return httpGet<ISession>(discoveryContext.link(link))
-					.on("response", session => {
-						sessionContext.events.handler("login")(session);
-						stepLoaderContext.next();
-					})
-					.on("http401", () => {
-						/**
-						 * 401 is OK here, because if we're on public, we'll get one when session is checked.
-						 */
-						stepLoaderContext.next();
-					})
-					.on("catch", e => {
-						console.error(e);
-						stepLoaderContext.setStatus("error");
-					})
-					.cleaner();
-			}}
+			onStep={() => httpGet<ISession>(discoveryContext.link(link))
+				.on("response", session => {
+					console.log("response!", session);
+					sessionContext.events.handler("ticket")(session);
+					stepLoaderContext.next();
+				})
+				.on("http401", () => {
+					/**
+					 * 401 is OK here, because if we're on public, we'll get one when session is checked.
+					 */
+					stepLoaderContext.next();
+				})
+				.on("catch", e => {
+					console.error(e);
+					stepLoaderContext.setStatus("error");
+				})
+				.cleaner()}
 		/>
 	);
 };

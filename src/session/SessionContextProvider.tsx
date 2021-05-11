@@ -16,7 +16,7 @@ export const SessionContextProvider = <TSession extends ISession = ISession>({ch
 			value={{
 				session,
 				events: SessionEvents<TSession>()
-					.on("login", session => setSession(session), 1000)
+					.on("ticket", session => setSession(session), 1000)
 					.on("logout", () => setSession({
 						site: "public",
 					}), 1000)
