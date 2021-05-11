@@ -1,3 +1,3 @@
 export interface IItemGroupContext {
-	prefix: string[]
+	prefix: (string | number)[]
 }

@@ -12,6 +12,7 @@ import {useFormContext} from "./FormContext";
 import {FormItem} from "./FormItem";
 import {FormList} from "./FormList";
 import {FormSubmitButton} from "./FormSubmitButton";
+import {ItemGroup} from "./group/ItemGroup";
 import {BaseSelect} from "./inputs/BaseSelect";
 import {DebouncedSelect} from "./inputs/DebouncedSelect";
 import {Input} from "./inputs/Input";
@@ -28,12 +29,16 @@ export const SubmitWithRequired = () => (
 	<StoryApp>
 		<Centered span={14}>
 			<Form layout={"vertical"} onSubmit={action("onSubmit")}>
-				<FormItem required field={"login"} children={<Input usePlaceholder/>}/>
-				<FormItem required field={"password"} children={<Input type={"password"} usePlaceholder/>}/>
-				<FormItem required field={"password2"} children={<PasswordInput/>}/>
-				<FormItem required field={"native-number"} children={<InputNumber/>}/>
-				<FormItem required field={"debounced"} children={<DebouncedSelect allowClear fetch={() => FakeServerEvents<any>(["a", "b", "c"], 100)} mapper={item => ({value: item, label: item})}/>}/>
-				<FormItem required field={"base-select"} children={<BaseSelect allowClear fetch={() => FakeServerEvents<any>(["a", "b", "c"], 100)} mapper={item => ({value: item, label: item})}/>}/>
+				<ItemGroup prefix={"item-group"}>
+					<FormItem required field={"login"} children={<Input usePlaceholder/>}/>
+					<ItemGroup prefix={"password"}>
+						<FormItem required field={"password"} children={<Input type={"password"} usePlaceholder/>}/>
+						<FormItem required field={"password2"} children={<PasswordInput/>}/>
+					</ItemGroup>
+					<FormItem required field={"native-number"} children={<InputNumber/>}/>
+					<FormItem required field={"debounced"} children={<DebouncedSelect allowClear fetch={() => FakeServerEvents<any>(["a", "b", "c"], 100)} mapper={item => ({value: item, label: item})}/>}/>
+					<FormItem required field={"base-select"} children={<BaseSelect allowClear fetch={() => FakeServerEvents<any>(["a", "b", "c"], 100)} mapper={item => ({value: item, label: item})}/>}/>
+				</ItemGroup>
 				<FormSubmitButton label={"Submit!"} icon={<SubmitIcon/>}/>
 			</Form>
 		</Centered>
