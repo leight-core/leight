@@ -29,7 +29,7 @@ export interface IWizardContext {
 	/**
 	 * Compute next step (update state).
 	 */
-	next: () => void
+	next: (values?: any) => void
 	canNext: () => boolean
 	canPrevious: () => boolean
 	canFinish: () => boolean

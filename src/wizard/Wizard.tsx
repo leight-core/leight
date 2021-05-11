@@ -30,7 +30,7 @@ const WizardInternal: FC<IWizardInternalProps> = ({name, steps}) => {
 			.on("reset", () => formContext.reset(), 1000)
 			.on("first", () => formContext.reset(), 1000)
 			.on("previous", () => wizardContext.previous(), 1000)
-			.on("next", () => wizardContext.next(), 1000);
+			.on("next", ({values}) => wizardContext.next(values), 1000);
 	}, [wizardContext.step]);
 	return <Row gutter={16}>
 		<Col span={6}>
@@ -123,7 +123,6 @@ export const Wizard: FC<IWizardProps> = (
 	const canPrevious = () => step > 0;
 	const canFinish = () => step === count - 1;
 	const wizardEvents = WizardEvents()
-		.on("next", ({values}) => setValues(prev => merge(prev, values)))
 		.on("previous", wizardContext => {
 			wizardContext.step === 1 && wizardEvents.handler("first")({wizardContext, values: wizardContext.values});
 		})
@@ -142,7 +141,10 @@ export const Wizard: FC<IWizardProps> = (
 				count,
 				values,
 				previous: () => setStep(current => current - 1),
-				next: () => setStep(current => current + 1),
+				next: (values?: any) => {
+					setValues(prev => merge(prev, values));
+					setStep(current => current + 1);
+				},
 				canNext,
 				canPrevious,
 				canFinish,
