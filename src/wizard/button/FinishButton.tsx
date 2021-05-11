@@ -17,10 +17,6 @@ export const FinishButton = () => {
 			icon={<SubmitIcon/>}
 			onClick={() => {
 				const values = formContext.values();
-				events.handler("next")({
-					wizardContext,
-					values
-				});
 				events.handler("finish")({
 					wizardContext,
 					values: wizardContext.outputMapper<any>(wizardContext.merge(wizardContext.values, values))

@@ -60,8 +60,10 @@ const WizardInternal = ({name, steps}) => {
 	const formContext = useFormContext();
 	const {t} = useTranslation();
 	wizardContext.events
-		.on("reset", () => formContext.reset())
-		.on("first", () => formContext.reset());
+		.on("reset", () => formContext.reset(), 1000)
+		.on("first", () => formContext.reset(), 1000)
+		.on("previous", () => wizardContext.previous(), 1000)
+		.on("next", () => wizardContext.next(), 1000);
 	return <Row gutter={16}>
 		<Col span={6}>
 			<Steps current={wizardContext.step} size={"default"} direction={"vertical"}>
@@ -115,7 +117,9 @@ export const Wizard: FC<IWizardProps> = (
 	const canFinish = () => step === count - 1;
 	const wizardEvents = WizardEvents()
 		.on("next", ({values}) => setValues(prev => merge(prev, values)))
-		.on("previous", wizardContext => wizardContext.step === 1 && wizardEvents.handler("first")({wizardContext, values: wizardContext.values}))
+		.on("previous", wizardContext => {
+			wizardContext.step === 1 && wizardEvents.handler("first")({wizardContext, values: wizardContext.values});
+		})
 		.on("first", _ => setValues({}))
 		.on("reset", () => {
 			setStep(0);

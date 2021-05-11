@@ -12,10 +12,7 @@ export const NextButton = () => {
 			size={"large"}
 			noStyle
 			icon={<ForwardIcon/>}
-			onClick={() => {
-				wizardContext.next();
-				wizardContext.events.handler("next")({wizardContext, values: formContext.form.getFieldsValue()});
-			}}
+			onClick={() => wizardContext.events.handler("next")({wizardContext, values: formContext.form.getFieldsValue()})}
 		/>
 	);
 };
