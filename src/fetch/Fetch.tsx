@@ -27,9 +27,7 @@ export interface IFetchProps<TData = any> {
 export const Fetch = <TData extends unknown>({fetch, deps = [], children = () => null, placeholder = () => <ResultSpinner/>}: IFetchProps<TData>) => {
 	const [data, setData] = useState<TData | undefined>(undefined as TData);
 	useEffect(() => fetch(setData), deps);
-	return (
-		<>
-			{data !== undefined ? children(data) : placeholder()}
-		</>
-	);
+	return <>
+		{data !== undefined ? children(data) : placeholder()}
+	</>;
 };
