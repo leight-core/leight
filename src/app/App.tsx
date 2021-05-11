@@ -56,7 +56,6 @@ export interface IAppProps {
 
 const SiteSelector = ({sites}) => {
 	const {session} = useSessionContext();
-	console.log("site selector", session);
 	return (
 		sites[session.site] ? sites[session.site]() : <LockedUserView/>
 	);

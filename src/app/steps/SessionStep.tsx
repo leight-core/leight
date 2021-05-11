@@ -24,7 +24,6 @@ export const SessionStep: FC<ISessionStepProps> = ({link = "public.user.ticket",
 			{...props}
 			onStep={() => httpGet<ISession>(discoveryContext.link(link))
 				.on("response", session => {
-					console.log("response!", session);
 					sessionContext.events.handler("ticket")(session);
 					stepLoaderContext.next();
 				})
