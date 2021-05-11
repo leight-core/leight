@@ -1,7 +1,7 @@
 import {Col, Divider, Row, Space, Steps} from "antd";
 import deepmerge from "deepmerge";
 import {isPlainObject} from "is-plain-object";
-import {FC, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Form} from "../form/Form";
 import {useFormContext} from "../form/FormContext";
@@ -59,11 +59,16 @@ const WizardInternal = ({name, steps}) => {
 	const wizardContext = useWizardContext();
 	const formContext = useFormContext();
 	const {t} = useTranslation();
-	wizardContext.events
-		.on("reset", () => formContext.reset(), 1000)
-		.on("first", () => formContext.reset(), 1000)
-		.on("previous", () => wizardContext.previous(), 1000)
-		.on("next", () => wizardContext.next(), 1000);
+	useEffect(() => {
+		wizardContext.events
+			.on("reset", () => formContext.reset(), 1000)
+			.on("first", () => formContext.reset(), 1000)
+			.on("previous", () => wizardContext.previous(), 1000)
+			.on("next", () => wizardContext.next(), 1000);
+	}, []);
+	useEffect(() => {
+		console.log("step cahnge?");
+	}, [wizardContext.step]);
 	return <Row gutter={16}>
 		<Col span={6}>
 			<Steps current={wizardContext.step} size={"default"} direction={"vertical"}>
