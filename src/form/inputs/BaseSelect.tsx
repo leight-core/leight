@@ -61,7 +61,7 @@ export const BaseSelect = forwardRef(({fetch, fetchParams, mapper, usePlaceholde
 			const options = data.map(mapper).filter(item => item !== false) as IBaseSelectOption[];
 			setOptions(options);
 			first.current = false;
-			if (useFirst && options.length > 0) {
+			if (useFirst && options.length > 0 && !(formItemContext && formItemContext.getValue())) {
 				formItemContext && formItemContext.setValue(options[0].value);
 				props.onChange && props.onChange(options[0].value, options[0]);
 			}
