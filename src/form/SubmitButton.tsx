@@ -69,7 +69,7 @@ export const SubmitButton: FC<ISubmitButtonProps> = ({formInstance, noStyle, lab
 				type={"primary"}
 				disabled={disabled}
 				children={t(label)}
-				icon={<Spinner done={!formBlockContext.isBlocked()} children={disabled ? (disabledIcon || <SubmitDisabledIcon/>) : icon}/>}
+				icon={<Spinner done={!formBlockContext.isBlocked()} children={(disabled || props.disabled) ? (disabledIcon || <SubmitDisabledIcon/>) : icon}/>}
 				{...props}
 			/>
 		</>;
