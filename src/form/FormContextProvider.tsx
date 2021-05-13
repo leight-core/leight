@@ -58,6 +58,7 @@ export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) =
 					}))
 					.on("catch", e => {
 						console.error(e);
+						unblock();
 						layoutContext.blockContext.unblock(true);
 					})
 					.on("done", () => {
