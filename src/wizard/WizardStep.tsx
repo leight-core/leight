@@ -14,10 +14,15 @@ export const WizardStep: FC<IWizardStepProps> = ({title, initials, children}) =>
 	const {t} = useTranslation();
 	const formContext = useFormContext();
 	const wizardContext = useWizardContext();
+
 	useEffect(() => {
 		initials && formContext.setValues(initials);
+	}, [initials]);
+
+	useEffect(() => {
 		wizardContext.values && formContext.setValues(wizardContext.values);
-	}, []);
+	}, [wizardContext.values]);
+
 	return <>
 		<ScrollToTop/>
 		<Typography.Title level={2} children={t(title)}/>
