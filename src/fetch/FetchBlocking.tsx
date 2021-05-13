@@ -42,7 +42,7 @@ export const FetchBlocking = <TResponse extends any>({translation, fetch, params
 	const {t} = useTranslation();
 	return (
 		<Fetch<TResponse>
-			fetch={(setData) => {
+			fetch={setData => {
 				/**
 				 * Setting data to undefined forces component to render loading.
 				 */
@@ -61,7 +61,7 @@ export const FetchBlocking = <TResponse extends any>({translation, fetch, params
 					.cleaner();
 			}}
 			children={children}
-			deps={[params].concat(deps)}
+			deps={deps}
 			{...props}
 		/>
 	);
