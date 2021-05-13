@@ -1,6 +1,5 @@
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IParams} from "../interface/interface";
-import {useLayoutContext} from "../layout/LayoutContext";
 import {useRouterContext} from "../router/RouterContext";
 import {IServerEvents, IUpdateCallback} from "../server/interface";
 import {ServerEvents} from "../server/ServerEvents";
@@ -49,23 +48,16 @@ export const CommonForm = <TFormValues extends any = any, TRequest extends any =
 		...props
 	}: ICommonFormProps<TFormValues, TRequest, TResponse>) => {
 	const discoveryContext = useDiscoveryContext();
-	const layoutContext = useLayoutContext();
 	const navigate = useRouterContext().useNavigate();
 	return (
 		<Form<TFormValues>
 			colon={false}
 			size={"large"}
 			onSubmit={(values, formContext) => {
-				layoutContext.blockContext.block();
-				formContext.block();
 				post(postMapper(values), discoveryContext, postParams)
 					.chain(formContext.events())
 					.chain(events)
-					.on("response", data => {
-						onSuccess(navigate, values, data);
-						formContext.unblock();
-						layoutContext.blockContext.unblock();
-					});
+					.on("response", data => onSuccess(navigate, values, data));
 			}}
 			labelCol={{span: 8}}
 			labelAlign={"left"}

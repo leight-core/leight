@@ -1,5 +1,6 @@
 import {FormInstance} from "antd";
 import {NamePath, ValidateErrorEntity} from "rc-field-form/lib/interface";
+import {IBlockContext} from "../block/interface";
 import {INavigate} from "../router/interface";
 import {IServerEvents} from "../server/interface";
 
@@ -48,22 +49,6 @@ export interface IFormContext<TValues = any> {
 	 */
 	reset: () => void
 	/**
-	 * Direct access to blocking state of the layout (**not a bool!**).
-	 */
-	readonly blocking: number
-	/**
-	 * Tells if there is requested blocking state of the form.
-	 */
-	isBlocked: () => boolean
-	/**
-	 * Updates blocking state of the form; could be called more times as it maintains loader count.
-	 */
-	block: () => void
-	/**
-	 * Updates blocking state of the form; could be called more times as it maintains loader count.
-	 */
-	unblock: () => void
-	/**
 	 * Create default events handling some things in the form.
 	 */
 	events: <TResponse = any>() => IServerEvents<TResponse>
@@ -79,6 +64,10 @@ export interface IFormContext<TValues = any> {
 	 * Force form refresh (just revalidate and reset fields to get current sync with visible fields).
 	 */
 	refresh: () => void
+	/**
+	 * Quick access to form's blocking context.
+	 */
+	readonly blockContext: IBlockContext
 }
 
 export interface IFormSubmitCallback<TValues> {

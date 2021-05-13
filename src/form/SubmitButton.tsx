@@ -3,6 +3,7 @@ import React, {FC, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Spinner} from "../icon/Spinner";
 import {SubmitDisabledIcon} from "../icon/SubmitDisabledIcon";
+import {useFormBlockContext} from "./FormBlockContext";
 import {useFormContext} from "./FormContext";
 import {FormUtils} from "./FormUtils";
 
@@ -52,6 +53,7 @@ export interface ISubmitButtonProps extends Partial<ButtonProps> {
 export const SubmitButton: FC<ISubmitButtonProps> = ({formInstance, noStyle, label, icon, disabledIcon, ...props}) => {
 	const [disabled, setDisabled] = useState(true);
 	const formContext = useFormContext();
+	const formBlockContext = useFormBlockContext();
 
 	const Internal = () => {
 		const {t} = useTranslation();
@@ -67,15 +69,11 @@ export const SubmitButton: FC<ISubmitButtonProps> = ({formInstance, noStyle, lab
 				type={"primary"}
 				disabled={disabled}
 				children={t(label)}
-				icon={<Spinner done={!formContext.isBlocked()} children={disabled ? (disabledIcon || <SubmitDisabledIcon/>) : icon}/>}
+				icon={<Spinner done={!formBlockContext.isBlocked()} children={disabled ? (disabledIcon || <SubmitDisabledIcon/>) : icon}/>}
 				{...props}
 			/>
 		</>;
 	};
 
-	return (
-		<Form.Item shouldUpdate noStyle={noStyle}>
-			{() => <Internal/>}
-		</Form.Item>
-	);
+	return <Form.Item shouldUpdate noStyle={noStyle} children={() => <Internal/>}/>;
 };

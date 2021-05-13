@@ -35,13 +35,13 @@ export const BaseGroupSelect = forwardRef(({fetch, fetchParams, mapper, deps = [
 	const formContext = useOptionalFormContext();
 	useEffect(() => fetch(discoveryContext, fetchParams)
 		.on("request", () => {
-			formContext && formContext.block();
+			formContext && formContext.blockContext.block();
 		})
 		.on("response", data => {
 			setOptions(data.map(mapper));
 		})
 		.on("done", () => {
-			formContext && formContext.unblock();
+			formContext && formContext.blockContext.unblock();
 		})
 		.cleaner(), deps);
 	return <Select

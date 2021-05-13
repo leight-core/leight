@@ -1,5 +1,6 @@
 import {Form as CoolForm, FormProps, Spin} from "antd";
 import React, {FC, PropsWithChildren} from "react";
+import {useFormBlockContext} from "./FormBlockContext";
 import {useFormContext} from "./FormContext";
 import {FormContextProvider} from "./FormContextProvider";
 import {IFormSubmitCallback, IFormSubmitFailedCallback} from "./interface";
@@ -12,6 +13,7 @@ interface IFormInternalProps {
 
 const FormInternal: FC<IFormInternalProps> = ({name, onSubmit, onSubmitFailed, children, ...props}: IFormProps) => {
 	const formContext = useFormContext();
+	const formBlockContext = useFormBlockContext();
 	return (
 		<CoolForm
 			form={formContext.form}
@@ -19,7 +21,7 @@ const FormInternal: FC<IFormInternalProps> = ({name, onSubmit, onSubmitFailed, c
 			onFinishFailed={errors => onSubmitFailed!!(errors, formContext)}
 			name={name}
 			{...props}
-			children={<Spin spinning={formContext.isBlocked()} children={children}/>}
+			children={<Spin spinning={formBlockContext.isBlocked()} children={children}/>}
 		/>
 	);
 };

@@ -70,7 +70,7 @@ export const DebouncedSelect = forwardRef(({fetch, params, extra, limit = 10, ma
 			limit,
 		}, discoveryContext, params)
 			.on("request", () => {
-				formContext && formContext.block();
+				formContext && formContext.blockContext.block();
 				setLoading(true);
 			})
 			.on("response", data => {
@@ -83,7 +83,7 @@ export const DebouncedSelect = forwardRef(({fetch, params, extra, limit = 10, ma
 			})
 			.on("done", () => {
 				setLoading(false);
-				formContext && formContext.unblock();
+				formContext && formContext.blockContext.unblock();
 			})
 			.cleaner(),
 		[formItemContext && formItemContext.getValue()]

@@ -8,6 +8,7 @@ import {Centered} from "../layout/Centered";
 import {FakeServerEvents} from "../server/ServerEvents";
 import {StoryApp} from "../storybook/StoryApp";
 import {Form} from "./Form";
+import {useFormBlockContext} from "./FormBlockContext";
 import {useFormContext} from "./FormContext";
 import {FormItem} from "./FormItem";
 import {FormList} from "./FormList";
@@ -112,14 +113,15 @@ export const SubmitWithOptional = () => (
 export const SubmitWithPostInitials = () => {
 	const Items = () => {
 		const formContext = useFormContext();
+		const formBlockContext = useFormBlockContext();
 		useEffect(() => {
-			formContext.block();
+			formBlockContext.block();
 			setTimeout(() => {
 				formContext.setValues({
 					"some-value": "the value",
 					"required-value": "required",
 				});
-				formContext.unblock();
+				formBlockContext.unblock();
 			}, 1250);
 		}, []);
 		return <>
@@ -145,8 +147,9 @@ export const SubmitWithPostInitials = () => {
 export const SubmitWithPostInitialsErrors = () => {
 	const Items = () => {
 		const formContext = useFormContext();
+		const formBlockContext = useFormBlockContext();
 		useEffect(() => {
-			formContext.block();
+			formBlockContext.block();
 			const id = setTimeout(() => {
 				formContext.setValues({
 					"some-value": "the value",
@@ -178,7 +181,7 @@ export const SubmitWithPostInitialsErrors = () => {
 						},
 					]
 				});
-				formContext.unblock();
+				formBlockContext.unblock();
 			}, 1250);
 			return () => clearTimeout(id);
 		}, []);

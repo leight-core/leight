@@ -2,9 +2,9 @@ import {Button, Card, Divider, message, Result, Space} from "antd";
 import {ReactNode} from "react";
 import {useTranslation} from "react-i18next";
 import {Params} from "react-router";
+import {useModalBlockContext} from "../block/ModalBlockContext";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {DeleteItemIcon} from "../icon/DeleteItemIcon";
-import {useLayoutContext} from "../layout/LayoutContext";
 import {useRouterContext} from "../router/RouterContext";
 import {IDeleteCallback, IServerEvents} from "../server/interface";
 import {ServerEvents} from "../server/ServerEvents";
@@ -62,7 +62,7 @@ export const DeleteView = <TResponse extends unknown = any>(
 	}: IDeleteViewProps<TResponse>) => {
 	const discoveryContext = useDiscoveryContext();
 	const {t} = useTranslation();
-	const layoutContext = useLayoutContext();
+	const modalBlockContext = useModalBlockContext();
 	const navigate = useRouterContext().useNavigate();
 	const viewContext = useViewContext();
 	return (
@@ -74,7 +74,7 @@ export const DeleteView = <TResponse extends unknown = any>(
 				extra={
 					<Space split={<Divider type={"vertical"}/>} size={"large"}>
 						<Button type={"primary"} danger icon={<DeleteItemIcon/>} size={"large"} children={t(translation + ".confirm", {data})} onClick={() => {
-							layoutContext.blockContext.block();
+							modalBlockContext.block();
 							onDelete(discoveryContext, params)
 								.on("response", data => {
 									onSuccess(navigate, data);
@@ -83,7 +83,7 @@ export const DeleteView = <TResponse extends unknown = any>(
 									message.error(t(translation + ".error"));
 								})
 								.on("done", () => {
-									layoutContext.blockContext.unblock();
+									modalBlockContext.unblock();
 								})
 								.chain(events);
 						}}/>

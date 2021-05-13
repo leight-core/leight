@@ -1,8 +1,10 @@
 import {Form as CoolForm, message} from "antd";
 import React, {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {useLayoutContext} from "../layout/LayoutContext";
+import {BlockContextClass} from "../block/BlockContextClass";
+import {useModalBlockContext} from "../block/ModalBlockContext";
 import {ServerEvents} from "../server/ServerEvents";
+import {FormBlockContext} from "./FormBlockContext";
 import {FormContext} from "./FormContext";
 import {FormUtils} from "./FormUtils";
 import {IFormErrors} from "./interface";
@@ -11,11 +13,9 @@ export interface IFormContextProviderProps {
 }
 
 export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) => {
-	const layoutContext = useLayoutContext();
+	const modalBlockContext = useModalBlockContext();
 	const {t} = useTranslation();
 	const [errors, setErrors] = useState<IFormErrors>();
-	const [blocking, setBlocking] = useState<number>(0);
-	const isBlocked = () => blocking > 0;
 	const [form] = CoolForm.useForm();
 
 	const setErrorsInternal = (errors: IFormErrors) => {
@@ -28,48 +28,47 @@ export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) =
 		})));
 	};
 
-	const block = () => setBlocking(prev => prev + 1);
-	const unblock = () => setBlocking(prev => prev - 1);
 	const resetErrors = () => FormUtils.fields(form).then(fields => fields.map(([field]) => form.setFields([{errors: [], name: field}])));
 
+	const blockContext = new BlockContextClass(useState<boolean>(false), useState<number>(0));
+
 	return (
-		<FormContext.Provider
-			value={{
-				form,
-				errors: errors as IFormErrors,
-				setErrors: setErrorsInternal,
-				setValues: values => form.setFieldsValue(values),
-				reset: () => form.resetFields(),
-				blocking,
-				isBlocked,
-				block,
-				unblock,
-				events: () => ServerEvents()
-					.on("request", () => {
-						block();
-						layoutContext.blockContext.block();
-					})
-					.on("http400", setErrorsInternal)
-					.on("http401", setErrorsInternal)
-					.on("http403", setErrorsInternal)
-					.on("http500", () => setErrorsInternal({
-						message: t("common.form.server-error"),
-						errors: [],
-					}))
-					.on("catch", e => {
-						console.error(e);
-						unblock();
-						layoutContext.blockContext.unblock(true);
-					})
-					.on("done", () => {
-						unblock();
-						layoutContext.blockContext.unblock();
-					}),
-				values: form.getFieldsValue,
-				resetErrors,
-				refresh: () => form.validateFields().then(() => resetErrors(), () => resetErrors()),
-			}}
-			children={children}
-		/>
+		<FormBlockContext.Provider
+			value={blockContext}
+		>
+			<FormContext.Provider
+				value={{
+					form,
+					errors: errors as IFormErrors,
+					setErrors: setErrorsInternal,
+					setValues: values => form.setFieldsValue(values),
+					reset: () => form.resetFields(),
+					events: () => ServerEvents()
+						.on("request", () => {
+							blockContext.block();
+							modalBlockContext.block();
+						})
+						.on("http400", setErrorsInternal)
+						.on("http401", setErrorsInternal)
+						.on("http403", setErrorsInternal)
+						.on("http500", () => setErrorsInternal({
+							message: t("common.form.server-error"),
+							errors: [],
+						}))
+						.on("catch", e => {
+							console.error(e);
+						})
+						.on("done", () => {
+							blockContext.unblock();
+							modalBlockContext.unblock();
+						}),
+					values: form.getFieldsValue,
+					resetErrors,
+					refresh: () => form.validateFields().then(() => resetErrors(), () => resetErrors()),
+					blockContext,
+				}}
+				children={children}
+			/>
+		</FormBlockContext.Provider>
 	);
 };

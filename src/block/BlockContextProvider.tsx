@@ -1,5 +1,6 @@
 import {FC, useState} from "react";
 import {BlockContext} from "./BlockContext";
+import {BlockContextClass} from "./BlockContextClass";
 
 export interface IBlockContextProviderProps {
 	/**
@@ -9,25 +10,9 @@ export interface IBlockContextProviderProps {
 }
 
 export const BlockContextProvider: FC<IBlockContextProviderProps> = ({locked = false, children}) => {
-	const [lock, setLock] = useState<boolean>(locked);
-	const [count, setCount] = useState<number>(0);
-	const isBlocking = () => count > 0 || lock;
 	return (
 		<BlockContext.Provider
-			value={{
-				count,
-				isBlocked: isBlocking,
-				block: (temp = false) => {
-					if (temp) {
-						return setLock(true);
-					}
-					setCount(prev => prev + 1);
-				},
-				unblock: (unlock = false) => {
-					lock && setLock(false);
-					setCount(unlock ? 0 : prev => Math.max(0, prev - 1));
-				},
-			}}
+			value={new BlockContextClass(useState<boolean>(locked), useState<number>(0))}
 			children={children}
 		/>
 	);

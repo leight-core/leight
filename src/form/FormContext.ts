@@ -5,12 +5,12 @@ import {IFormContext} from "./interface";
 /**
  * Access to current Form Context; do not use this directly, see {@link useFormContext}.
  */
-export const FormContext = createContext<IFormContext>(null as unknown as IFormContext);
+export const FormContext = createContext<IFormContext>(null as any);
 
 /**
  * Form context is useful for creating any kind of form as it provides a lot of useful
  * features.
  */
-export const useFormContext = <TValues extends Object = any>() => useContext<IFormContext<TValues>>(FormContext, "FormContext");
+export const useFormContext = <TValues = any>() => useContext<IFormContext<TValues>>(FormContext, "FormContext");
 
-export const useOptionalFormContext = <TValues extends Object = any>() => useOptionalContext<IFormContext<TValues> | null>(FormContext as unknown as any);
+export const useOptionalFormContext = <TValues = any>() => useOptionalContext<IFormContext<TValues> | null>(FormContext as any);

@@ -49,7 +49,7 @@ export const BaseSelect = forwardRef(({fetch, fetchParams, mapper, usePlaceholde
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
 	useEffect(() => fetch(discoveryContext, fetchParams)
 		.on("request", () => {
-			formContext && formContext.block();
+			formContext && formContext.blockContext.block();
 			setOptions([]);
 		})
 		.on("response", data => {
@@ -67,7 +67,7 @@ export const BaseSelect = forwardRef(({fetch, fetchParams, mapper, usePlaceholde
 			}
 		})
 		.on("done", () => {
-			formContext && formContext.unblock();
+			formContext && formContext.blockContext.unblock();
 		})
 		.cleaner(), deps);
 	return <Select

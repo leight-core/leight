@@ -13,16 +13,14 @@ export interface IPlaceholderViewProps {
  */
 export const PlaceholderView: FC<IPlaceholderViewProps> = () => {
 	const {t} = useTranslation();
-	return (
-		<>
-			<Helmet title={t("common.placeholder.title")}/>
-			<Card style={{minHeight: "65vh"}}>
-				<Result
-					icon={<LoaderIcon spin/>}
-					title={t("common.placeholder.title")}
-					subTitle={t("common.placeholder.subtitle")}
-				/>
-			</Card>
-		</>
-	);
+	return <>
+		<Helmet title={t("common.placeholder.title")}/>
+		<Card style={{minHeight: "65vh"}}>
+			<Result
+				icon={<LoaderIcon spin/>}
+				title={t("common.placeholder.title")}
+				subTitle={t("common.placeholder.subtitle")}
+			/>
+		</Card>
+	</>;
 };
