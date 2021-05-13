@@ -1,9 +1,6 @@
 import {Layout, PageHeader} from "antd";
 import React, {CSSProperties, FC, ReactNode, Suspense, useEffect, useState} from "react";
-import {BlockContextClass} from "../block/BlockContextClass";
 import {BlockContextProvider} from "../block/BlockContextProvider";
-import {ModalBlock} from "../block/ModalBlock";
-import {ModalBlockContext} from "../block/ModalBlockContext";
 import {Drawer} from "../drawer/Drawer";
 import {DrawerContextProvider} from "../drawer/DrawerContextProvider";
 import {useMenuContext} from "../menu/MenuContext";
@@ -17,7 +14,6 @@ const HeaderSiderLayoutInternal = ({header, footer, contentStyle, headerStyle, c
 	return (
 		<Layout>
 			<Drawer/>
-			<ModalBlock/>
 			<Layout.Header style={...{...{backgroundColor: "#fff", padding: 0}, ...headerStyle}} children={header}/>
 			<Layout>
 				{layoutContext.fullwidth ? null :
@@ -75,32 +71,28 @@ export const HeaderSiderLayout: FC<IHeaderSiderLayoutProps> = (
 	return (
 		<BlockContextProvider>
 			<DrawerContextProvider>
-				<ModalBlockContext.Provider
-					value={new BlockContextClass(useState<boolean>(false), useState<number>(0))}
+				<LayoutContext.Provider
+					value={{
+						siderSize,
+						setSiderSize,
+						fullwidth,
+						useEnableFullwidth: (enable = true, restore = true) => useEffect(() => {
+							setFullwidth(enable);
+							return () => setFullwidth(!restore);
+							// eslint-disable-next-line
+						}, []),
+						pageHeader,
+						setPageHeader,
+					}}
 				>
-					<LayoutContext.Provider
-						value={{
-							siderSize,
-							setSiderSize,
-							fullwidth,
-							useEnableFullwidth: (enable = true, restore = true) => useEffect(() => {
-								setFullwidth(enable);
-								return () => setFullwidth(!restore);
-								// eslint-disable-next-line
-							}, []),
-							pageHeader,
-							setPageHeader,
-						}}
-					>
-						<HeaderSiderLayoutInternal
-							header={header}
-							footer={footer}
-							contentStyle={contentStyle}
-							headerStyle={headerStyle}
-							children={children}
-						/>
-					</LayoutContext.Provider>
-				</ModalBlockContext.Provider>
+					<HeaderSiderLayoutInternal
+						header={header}
+						footer={footer}
+						contentStyle={contentStyle}
+						headerStyle={headerStyle}
+						children={children}
+					/>
+				</LayoutContext.Provider>
 			</DrawerContextProvider>
 		</BlockContextProvider>
 	);

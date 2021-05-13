@@ -1,8 +1,8 @@
 import {Form as CoolForm, message} from "antd";
 import React, {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
+import {useBlockContext} from "../block/BlockContext";
 import {BlockContextClass} from "../block/BlockContextClass";
-import {useModalBlockContext} from "../block/ModalBlockContext";
 import {ServerEvents} from "../server/ServerEvents";
 import {FormBlockContext} from "./FormBlockContext";
 import {FormContext} from "./FormContext";
@@ -13,7 +13,7 @@ export interface IFormContextProviderProps {
 }
 
 export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) => {
-	const modalBlockContext = useModalBlockContext();
+	const blockContext = useBlockContext();
 	const {t} = useTranslation();
 	const [errors, setErrors] = useState<IFormErrors>();
 	const [form] = CoolForm.useForm();
@@ -30,11 +30,11 @@ export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) =
 
 	const resetErrors = () => FormUtils.fields(form).then(fields => fields.map(([field]) => form.setFields([{errors: [], name: field}])));
 
-	const blockContext = new BlockContextClass(useState<boolean>(false), useState<number>(0));
+	const formBlockContext = new BlockContextClass(useState<boolean>(false), useState<number>(0));
 
 	return (
 		<FormBlockContext.Provider
-			value={blockContext}
+			value={formBlockContext}
 		>
 			<FormContext.Provider
 				value={{
@@ -45,8 +45,8 @@ export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) =
 					reset: () => form.resetFields(),
 					events: () => ServerEvents()
 						.on("request", () => {
+							formBlockContext.block();
 							blockContext.block();
-							modalBlockContext.block();
 						})
 						.on("http400", setErrorsInternal)
 						.on("http401", setErrorsInternal)
@@ -59,13 +59,13 @@ export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) =
 							console.error(e);
 						})
 						.on("done", () => {
+							formBlockContext.unblock();
 							blockContext.unblock();
-							modalBlockContext.unblock();
 						}),
 					values: form.getFieldsValue,
 					resetErrors,
 					refresh: () => form.validateFields().then(() => resetErrors(), () => resetErrors()),
-					blockContext,
+					blockContext: formBlockContext,
 				}}
 				children={children}
 			/>
