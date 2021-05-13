@@ -12,6 +12,7 @@ export interface IButtonContext<TButtons extends string> {
 	 * @param disable
 	 */
 	disable: (button: TButtons, disable?: boolean) => void
+	enable: (button: TButtons, enable?: boolean) => void
 	/**
 	 * Tells if the given button is disabled.
 	 *
@@ -25,4 +26,5 @@ export interface IButtonContext<TButtons extends string> {
 	 * @param disable
 	 */
 	useDisable: (button: TButtons, disable?: boolean, deps?: DependencyList) => void
+	useEnable: (button: TButtons, enable?: boolean, deps?: DependencyList) => void
 }

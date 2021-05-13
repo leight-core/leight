@@ -12,9 +12,15 @@ export const ButtonContextProvider = <TButtons extends string>({children, defaul
 	return <ButtonContext.Provider
 		value={{
 			disable: (button, disable = true) => setDisabled(prev => ({...prev, [button]: disable})),
+			enable: function (button, enable = true) {
+				return this.disable(button, !enable);
+			},
 			isDisabled: button => disabled[button],
 			useDisable: function (button, disable = true, deps = []) {
 				useEffect(() => this.disable(button, disable), deps);
+			},
+			useEnable: function (button, enable = true, deps = []) {
+				this.useDisable(button, !enable, deps);
 			},
 		}}
 		children={children}
