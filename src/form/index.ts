@@ -10,5 +10,6 @@ export * from "./FormList";
 export * from "./FormSubmitButton";
 export * from "./FormUtils";
 export * from "./interface";
+export * from "./RefreshForm";
 export * from "./SimpleForm";
 export * from "./SubmitButton";
