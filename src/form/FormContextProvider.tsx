@@ -49,9 +49,9 @@ export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) =
 						block();
 						layoutContext.blockContext.block();
 					})
-					.on("http400", errors => setErrorsInternal(errors))
-					.on("http401", errors => setErrorsInternal(errors))
-					.on("http403", errors => setErrorsInternal(errors))
+					.on("http400", setErrorsInternal)
+					.on("http401", setErrorsInternal)
+					.on("http403", setErrorsInternal)
 					.on("http500", () => setErrorsInternal({
 						message: t("common.form.server-error"),
 						errors: [],
