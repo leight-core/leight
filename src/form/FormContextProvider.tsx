@@ -56,7 +56,10 @@ export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) =
 						message: t("common.form.server-error"),
 						errors: [],
 					}))
-					.on("catch", () => layoutContext.blockContext.unblock(true))
+					.on("catch", e => {
+						console.error(e);
+						layoutContext.blockContext.unblock(true);
+					})
 					.on("done", () => {
 						unblock();
 						layoutContext.blockContext.unblock();
