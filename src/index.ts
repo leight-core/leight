@@ -1,5 +1,6 @@
 export * from "./app";
 export * from "./block";
+export * from "./button";
 export * from "./client";
 export * from "./component";
 export * from "./date";

@@ -1,10 +1,12 @@
 import {useFormContext} from "../../form/FormContext";
 import {FormSubmitButton} from "../../form/FormSubmitButton";
 import {SubmitIcon} from "../../icon/SubmitIcon";
+import {useWizardButtonContext} from "../useWizardButtonContext";
 import {useWizardContext} from "../WizardContext";
 
 export const FinishButton = () => {
 	const wizardContext = useWizardContext();
+	const buttonContext = useWizardButtonContext();
 	const formContext = useFormContext();
 	const {events} = wizardContext;
 	return (
@@ -15,6 +17,7 @@ export const FinishButton = () => {
 			]}
 			size={"large"}
 			icon={<SubmitIcon/>}
+			disabled={buttonContext.isDisabled("finish")}
 			onClick={() => {
 				const values = formContext.values();
 				events.handler("finish")({

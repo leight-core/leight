@@ -1,6 +1,8 @@
 import {IEventHandlers, IEventResult, IEvents} from "../event/interface";
 import {IDeepMerge, IOutputMapper} from "../interface/interface";
 
+export type IWizardButton = "previous" | "next" | "finish" | "cancel";
+
 export interface IWizardContext {
 	/**
 	 * Wizard name.

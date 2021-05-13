@@ -3,6 +3,7 @@ import deepmerge from "deepmerge";
 import {isPlainObject} from "is-plain-object";
 import {FC, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
+import {ButtonContextProvider} from "../button/ButtonContextProvider";
 import {Form} from "../form/Form";
 import {useFormContext} from "../form/FormContext";
 import {IDeepMerge, IOutputMapper} from "../interface/interface";
@@ -12,7 +13,7 @@ import {CancelButton} from "./button/CancelButton";
 import {FinishButton} from "./button/FinishButton";
 import {NextButton} from "./button/NextButton";
 import {PreviousButton} from "./button/PreviousButton";
-import {IWizardEvents, IWizardStep} from "./interface";
+import {IWizardButton, IWizardEvents, IWizardStep} from "./interface";
 import {useWizardContext, WizardContext} from "./WizardContext";
 import {WizardEvents} from "./WizardEvents";
 
@@ -45,16 +46,25 @@ const WizardInternal: FC<IWizardInternalProps> = ({name, steps}) => {
 			</Steps>
 		</Col>
 		<Col span={18}>
-			{steps[wizardContext.step].component(wizardContext.events.bind("step", WizardEvents()))}
-			<Divider type={"horizontal"}/>
-			<PushRight>
-				<Space split={<Divider type={"vertical"}/>} size={"large"}>
-					<CancelButton key={"cancel"}/>
-					{wizardContext.canPrevious() && <PreviousButton key={"previous"}/>}
-					{wizardContext.canNext() && <NextButton key={"next"}/>}
-					{wizardContext.canFinish() && <FinishButton key={"finish"}/>}
-				</Space>
-			</PushRight>
+			<ButtonContextProvider<IWizardButton>
+				defaultDisabled={{
+					next: false,
+					previous: false,
+					cancel: false,
+					finish: false,
+				}}
+			>
+				{steps[wizardContext.step].component(wizardContext.events.bind("step", WizardEvents()))}
+				<Divider type={"horizontal"}/>
+				<PushRight>
+					<Space split={<Divider type={"vertical"}/>} size={"large"}>
+						<CancelButton key={"cancel"}/>
+						{wizardContext.canPrevious() && <PreviousButton key={"previous"}/>}
+						{wizardContext.canNext() && <NextButton key={"next"}/>}
+						{wizardContext.canFinish() && <FinishButton key={"finish"}/>}
+					</Space>
+				</PushRight>
+			</ButtonContextProvider>
 		</Col>
 	</Row>;
 };
