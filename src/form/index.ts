@@ -13,3 +13,4 @@ export * from "./interface";
 export * from "./RefreshForm";
 export * from "./SimpleForm";
 export * from "./SubmitButton";
+export * from "./useFormRefresh";
