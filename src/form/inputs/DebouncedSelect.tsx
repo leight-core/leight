@@ -52,9 +52,13 @@ export interface IDebouncedSelectProps<TItem, TSelected = any> extends SelectPro
 	 * Defaults to false.
 	 */
 	useFirst?: boolean
+	/**
+	 * Dependency used to force redraw (re-fetch data).
+	 */
+	deps?: any[]
 }
 
-export const DebouncedSelect = forwardRef(({fetch, params, extra, limit = 10, mapper, usePlaceholder, useFirst = false, initial = undefined, debounce = 250, ...props}: IDebouncedSelectProps<any>, ref) => {
+export const DebouncedSelect = forwardRef(({fetch, params, extra, limit = 10, mapper, usePlaceholder, useFirst = false, deps = [], initial = undefined, debounce = 250, ...props}: IDebouncedSelectProps<any>, ref) => {
 	const discoveryContext = useDiscoveryContext();
 	const [options, setOptions] = useState<any[]>([]);
 	const [tid, setTid] = useState<number>();
@@ -86,7 +90,7 @@ export const DebouncedSelect = forwardRef(({fetch, params, extra, limit = 10, ma
 				formContext && formContext.blockContext.unblock();
 			})
 			.cleaner(),
-		[formItemContext && formItemContext.getValue()]
+		deps.concat([formItemContext && formItemContext.getValue()])
 	);
 
 	const onSearch = search => {
