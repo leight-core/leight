@@ -1,8 +1,11 @@
 import {AxiosRequestConfig} from "axios";
+import {DependencyList, useEffect} from "react";
+import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IDiscoveryContext} from "../discovery/interface";
 import {IParams} from "../interface/interface";
 import {httpDelete} from "./httpDelete";
 import {IDeleteCallback} from "./interface";
+import {ServerEvents} from "./ServerEvents";
 
 /**
  * Simple factory for creating `delete` based on the discovery link id.
@@ -18,4 +21,13 @@ export function createDelete<TResponse = any>(link: string): IDeleteCallback<TRe
 		discoveryContext.link(link, params),
 		config,
 	);
+}
+
+export function createUseDelete<TResponse = any>(link: string, deps: DependencyList = []) {
+	return (params?: IParams, config?: AxiosRequestConfig) => {
+		const events = ServerEvents<TResponse>();
+		const discoveryContext = useDiscoveryContext();
+		useEffect(() => httpDelete<TResponse>(discoveryContext.link(link, params), config).chain(events).cleaner(), deps);
+		return events;
+	};
 }

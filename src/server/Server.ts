@@ -1,10 +1,10 @@
 import axios from "axios";
 import {ServerRequestTimeout} from "./constants";
-import {createDelete} from "./createDelete";
-import {createGet} from "./createGet";
-import {createPatch} from "./createPatch";
-import {createPost} from "./createPost";
-import {createPut} from "./createPut";
+import {createDelete, createUseDelete} from "./createDelete";
+import {createGet, createUseGet} from "./createGet";
+import {createPatch, createUsePatch} from "./createPatch";
+import {createPost, createUsePost} from "./createPost";
+import {createPut, createUsePut} from "./createPut";
 import {httpDelete} from "./httpDelete";
 import {httpGet} from "./httpGet";
 import {httpPatch} from "./httpPatch";
@@ -18,10 +18,15 @@ axios.defaults.timeout = ServerRequestTimeout;
  */
 export const Server = {
 	createDelete,
+	createUseDelete,
 	createGet,
+	createUseGet,
 	createPatch,
+	createUsePatch,
 	createPost,
+	createUsePost,
 	createPut,
+	createUsePut,
 	httpGet,
 	httpPost,
 	httpPatch,
