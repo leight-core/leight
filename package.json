@@ -34,7 +34,7 @@
 		"rc-picker": "^2.5.12",
 		"react-helmet": "^6.1.0",
 		"react-markdown": "^5.0.3",
-		"webpack": "^5.38.1"
+		"webpack": "^4.46.0"
 	},
 	"devDependencies": {
 		"@ant-design/icons": "^4.6.2",
