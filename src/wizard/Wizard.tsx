@@ -18,8 +18,8 @@ import {useWizardContext, WizardContext} from "./WizardContext";
 import {WizardEvents} from "./WizardEvents";
 
 interface IWizardInternalProps {
-	name: string
-	steps: IWizardStep[]
+	name: string;
+	steps: IWizardStep[];
 }
 
 const WizardInternal: FC<IWizardInternalProps> = ({name, steps}) => {
@@ -27,6 +27,7 @@ const WizardInternal: FC<IWizardInternalProps> = ({name, steps}) => {
 	const formContext = useFormContext();
 	const {t} = useTranslation();
 	useEffect(() => {
+		console.debug("Internal Wizard: Event registration (step " + wizardContext.step + ").");
 		wizardContext.events
 			.on("reset", () => formContext.reset(), 1000)
 			.on("first", () => formContext.reset(), 1000)
@@ -73,39 +74,39 @@ export interface IWizardProps {
 	/**
 	 * Name of the wizard (and also underlying form).
 	 */
-	name: string
+	name: string;
 	/**
 	 * Wizard events; they're chained on top of internal Wizard events.
 	 */
-	events: IWizardEvents
+	events: IWizardEvents;
 	/**
 	 * Wizard steps.
 	 */
-	steps: IWizardStep[]
+	steps: IWizardStep[];
 	/**
 	 * If specified, Wizard will preload/do something before first step appears.
 	 *
 	 * Useful for data prefetch.
 	 */
-	loaders?: JSX.Element[]
+	loaders?: JSX.Element[];
 	/**
 	 * Initial values for the underlying form.
 	 */
-	initialValues?: Object
+	initialValues?: Object;
 	/**
 	 * If something inside Wizard needs data (dependencies), they could be directly
 	 * put here; loaders are setting those too.
 	 */
-	defaultDependencies?: Object
+	defaultDependencies?: Object;
 	/**
 	 * When Wizard finishes, values are mapped by this method (if needed).
 	 */
-	outputMapper?: IOutputMapper
+	outputMapper?: IOutputMapper;
 	/**
 	 * Wizard-wise method used for merging values from pages. Defaults to deepmerge replacing
 	 * arrays and preserving special objects.
 	 */
-	merge?: IDeepMerge
+	merge?: IDeepMerge;
 }
 
 export const Wizard: FC<IWizardProps> = (
