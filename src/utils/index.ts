@@ -1,3 +1,4 @@
+export * from "./CopyText";
 export * from "./NumberRange";
 export * from "./PageIndex";
 export * from "./Random";
