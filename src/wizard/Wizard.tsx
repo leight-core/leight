@@ -27,13 +27,12 @@ const WizardInternal: FC<IWizardInternalProps> = ({name, steps}) => {
 	const formContext = useFormContext();
 	const {t} = useTranslation();
 	useEffect(() => {
-		console.debug("Internal Wizard: Event registration (step " + wizardContext.step + ").");
 		wizardContext.events
 			.on("reset", () => formContext.reset(), 1000)
 			.on("first", () => formContext.reset(), 1000)
 			.on("previous", () => wizardContext.previous(), 1000)
 			.on("next", ({values}) => wizardContext.next(values), 1000);
-	}, [wizardContext.step]);
+	}, [wizardContext, wizardContext.step]);
 	return <Row gutter={16}>
 		<Col span={6}>
 			<Steps current={wizardContext.step} size={"default"} direction={"vertical"}>
