@@ -6,8 +6,8 @@ export interface ICopyTextProps {
 	/**
 	 * Optional text to copy
 	 */
-	text?: string;
-	copy?: string;
+	text?: string | null;
+	copy?: string | null;
 	/**
 	 * Default text
 	 */
@@ -21,7 +21,7 @@ export interface ICopyTextProps {
 export const CopyText: FC<ICopyTextProps> = ({text, label, copy = text, defaultText = "-"}) => {
 	const {t} = useTranslation();
 	return <>
-		{text ? <Typography.Text
+		{(text && copy) ? <Typography.Text
 			copyable={{
 				text: copy,
 				tooltips: [t(label + ".copy"), t(label + ".copied")]
