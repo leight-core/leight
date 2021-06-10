@@ -126,7 +126,7 @@ export const Wizard: FC<IWizardProps> = (
 			}),
 	}) => {
 	const [step, setStep] = useState<number>(0);
-	const [values, setValues] = useState<Object>({});
+	const [values, setValues] = useState<Object>(initialValues);
 	const [dependencies, setDependencies] = useState<Object>(defaultDependencies);
 	const count = steps.length;
 	const canNext = () => step < (count - 1);
