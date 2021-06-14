@@ -1,5 +1,6 @@
-import {Layout, PageHeader} from "antd";
+import {Layout, PageHeader, Spin} from "antd";
 import React, {CSSProperties, FC, ReactNode, Suspense, useEffect, useState} from "react";
+import {useBlockContext} from "../block/BlockContext";
 import {BlockContextProvider} from "../block/BlockContextProvider";
 import {Drawer} from "../drawer/Drawer";
 import {DrawerContextProvider} from "../drawer/DrawerContextProvider";
@@ -11,26 +12,29 @@ import {LayoutContext, useLayoutContext} from "./LayoutContext";
 const HeaderSiderLayoutInternal = ({header, footer, contentStyle, headerStyle, children}) => {
 	const menuContext = useMenuContext();
 	const layoutContext = useLayoutContext();
+	const blockContext = useBlockContext();
 	return (
 		<Layout>
-			<Drawer/>
-			<Layout.Header style={...{...{backgroundColor: "#fff", padding: 0}, ...headerStyle}} children={header}/>
-			<Layout>
-				{layoutContext.fullwidth ? null :
-					<Layout.Sider
-						theme={"light"}
-						collapsible
-						width={layoutContext.siderSize}
-						children={menuContext.menu}
-					/>}
+			<Spin spinning={blockContext.isBlocked()}>
+				<Drawer/>
+				<Layout.Header style={...{...{backgroundColor: "#fff", padding: 0}, ...headerStyle}} children={header}/>
 				<Layout>
-					<Layout.Content style={...{...{minHeight: "100vh", padding: "0em 1.5em"}, ...contentStyle}}>
-						<PageHeader style={{padding: 0}} title={layoutContext.pageHeader}/>
-						<Suspense fallback={<PlaceholderView/>} children={children}/>
-						<Layout.Footer children={footer}/>
-					</Layout.Content>
+					{layoutContext.fullwidth ? null :
+						<Layout.Sider
+							theme={"light"}
+							collapsible
+							width={layoutContext.siderSize}
+							children={menuContext.menu}
+						/>}
+					<Layout>
+						<Layout.Content style={...{...{minHeight: "100vh", padding: "0em 1.5em"}, ...contentStyle}}>
+							<PageHeader style={{padding: 0}} title={layoutContext.pageHeader}/>
+							<Suspense fallback={<PlaceholderView/>} children={children}/>
+							<Layout.Footer children={footer}/>
+						</Layout.Content>
+					</Layout>
 				</Layout>
-			</Layout>
+			</Spin>
 		</Layout>
 	);
 };
@@ -39,19 +43,19 @@ export interface IHeaderSiderLayoutProps {
 	/**
 	 * Page (common layout) header.
 	 */
-	header: ReactNode
+	header: ReactNode;
 	/**
 	 * Page (common layout) footer.
 	 */
-	footer: ReactNode
+	footer: ReactNode;
 	/**
 	 * Optional styling of layout content.
 	 */
-	contentStyle?: CSSProperties
+	contentStyle?: CSSProperties;
 	/**
 	 * Optional style for the header.
 	 */
-	headerStyle?: CSSProperties
+	headerStyle?: CSSProperties;
 }
 
 /**
