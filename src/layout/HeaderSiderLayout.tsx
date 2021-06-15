@@ -1,21 +1,21 @@
 import {Layout, PageHeader, Spin} from "antd";
 import React, {CSSProperties, FC, ReactNode, Suspense, useEffect, useState} from "react";
-import {useBlockContext} from "../block/BlockContext";
-import {BlockContextProvider} from "../block/BlockContextProvider";
 import {Drawer} from "../drawer/Drawer";
 import {DrawerContextProvider} from "../drawer/DrawerContextProvider";
 import {useMenuContext} from "../menu/MenuContext";
 import {PlaceholderView} from "../view/PlaceholderView";
 import {HeaderPlaceholder} from "./HeaderPlaceholder";
+import {useLayoutBlockContext} from "./LayoutBlockContext";
+import {LayoutBlockContextProvider} from "./LayoutBlockContextProvider";
 import {LayoutContext, useLayoutContext} from "./LayoutContext";
 
 const HeaderSiderLayoutInternal = ({header, footer, contentStyle, headerStyle, children}) => {
 	const menuContext = useMenuContext();
 	const layoutContext = useLayoutContext();
-	const blockContext = useBlockContext();
+	const layoutBlockContext = useLayoutBlockContext();
 	return (
 		<Layout>
-			<Spin spinning={blockContext.isBlocked()}>
+			<Spin spinning={layoutBlockContext.isBlocked()}>
 				<Drawer/>
 				<Layout.Header style={...{...{backgroundColor: "#fff", padding: 0}, ...headerStyle}} children={header}/>
 				<Layout>
@@ -73,7 +73,7 @@ export const HeaderSiderLayout: FC<IHeaderSiderLayoutProps> = (
 	const [siderSize, setSiderSize] = useState<number>(240);
 	const [pageHeader, setPageHeader] = useState<ReactNode>(<HeaderPlaceholder/>);
 	return (
-		<BlockContextProvider>
+		<LayoutBlockContextProvider>
 			<DrawerContextProvider>
 				<LayoutContext.Provider
 					value={{
@@ -98,6 +98,6 @@ export const HeaderSiderLayout: FC<IHeaderSiderLayoutProps> = (
 					/>
 				</LayoutContext.Provider>
 			</DrawerContextProvider>
-		</BlockContextProvider>
+		</LayoutBlockContextProvider>
 	);
 };
