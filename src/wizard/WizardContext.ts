@@ -4,4 +4,4 @@ import {IWizardContext} from "./interface";
 
 export const WizardContext = createContext(null as unknown as IWizardContext);
 
-export const useWizardContext = () => useContext<IWizardContext>(WizardContext, "WizardContext", "Please use Wizard component.");
+export const useWizardContext = <TValues = any>() => useContext<IWizardContext<TValues>>(WizardContext, "WizardContext", "Please use Wizard component.");
