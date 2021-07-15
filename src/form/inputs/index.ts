@@ -1,6 +1,7 @@
 export * from "./BaseGroupSelect";
 export * from "./BaseSelect";
 export * from "./CheckboxItem";
+export * from "./CustomDebouncedSelect";
 export * from "./DebouncedSelect";
 export * from "./Input";
 export * from "./PasswordInput";
