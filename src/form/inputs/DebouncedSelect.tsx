@@ -11,51 +11,51 @@ export interface IDebouncedSelectProps<TItem, TSelected = any> extends SelectPro
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
-	fetch: IPostCallback<ISearchRequest, TItem[]>
+	fetch: IPostCallback<ISearchRequest, TItem[]>;
 	/**
 	 * Extra (optional) search request parameters.
 	 */
-	extra?: any
+	extra?: any;
 	/**
 	 * Limit number of items (if the fetch side respects this setting).
 	 *
 	 * Defaults to 10.
 	 */
-	limit?: number
+	limit?: number;
 	/**
 	 * Optional fetch params.
 	 */
-	params?: IParams
+	params?: IParams;
 	/**
 	 * Map requested data into Select's options.
 	 */
-	mapper: (item: TItem) => any
+	mapper: (item: TItem) => any;
 	/**
 	 * Debounce interval in ms.
 	 */
-	debounce?: number
+	debounce?: number;
 	/**
 	 * Initial value.
 	 */
-	initial?: string
+	initial?: string;
 	/**
 	 * Use label as placeholder for the select.
 	 */
-	usePlaceholder?: boolean
+	usePlaceholder?: boolean;
 	/**
 	 * An ability to forward refs as the control itself does not behave correctly if used without forwardRef.
 	 */
-	ref?: Ref<any>
+	ref?: Ref<any>;
 	/**
 	 * Select a first value.
 	 *
 	 * Defaults to false.
 	 */
-	useFirst?: boolean
+	useFirst?: boolean;
 	/**
 	 * Dependency used to force redraw (re-fetch data).
 	 */
-	deps?: any[]
+	deps?: any[];
 }
 
 export const DebouncedSelect = forwardRef(({fetch, params, extra, limit = 10, mapper, usePlaceholder, useFirst = false, deps = [], initial = undefined, debounce = 250, ...props}: IDebouncedSelectProps<any>, ref) => {
@@ -115,4 +115,4 @@ export const DebouncedSelect = forwardRef(({fetch, params, extra, limit = 10, ma
 		onSearch={onSearch}
 		{...props}
 	/>;
-}) as <TItem extends any, TSelected = any>(props: IDebouncedSelectProps<TItem, TSelected>) => JSX.Element;
+}) as <TItem, TSelected = any>(props: IDebouncedSelectProps<TItem, TSelected>) => JSX.Element;

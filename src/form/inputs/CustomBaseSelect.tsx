@@ -1,13 +1,13 @@
 import {Select, SelectProps} from "antd";
-import {forwardRef, Ref, useEffect, useRef, useState} from "react";
+import {forwardRef, ReactNode, Ref, useEffect, useRef, useState} from "react";
+import {useTranslation} from "react-i18next";
 import {Params} from "react-router";
 import {useDiscoveryContext} from "../../discovery/DiscoveryContext";
 import {IGetCallback} from "../../server/interface";
 import {useOptionalFormContext} from "../FormContext";
 import {useOptionalFormItemContext} from "../FormItemContext";
-import {IBaseSelectOption} from "../interface";
 
-export interface IBaseSelectProps<TData, TSelected = any> extends SelectProps<TSelected> {
+export interface ICustomBaseSelectProps<TData, TSelected = any> extends SelectProps<TSelected> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
@@ -19,7 +19,7 @@ export interface IBaseSelectProps<TData, TSelected = any> extends SelectProps<TS
 	/**
 	 * Map requested data into Select options.
 	 */
-	mapper: (item: TData) => IBaseSelectOption | false;
+	children: (item: TData) => ReactNode;
 	/**
 	 * Dependency used to force redraw (re-fetch data).
 	 */
@@ -32,17 +32,13 @@ export interface IBaseSelectProps<TData, TSelected = any> extends SelectProps<TS
 	 * An ability to forward refs as the control itself does not behave correctly if used without forwardRef.
 	 */
 	ref?: Ref<any>;
-	/**
-	 * Select a first value.
-	 *
-	 * Defaults to false.
-	 */
-	useFirst?: boolean;
 }
 
-export const BaseSelect = forwardRef(({fetch, fetchParams, mapper, usePlaceholder, useFirst = false, deps = [], ...props}: IBaseSelectProps<any>, ref) => {
-	const [options, setOptions] = useState<IBaseSelectOption[]>([]);
+export const CustomBaseSelect = forwardRef(({fetch, fetchParams, children, usePlaceholder, deps = [], ...props}: ICustomBaseSelectProps<any>, ref) => {
+	const {t} = useTranslation();
+	const [data, setData] = useState<any[]>([]);
 	const first = useRef(true);
+	const [loading, setLoading] = useState(false);
 	const discoveryContext = useDiscoveryContext();
 	const formContext = useOptionalFormContext();
 	const formItemContext = useOptionalFormItemContext();
@@ -50,7 +46,8 @@ export const BaseSelect = forwardRef(({fetch, fetchParams, mapper, usePlaceholde
 	useEffect(() => fetch(discoveryContext, fetchParams)
 		.on("request", () => {
 			formContext && formContext.blockContext.block();
-			setOptions([]);
+			setData([]);
+			setLoading(true);
 		})
 		.on("response", data => {
 			if (!first.current && formItemContext && formContext) {
@@ -58,22 +55,19 @@ export const BaseSelect = forwardRef(({fetch, fetchParams, mapper, usePlaceholde
 					{name: formItemContext.field, value: undefined},
 				]);
 			}
-			const options = data.map(mapper).filter(item => item !== false) as IBaseSelectOption[];
-			setOptions(options);
+			setData(data);
 			first.current = false;
-			if (useFirst && options.length > 0 && !(formItemContext && formItemContext.getValue())) {
-				formItemContext && formItemContext.setValue(options[0].value);
-				props.onChange && props.onChange(options[0].value, options[0]);
-			}
 		})
 		.on("done", () => {
 			formContext && formContext.blockContext.unblock();
+			setLoading(false);
 		})
 		.cleaner(), deps);
 	return <Select
 		ref={ref as any}
-		options={options}
-		showSearch={true}
+		loading={loading}
+		notFoundContent={t("common.nothing-found")}
+		children={data.map(children)}
 		{...props}
 	/>;
-}) as <TData, TSelected = any>(props: IBaseSelectProps<TData, TSelected>) => JSX.Element;
+}) as <TData, TSelected = any>(props: ICustomBaseSelectProps<TData, TSelected>) => JSX.Element;
