@@ -1,3 +1,4 @@
+import {ReactNode} from "react";
 import {IEventHandlers, IEventResult, IEvents} from "../event/interface";
 import {IDeepMerge, IOutputMapper} from "../interface/interface";
 
@@ -59,7 +60,7 @@ export interface IWizardContext<TValues = any> {
 
 export interface IWizardStep {
 	id: string;
-	component: (wizardEvents: IWizardEvents) => JSX.Element;
+	component: (wizardEvents: IWizardEvents) => ReactNode;
 }
 
 export interface IWizardFirst<TValues extends Object = any> {

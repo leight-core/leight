@@ -3,7 +3,6 @@ import {ColumnProps} from "antd/lib/table";
 import isCallable from "is-callable";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {useParams} from "react-router";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IPageCallback, IPageIndex, IParams, IRecordItem} from "../interface/interface";
 import {PageIndex} from "../utils/PageIndex";
@@ -14,22 +13,22 @@ export interface IBaseTableProps<TItem extends IRecordItem> extends TableProps<T
 	/**
 	 * Callback for getting page for the table.
 	 */
-	onFetchPage: IPageCallback<TItem>
+	onFetchPage: IPageCallback<TItem>;
 	/**
 	 * Optional parameter for the URL.
 	 */
-	onFetchParams?: IParams
+	onFetchParams?: IParams;
 	/**
 	 * Extra parameters for the Paging.
 	 */
-	onPageParams?: any
-	pageSize?: number
+	onPageParams?: any;
+	pageSize?: number;
 	/**
 	 * Enable live data fetching; live is number in milliseconds between fetches.
 	 */
-	live?: number
-	deps?: any[]
-	children: IBaseTableChildrenCallback<TItem>
+	live?: number;
+	deps?: any[];
+	children: IBaseTableChildrenCallback<TItem>;
 }
 
 export const BaseTable = <TItem extends IRecordItem>(
@@ -45,7 +44,6 @@ export const BaseTable = <TItem extends IRecordItem>(
 	}: IBaseTableProps<TItem>) => {
 	const {t} = useTranslation();
 	const discoveryContext = useDiscoveryContext();
-	const params = useParams();
 	const [page, setPage] = useState<IPageIndex<TItem>>(PageIndex());
 	const [loading, setLoading] = useState<boolean>(true);
 	const items = page.items;
@@ -59,7 +57,7 @@ export const BaseTable = <TItem extends IRecordItem>(
 				params: onPageParams,
 			},
 			discoveryContext,
-			{...params, ...onFetchParams},
+			{...onFetchParams},
 		)
 			.on("response", data => setPage(data))
 			.on("done", () => setLoading(false));

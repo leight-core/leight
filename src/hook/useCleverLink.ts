@@ -1,6 +1,5 @@
 import omitEmpty from "omit-empty";
 import {IParams} from "../interface/interface";
-import {useRouterContext} from "../router/RouterContext";
 
 export interface ICleverLink {
 	/**

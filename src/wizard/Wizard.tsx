@@ -1,7 +1,7 @@
 import {Col, Divider, Row, Space, Steps} from "antd";
 import deepmerge from "deepmerge";
 import {isPlainObject} from "is-plain-object";
-import {FC, useEffect, useState} from "react";
+import {FC, ReactNode, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {ButtonContextProvider} from "../button/ButtonContextProvider";
 import {Form} from "../form/Form";
@@ -87,7 +87,7 @@ export interface IWizardProps {
 	 *
 	 * Useful for data prefetch.
 	 */
-	loaders?: JSX.Element[];
+	loaders?: ReactNode[];
 	/**
 	 * Initial values for the underlying form.
 	 */

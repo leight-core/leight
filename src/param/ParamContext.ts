@@ -4,4 +4,4 @@ import {IParamContext} from "./interface";
 
 export const ParamContext = createContext(null as unknown as IParamContext);
 
-export const useParamContext = () => useContext(ParamContext, "ParamContext");
+export const useParamContext = () => useContext<IParamContext>(ParamContext, "ParamContext");

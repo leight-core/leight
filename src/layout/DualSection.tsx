@@ -1,9 +1,9 @@
 import {Col, Row} from "antd";
-import React, {FC} from "react";
+import React, {FC, ReactNode} from "react";
 
 export interface IDualSectionProps {
-	left: JSX.Element
-	right: JSX.Element
+	left: ReactNode;
+	right: ReactNode;
 }
 
 export const DualSection: FC<IDualSectionProps> = ({left, right}) => {

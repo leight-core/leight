@@ -1,11 +1,11 @@
 import {Steps, StepsProps} from "antd";
-import {FC, useState} from "react";
+import {FC, ReactNode, useState} from "react";
 import {IStepStatus} from "./interface";
 import {StepLoaderContext} from "./StepLoaderContext";
 
 export interface IStepLoaderProps extends Partial<StepsProps> {
-	steps: JSX.Element[]
-	children?: JSX.Element
+	steps: ReactNode[];
+	children?: ReactNode;
 }
 
 export const StepLoader: FC<IStepLoaderProps> = ({steps, children = <></>, ...props}) => {

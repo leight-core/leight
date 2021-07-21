@@ -1,7 +1,7 @@
 import {Menu, MenuItemProps} from "antd";
+import Link from "next/link";
 import {FC, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
-import {Link} from "react-router-dom";
 import {useCleverLink} from "../hook/useCleverLink";
 import {IParams} from "../interface/interface";
 import {useParamContext} from "../param/ParamContext";
@@ -10,19 +10,19 @@ export interface IMenuItemProps extends Partial<MenuItemProps> {
 	/**
 	 * Menu ID used for translations, link and others.
 	 */
-	id: string
+	id: string;
 	/**
 	 * Menu icon
 	 */
-	icon: ReactNode
+	icon: ReactNode;
 	/**
 	 * Optional href (link id) if id should not be used.
 	 */
-	href?: string
+	href?: string;
 	/**
 	 * Optional params for link generator.
 	 */
-	params?: IParams
+	params?: IParams;
 }
 
 export const MenuItem: FC<IMenuItemProps> = ({id, icon, href, params, ...props}) => {
@@ -31,7 +31,9 @@ export const MenuItem: FC<IMenuItemProps> = ({id, icon, href, params, ...props})
 	const cleverLink = useCleverLink(href || id, {...paramContext.params, ...params});
 	return (
 		<Menu.Item icon={icon} key={id} {...props} disabled={!cleverLink.enable}>
-			<Link to={cleverLink.link} children={t(id + ".menu")}/>
+			<Link href={cleverLink.link}>
+				<a>{t(id + ".menu")}</a>
+			</Link>
 		</Menu.Item>
 	);
 };

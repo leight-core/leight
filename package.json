@@ -18,7 +18,21 @@
 		"test": "jest src",
 		"test:watch": "jest src --watchAll"
 	},
+	"dependencies": {
+		"axios": "^0.21.1",
+		"antd": "^4.16.8",
+		"next": "^11.0.1",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2",
+		"@ant-design/icons": "^4.6.2",
+		"is-plain-object": "^5.0.0",
+		"react-i18next": "^11.11.3",
+		"filesize": "^7.0.0",
+		"omit-empty": "^1.0.0"
+	},
 	"devDependencies": {
-		"axios-mock-adapter": "^1.19.0"
+		"axios-mock-adapter": "^1.19.0",
+		"jest": "^27.0.6",
+		"typescript": "^4.3.5"
 	}
 }

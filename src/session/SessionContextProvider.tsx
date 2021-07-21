@@ -4,7 +4,7 @@ import {SessionContext} from "./SessionContext";
 import {SessionEvents} from "./SessionEvents";
 
 export interface ISessionContextProviderProps<TSession extends ISession = ISession> {
-	children: ReactNode
+	children?: ReactNode;
 }
 
 export const SessionContextProvider = <TSession extends ISession = ISession>({children}: ISessionContextProviderProps<TSession>) => {

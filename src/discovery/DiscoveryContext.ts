@@ -8,4 +8,4 @@ export const DiscoveryContext = createContext(null as unknown as IDiscoveryConte
  * Discovery context contains methods used to generate links to backend; it's usually loaded
  * from server.
  */
-export const useDiscoveryContext = () => useContext(DiscoveryContext, "DiscoveryContext");
+export const useDiscoveryContext = () => useContext<IDiscoveryContext>(DiscoveryContext, "DiscoveryContext");

@@ -1,23 +1,22 @@
 import {List, ListProps} from "antd";
 import {ReactNode, useEffect, useState} from "react";
-import {useParams} from "react-router";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IPageCallback, IPageIndex, IParams, IRecordItem} from "../interface/interface";
 import {PageIndex} from "../utils/PageIndex";
 
 export interface IBaseListProps<TItem extends IRecordItem> extends Partial<ListProps<TItem>> {
-	onFetchPage: IPageCallback<TItem>
+	onFetchPage: IPageCallback<TItem>;
 	/**
 	 * Optional parameter for the URL.
 	 */
-	onFetchParams?: IParams
+	onFetchParams?: IParams;
 	/**
 	 * Extra parameters for the Paging.
 	 */
-	onPageParams?: any
-	pageSize?: number
-	children: (item: TItem, index: number) => ReactNode
-	deps?: any[]
+	onPageParams?: any;
+	pageSize?: number;
+	children: (item: TItem, index: number) => ReactNode;
+	deps?: any[];
 }
 
 export const BaseList = <TItem extends IRecordItem = any>(
@@ -31,7 +30,6 @@ export const BaseList = <TItem extends IRecordItem = any>(
 		...props
 	}: IBaseListProps<TItem>) => {
 	const discoveryContext = useDiscoveryContext();
-	const params = useParams();
 	const [page, setPage] = useState<IPageIndex<TItem>>(PageIndex());
 	const [loading, setLoading] = useState<boolean>(true);
 	const items = page.items;
@@ -45,7 +43,7 @@ export const BaseList = <TItem extends IRecordItem = any>(
 				params: onPageParams,
 			},
 			discoveryContext,
-			{...params, ...onFetchParams},
+			{...onFetchParams},
 		)
 			.on("response", data => setPage(data))
 			.on("done", () => setLoading(false));

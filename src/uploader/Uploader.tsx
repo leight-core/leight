@@ -12,27 +12,27 @@ export interface IUploaderProps extends Partial<DraggerProps> {
 	/**
 	 * File field name on the server side.
 	 */
-	name: string
+	name: string;
 	/**
 	 * File size limit (in MB).
 	 */
-	limit: number
+	limit: number;
 	/**
 	 * Uploader events.
 	 */
-	events: IUploaderEvents
+	events: IUploaderEvents;
 	/**
 	 * Translation base for this uploader.
 	 */
-	translation: string
+	translation: string;
 	/**
 	 * Where a file will be uploaded (goes through AppContext.link).
 	 */
-	action: string
+	action: string;
 	/**
 	 * Optional params for the action.
 	 */
-	params?: IParams
+	params?: IParams;
 }
 
 export const Uploader = ({name, limit, events, translation, action, params, ...props}: IUploaderProps) => {
@@ -75,24 +75,22 @@ export const Uploader = ({name, limit, events, translation, action, params, ...p
 				break;
 		}
 	};
-	return (
-		<>
-			<Upload.Dragger
-				name={name}
-				listType={"text"}
-				action={discoveryContext.link(action, params)}
-				beforeUpload={onBeforeUpload}
-				onChange={onChange}
-				showUploadList={false}
-				disabled={loading}
-				{...props}
-			>
-				<Centered span={22}>
-					<Progress size={"default"} type={"line"} percent={progress} showInfo={false} status={status}/>
-				</Centered>
-				<Typography.Title level={3}>{t(translation + ".upload")}</Typography.Title>
-				<Typography.Paragraph>{t(translation + ".upload.hint")}</Typography.Paragraph>
-			</Upload.Dragger>
-		</>
-	);
+	return <>
+		<Upload.Dragger
+			name={name}
+			listType={"text"}
+			action={discoveryContext.link(action, params)}
+			beforeUpload={onBeforeUpload}
+			onChange={onChange}
+			showUploadList={false}
+			disabled={loading}
+			{...props}
+		>
+			<Centered span={22}>
+				<Progress size={"default"} type={"line"} percent={progress} showInfo={false} status={status}/>
+			</Centered>
+			<Typography.Title level={3}>{t(translation + ".upload")}</Typography.Title>
+			<Typography.Paragraph>{t(translation + ".upload.hint")}</Typography.Paragraph>
+		</Upload.Dragger>
+	</>;
 };

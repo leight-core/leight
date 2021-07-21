@@ -3,9 +3,9 @@ import {IParams} from "../interface/interface";
 import {useParamContext} from "./ParamContext";
 
 export interface IUpdateParamsProps {
-	params?: IParams
-	update?: boolean
-	children?: ReactNode
+	params?: IParams;
+	update?: boolean;
+	children?: ReactNode;
 }
 
 /**
@@ -16,6 +16,6 @@ export const UpdateParams: FC<IUpdateParamsProps> = ({params, update = false, ch
 	const paramContext = useParamContext();
 	useEffect(() => {
 		paramContext.setParams(params, update);
-	}, []);
+	}, [params, update]);
 	return <>{children}</>;
 };
