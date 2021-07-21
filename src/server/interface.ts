@@ -1,7 +1,7 @@
 import {AxiosError} from "axios";
 import {IDiscoveryContext} from "../discovery/interface";
 import {IBaseEventTypes, IEventHandlers, IEventResult, IEvents} from "../event/interface";
-import {IParams} from "../interface/interface";
+import {IParams} from "../link/interface";
 
 /**
  * Available http events.

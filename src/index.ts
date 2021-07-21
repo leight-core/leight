@@ -13,6 +13,7 @@ export * from "./hook";
 export * from "./icon";
 export * from "./interface";
 export * from "./layout";
+export * from "./link";
 export * from "./list";
 export * from "./loader";
 export * from "./menu";

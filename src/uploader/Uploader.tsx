@@ -4,8 +4,8 @@ import fileSize from "filesize";
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {IParams} from "../interface/interface";
 import {Centered} from "../layout/Centered";
+import {IParams} from "../link/interface";
 import {IUploaderEvents} from "./interface";
 
 export interface IUploaderProps extends Partial<DraggerProps> {

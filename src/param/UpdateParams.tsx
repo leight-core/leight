@@ -1,5 +1,5 @@
 import {FC, ReactNode, useEffect} from "react";
-import {IParams} from "../interface/interface";
+import {IParams} from "../link/interface";
 import {useParamContext} from "./ParamContext";
 
 export interface IUpdateParamsProps {

@@ -1,8 +1,5 @@
 import {IPostCallback} from "../server/interface";
 
-export interface IParams extends Partial<Object> {
-}
-
 export interface IOutputMapper {
 	<T extends Object = any>(values: T): T;
 }

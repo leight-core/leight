@@ -3,6 +3,7 @@ import React, {CSSProperties, FC, ReactNode, Suspense, useEffect, useState} from
 import {Drawer} from "../drawer/Drawer";
 import {DrawerContextProvider} from "../drawer/DrawerContextProvider";
 import {useMenuContext} from "../menu/MenuContext";
+import {MenuProvider} from "../menu/MenuProvider";
 import {PlaceholderPage} from "../page/PlaceholderPage";
 import {HeaderPlaceholder} from "./HeaderPlaceholder";
 import {useLayoutBlockContext} from "./LayoutBlockContext";
@@ -74,30 +75,32 @@ export const HeaderSiderLayout: FC<IHeaderSiderLayoutProps> = (
 	const [pageHeader, setPageHeader] = useState<ReactNode>(<HeaderPlaceholder/>);
 	return (
 		<LayoutBlockContextProvider>
-			<DrawerContextProvider>
-				<LayoutContext.Provider
-					value={{
-						siderSize,
-						setSiderSize,
-						fullwidth,
-						useEnableFullwidth: (enable = true, restore = true) => useEffect(() => {
-							setFullwidth(enable);
-							return () => setFullwidth(!restore);
-							// eslint-disable-next-line
-						}, []),
-						pageHeader,
-						setPageHeader,
-					}}
-				>
-					<HeaderSiderLayoutInternal
-						header={header}
-						footer={footer}
-						contentStyle={contentStyle}
-						headerStyle={headerStyle}
-						children={children}
-					/>
-				</LayoutContext.Provider>
-			</DrawerContextProvider>
+			<MenuProvider>
+				<DrawerContextProvider>
+					<LayoutContext.Provider
+						value={{
+							siderSize,
+							setSiderSize,
+							fullwidth,
+							useEnableFullwidth: (enable = true, restore = true) => useEffect(() => {
+								setFullwidth(enable);
+								return () => setFullwidth(!restore);
+								// eslint-disable-next-line
+							}, []),
+							pageHeader,
+							setPageHeader,
+						}}
+					>
+						<HeaderSiderLayoutInternal
+							header={header}
+							footer={footer}
+							contentStyle={contentStyle}
+							headerStyle={headerStyle}
+							children={children}
+						/>
+					</LayoutContext.Provider>
+				</DrawerContextProvider>
+			</MenuProvider>
 		</LayoutBlockContextProvider>
 	);
 };

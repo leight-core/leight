@@ -4,8 +4,8 @@ import {Head} from "next/document";
 import {FC, ReactNode, Suspense} from "react";
 import {ClientContextProvider} from "../client/ClientContextProvider";
 import {DiscoveryContextProvider} from "../discovery/DiscoveryContextProvider";
+import {LinkContextProvider} from "../link/LinkContextProvider";
 import {StepLoader} from "../loader/StepLoader";
-import {MenuProvider} from "../menu/MenuProvider";
 import {LoadingPage} from "../page/LoadingPage";
 import {ParamContextProvider} from "../param/ParamContextProvider";
 import {SessionContextProvider} from "../session/SessionContextProvider";
@@ -84,7 +84,7 @@ export const App: FC<IAppProps> = (
 			<DiscoveryContextProvider>
 				<SessionContextProvider>
 					<ParamContextProvider>
-						<MenuProvider>
+						<LinkContextProvider>
 							<AppInternal
 								titleTemplate={titleTemplate}
 								clientHref={clientHref}
@@ -92,7 +92,7 @@ export const App: FC<IAppProps> = (
 								icon={icon}
 								children={children}
 							/>
-						</MenuProvider>
+						</LinkContextProvider>
 					</ParamContextProvider>
 				</SessionContextProvider>
 			</DiscoveryContextProvider>

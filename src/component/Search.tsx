@@ -3,14 +3,15 @@ import {Empty, Select, SelectProps} from "antd";
 import {FC, ReactNode, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {IParams, ISearchItem, ISearchRequest, ISearchResult} from "../interface/interface";
+import {ISearchItem, ISearchRequest, ISearchResult} from "../interface/interface";
+import {IParams} from "../link/interface";
 import {IPostCallback} from "../server/interface";
 
 export interface ISearchProps extends Partial<SelectProps<any>> {
 	/**
 	 * Search handler
 	 */
-	search: IPostCallback<ISearchRequest, ISearchResult>
+	search: IPostCallback<ISearchRequest, ISearchResult>;
 	/**
 	 * Optional search parameters
 	 */

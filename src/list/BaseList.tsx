@@ -1,7 +1,8 @@
 import {List, ListProps} from "antd";
 import {ReactNode, useEffect, useState} from "react";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {IPageCallback, IPageIndex, IParams, IRecordItem} from "../interface/interface";
+import {IPageCallback, IPageIndex, IRecordItem} from "../interface/interface";
+import {IParams} from "../link/interface";
 import {PageIndex} from "../utils/PageIndex";
 
 export interface IBaseListProps<TItem extends IRecordItem> extends Partial<ListProps<TItem>> {

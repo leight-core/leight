@@ -1,5 +1,5 @@
 import {Dispatch, SetStateAction} from "react";
-import {IParams} from "../interface/interface";
+import {IParams} from "../link/interface";
 import {IDiscovery, IDiscoveryContext} from "./interface";
 
 export class DiscoveryContextClass implements IDiscoveryContext {
@@ -27,11 +27,11 @@ export class DiscoveryContextClass implements IDiscoveryContext {
 		const link = discovery.index[id].href.replaceAll(/{(.*?)}/g, ":$1");
 		try {
 			const url = new URL(link);
-			url.pathname = generatePath(url.pathname, params as Params);
+			url.pathname = generatePath(url.pathname, params as IParams);
 			return url.href;
 		} catch (e) {
 			try {
-				return generatePath(link, params as Params);
+				return generatePath(link, params as IParams);
 			} catch (e) {
 				console.error(`Cannot generate path for ${link} with params`, params);
 				throw e;

@@ -1,15 +1,16 @@
 import omitEmpty from "omit-empty";
-import {IParams} from "../interface/interface";
+import {IParams} from "../link/interface";
+import {useLinkContext} from "../link/LinkContext";
 
 export interface ICleverLink {
 	/**
 	 * Is a link enabled (available)?
 	 */
-	enable: boolean
+	enable: boolean;
 	/**
 	 * Link or an empty string if the link is not available (enabled).
 	 */
-	link: string
+	link: string;
 }
 
 /**
@@ -23,7 +24,7 @@ export function useCleverLink(to: string, params?: IParams): ICleverLink {
 	try {
 		return {
 			enable: true,
-			link: useRouterContext().generate(to, current),
+			link: useLinkContext().generate(to, current),
 		};
 	} catch (e) {
 		console.warn(`Cannot generate clever link [${to}].`, "Params", current, e);

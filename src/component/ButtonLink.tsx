@@ -1,36 +1,36 @@
 import {Button, ButtonProps} from "antd";
+import Link from "next/link";
 import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {IParams} from "../interface/interface";
+import {IParams} from "../link/interface";
+import {useLinkContext} from "../link/LinkContext";
 
 export interface IButtonLinkProps extends Omit<ButtonProps, "title"> {
 	/**
 	 * Href goes to generate method (clever link).
 	 */
-	href: string
+	href: string;
 	/**
 	 * Title of a button.
 	 */
-	title?: string | null
+	title?: string | null;
 	/**
 	 * Optional params for the link generator.
 	 */
-	params?: IParams
+	params?: IParams;
 }
 
 export const ButtonLink: FC<IButtonLinkProps> = ({href, title, params, ...props}) => {
 	const {t} = useTranslation();
-	const routerContext = useRouterContext();
+	const iLinkGeneratorContext = useLinkContext();
 	try {
-		return (
-			<Link to={routerContext.generate(href, params)}>
-				<Button
-					type={"primary"}
-					children={title ? t(title) : null}
-					{...props}
-				/>
-			</Link>
-		);
+		return <Link href={iLinkGeneratorContext.generate(href, params)}>
+			<Button
+				type={"primary"}
+				children={title ? t(title) : null}
+				{...props}
+			/>
+		</Link>;
 	} catch (e) {
 		console.warn(`Cannot generate link [${href}] for ButtonLink. Params:`, params, e);
 		return (

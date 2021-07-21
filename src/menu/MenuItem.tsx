@@ -3,7 +3,7 @@ import Link from "next/link";
 import {FC, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
 import {useCleverLink} from "../hook/useCleverLink";
-import {IParams} from "../interface/interface";
+import {IParams} from "../link/interface";
 import {useParamContext} from "../param/ParamContext";
 
 export interface IMenuItemProps extends Partial<MenuItemProps> {

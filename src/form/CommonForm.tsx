@@ -1,5 +1,5 @@
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {IParams} from "../interface/interface";
+import {IParams} from "../link/interface";
 import {IServerEvents, IUpdateCallback} from "../server/interface";
 import {ServerEvents} from "../server/ServerEvents";
 import {Form, IFormProps} from "./Form";

@@ -1,4 +1,4 @@
-import {IParams} from "../interface/interface";
+import {IParams} from "../link/interface";
 
 export interface IDiscoveryContext {
 	/**

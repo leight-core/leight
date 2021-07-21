@@ -2,7 +2,7 @@ import {AxiosRequestConfig} from "axios";
 import {DependencyList, useEffect} from "react";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IDiscoveryContext} from "../discovery/interface";
-import {IParams} from "../interface/interface";
+import {IParams} from "../link/interface";
 import {httpPut} from "./httpPut";
 import {IPutCallback} from "./interface";
 import {ServerEvents} from "./ServerEvents";

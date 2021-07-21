@@ -1,7 +1,7 @@
 import {Select, SelectProps} from "antd";
 import {forwardRef, Ref, useEffect, useRef, useState} from "react";
 import {useDiscoveryContext} from "../../discovery/DiscoveryContext";
-import {IParams} from "../../interface/interface";
+import {IParams} from "../../link/interface";
 import {IGetCallback} from "../../server/interface";
 import {useOptionalFormContext} from "../FormContext";
 import {useOptionalFormItemContext} from "../FormItemContext";
