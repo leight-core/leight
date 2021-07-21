@@ -1,14 +1,14 @@
 import {Button, ButtonProps} from "antd";
+import {useRouter} from "next/router";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {useNavigate} from "react-router";
 import {BackIcon} from "../icon/BackIcon";
 
 export interface IBackLinkProps extends Partial<ButtonProps> {
 	/**
 	 * Text on the button, goes through translation.
 	 */
-	text?: string
+	text?: string;
 }
 
 /**
@@ -25,16 +25,14 @@ export const BackLink: FC<IBackLinkProps> = (
 		text,
 		...props
 	}) => {
-	const navigate = useNavigate();
+	const router = useRouter();
 	const {t} = useTranslation();
-	return (
-		<Button
-			type={"link"}
-			size={"small"}
-			icon={<BackIcon/>}
-			onClick={() => navigate(-1)}
-			children={text ? t(text) : null}
-			{...props}
-		/>
-	);
+	return <Button
+		type={"link"}
+		size={"small"}
+		icon={<BackIcon/>}
+		onClick={() => router.back()}
+		children={text ? t(text) : null}
+		{...props}
+	/>;
 };

@@ -1,5 +1,4 @@
 import {Dispatch, SetStateAction} from "react";
-import {generatePath, Params} from "react-router";
 import {IParams} from "../interface/interface";
 import {IDiscovery, IDiscoveryContext} from "./interface";
 

@@ -1,7 +1,7 @@
 import {Select, SelectProps} from "antd";
 import {forwardRef, Ref, useEffect, useRef, useState} from "react";
-import {Params} from "react-router";
 import {useDiscoveryContext} from "../../discovery/DiscoveryContext";
+import {IParams} from "../../interface/interface";
 import {IGetCallback} from "../../server/interface";
 import {useOptionalFormContext} from "../FormContext";
 import {useOptionalFormItemContext} from "../FormItemContext";
@@ -15,7 +15,7 @@ export interface IBaseSelectProps<TData, TSelected = any> extends SelectProps<TS
 	/**
 	 * Optional parameters provided into fetch method.
 	 */
-	fetchParams?: Params;
+	fetchParams?: IParams;
 	/**
 	 * Map requested data into Select options.
 	 */

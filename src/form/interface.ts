@@ -1,7 +1,6 @@
 import {FormInstance} from "antd";
 import {NamePath, ValidateErrorEntity} from "rc-field-form/lib/interface";
 import {IBlockContext} from "../block/interface";
-import {INavigate} from "../router/interface";
 import {IServerEvents} from "../server/interface";
 
 export interface IFormItemContext {
@@ -91,7 +90,7 @@ export interface IFormInitialMapper<TFormValues> {
 }
 
 export interface IFormOnSuccess<TFormValues, TResponse> {
-	(navigate: INavigate, values: TFormValues, data: TResponse): void
+	(values: TFormValues, data: TResponse): void
 }
 
 export type IBaseSelectItem = any;

@@ -1,5 +1,5 @@
 import {FormInstance} from "antd";
-import CancelablePromise, {CancelablePromiseType} from "cancelable-promise";
+import CancelablePromise from "cancelable-promise";
 import {NamePath} from "rc-field-form/lib/interface";
 import {IFormFields} from "./interface";
 
@@ -9,7 +9,7 @@ export const FormUtils = {
 	 *
 	 * @param form Antd form instance
 	 */
-	fields: function (form: FormInstance): CancelablePromiseType<IFormFields[]> {
+	fields: function (form: FormInstance): CancelablePromise<IFormFields[]> {
 		return new CancelablePromise(resolve => setTimeout(() => {
 			resolve(form.getFieldsError().map(item => {
 				return [item.name, form.getFieldInstance(item.name)];
@@ -21,7 +21,7 @@ export const FormUtils = {
 	 *
 	 * @param form Antd form instance
 	 */
-	required: function (form: FormInstance): CancelablePromiseType<IFormFields[]> {
+	required: function (form: FormInstance): CancelablePromise<IFormFields[]> {
 		return new CancelablePromise(resolve => this.fields(form).then(fields => {
 			resolve(fields.filter(([_, item]) => {
 				if (!item) {
@@ -41,7 +41,7 @@ export const FormUtils = {
 	 *
 	 * @param form Antd form instance
 	 */
-	hasMissingValues: function (form: FormInstance): CancelablePromiseType<boolean> {
+	hasMissingValues: function (form: FormInstance): CancelablePromise<boolean> {
 		return new CancelablePromise(resolve => this.required(form).then(required => {
 			resolve(!!required.map(([name, _]) => name).map(name => form.getFieldValue(name)).filter(value => !value).length);
 		}));
@@ -61,7 +61,7 @@ export const FormUtils = {
 	 *
 	 * @param form Antd Form instance
 	 */
-	canSubmit: function (form: FormInstance): CancelablePromiseType<boolean> {
+	canSubmit: function (form: FormInstance): CancelablePromise<boolean> {
 		return new CancelablePromise(resolve => this.hasMissingValues(form).then(bool => {
 			resolve(!bool && !this.hasErrors(form));
 		}));

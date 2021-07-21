@@ -1,8 +1,8 @@
 import {Select, SelectProps} from "antd";
 import {forwardRef, ReactNode, Ref, useEffect, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {Params} from "react-router";
 import {useDiscoveryContext} from "../../discovery/DiscoveryContext";
+import {IParams} from "../../interface/interface";
 import {IGetCallback} from "../../server/interface";
 import {useOptionalFormContext} from "../FormContext";
 import {useOptionalFormItemContext} from "../FormItemContext";
@@ -15,7 +15,7 @@ export interface ICustomBaseSelectProps<TData, TSelected = any> extends SelectPr
 	/**
 	 * Optional parameters provided into fetch method.
 	 */
-	fetchParams?: Params;
+	fetchParams?: IParams;
 	/**
 	 * Map requested data into Select options.
 	 */
@@ -70,4 +70,4 @@ export const CustomBaseSelect = forwardRef(({fetch, fetchParams, children, usePl
 		children={data.map(children)}
 		{...props}
 	/>;
-}) as <TData, TSelected = any>(props: ICustomBaseSelectProps<TData, TSelected>) => JSX.Element;
+}) as <TData, TSelected = any>(props: ICustomBaseSelectProps<TData, TSelected>) => ReactNode;

@@ -1,9 +1,7 @@
 import {Button, ButtonProps} from "antd";
 import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {Params} from "react-router";
-import {Link} from "react-router-dom";
-import {useRouterContext} from "../router/RouterContext";
+import {IParams} from "../interface/interface";
 
 export interface IButtonLinkProps extends Omit<ButtonProps, "title"> {
 	/**
@@ -17,7 +15,7 @@ export interface IButtonLinkProps extends Omit<ButtonProps, "title"> {
 	/**
 	 * Optional params for the link generator.
 	 */
-	params?: Params
+	params?: IParams
 }
 
 export const ButtonLink: FC<IButtonLinkProps> = ({href, title, params, ...props}) => {

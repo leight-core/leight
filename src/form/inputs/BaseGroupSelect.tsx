@@ -1,7 +1,7 @@
 import {Select, SelectProps} from "antd";
 import {forwardRef, Ref, useEffect, useState} from "react";
-import {Params} from "react-router";
 import {useDiscoveryContext} from "../../discovery/DiscoveryContext";
+import {IParams} from "../../interface/interface";
 import {IGetCallback} from "../../server/interface";
 import {useOptionalFormContext} from "../FormContext";
 import {IBaseGroupSelectOption} from "../interface";
@@ -10,23 +10,23 @@ export interface IBaseGroupSelectProps<TResponse, TSelected = any> extends Selec
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
-	fetch: IGetCallback<TResponse[]>
+	fetch: IGetCallback<TResponse[]>;
 	/**
 	 * Optional parameters provided into fetch method.
 	 */
-	fetchParams?: Params
+	fetchParams?: IParams;
 	/**
 	 * Map requested data into Select options.
 	 */
-	mapper: (item: TResponse) => IBaseGroupSelectOption
+	mapper: (item: TResponse) => IBaseGroupSelectOption;
 	/**
 	 * Dependency used to force redraw (re-fetch data).
 	 */
-	deps?: any[]
+	deps?: any[];
 	/**
 	 * An ability to forward refs as the control itself does not behave correctly if used without forwardRef.
 	 */
-	ref?: Ref<any>
+	ref?: Ref<any>;
 }
 
 export const BaseGroupSelect = forwardRef(({fetch, fetchParams, mapper, deps = [], ...props}: IBaseGroupSelectProps<any>, ref) => {
