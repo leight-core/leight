@@ -1,9 +1,9 @@
 import {AntDesignOutlined} from "@ant-design/icons";
 import {Result} from "antd";
-import {Head} from "next/document";
 import {FC, ReactNode, Suspense} from "react";
 import {ClientContextProvider} from "../client/ClientContextProvider";
 import {DiscoveryContextProvider} from "../discovery/DiscoveryContextProvider";
+import {Title} from "../layout/Title";
 import {LinkContextProvider} from "../link/LinkContextProvider";
 import {StepLoader} from "../loader/StepLoader";
 import {LoadingPage} from "../page/LoadingPage";
@@ -42,9 +42,7 @@ export interface IAppProps {
 const AppInternal: FC<IAppProps> = ({icon, clientHref, sessionHref, children, titleTemplate}) => {
 	const appContext = useAppContext();
 	return <>
-		<Head>
-			<title key={"title"}>{titleTemplate}</title>
-		</Head>
+		<Title title={titleTemplate}/>
 		{appContext.isReady ?
 			<Suspense fallback={<LoadingPage/>}>
 				{children}

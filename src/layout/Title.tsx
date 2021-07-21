@@ -1,4 +1,4 @@
-import {Head} from "next/document";
+import Head from "next/head";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
