@@ -3,7 +3,7 @@ import React, {CSSProperties, FC, ReactNode, Suspense, useEffect, useState} from
 import {Drawer} from "../drawer/Drawer";
 import {DrawerContextProvider} from "../drawer/DrawerContextProvider";
 import {useMenuContext} from "../menu/MenuContext";
-import {PlaceholderView} from "../view/PlaceholderView";
+import {PlaceholderPage} from "../page/PlaceholderPage";
 import {HeaderPlaceholder} from "./HeaderPlaceholder";
 import {useLayoutBlockContext} from "./LayoutBlockContext";
 import {LayoutBlockContextProvider} from "./LayoutBlockContextProvider";
@@ -29,7 +29,7 @@ const HeaderSiderLayoutInternal = ({header, footer, contentStyle, headerStyle, c
 					<Layout>
 						<Layout.Content style={...{...{minHeight: "100vh", padding: "0em 1.5em"}, ...contentStyle}}>
 							<PageHeader style={{padding: 0}} title={layoutContext.pageHeader}/>
-							<Suspense fallback={<PlaceholderView/>} children={children}/>
+							<Suspense fallback={<PlaceholderPage/>} children={children}/>
 							<Layout.Footer children={footer}/>
 						</Layout.Content>
 					</Layout>

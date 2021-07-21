@@ -6,6 +6,7 @@ import {ClientContextProvider} from "../client/ClientContextProvider";
 import {DiscoveryContextProvider} from "../discovery/DiscoveryContextProvider";
 import {StepLoader} from "../loader/StepLoader";
 import {MenuProvider} from "../menu/MenuProvider";
+import {LoadingPage} from "../page/LoadingPage";
 import {ParamContextProvider} from "../param/ParamContextProvider";
 import {SessionContextProvider} from "../session/SessionContextProvider";
 import {useAppContext} from "./AppContext";
@@ -45,7 +46,7 @@ const AppInternal: FC<IAppProps> = ({icon, clientHref, sessionHref, children, ti
 			<title key={"title"}>{titleTemplate}</title>
 		</Head>
 		{appContext.isReady ?
-			<Suspense fallback={<LoaderView/>}>
+			<Suspense fallback={<LoadingPage/>}>
 				{children}
 			</Suspense> :
 			<Result icon={icon || <AntDesignOutlined/>}>
