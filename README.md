@@ -1,6 +1,6 @@
 # leight
 
-Leight is a Javascript library helper for React and Ant Design.
+Leight is a Javascript library helper for Next.js and Ant Design.
 
 ## Some interesting things
 
