@@ -1,8 +1,8 @@
 import {Card, Result} from "antd";
-import {Head} from "next/document";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {LoaderIcon} from "../icon/LoaderIcon";
+import {Title} from "../layout/Title";
 import {Page} from "./Page";
 
 export interface IPlaceholderPageProps {
@@ -15,9 +15,7 @@ export interface IPlaceholderPageProps {
 export const PlaceholderPage: FC<IPlaceholderPageProps> = ({children}) => {
 	const {t} = useTranslation();
 	return <Page>
-		<Head>
-			<title key={"title"}>{t("common.placeholder.title")}</title>
-		</Head>
+		<Title title={"common.placeholder.title"}/>
 		<Card style={{minHeight: "65vh"}}>
 			<Result
 				icon={<LoaderIcon spin/>}
