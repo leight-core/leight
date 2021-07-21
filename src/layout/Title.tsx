@@ -3,7 +3,7 @@ import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface ITitleProps {
-	title: string;
+	title?: string;
 	params?: any;
 	children?: never;
 }
@@ -16,7 +16,7 @@ export interface ITitleProps {
  */
 export const Title: FC<ITitleProps> = ({title, params}) => {
 	const {t} = useTranslation();
-	return <Head>
+	return title ? <Head>
 		<title key={"title"}>{t(title, {params})}</title>
-	</Head>;
+	</Head> : null;
 };

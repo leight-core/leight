@@ -80,11 +80,11 @@ export const App: FC<IAppProps> = (
 		children,
 	}) => {
 	return <AppContextProvider>
-		<ClientContextProvider>
-			<DiscoveryContextProvider>
-				<SessionContextProvider>
-					<ParamContextProvider>
-						<LinkContextProvider>
+		<ParamContextProvider>
+			<LinkContextProvider>
+				<ClientContextProvider>
+					<DiscoveryContextProvider>
+						<SessionContextProvider>
 							<AppInternal
 								titleTemplate={titleTemplate}
 								clientHref={clientHref}
@@ -92,10 +92,10 @@ export const App: FC<IAppProps> = (
 								icon={icon}
 								children={children}
 							/>
-						</LinkContextProvider>
-					</ParamContextProvider>
-				</SessionContextProvider>
-			</DiscoveryContextProvider>
-		</ClientContextProvider>
+						</SessionContextProvider>
+					</DiscoveryContextProvider>
+				</ClientContextProvider>
+			</LinkContextProvider>
+		</ParamContextProvider>
 	</AppContextProvider>;
 };
