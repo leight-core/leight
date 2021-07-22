@@ -10,7 +10,7 @@ export interface IClientStepProps {
 	/**
 	 * Where to get a client configuration (defaults to `/client.json`).
 	 */
-	href?: string
+	href?: string;
 }
 
 export const ClientStep: FC<IClientStepProps> = ({href, ...props}) => {
@@ -23,7 +23,8 @@ export const ClientStep: FC<IClientStepProps> = ({href, ...props}) => {
 					clientContext.setClient(client);
 					stepLoaderContext.next();
 				})
-				.on("catch", () => {
+				.on("catch", e => {
+					console.error(e);
 					stepLoaderContext.setStatus("error");
 				})
 				.cleaner();

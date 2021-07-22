@@ -17,7 +17,8 @@ export const DiscoveryStep = (props) => {
 					discoveryContext.setDiscovery(discovery);
 					stepLoaderContext.next();
 				})
-				.on("catch", () => {
+				.on("catch", e => {
+					console.error(e);
 					stepLoaderContext.setStatus("error");
 				});
 			return () => events.dismiss();

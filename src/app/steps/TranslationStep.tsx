@@ -25,7 +25,10 @@ export const TranslationStep: FC<ITranslationStepProps> = ({link = "public.trans
 					translations.forEach(translation => i18next.addResource(translation.language, translation.namespace, translation.label, translation.text));
 					stepLoaderContext.next();
 				})
-				.on("catch", () => stepLoaderContext.setStatus("error"))
+				.on("catch", e => {
+					console.error(e);
+					stepLoaderContext.setStatus("error");
+				})
 				.cleaner()}
 			{...props}
 		/>
