@@ -1,4 +1,4 @@
-import pathToRegexp from "path-to-regexp";
+import {compile} from "path-to-regexp";
 import {FC, useRef} from "react";
 import {IParams} from "./interface";
 import {LinkContext} from "./LinkContext";
@@ -11,11 +11,11 @@ export const LinkContextProvider: FC<ILinkContextProviderProps> = ({children}) =
 	const count = useRef<number>(0);
 	const limit = 10000;
 
-	function compile(path: string) {
+	function generator(path: string) {
 		if (cache.current[path]) {
 			return cache.current[path];
 		}
-		const generator = pathToRegexp.compile(path);
+		const generator = compile(path);
 		if (++count.current >= limit) {
 			cache.current = {};
 		}
@@ -25,7 +25,7 @@ export const LinkContextProvider: FC<ILinkContextProviderProps> = ({children}) =
 	return <LinkContext.Provider
 		value={{
 			generate(path: string, params?: IParams): string {
-				return path === "/" ? path : compile(path)(params, {pretty: true});
+				return path === "/" ? path : generator(path)(params, {pretty: true});
 			}
 		}}
 		children={children}
