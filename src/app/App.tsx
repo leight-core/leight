@@ -72,7 +72,7 @@ const AppInternal: FC<IAppProps> = ({icon, clientHref, sessionHref, children, ti
 export const App: FC<IAppProps> = (
 	{
 		titleTemplate,
-		clientHref = process.env.REACT_APP_CLIENT,
+		clientHref = process.env.NEXT_PUBLIC_CLIENT,
 		sessionHref,
 		icon,
 		children,
