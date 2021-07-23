@@ -3,7 +3,6 @@ import {Result} from "antd";
 import {FC, ReactNode, Suspense} from "react";
 import {ClientContextProvider} from "../client/ClientContextProvider";
 import {DiscoveryContextProvider} from "../discovery/DiscoveryContextProvider";
-import {Title} from "../layout/Title";
 import {LinkContextProvider} from "../link/LinkContextProvider";
 import {StepLoader} from "../loader/StepLoader";
 import {LoadingPage} from "../page/LoadingPage";
@@ -20,10 +19,6 @@ import {TranslationStep} from "./steps/TranslationStep";
 
 export interface IAppProps {
 	/**
-	 * Page title using Helmet.
-	 */
-	titleTemplate: string;
-	/**
 	 * Url from where a client get it's configuration, for example "/client.json".
 	 *
 	 * Defaults to **`process.env.REACT_APP_CLIENT`**.
@@ -39,10 +34,9 @@ export interface IAppProps {
 	icon?: ReactNode;
 }
 
-const AppInternal: FC<IAppProps> = ({icon, clientHref, sessionHref, children, titleTemplate}) => {
+const AppInternal: FC<IAppProps> = ({icon, clientHref, sessionHref, children}) => {
 	const appContext = useAppContext();
 	return <>
-		<Title title={titleTemplate}/>
 		{appContext.isReady ?
 			<Suspense fallback={<LoadingPage/>}>
 				{children}
@@ -71,7 +65,6 @@ const AppInternal: FC<IAppProps> = ({icon, clientHref, sessionHref, children, ti
  */
 export const App: FC<IAppProps> = (
 	{
-		titleTemplate,
 		clientHref = process.env.NEXT_PUBLIC_CLIENT,
 		sessionHref,
 		icon,
@@ -84,7 +77,6 @@ export const App: FC<IAppProps> = (
 					<DiscoveryContextProvider>
 						<SessionContextProvider>
 							<AppInternal
-								titleTemplate={titleTemplate}
 								clientHref={clientHref}
 								sessionHref={sessionHref}
 								icon={icon}
