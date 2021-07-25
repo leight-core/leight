@@ -1,4 +1,4 @@
-export interface IParams extends Partial<Object> {
+export interface IParams extends Object {
 }
 
 export interface ILinkContext {
