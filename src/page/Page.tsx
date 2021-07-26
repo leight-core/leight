@@ -7,13 +7,13 @@ export interface IPageProps extends IEmptyPageProps {
 	/**
 	 * The page title (main title); it goes through translation.
 	 */
-	h1: string;
+	h1?: string;
 }
 
 export const Page: FC<IPageProps> = ({h1, children, ...props}) => {
 	const {t} = useTranslation();
 	return <EmptyPage {...props}>
-		<Card title={t(h1)}>
+		<Card title={t(h1 ? h1 : props.name + ".title")}>
 			{children}
 		</Card>
 	</EmptyPage>;
