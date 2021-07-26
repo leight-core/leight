@@ -1,5 +1,5 @@
 import {Select, SelectProps} from "antd";
-import {forwardRef, ReactNode, Ref, useEffect, useRef, useState} from "react";
+import {forwardRef, Ref, useEffect, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDiscoveryContext} from "../../discovery/DiscoveryContext";
 import {IParams} from "../../link/interface";
@@ -19,7 +19,7 @@ export interface ICustomBaseSelectProps<TData, TSelected = any> extends SelectPr
 	/**
 	 * Map requested data into Select options.
 	 */
-	children: (item: TData) => ReactNode;
+	children: (item: TData) => JSX.Element;
 	/**
 	 * Dependency used to force redraw (re-fetch data).
 	 */
@@ -70,4 +70,4 @@ export const CustomBaseSelect = forwardRef(({fetch, fetchParams, children, usePl
 		children={data.map(children)}
 		{...props}
 	/>;
-}) as <TData, TSelected = any>(props: ICustomBaseSelectProps<TData, TSelected>) => ReactNode;
+}) as <TData, TSelected = any>(props: ICustomBaseSelectProps<TData, TSelected>) => JSX.Element;

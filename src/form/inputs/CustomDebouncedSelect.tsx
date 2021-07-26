@@ -1,5 +1,5 @@
 import {Select, SelectProps} from "antd";
-import {forwardRef, ReactNode, Ref, useEffect, useState} from "react";
+import {forwardRef, Ref, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDiscoveryContext} from "../../discovery/DiscoveryContext";
 import {ISearchRequest} from "../../interface/interface";
@@ -30,7 +30,7 @@ export interface ICustomDebouncedSelectProps<TItem, TSelected = any> extends Sel
 	/**
 	 * Map requested data into Select's options.
 	 */
-	children: (item: TItem) => ReactNode;
+	children: (item: TItem) => JSX.Element;
 	/**
 	 * Debounce interval in ms.
 	 */

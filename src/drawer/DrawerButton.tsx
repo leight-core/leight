@@ -6,11 +6,11 @@ export interface IDrawerButtonProps extends Partial<ButtonProps> {
 	/**
 	 * Content to show.
 	 */
-	content: ReactNode
+	content: ReactNode;
 	/**
 	 * Optional drawer width.
 	 */
-	width?: number
+	width?: number;
 }
 
 /**
@@ -18,10 +18,8 @@ export interface IDrawerButtonProps extends Partial<ButtonProps> {
  */
 export const DrawerButton: FC<IDrawerButtonProps> = ({content, width, ...props}) => {
 	const drawerContext = useDrawerContext();
-	return (
-		<Button
-			onClick={() => drawerContext.display(content, width)}
-			{...props}
-		/>
-	);
+	return <Button
+		onClick={() => drawerContext.display(content, width)}
+		{...props}
+	/>;
 };
