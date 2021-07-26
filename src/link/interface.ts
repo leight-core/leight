@@ -1,4 +1,4 @@
-export interface IParams extends Object {
+export interface IParams {
 }
 
 export interface ILinkContext {
