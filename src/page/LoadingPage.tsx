@@ -7,7 +7,7 @@ export interface ILoadingPageProps {
 }
 
 export const LoadingPage: FC<ILoadingPageProps> = ({children}) => {
-	return <EmptyPage>
+	return <EmptyPage name={"common.loading"}>
 		<Result
 			style={{marginTop: "10vh"}}
 			icon={<SettingFilled spin style={{fontSize: 42}}/>}
