@@ -1,7 +1,6 @@
 import Link from "next/link";
 import {FC} from "react";
 import {IParams} from "./interface";
-import {useLinkContext} from "./LinkContext";
 
 export interface ILinkToProps {
 	/**
@@ -18,8 +17,7 @@ export interface ILinkToProps {
  * Wrapper component over Next.js Link with underlying <a> with children passed through.
  */
 export const LinkTo: FC<ILinkToProps> = ({href, params, children}) => {
-	const linkContext = useLinkContext();
-	return <Link href={linkContext.generate(href, params)}>
+	return <Link href={{pathname: href, query: params}}>
 		<a>{children}</a>
 	</Link>;
 };

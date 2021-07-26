@@ -3,7 +3,6 @@ import Link from "next/link";
 import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {IParams} from "../link/interface";
-import {useLinkContext} from "../link/LinkContext";
 
 export interface IButtonLinkProps extends Omit<ButtonProps, "title"> {
 	/**
@@ -22,9 +21,8 @@ export interface IButtonLinkProps extends Omit<ButtonProps, "title"> {
 
 export const ButtonLink: FC<IButtonLinkProps> = ({href, title, params, ...props}) => {
 	const {t} = useTranslation();
-	const iLinkGeneratorContext = useLinkContext();
 	try {
-		return <Link href={iLinkGeneratorContext.generate(href, params)}>
+		return <Link href={{pathname: href, query: params}}>
 			<Button
 				type={"primary"}
 				children={title ? t(title) : null}
