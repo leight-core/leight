@@ -18,6 +18,6 @@ export interface ILinkToProps {
  */
 export const LinkTo: FC<ILinkToProps> = ({href, params, children}) => {
 	return <Link href={{pathname: href, query: params}}>
-		{children}
+		<a>{children}</a>
 	</Link>;
 };
