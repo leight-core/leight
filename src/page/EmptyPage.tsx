@@ -79,7 +79,7 @@ export const EmptyPage: FC<IEmptyPageProps> = (
 	const {t} = useTranslation();
 	const menuContext = useMenuContext();
 	const layoutContext = useLayoutContext();
-	menuContext.useMenu(menu ? menu() : undefined);
+	menuContext.useMenu(menu ? menu() : undefined, name);
 	menuContext.useSelect(menuItems || [name]);
 	layoutContext.useEnableFullwidth(fullwidth, restore);
 	return <>
