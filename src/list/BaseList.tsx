@@ -1,5 +1,5 @@
 import {List, ListProps} from "antd";
-import {ReactNode, useEffect, useState} from "react";
+import {DependencyList, ReactNode, useEffect, useState} from "react";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IPageCallback, IPageIndex, IRecordItem} from "../interface/interface";
 import {IParams} from "../link/interface";
@@ -17,7 +17,7 @@ export interface IBaseListProps<TItem extends IRecordItem> extends Partial<ListP
 	onPageParams?: any;
 	pageSize?: number;
 	children: (item: TItem, index: number) => ReactNode;
-	deps?: any[];
+	deps?: DependencyList;
 }
 
 export const BaseList = <TItem extends IRecordItem = any>(

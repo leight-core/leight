@@ -1,19 +1,19 @@
-import {Dispatch, ReactNode, SetStateAction, useEffect, useState} from "react";
+import {DependencyList, Dispatch, ReactNode, SetStateAction, useEffect, useState} from "react";
 import {ResultSpinner} from "../component/ResultSpinner";
 
 export interface IFetchProps<TData = any> {
 	/**
 	 * Fetch factory callback; used in an effect to fetch (somehow get) data.
 	 */
-	fetch: (setData: Dispatch<SetStateAction<TData | undefined>>) => void | (() => void | undefined)
+	fetch: (setData: Dispatch<SetStateAction<TData | undefined>>) => void | (() => void | undefined);
 	/**
 	 * Dependencies used in an effect; should control component redraws.
 	 */
-	deps?: any[]
+	deps?: DependencyList;
 	/**
 	 * Actual children rendered when data are available.
 	 */
-	children?: (data: TData) => ReactNode
+	children?: (data: TData) => ReactNode;
 	/**
 	 * Placeholder rendered when data are not available.
 	 */

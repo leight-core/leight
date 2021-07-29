@@ -1,5 +1,5 @@
 import {Select, SelectProps} from "antd";
-import {forwardRef, Ref, useEffect, useState} from "react";
+import {DependencyList, forwardRef, Ref, useEffect, useState} from "react";
 import {useDiscoveryContext} from "../../discovery/DiscoveryContext";
 import {IParams} from "../../link/interface";
 import {IGetCallback} from "../../server/interface";
@@ -22,7 +22,7 @@ export interface IBaseGroupSelectProps<TResponse, TSelected = any> extends Selec
 	/**
 	 * Dependency used to force redraw (re-fetch data).
 	 */
-	deps?: any[];
+	deps?: DependencyList;
 	/**
 	 * An ability to forward refs as the control itself does not behave correctly if used without forwardRef.
 	 */

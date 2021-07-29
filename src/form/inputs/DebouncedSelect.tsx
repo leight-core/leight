@@ -1,5 +1,5 @@
 import {Select, SelectProps} from "antd";
-import {forwardRef, Ref, useEffect, useState} from "react";
+import {DependencyList, forwardRef, Ref, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDiscoveryContext} from "../../discovery/DiscoveryContext";
 import {ISearchRequest} from "../../interface/interface";
@@ -56,7 +56,7 @@ export interface IDebouncedSelectProps<TItem, TSelected = any> extends SelectPro
 	/**
 	 * Dependency used to force redraw (re-fetch data).
 	 */
-	deps?: any[];
+	deps?: DependencyList;
 }
 
 export const DebouncedSelect = forwardRef(({fetch, params, extra, limit = 10, mapper, usePlaceholder, useFirst = false, deps = [], initial = undefined, debounce = 250, ...props}: IDebouncedSelectProps<any>, ref) => {

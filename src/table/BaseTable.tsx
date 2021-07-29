@@ -1,7 +1,7 @@
 import {Table, TableProps} from "antd";
 import {ColumnProps} from "antd/lib/table";
 import isCallable from "is-callable";
-import {useEffect, useState} from "react";
+import {DependencyList, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
 import {IPageCallback, IPageIndex, IRecordItem} from "../interface/interface";
@@ -28,7 +28,7 @@ export interface IBaseTableProps<TItem extends IRecordItem> extends TableProps<T
 	 * Enable live data fetching; live is number in milliseconds between fetches.
 	 */
 	live?: number;
-	deps?: any[];
+	deps?: DependencyList;
 	children: IBaseTableChildrenCallback<TItem>;
 }
 

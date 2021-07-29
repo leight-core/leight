@@ -1,8 +1,8 @@
-import {useEffect, useRef} from "react";
+import {DependencyList, useEffect, useRef} from "react";
 
 export type IIntervalCallback = () => any
 
-export function useInterval(callback: IIntervalCallback, delay?: number, deps: any[] = []) {
+export function useInterval(callback: IIntervalCallback, delay?: number, deps: DependencyList = []) {
 	const ref = useRef<IIntervalCallback>(() => null);
 
 	useEffect(() => {

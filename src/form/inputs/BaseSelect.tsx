@@ -1,5 +1,5 @@
 import {Select, SelectProps} from "antd";
-import {forwardRef, Ref, useEffect, useRef, useState} from "react";
+import {DependencyList, forwardRef, Ref, useEffect, useRef, useState} from "react";
 import {useDiscoveryContext} from "../../discovery/DiscoveryContext";
 import {IParams} from "../../link/interface";
 import {IGetCallback} from "../../server/interface";
@@ -23,7 +23,7 @@ export interface IBaseSelectProps<TData, TSelected = any> extends SelectProps<TS
 	/**
 	 * Dependency used to force redraw (re-fetch data).
 	 */
-	deps?: any[];
+	deps?: DependencyList;
 	/**
 	 * Use form item label as a placeholder.
 	 */
