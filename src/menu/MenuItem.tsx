@@ -3,7 +3,6 @@ import {FC, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
 import {IParams} from "../link/interface";
 import {LinkTo} from "../link/LinkTo";
-import {useParamContext} from "../param/ParamContext";
 
 export interface IMenuItemProps extends Partial<MenuItemProps> {
 	/**
@@ -25,11 +24,10 @@ export interface IMenuItemProps extends Partial<MenuItemProps> {
 }
 
 export const MenuItem: FC<IMenuItemProps> = ({title, href, icon, params, ...props}) => {
-	const paramContext = useParamContext();
 	const {t} = useTranslation();
 	return (
 		<Menu.Item icon={icon} key={href} {...props}>
-			<LinkTo href={href} params={{...paramContext.params, ...params}}>
+			<LinkTo href={href} params={params}>
 				{t(title)}
 			</LinkTo>
 		</Menu.Item>

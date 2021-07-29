@@ -6,7 +6,6 @@ import {DiscoveryContextProvider} from "../discovery/DiscoveryContextProvider";
 import {LinkContextProvider} from "../link/LinkContextProvider";
 import {StepLoader} from "../loader/StepLoader";
 import {LoadingPage} from "../page/LoadingPage";
-import {ParamContextProvider} from "../param/ParamContextProvider";
 import {SessionContextProvider} from "../session/SessionContextProvider";
 import {useAppContext} from "./AppContext";
 import {AppContextProvider} from "./AppContextProvider";
@@ -71,21 +70,19 @@ export const App: FC<IAppProps> = (
 		children,
 	}) => {
 	return <AppContextProvider>
-		<ParamContextProvider>
-			<LinkContextProvider>
-				<ClientContextProvider>
-					<DiscoveryContextProvider>
-						<SessionContextProvider>
-							<AppInternal
-								clientHref={clientHref}
-								sessionHref={sessionHref}
-								icon={icon}
-								children={children}
-							/>
-						</SessionContextProvider>
-					</DiscoveryContextProvider>
-				</ClientContextProvider>
-			</LinkContextProvider>
-		</ParamContextProvider>
+		<LinkContextProvider>
+			<ClientContextProvider>
+				<DiscoveryContextProvider>
+					<SessionContextProvider>
+						<AppInternal
+							clientHref={clientHref}
+							sessionHref={sessionHref}
+							icon={icon}
+							children={children}
+						/>
+					</SessionContextProvider>
+				</DiscoveryContextProvider>
+			</ClientContextProvider>
+		</LinkContextProvider>
 	</AppContextProvider>;
 };
