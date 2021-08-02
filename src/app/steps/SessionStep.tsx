@@ -4,6 +4,8 @@ import {useDiscoveryContext} from "../../discovery/DiscoveryContext";
 import {LoaderStep} from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
 import {httpGet} from "../../server/httpGet";
+import {IServerEvents} from "../../server/interface";
+import {ServerEvents} from "../../server/ServerEvents";
 import {ISession} from "../../session/interface";
 import {useSessionContext} from "../../session/SessionContext";
 
@@ -12,9 +14,13 @@ export interface ISessionStepProps {
 	 * Discovery Index link id to fetch session from.
 	 */
 	link?: string;
+	/**
+	 * Optional hook for session events.
+	 */
+	events?: IServerEvents;
 }
 
-export const SessionStep: FC<ISessionStepProps> = ({link = "public.user.ticket", ...props}) => {
+export const SessionStep: FC<ISessionStepProps> = ({link = "public.user.ticket", events = ServerEvents(), ...props}) => {
 	const discoveryContext = useDiscoveryContext();
 	const sessionContext = useSessionContext();
 	const stepLoaderContext = useStepLoaderContext();
@@ -37,6 +43,7 @@ export const SessionStep: FC<ISessionStepProps> = ({link = "public.user.ticket",
 					console.error(e);
 					stepLoaderContext.setStatus("error");
 				})
+				.chain(events)
 				.cleaner()}
 		/>
 	);

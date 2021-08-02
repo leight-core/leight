@@ -6,6 +6,7 @@ import {DiscoveryContextProvider} from "../discovery/DiscoveryContextProvider";
 import {LinkContextProvider} from "../link/LinkContextProvider";
 import {StepLoader} from "../loader/StepLoader";
 import {LoadingPage} from "../page/LoadingPage";
+import {IServerEvents} from "../server/interface";
 import {SessionContextProvider} from "../session/SessionContextProvider";
 import {useAppContext} from "./AppContext";
 import {AppContextProvider} from "./AppContextProvider";
@@ -31,9 +32,13 @@ export interface IAppProps {
 	 * Optional icon shown when an application bootstraps.
 	 */
 	icon?: ReactNode;
+	/**
+	 * Optional hook for session (session ticket) events.
+	 */
+	sessionEvents?: IServerEvents;
 }
 
-const AppInternal: FC<IAppProps> = ({icon, clientHref, sessionHref, children}) => {
+const AppInternal: FC<IAppProps> = ({icon, clientHref, sessionHref, sessionEvents, children}) => {
 	const appContext = useAppContext();
 	return <>
 		{appContext.isReady ?
@@ -47,7 +52,7 @@ const AppInternal: FC<IAppProps> = ({icon, clientHref, sessionHref, children}) =
 						<ClientStep key={"client"} href={clientHref}/>,
 						<DiscoveryStep key={"discovery"}/>,
 						<TranslationStep key={"translation"}/>,
-						<SessionStep key={"session"} link={sessionHref}/>,
+						<SessionStep key={"session"} events={sessionEvents} link={sessionHref}/>,
 						<FinishStep key={"finish"}/>,
 					]}/>
 				</div>
@@ -66,6 +71,7 @@ export const App: FC<IAppProps> = (
 	{
 		clientHref = process.env.NEXT_PUBLIC_CLIENT,
 		sessionHref,
+		sessionEvents,
 		icon,
 		children,
 	}) => {
@@ -77,6 +83,7 @@ export const App: FC<IAppProps> = (
 						<AppInternal
 							clientHref={clientHref}
 							sessionHref={sessionHref}
+							sessionEvents={sessionEvents}
 							icon={icon}
 							children={children}
 						/>
