@@ -7,7 +7,7 @@ export const FinishStep = props => {
 	const appContext = useAppContext();
 	return (
 		<LoaderStep icon={<HomeIcon/>} {...props} onStep={() => {
-			setTimeout(() => appContext.ready(), Random(100, 200));
+			setTimeout(() => appContext.ready(), Random(200, 350));
 		}}/>
 	);
 };
