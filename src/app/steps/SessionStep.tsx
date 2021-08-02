@@ -11,7 +11,7 @@ export interface ISessionStepProps {
 	/**
 	 * Discovery Index link id to fetch session from.
 	 */
-	link?: string
+	link?: string;
 }
 
 export const SessionStep: FC<ISessionStepProps> = ({link = "public.user.ticket", ...props}) => {
@@ -33,7 +33,7 @@ export const SessionStep: FC<ISessionStepProps> = ({link = "public.user.ticket",
 					 */
 					stepLoaderContext.next();
 				})
-				.on("catch", e => {
+				.on("error", e => {
 					console.error(e);
 					stepLoaderContext.setStatus("error");
 				})

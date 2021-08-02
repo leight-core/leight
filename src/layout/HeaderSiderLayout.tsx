@@ -14,30 +14,28 @@ const HeaderSiderLayoutInternal = ({header, footer, contentStyle, headerStyle, c
 	const menuContext = useMenuContext();
 	const layoutContext = useLayoutContext();
 	const layoutBlockContext = useLayoutBlockContext();
-	return (
-		<Layout>
-			<Spin spinning={layoutBlockContext.isBlocked()}>
-				<Drawer/>
-				<Layout.Header style={...{...{backgroundColor: "#fff", padding: 0}, ...headerStyle}} children={header}/>
+	return <Layout>
+		<Spin spinning={layoutBlockContext.isBlocked()}>
+			<Drawer/>
+			<Layout.Header style={...{...{backgroundColor: "#fff", padding: 0}, ...headerStyle}} children={header}/>
+			<Layout>
+				{layoutContext.fullwidth ? null :
+					<Layout.Sider
+						theme={"light"}
+						collapsible
+						width={layoutContext.siderSize}
+						children={menuContext.menu}
+					/>}
 				<Layout>
-					{layoutContext.fullwidth ? null :
-						<Layout.Sider
-							theme={"light"}
-							collapsible
-							width={layoutContext.siderSize}
-							children={menuContext.menu}
-						/>}
-					<Layout>
-						<Layout.Content style={...{...{minHeight: "100vh", padding: "0em 1.5em"}, ...contentStyle}}>
-							<PageHeader style={{padding: 0}} title={layoutContext.pageHeader}/>
-							<Suspense fallback={<PlaceholderPage/>} children={children}/>
-							<Layout.Footer children={footer}/>
-						</Layout.Content>
-					</Layout>
+					<Layout.Content style={...{...{minHeight: "100vh", padding: "0em 1.5em"}, ...contentStyle}}>
+						<PageHeader style={{padding: 0}} title={layoutContext.pageHeader}/>
+						<Suspense fallback={<PlaceholderPage/>} children={children}/>
+						<Layout.Footer children={footer}/>
+					</Layout.Content>
 				</Layout>
-			</Spin>
-		</Layout>
-	);
+			</Layout>
+		</Spin>
+	</Layout>;
 };
 
 export interface IHeaderSiderLayoutProps {
@@ -73,34 +71,31 @@ export const HeaderSiderLayout: FC<IHeaderSiderLayoutProps> = (
 	const [fullwidth, setFullwidth] = useState<boolean>(false);
 	const [siderSize, setSiderSize] = useState<number>(240);
 	const [pageHeader, setPageHeader] = useState<ReactNode>(<HeaderPlaceholder/>);
-	return (
-		<LayoutBlockContextProvider>
-			<MenuProvider>
-				<DrawerContextProvider>
-					<LayoutContext.Provider
-						value={{
-							siderSize,
-							setSiderSize,
-							fullwidth,
-							useEnableFullwidth: (enable = true, restore = true) => useEffect(() => {
-								setFullwidth(enable);
-								return () => setFullwidth(!restore);
-								// eslint-disable-next-line
-							}, []),
-							pageHeader,
-							setPageHeader,
-						}}
-					>
-						<HeaderSiderLayoutInternal
-							header={header}
-							footer={footer}
-							contentStyle={contentStyle}
-							headerStyle={headerStyle}
-							children={children}
-						/>
-					</LayoutContext.Provider>
-				</DrawerContextProvider>
-			</MenuProvider>
-		</LayoutBlockContextProvider>
-	);
+	return <LayoutBlockContextProvider>
+		<MenuProvider>
+			<DrawerContextProvider>
+				<LayoutContext.Provider
+					value={{
+						siderSize,
+						setSiderSize,
+						fullwidth,
+						useEnableFullwidth: (enable = true, restore = true) => useEffect(() => {
+							setFullwidth(enable);
+							return () => setFullwidth(!restore);
+						}, []),
+						pageHeader,
+						setPageHeader,
+					}}
+				>
+					<HeaderSiderLayoutInternal
+						header={header}
+						footer={footer}
+						contentStyle={contentStyle}
+						headerStyle={headerStyle}
+						children={children}
+					/>
+				</LayoutContext.Provider>
+			</DrawerContextProvider>
+		</MenuProvider>
+	</LayoutBlockContextProvider>;
 };
