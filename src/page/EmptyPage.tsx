@@ -1,6 +1,6 @@
 import {Spin} from "antd";
 import Head from "next/head";
-import {FC, ReactNode} from "react";
+import {FC, ReactNode, useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import {useBlockContext} from "../block/BlockContext";
 import {BlockContextProvider} from "../block/BlockContextProvider";
@@ -84,7 +84,9 @@ export const EmptyPage: FC<IEmptyPageProps> = (
 	menuContext.useMenu(menu ? menu() : undefined, name);
 	menuContext.useSelect(menuItems || [name]);
 	layoutContext.useEnableFullwidth(fullwidth, restore);
-	blockContext.unblock(true);
+	useEffect(() => {
+		blockContext.unblock(true);
+	}, []);
 	return <>
 		{header && <UpdatePageHeader>
 			{header}
