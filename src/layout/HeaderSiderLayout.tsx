@@ -1,3 +1,4 @@
+import {SettingFilled} from "@ant-design/icons";
 import {Layout, PageHeader, Spin} from "antd";
 import React, {CSSProperties, FC, ReactNode, Suspense, useEffect, useState} from "react";
 import {Drawer} from "../drawer/Drawer";
@@ -15,7 +16,7 @@ const HeaderSiderLayoutInternal = ({header, footer, contentStyle, headerStyle, c
 	const layoutContext = useLayoutContext();
 	const layoutBlockContext = useLayoutBlockContext();
 	return <Layout>
-		<Spin spinning={layoutBlockContext.isBlocked()}>
+		<Spin indicator={<SettingFilled spin/>} spinning={layoutBlockContext.isBlocked()}>
 			<Drawer/>
 			<Layout.Header style={...{...{backgroundColor: "#fff", padding: 0}, ...headerStyle}} children={header}/>
 			<Layout>

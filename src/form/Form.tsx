@@ -1,3 +1,4 @@
+import {SettingFilled} from "@ant-design/icons";
 import {Form as CoolForm, FormProps, Spin} from "antd";
 import React, {FC, PropsWithChildren} from "react";
 import {useFormBlockContext} from "./FormBlockContext";
@@ -6,9 +7,9 @@ import {FormContextProvider} from "./FormContextProvider";
 import {IFormSubmitCallback, IFormSubmitFailedCallback} from "./interface";
 
 interface IFormInternalProps {
-	name?: string
-	onSubmit: IFormSubmitCallback<any>
-	onSubmitFailed: IFormSubmitFailedCallback<any>
+	name?: string;
+	onSubmit: IFormSubmitCallback<any>;
+	onSubmitFailed: IFormSubmitFailedCallback<any>;
 }
 
 const FormInternal: FC<IFormInternalProps> = ({name, onSubmit, onSubmitFailed, children, ...props}: IFormProps) => {
@@ -21,7 +22,7 @@ const FormInternal: FC<IFormInternalProps> = ({name, onSubmit, onSubmitFailed, c
 			onFinishFailed={errors => onSubmitFailed!!(errors, formContext)}
 			name={name}
 			{...props}
-			children={<Spin spinning={formBlockContext.isBlocked()} children={children}/>}
+			children={<Spin indicator={<SettingFilled spin/>} spinning={formBlockContext.isBlocked()} children={children}/>}
 		/>
 	);
 };
@@ -30,15 +31,15 @@ export interface IFormProps<TFormValues = any> extends Partial<FormProps<TFormVa
 	/**
 	 * Form name.
 	 */
-	name?: string
+	name?: string;
 	/**
 	 * What to to when a form is submitted (and validated).
 	 */
-	onSubmit: IFormSubmitCallback<TFormValues>
+	onSubmit: IFormSubmitCallback<TFormValues>;
 	/**
 	 * Optional method to handle failed submit.
 	 */
-	onSubmitFailed?: IFormSubmitFailedCallback<TFormValues>
+	onSubmitFailed?: IFormSubmitFailedCallback<TFormValues>;
 }
 
 /**
