@@ -5,6 +5,7 @@ import {useTranslation} from "react-i18next";
 import {useBlockContext} from "../block/BlockContext";
 import {BlockContextProvider} from "../block/BlockContextProvider";
 import {ScrollToTop} from "../component/ScrollToTop";
+import {useLayoutBlockContext} from "../layout/LayoutBlockContext";
 import {useLayoutContext} from "../layout/LayoutContext";
 import {UpdatePageHeader} from "../layout/UpdatePageHeader";
 import {useMenuContext} from "../menu/MenuContext";
@@ -79,9 +80,11 @@ export const EmptyPage: FC<IEmptyPageProps> = (
 	const {t} = useTranslation();
 	const menuContext = useMenuContext();
 	const layoutContext = useLayoutContext();
+	const blockContext = useLayoutBlockContext();
 	menuContext.useMenu(menu ? menu() : undefined, name);
 	menuContext.useSelect(menuItems || [name]);
 	layoutContext.useEnableFullwidth(fullwidth, restore);
+	blockContext.unblock(true);
 	return <>
 		{header && <UpdatePageHeader>
 			{header}
