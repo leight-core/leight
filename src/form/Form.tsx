@@ -1,6 +1,6 @@
-import {SettingFilled} from "@ant-design/icons";
 import {Form as CoolForm, FormProps, Spin} from "antd";
 import React, {FC, PropsWithChildren} from "react";
+import {LoaderIcon} from "../icon/LoaderIcon";
 import {useFormBlockContext} from "./FormBlockContext";
 import {useFormContext} from "./FormContext";
 import {FormContextProvider} from "./FormContextProvider";
@@ -15,16 +15,14 @@ interface IFormInternalProps {
 const FormInternal: FC<IFormInternalProps> = ({name, onSubmit, onSubmitFailed, children, ...props}: IFormProps) => {
 	const formContext = useFormContext();
 	const formBlockContext = useFormBlockContext();
-	return (
-		<CoolForm
-			form={formContext.form}
-			onFinish={values => onSubmit(values, formContext)}
-			onFinishFailed={errors => onSubmitFailed!!(errors, formContext)}
-			name={name}
-			{...props}
-			children={<Spin indicator={<SettingFilled spin/>} spinning={formBlockContext.isBlocked()} children={children}/>}
-		/>
-	);
+	return <CoolForm
+		form={formContext.form}
+		onFinish={values => onSubmit(values, formContext)}
+		onFinishFailed={errors => onSubmitFailed!!(errors, formContext)}
+		name={name}
+		{...props}
+		children={<Spin indicator={<LoaderIcon/>} spinning={formBlockContext.isBlocked()} children={children}/>}
+	/>;
 };
 
 export interface IFormProps<TFormValues = any> extends Partial<FormProps<TFormValues>> {

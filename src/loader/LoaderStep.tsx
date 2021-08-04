@@ -7,15 +7,15 @@ export interface ILoaderStepProps extends Partial<StepProps> {
 	/**
 	 * What to do when step should be executed; it could return cleanup function used in `useEffect()`.
 	 */
-	onStep: () => (void | (() => void | undefined))
+	onStep: () => (void | (() => void | undefined));
 	/**
 	 * Prop set by controlling `Steps` component.
 	 */
-	active?: boolean
+	active?: boolean;
 	/**
 	 * Step icon.
 	 */
-	icon: JSX.Element
+	icon: JSX.Element;
 }
 
 /**
@@ -36,10 +36,8 @@ export const LoaderStep: FC<ILoaderStepProps> = (
 			return onStep();
 		}
 	}, [props.active]);
-	return (
-		<Steps.Step
-			{...props}
-			icon={<Spinner done={!loading || stepLoaderContext.status === "error"} children={icon}/>}
-		/>
-	);
+	return <Steps.Step
+		{...props}
+		icon={<Spinner done={!loading || stepLoaderContext.status === "error"} children={icon}/>}
+	/>;
 };

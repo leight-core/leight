@@ -64,15 +64,13 @@ export const SubmitButton: FC<ISubmitButtonProps> = ({formInstance, noStyle, lab
 			const promise = FormUtils.canSubmit(formContext.form).then(enabled => setDisabled(!enabled));
 			return () => promise.cancel();
 		});
-		return <>
-			<Button
-				type={"primary"}
-				disabled={disabled}
-				children={t(label)}
-				icon={<Spinner done={!formBlockContext.isBlocked()} children={(disabled || props.disabled) ? (disabledIcon || <SubmitDisabledIcon/>) : icon}/>}
-				{...props}
-			/>
-		</>;
+		return <Button
+			type={"primary"}
+			disabled={disabled}
+			children={t(label)}
+			icon={<Spinner done={!formBlockContext.isBlocked()} children={(disabled || props.disabled) ? (disabledIcon || <SubmitDisabledIcon/>) : icon}/>}
+			{...props}
+		/>;
 	};
 
 	return <Form.Item shouldUpdate noStyle={noStyle} children={() => <Internal/>}/>;

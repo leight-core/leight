@@ -4,6 +4,7 @@ import isCallable from "is-callable";
 import {DependencyList, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
+import {LoaderIcon} from "../icon/LoaderIcon";
 import {IPageCallback, IPageIndex, IRecordItem} from "../interface/interface";
 import {IParams} from "../link/interface";
 import {PageIndex} from "../utils/PageIndex";
@@ -71,31 +72,31 @@ export const BaseTable = <TItem extends IRecordItem>(
 
 	useInterval(() => onPage(0, pageSize), live);
 
-	return (
-		<Table
-			style={{minHeight: "50vh"}}
-			dataSource={items}
-			rowKey={record => record.id}
-			loading={{
-				spinning: loading,
-				delay: 50,
-			}}
-			size={"large"}
-			pagination={{
-				total: page.total,
-				pageSize: page.size,
-				defaultPageSize: page.size,
-				showQuickJumper: true,
-				hideOnSinglePage: true,
-				onChange: (current, size) => onPage(current - 1, size || 10),
-			}}
-			children={isCallable(children) ? (children as IBaseTableChildrenCallback<TItem>)(props => {
-				if (props.title) {
-					props.title = t(props.title as string);
-				}
-				return <Table.Column<TItem> {...(props as ColumnProps<TItem>)}/>;
-			}) : children}
-			{...props}
-		/>
-	);
+	return <Table
+		style={{minHeight: "50vh"}}
+		dataSource={items}
+		rowKey={record => record.id}
+		loading={{
+			spinning: loading,
+			indicator: <LoaderIcon/>,
+			delay: 50,
+		}}
+		size={"large"}
+		pagination={{
+			total: page.total,
+			pageSize: page.size,
+			defaultPageSize: page.size,
+			showQuickJumper: true,
+			hideOnSinglePage: true,
+			onChange: (current, size) => onPage(current - 1, size || 10),
+		}}
+		{...props}
+	>
+		{isCallable(children) ? (children as IBaseTableChildrenCallback<TItem>)(props => {
+			if (props.title) {
+				props.title = t(props.title as string);
+			}
+			return <Table.Column<TItem> {...(props as ColumnProps<TItem>)}/>;
+		}) : children}
+	</Table>;
 };

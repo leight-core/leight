@@ -1,8 +1,8 @@
-import {SettingFilled} from "@ant-design/icons";
 import {Layout, PageHeader, Spin} from "antd";
 import React, {CSSProperties, FC, ReactNode, Suspense, useEffect, useState} from "react";
 import {Drawer} from "../drawer/Drawer";
 import {DrawerContextProvider} from "../drawer/DrawerContextProvider";
+import {LoaderIcon} from "../icon/LoaderIcon";
 import {useMenuContext} from "../menu/MenuContext";
 import {MenuProvider} from "../menu/MenuProvider";
 import {PlaceholderPage} from "../page/PlaceholderPage";
@@ -16,7 +16,7 @@ const HeaderSiderLayoutInternal = ({header, footer, contentStyle, headerStyle, c
 	const layoutContext = useLayoutContext();
 	const layoutBlockContext = useLayoutBlockContext();
 	return <Layout>
-		<Spin indicator={<SettingFilled spin/>} spinning={layoutBlockContext.isBlocked()}>
+		<Spin indicator={<LoaderIcon/>} spinning={layoutBlockContext.isBlocked()}>
 			<Drawer/>
 			<Layout.Header style={...{...{backgroundColor: "#fff", padding: 0}, ...headerStyle}} children={header}/>
 			<Layout>

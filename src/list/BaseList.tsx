@@ -1,6 +1,7 @@
 import {List, ListProps} from "antd";
 import {DependencyList, ReactNode, useEffect, useState} from "react";
 import {useDiscoveryContext} from "../discovery/DiscoveryContext";
+import {LoaderIcon} from "../icon/LoaderIcon";
 import {IPageCallback, IPageIndex, IRecordItem} from "../interface/interface";
 import {IParams} from "../link/interface";
 import {PageIndex} from "../utils/PageIndex";
@@ -55,27 +56,26 @@ export const BaseList = <TItem extends IRecordItem = any>(
 	 */
 	useEffect(() => onPage(0, pageSize).cleaner(), deps);
 
-	return (
-		<List
-			style={{minHeight: "50vh"}}
-			dataSource={items}
-			rowKey={record => record.id}
-			loading={{
-				spinning: loading,
-				delay: 50,
-			}}
-			itemLayout={"horizontal"}
-			size={"large"}
-			pagination={{
-				total: page.total,
-				pageSize: page.size,
-				defaultPageSize: page.size,
-				showQuickJumper: true,
-				hideOnSinglePage: true,
-				onChange: (current, size) => onPage(current - 1, size),
-			}}
-			renderItem={children}
-			{...props}
-		/>
-	);
+	return <List
+		style={{minHeight: "50vh"}}
+		dataSource={items}
+		rowKey={record => record.id}
+		loading={{
+			spinning: loading,
+			indicator: <LoaderIcon/>,
+			delay: 50,
+		}}
+		itemLayout={"horizontal"}
+		size={"large"}
+		pagination={{
+			total: page.total,
+			pageSize: page.size,
+			defaultPageSize: page.size,
+			showQuickJumper: true,
+			hideOnSinglePage: true,
+			onChange: (current, size) => onPage(current - 1, size),
+		}}
+		renderItem={children}
+		{...props}
+	/>;
 };
