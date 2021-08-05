@@ -24,6 +24,8 @@ const HeaderSiderLayoutInternal = ({header, footer, contentStyle, headerStyle, c
 					<Layout.Sider
 						theme={"light"}
 						collapsible
+						onCollapse={menuContext.setCollapse}
+						collapsed={menuContext.collapsed}
 						width={layoutContext.siderSize}
 						children={menuContext.menu}
 					/>}
