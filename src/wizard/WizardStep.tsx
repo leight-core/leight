@@ -6,8 +6,8 @@ import {useFormContext} from "../form/FormContext";
 import {useWizardContext} from "./WizardContext";
 
 export interface IWizardStepProps {
-	title: string
-	initials?: any
+	title: string;
+	initials?: any;
 }
 
 export const WizardStep: FC<IWizardStepProps> = ({title, initials, children}) => {
@@ -25,7 +25,9 @@ export const WizardStep: FC<IWizardStepProps> = ({title, initials, children}) =>
 
 	return <>
 		<ScrollToTop/>
-		<Typography.Title level={2} children={t(title)}/>
+		<Typography.Title level={3}>
+			{t(title)}
+		</Typography.Title>
 		<Divider type={"horizontal"}/>
 		{children}
 	</>;
