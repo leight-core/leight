@@ -6,11 +6,12 @@ import {useFormContext} from "../form/FormContext";
 import {useWizardContext} from "./WizardContext";
 
 export interface IWizardStepProps {
-	title: string;
+	title?: string;
 	initials?: any;
+	showTitle?: boolean;
 }
 
-export const WizardStep: FC<IWizardStepProps> = ({title, initials, children}) => {
+export const WizardStep: FC<IWizardStepProps> = ({title, initials, showTitle = false, children}) => {
 	const {t} = useTranslation();
 	const formContext = useFormContext();
 	const wizardContext = useWizardContext();
@@ -25,10 +26,12 @@ export const WizardStep: FC<IWizardStepProps> = ({title, initials, children}) =>
 
 	return <>
 		<ScrollToTop/>
-		<Typography.Title level={4}>
-			{t(title)}
-		</Typography.Title>
-		<Divider type={"horizontal"}/>
+		{showTitle && title && <>
+			<Typography.Title level={4}>
+				{t(title)}
+			</Typography.Title>
+			<Divider type={"horizontal"}/>
+		</>}
 		{children}
 	</>;
 };
