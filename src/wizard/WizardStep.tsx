@@ -25,7 +25,7 @@ export const WizardStep: FC<IWizardStepProps> = ({title, initials, children}) =>
 
 	return <>
 		<ScrollToTop/>
-		<Typography.Title level={3}>
+		<Typography.Title level={4}>
 			{t(title)}
 		</Typography.Title>
 		<Divider type={"horizontal"}/>
