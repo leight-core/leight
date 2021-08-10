@@ -1,4 +1,4 @@
-import {Divider, Space, Steps} from "antd";
+import {Col, Divider, Row, Space, Steps} from "antd";
 import deepmerge from "deepmerge";
 import {isPlainObject} from "is-plain-object";
 import {FC, ReactNode, useEffect, useState} from "react";
@@ -33,36 +33,40 @@ const WizardInternal: FC<IWizardInternalProps> = ({name, steps}) => {
 			.on("previous", () => wizardContext.previous(), 1000)
 			.on("next", ({values}) => wizardContext.next(values), 1000);
 	}, [wizardContext, wizardContext.step]);
-	return <Space direction={"vertical"}>
-		<Steps current={wizardContext.step} size={"default"} direction={"horizontal"}>
-			{steps.map(item => (
-				<Steps.Step
-					key={item.id}
-					title={t("wizard." + name + ".step." + item.id + ".title")}
-					description={t("wizard." + name + ".step." + item.id + ".description")}
-				/>
-			))}
-		</Steps>
-		<ButtonContextProvider<IWizardButton>
-			defaultDisabled={{
-				next: false,
-				previous: false,
-				cancel: false,
-				finish: false,
-			}}
-		>
-			{steps[wizardContext.step].component(wizardContext.events.bind("step", WizardEvents()))}
-			<Divider type={"horizontal"}/>
-			<PushRight>
-				<Space split={<Divider type={"vertical"}/>} size={"large"}>
-					<CancelButton key={"cancel"}/>
-					{wizardContext.canPrevious() && <PreviousButton key={"previous"}/>}
-					{wizardContext.canNext() && <NextButton key={"next"}/>}
-					{wizardContext.canFinish() && <FinishButton key={"finish"}/>}
-				</Space>
-			</PushRight>
-		</ButtonContextProvider>
-	</Space>;
+	return <Row gutter={32}>
+		<Col span={24}>
+			<Steps current={wizardContext.step} size={"default"} direction={"horizontal"}>
+				{steps.map(item => (
+					<Steps.Step
+						key={item.id}
+						title={t("wizard." + name + ".step." + item.id + ".title")}
+						description={t("wizard." + name + ".step." + item.id + ".description")}
+					/>
+				))}
+			</Steps>
+		</Col>
+		<Col span={24}>
+			<ButtonContextProvider<IWizardButton>
+				defaultDisabled={{
+					next: false,
+					previous: false,
+					cancel: false,
+					finish: false,
+				}}
+			>
+				{steps[wizardContext.step].component(wizardContext.events.bind("step", WizardEvents()))}
+				<Divider type={"horizontal"}/>
+				<PushRight>
+					<Space split={<Divider type={"vertical"}/>} size={"large"}>
+						<CancelButton key={"cancel"}/>
+						{wizardContext.canPrevious() && <PreviousButton key={"previous"}/>}
+						{wizardContext.canNext() && <NextButton key={"next"}/>}
+						{wizardContext.canFinish() && <FinishButton key={"finish"}/>}
+					</Space>
+				</PushRight>
+			</ButtonContextProvider>
+		</Col>
+	</Row>;
 };
 
 export interface IWizardProps {
