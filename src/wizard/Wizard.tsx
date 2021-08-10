@@ -44,6 +44,7 @@ const WizardInternal: FC<IWizardInternalProps> = ({name, steps}) => {
 					/>
 				))}
 			</Steps>
+			<Divider/>
 		</Col>
 		<Col span={24}>
 			<ButtonContextProvider<IWizardButton>
@@ -57,7 +58,7 @@ const WizardInternal: FC<IWizardInternalProps> = ({name, steps}) => {
 				{steps[wizardContext.step].component(wizardContext.events.bind("step", WizardEvents()))}
 				<Divider type={"horizontal"}/>
 				<PushRight>
-					<Space split={<Divider type={"vertical"}/>} size={"large"}>
+					<Space split={<Divider type={"vertical"}/>}>
 						<CancelButton key={"cancel"}/>
 						{wizardContext.canPrevious() && <PreviousButton key={"previous"}/>}
 						{wizardContext.canNext() && <NextButton key={"next"}/>}
