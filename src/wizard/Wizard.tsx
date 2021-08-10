@@ -1,4 +1,4 @@
-import {Col, Divider, Row, Space, Steps} from "antd";
+import {Divider, Space, Steps} from "antd";
 import deepmerge from "deepmerge";
 import {isPlainObject} from "is-plain-object";
 import {FC, ReactNode, useEffect, useState} from "react";
@@ -33,40 +33,36 @@ const WizardInternal: FC<IWizardInternalProps> = ({name, steps}) => {
 			.on("previous", () => wizardContext.previous(), 1000)
 			.on("next", ({values}) => wizardContext.next(values), 1000);
 	}, [wizardContext, wizardContext.step]);
-	return <Row gutter={16}>
-		<Col span={6}>
-			<Steps current={wizardContext.step} size={"default"} direction={"vertical"}>
-				{steps.map(item => (
-					<Steps.Step
-						key={item.id}
-						title={t("wizard." + name + ".step." + item.id + ".title")}
-						description={t("wizard." + name + ".step." + item.id + ".description")}
-					/>
-				))}
-			</Steps>
-		</Col>
-		<Col span={18}>
-			<ButtonContextProvider<IWizardButton>
-				defaultDisabled={{
-					next: false,
-					previous: false,
-					cancel: false,
-					finish: false,
-				}}
-			>
-				{steps[wizardContext.step].component(wizardContext.events.bind("step", WizardEvents()))}
-				<Divider type={"horizontal"}/>
-				<PushRight>
-					<Space split={<Divider type={"vertical"}/>} size={"large"}>
-						<CancelButton key={"cancel"}/>
-						{wizardContext.canPrevious() && <PreviousButton key={"previous"}/>}
-						{wizardContext.canNext() && <NextButton key={"next"}/>}
-						{wizardContext.canFinish() && <FinishButton key={"finish"}/>}
-					</Space>
-				</PushRight>
-			</ButtonContextProvider>
-		</Col>
-	</Row>;
+	return <Space direction={"vertical"}>
+		<Steps current={wizardContext.step} size={"default"} direction={"horizontal"}>
+			{steps.map(item => (
+				<Steps.Step
+					key={item.id}
+					title={t("wizard." + name + ".step." + item.id + ".title")}
+					description={t("wizard." + name + ".step." + item.id + ".description")}
+				/>
+			))}
+		</Steps>
+		<ButtonContextProvider<IWizardButton>
+			defaultDisabled={{
+				next: false,
+				previous: false,
+				cancel: false,
+				finish: false,
+			}}
+		>
+			{steps[wizardContext.step].component(wizardContext.events.bind("step", WizardEvents()))}
+			<Divider type={"horizontal"}/>
+			<PushRight>
+				<Space split={<Divider type={"vertical"}/>} size={"large"}>
+					<CancelButton key={"cancel"}/>
+					{wizardContext.canPrevious() && <PreviousButton key={"previous"}/>}
+					{wizardContext.canNext() && <NextButton key={"next"}/>}
+					{wizardContext.canFinish() && <FinishButton key={"finish"}/>}
+				</Space>
+			</PushRight>
+		</ButtonContextProvider>
+	</Space>;
 };
 
 export interface IWizardProps {
@@ -142,58 +138,56 @@ export const Wizard: FC<IWizardProps> = (
 			setValues({});
 		})
 		.chain(events);
-	return (
-		<WizardContext.Provider
-			value={{
-				name,
-				events: wizardEvents,
-				step,
-				count,
-				values,
-				previous: () => setStep(current => current - 1),
-				next: (values?: any) => {
-					setValues(prev => merge(prev, values));
-					setStep(current => current + 1);
-				},
-				canNext,
-				canPrevious,
-				canFinish,
-				dependencies,
-				dependency: (dependency, value) => {
-					if (value) {
-						setDependencies(prev => ({...prev, [dependency]: value}));
-						return value;
-					} else if (!dependencies[dependency]) {
-						throw new Error(`Requested missing dependency [${dependency}] in Wizard [${name}].`);
-					}
-					return dependencies[dependency];
-				},
-				outputMapper,
-				merge,
-				useRefreshForm: () => {
-					const formContext = useFormContext();
-					return (initials?: any, current?: any) => {
-						initials && formContext.setValues(initials);
-						values && formContext.setValues(values);
-						current && formContext.setValues(current);
-						formContext.refresh();
-					};
-				},
-			}}
-			children={
-				<StepLoader
-					steps={loaders}
-					children={
-						<Form
-							preserve={false}
-							onSubmit={() => null}
-							layout={"vertical"}
-							children={<WizardInternal name={name} steps={steps}/>}
-							initialValues={initialValues}
-							size={"large"}
-						/>
-					}/>
-			}
-		/>
-	);
+	return <WizardContext.Provider
+		value={{
+			name,
+			events: wizardEvents,
+			step,
+			count,
+			values,
+			previous: () => setStep(current => current - 1),
+			next: (values?: any) => {
+				setValues(prev => merge(prev, values));
+				setStep(current => current + 1);
+			},
+			canNext,
+			canPrevious,
+			canFinish,
+			dependencies,
+			dependency: (dependency, value) => {
+				if (value) {
+					setDependencies(prev => ({...prev, [dependency]: value}));
+					return value;
+				} else if (!dependencies[dependency]) {
+					throw new Error(`Requested missing dependency [${dependency}] in Wizard [${name}].`);
+				}
+				return dependencies[dependency];
+			},
+			outputMapper,
+			merge,
+			useRefreshForm: () => {
+				const formContext = useFormContext();
+				return (initials?: any, current?: any) => {
+					initials && formContext.setValues(initials);
+					values && formContext.setValues(values);
+					current && formContext.setValues(current);
+					formContext.refresh();
+				};
+			},
+		}}
+	>
+		<StepLoader
+			steps={loaders}
+		>
+			<Form
+				preserve={false}
+				onSubmit={() => null}
+				layout={"vertical"}
+				initialValues={initialValues}
+				size={"large"}
+			>
+				<WizardInternal name={name} steps={steps}/>
+			</Form>
+		</StepLoader>
+	</WizardContext.Provider>;
 };
