@@ -1,5 +1,5 @@
+import {AppContext} from "@leight-core/leight";
 import {FC, useState} from "react";
-import {AppContext} from "./AppContext";
 
 export interface IAppContextProviderProps {
 }
