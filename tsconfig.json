@@ -9,7 +9,7 @@
 		"strictPropertyInitialization": true,
 		"strict": true,
 		"allowJs": true,
-		"noImplicitAny": false,
+		"noImplicitAny": true,
 		"target": "ES2020",
 		"module": "ES2020",
 		"declaration": true,
