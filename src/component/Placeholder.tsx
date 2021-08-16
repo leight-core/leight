@@ -6,19 +6,19 @@ export interface IPlaceholderProps<TData = any> {
 	/**
 	 * Data being check; must be truthy to render placeholder's content.
 	 */
-	data?: TData
+	data?: TData;
 	/**
 	 * Children takes data (when available) and should render it's content.
 	 */
-	children?: (data: TData) => ReactNode
+	children?: (data: TData) => ReactNode;
 	/**
 	 * Optional custom placeholder; defaults to Atnd Skeleton Input https://ant.design/components/skeleton/.
 	 */
-	placeholder?: () => ReactNode
+	placeholder?: () => ReactNode;
 	/**
 	 * If needed, customize Antd Skeleton props.
 	 */
-	skeleton?: SkeletonInputProps
+	skeleton?: SkeletonInputProps;
 }
 
 export const Placeholder = <TData extends unknown = any>(
@@ -28,12 +28,10 @@ export const Placeholder = <TData extends unknown = any>(
 		skeleton,
 		placeholder = () => <Skeleton.Input size={"large"} style={{width: 200}} active={true} {...skeleton}/>,
 	}: IPlaceholderProps<TData>) => {
-	return (
-		<>
-			{data ?
-				(children && children(data as unknown as TData)) :
-				placeholder()
-			}
-		</>
-	);
+	return <>
+		{data ?
+			(children && children(data as unknown as TData)) :
+			placeholder()
+		}
+	</>;
 };

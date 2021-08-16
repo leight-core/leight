@@ -1,8 +1,8 @@
+import {IParams} from "@leight-core/leight";
 import {Button, ButtonProps} from "antd";
 import Link from "next/link";
 import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {IParams} from "../link/interface";
 
 export interface IButtonLinkProps extends Omit<ButtonProps, "title"> {
 	/**

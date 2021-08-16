@@ -1,11 +1,8 @@
 import {LoadingOutlined, SearchOutlined} from "@ant-design/icons";
+import {IParams, IPostCallback, ISearchItem, ISearchRequest, ISearchResult, useDiscoveryContext} from "@leight-core/leight";
 import {Empty, Select, SelectProps} from "antd";
 import {FC, ReactNode, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {ISearchItem, ISearchRequest, ISearchResult} from "../interface/interface";
-import {IParams} from "../link/interface";
-import {IPostCallback} from "../server/interface";
 
 export interface ISearchProps extends Partial<SelectProps<any>> {
 	/**
@@ -15,11 +12,11 @@ export interface ISearchProps extends Partial<SelectProps<any>> {
 	/**
 	 * Optional search parameters
 	 */
-	params?: IParams
+	params?: IParams;
 	/**
 	 * Optional method responsible for rendering an item
 	 */
-	render?: (item: ISearchItem) => ReactNode
+	render?: (item: ISearchItem) => ReactNode;
 }
 
 export const Search: FC<ISearchProps> = (
@@ -50,23 +47,22 @@ export const Search: FC<ISearchProps> = (
 		}, 250));
 	}
 
-	return (
-		<Select
-			size={"large"}
-			showSearch
-			defaultActiveFirstOption={false}
-			onSearch={doSearch}
-			onClear={() => doSearch()}
-			allowClear
-			suffixIcon={loading ? <LoadingOutlined/> : <SearchOutlined/>}
-			filterOption={false}
-			loading={loading}
-			placeholder={t("common.search.placeholder")}
-			notFoundContent={<Empty description={t("common.search.empty")} image={Empty.PRESENTED_IMAGE_SIMPLE}/>}
-			{...props}
-			children={result && result.items.map(item => (
-				<Select.Option key={item.id} value={item.id} item={item} children={render(item)}/>
-			))}
-		/>
-	);
+	return <Select
+		size={"large"}
+		showSearch
+		defaultActiveFirstOption={false}
+		onSearch={doSearch}
+		onClear={() => doSearch()}
+		allowClear
+		suffixIcon={loading ? <LoadingOutlined/> : <SearchOutlined/>}
+		filterOption={false}
+		loading={loading}
+		placeholder={t("common.search.placeholder")}
+		notFoundContent={<Empty description={t("common.search.empty")} image={Empty.PRESENTED_IMAGE_SIMPLE}/>}
+		{...props}
+	>
+		{result && result.items.map(item => (
+			<Select.Option key={item.id} value={item.id} item={item} children={render(item)}/>
+		))}
+	</Select>;
 };
