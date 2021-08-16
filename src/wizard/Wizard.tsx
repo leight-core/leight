@@ -94,11 +94,6 @@ export interface IWizardProps {
 	 */
 	initialValues?: Object;
 	/**
-	 * If something inside Wizard needs data (dependencies), they could be directly
-	 * put here; loaders are setting those too.
-	 */
-	defaultDependencies?: Object;
-	/**
 	 * When Wizard finishes, values are mapped by this method (if needed).
 	 */
 	outputMapper?: IOutputMapper;
@@ -115,7 +110,6 @@ export const Wizard: FC<IWizardProps> = (
 		events,
 		steps,
 		initialValues = {},
-		defaultDependencies = {},
 		loaders = [],
 		outputMapper = value => value,
 		merge = (a, b) => deepmerge<any>(
@@ -128,7 +122,6 @@ export const Wizard: FC<IWizardProps> = (
 	}) => {
 	const [step, setStep] = useState<number>(0);
 	const [values, setValues] = useState<Object>(initialValues);
-	const [dependencies, setDependencies] = useState<Object>(defaultDependencies);
 	const count = steps.length;
 	const canNext = () => step < (count - 1);
 	const canPrevious = () => step > 0;
@@ -158,16 +151,6 @@ export const Wizard: FC<IWizardProps> = (
 			canNext,
 			canPrevious,
 			canFinish,
-			dependencies,
-			dependency: (dependency, value) => {
-				if (value) {
-					setDependencies(prev => ({...prev, [dependency]: value}));
-					return value;
-				} else if (!dependencies[dependency]) {
-					throw new Error(`Requested missing dependency [${dependency}] in Wizard [${name}].`);
-				}
-				return dependencies[dependency];
-			},
 			outputMapper,
 			merge,
 			useRefreshForm: () => {

@@ -36,12 +36,12 @@ export const BaseList = <TItem extends IRecordItem = any>(
 	const [loading, setLoading] = useState<boolean>(true);
 	const items = page.items;
 
-	const onPage = (page, size) => {
+	const onPage = (page: number, size: number | undefined) => {
 		setLoading(true);
 		return onFetchPage(
 			{
 				page,
-				size,
+				size: size || 10,
 				params: onPageParams,
 			},
 			discoveryContext,

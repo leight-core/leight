@@ -11,6 +11,7 @@ export * from "./ErrorIcon";
 export * from "./ForwardIcon";
 export * from "./GroupIcon";
 export * from "./HomeIcon";
+export * from "./interface";
 export * from "./ListIcon";
 export * from "./LoaderIcon";
 export * from "./SignInIcon";

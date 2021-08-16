@@ -1,18 +1,23 @@
 import {CompassOutlined} from "@ant-design/icons";
+import {FC} from "react";
 import {useClientContext} from "../../client/ClientContext";
 import {useDiscoveryContext} from "../../discovery/DiscoveryContext";
 import {IDiscovery} from "../../discovery/interface";
-import {LoaderStep} from "../../loader/LoaderStep";
+import {ILoaderStepProps, LoaderStep} from "../../loader/LoaderStep";
 import {useStepLoaderContext} from "../../loader/StepLoaderContext";
 import {httpGet} from "../../server/httpGet";
 
-export const DiscoveryStep = (props) => {
+export interface IDiscoveryStepProps extends Partial<ILoaderStepProps> {
+}
+
+export const DiscoveryStep: FC<IDiscoveryStepProps> = props => {
 	const clientContext = useClientContext();
 	const discoveryContext = useDiscoveryContext();
 	const stepLoaderContext = useStepLoaderContext();
-	return (
-		<LoaderStep icon={<CompassOutlined/>} {...props} onStep={() => {
-			const events = httpGet<IDiscovery>(clientContext.client.discovery)
+	return <LoaderStep
+		icon={<CompassOutlined/>}
+		onStep={() => {
+			return httpGet<IDiscovery>(clientContext.client.discovery)
 				.on("response", discovery => {
 					discoveryContext.setDiscovery(discovery);
 					stepLoaderContext.next();
@@ -20,8 +25,9 @@ export const DiscoveryStep = (props) => {
 				.on("catch", e => {
 					console.error(e);
 					stepLoaderContext.setStatus("error");
-				});
-			return () => events.dismiss();
-		}}/>
-	);
+				})
+				.cleaner();
+		}}
+		{...props}
+	/>;
 };

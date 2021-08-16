@@ -52,7 +52,7 @@ export interface IEmptyPageProps {
 	blocked?: boolean;
 }
 
-const EmptyPageInternal = ({children}) => {
+const EmptyPageInternal: FC = ({children}) => {
 	const {t} = useTranslation();
 	const blockContext = useBlockContext();
 	return <Spin spinning={blockContext.isBlocked()} indicator={null as any} tip={t("common.loading") as string}>

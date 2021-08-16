@@ -81,7 +81,7 @@ export const CustomDebouncedSelect = forwardRef(({fetch, params, extra, limit = 
 		deps.concat([formItemContext && formItemContext.getValue()])
 	);
 
-	const onSearch = search => {
+	const onSearch = (search: string) => {
 		setLoading(true);
 		clearTimeout(tid);
 		setTid(setTimeout(() => {
@@ -100,7 +100,8 @@ export const CustomDebouncedSelect = forwardRef(({fetch, params, extra, limit = 
 		filterOption={() => true}
 		notFoundContent={t("common.nothing-found")}
 		onSearch={onSearch}
-		children={data.map(children)}
 		{...props}
-	/>;
+	>
+		{data.map(children)}
+	</Select>;
 }) as <TItem, TSelected = any>(props: ICustomDebouncedSelectProps<TItem, TSelected>) => JSX.Element;

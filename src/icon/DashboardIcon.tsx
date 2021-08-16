@@ -1,4 +1,5 @@
 import {PictureOutlined} from "@ant-design/icons";
-import React from "react";
+import {IIconProps} from "@leight-core/leight";
+import React, {FC} from "react";
 
-export const DashboardIcon = (props) => <PictureOutlined {...props}/>;
+export const DashboardIcon: FC<IIconProps> = props => <PictureOutlined {...props}/>;

@@ -1,4 +1,5 @@
 import {SmileOutlined} from "@ant-design/icons";
-import React from "react";
+import {IIconProps} from "@leight-core/leight";
+import React, {FC} from "react";
 
-export const SubmitIcon = (props) => <SmileOutlined {...props}/>;
+export const SubmitIcon: FC<IIconProps> = props => <SmileOutlined {...props}/>;

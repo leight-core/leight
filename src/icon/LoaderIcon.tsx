@@ -1,4 +1,5 @@
 import {LoadingOutlined} from "@ant-design/icons";
-import React from "react";
+import {IIconProps} from "@leight-core/leight";
+import React, {FC} from "react";
 
-export const LoaderIcon = props => <LoadingOutlined spin {...props}/>;
+export const LoaderIcon: FC<IIconProps> = props => <LoadingOutlined spin {...props}/>;

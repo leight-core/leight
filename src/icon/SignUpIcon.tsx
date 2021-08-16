@@ -1,4 +1,5 @@
 import {FormOutlined} from "@ant-design/icons";
-import React from "react";
+import {IIconProps} from "@leight-core/leight";
+import React, {FC} from "react";
 
-export const SignUpIcon = (props) => <FormOutlined {...props}/>;
+export const SignUpIcon: FC<IIconProps> = props => <FormOutlined {...props}/>;

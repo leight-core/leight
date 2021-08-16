@@ -3,6 +3,8 @@ import CancelablePromise from "cancelable-promise";
 import {NamePath} from "rc-field-form/lib/interface";
 import {IFormFields} from "./interface";
 
+type ICancelableResolveCallback = (resolve: any) => void
+
 export const FormUtils = {
 	/**
 	 * Extract form fields. Promise is used to ensure all fields are in the form (in case of dynamic forms).
@@ -10,7 +12,7 @@ export const FormUtils = {
 	 * @param form Antd form instance
 	 */
 	fields: function (form: FormInstance): CancelablePromise<IFormFields[]> {
-		return new CancelablePromise(resolve => setTimeout(() => {
+		return new CancelablePromise((resolve: ICancelableResolveCallback) => setTimeout(() => {
 			resolve(form.getFieldsError().map(item => {
 				return [item.name, form.getFieldInstance(item.name)];
 			}));
@@ -22,7 +24,7 @@ export const FormUtils = {
 	 * @param form Antd form instance
 	 */
 	required: function (form: FormInstance): CancelablePromise<IFormFields[]> {
-		return new CancelablePromise(resolve => this.fields(form).then(fields => {
+		return new CancelablePromise((resolve: ICancelableResolveCallback) => this.fields(form).then((fields: IFormFields[]) => {
 			resolve(fields.filter(([_, item]) => {
 				if (!item) {
 					return false;
@@ -42,7 +44,7 @@ export const FormUtils = {
 	 * @param form Antd form instance
 	 */
 	hasMissingValues: function (form: FormInstance): CancelablePromise<boolean> {
-		return new CancelablePromise(resolve => this.required(form).then(required => {
+		return new CancelablePromise((resolve: ICancelableResolveCallback) => this.required(form).then((required: IFormFields[]) => {
 			resolve(!!required.map(([name, _]) => name).map(name => form.getFieldValue(name)).filter(value => !value).length);
 		}));
 	},
@@ -62,7 +64,7 @@ export const FormUtils = {
 	 * @param form Antd Form instance
 	 */
 	canSubmit: function (form: FormInstance): CancelablePromise<boolean> {
-		return new CancelablePromise(resolve => this.hasMissingValues(form).then(bool => {
+		return new CancelablePromise((resolve: ICancelableResolveCallback) => this.hasMissingValues(form).then((bool: boolean) => {
 			resolve(!bool && !this.hasErrors(form));
 		}));
 	},

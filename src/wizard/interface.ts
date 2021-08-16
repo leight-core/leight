@@ -36,15 +36,6 @@ export interface IWizardContext<TValues = any> {
 	canNext: () => boolean;
 	canPrevious: () => boolean;
 	canFinish: () => boolean;
-	readonly dependencies: Object;
-	/**
-	 * Set or get data a wizard might depend on (for example when Wizard prefetches some data required by a component in later step to
-	 * ensure the wizard has all the data).
-	 *
-	 * @param name
-	 * @param values
-	 */
-	dependency: <T = any>(name: string, value?: T) => any;
 	/**
 	 * Map values on output (on finish); intermediate values are **not** mapped by this function!
 	 *

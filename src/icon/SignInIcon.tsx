@@ -1,4 +1,5 @@
 import {LoginOutlined} from "@ant-design/icons";
-import React from "react";
+import {IIconProps} from "@leight-core/leight";
+import React, {FC} from "react";
 
-export const SignInIcon = (props) => <LoginOutlined {...props}/>;
+export const SignInIcon: FC<IIconProps> = props => <LoginOutlined {...props}/>;

@@ -1,4 +1,5 @@
 import {HomeOutlined} from "@ant-design/icons";
-import React from "react";
+import {IIconProps} from "@leight-core/leight";
+import React, {FC} from "react";
 
-export const HomeIcon = (props) => <HomeOutlined {...props}/>;
+export const HomeIcon: FC<IIconProps> = props => <HomeOutlined {...props}/>;

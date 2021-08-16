@@ -22,22 +22,24 @@ export interface IButtonLinkProps extends Omit<ButtonProps, "title"> {
 export const ButtonLink: FC<IButtonLinkProps> = ({href, title, params, ...props}) => {
 	const {t} = useTranslation();
 	try {
-		return <Link href={{pathname: href, query: params}}>
+		return <Link href={{pathname: href, query: params}} passHref>
 			<Button
 				type={"primary"}
-				children={title ? t(title) : null}
 				{...props}
-			/>
+			>
+				{title ? t(title) : null}
+			</Button>
 		</Link>;
 	} catch (e) {
 		console.warn(`Cannot generate link [${href}] for ButtonLink. Params:`, params, e);
 		return (
 			<Button
 				type={"primary"}
-				children={title ? t(title) : null}
 				disabled
 				{...props}
-			/>
+			>
+				{title ? t(title) : null}
+			</Button>
 		);
 	}
 };
