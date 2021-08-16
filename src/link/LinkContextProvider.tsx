@@ -28,6 +28,7 @@ export const LinkContextProvider: FC<ILinkContextProviderProps> = ({children}) =
 				return path === "/" ? path : generator(path)(params, {pretty: true});
 			}
 		}}
-		children={children}
-	/>;
+	>
+		{children}
+	</LinkContext.Provider>;
 };

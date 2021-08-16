@@ -14,7 +14,7 @@ class EventsClass<TEventTypes extends IBaseEventTypes, TEventHandlers extends IE
 	requires: TEventTypes[] = [];
 	dismissed: boolean = false;
 
-	on(event, callback, priority = 100): IEvents<TEventTypes, TEventHandlers> {
+	on<T extends TEventTypes>(event: T, callback: TEventHandlers[T], priority = 100): IEvents<TEventTypes, TEventHandlers> {
 		(this.events[event] = this.events[event] || []).push({
 			priority,
 			callback,
@@ -22,7 +22,7 @@ class EventsClass<TEventTypes extends IBaseEventTypes, TEventHandlers extends IE
 		return this;
 	}
 
-	handler<T extends TEventTypes>(event): TEventHandlers[T] {
+	handler<T extends TEventTypes>(event: T): TEventHandlers[T] {
 		if (this.dismissed) {
 			console.debug(`Calling event [${event}] on dismissed Events.`);
 			return (() => {
@@ -34,7 +34,7 @@ class EventsClass<TEventTypes extends IBaseEventTypes, TEventHandlers extends IE
 		if (this.requires.filter(name => event === name).length > 0 && !handlers.length) {
 			throw new Error(`Missing required Event handler [${event}].`);
 		}
-		return ((...args) => {
+		return ((...args: any) => {
 			handlers.find(item => !this.dismissed && item.callback(...args) === false);
 		}) as any;
 	}
@@ -61,7 +61,7 @@ class EventsClass<TEventTypes extends IBaseEventTypes, TEventHandlers extends IE
 
 	cleaner() {
 		return () => {
-			this.handler("dismiss")();
+			this.handler("dismiss" as any)();
 			this.dismiss();
 		};
 	}

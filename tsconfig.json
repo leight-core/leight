@@ -27,7 +27,16 @@
 		"types": [
 			"node",
 			"jest"
-		]
+		],
+		"baseUrl": "src",
+		"paths": {
+			"@leight-core/leight": [
+				"."
+			],
+			"@leight-core/leight/*": [
+				"./*"
+			]
+		}
 	},
 	"include": [
 		"src/**/*"

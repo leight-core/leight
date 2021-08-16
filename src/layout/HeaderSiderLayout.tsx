@@ -11,14 +11,16 @@ import {useLayoutBlockContext} from "./LayoutBlockContext";
 import {LayoutBlockContextProvider} from "./LayoutBlockContextProvider";
 import {LayoutContext, useLayoutContext} from "./LayoutContext";
 
-const HeaderSiderLayoutInternal = ({header, footer, contentStyle, headerStyle, children}) => {
+const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer, contentStyle, headerStyle, children}) => {
 	const menuContext = useMenuContext();
 	const layoutContext = useLayoutContext();
 	const layoutBlockContext = useLayoutBlockContext();
 	return <Layout>
 		<Spin indicator={<LoaderIcon/>} spinning={layoutBlockContext.isBlocked()}>
 			<Drawer/>
-			<Layout.Header style={...{...{backgroundColor: "#fff", padding: 0}, ...headerStyle}} children={header}/>
+			<Layout.Header style={{backgroundColor: "#fff", padding: 0, ...headerStyle}}>
+				{header}
+			</Layout.Header>
 			<Layout>
 				{layoutContext.fullwidth ? null :
 					<Layout.Sider
@@ -27,13 +29,19 @@ const HeaderSiderLayoutInternal = ({header, footer, contentStyle, headerStyle, c
 						onCollapse={menuContext.setCollapse}
 						collapsed={menuContext.collapsed}
 						width={layoutContext.siderSize}
-						children={menuContext.menu}
-					/>}
+					>
+						{menuContext.menu}
+					</Layout.Sider>
+				}
 				<Layout>
-					<Layout.Content style={...{...{minHeight: "100vh", padding: "0em 1.5em"}, ...contentStyle}}>
+					<Layout.Content style={{minHeight: "100vh", padding: "0em 1.5em", ...contentStyle}}>
 						<PageHeader style={{padding: 0}} title={layoutContext.pageHeader}/>
-						<Suspense fallback={<PlaceholderPage/>} children={children}/>
-						<Layout.Footer children={footer}/>
+						<Suspense fallback={<PlaceholderPage/>}>
+							{children}
+						</Suspense>
+						<Layout.Footer>
+							{footer}
+						</Layout.Footer>
 					</Layout.Content>
 				</Layout>
 			</Layout>
@@ -95,8 +103,9 @@ export const HeaderSiderLayout: FC<IHeaderSiderLayoutProps> = (
 						footer={footer}
 						contentStyle={contentStyle}
 						headerStyle={headerStyle}
-						children={children}
-					/>
+					>
+						{children}
+					</HeaderSiderLayoutInternal>
 				</LayoutContext.Provider>
 			</DrawerContextProvider>
 		</MenuProvider>

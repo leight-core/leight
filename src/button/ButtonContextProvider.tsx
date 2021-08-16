@@ -1,10 +1,10 @@
 import {ReactNode, useEffect, useState} from "react";
 import {ButtonContext} from "./ButtonContext";
-import {IButtonIndex} from "./interface";
+import {IButtonContext, IButtonIndex} from "./interface";
 
 export interface IButtonContextProviderProps<TButtons extends string> {
-	defaultDisabled?: IButtonIndex<TButtons>
-	children?: ReactNode
+	defaultDisabled?: IButtonIndex<TButtons>;
+	children?: ReactNode;
 }
 
 export const ButtonContextProvider = <TButtons extends string>({children, defaultDisabled}: IButtonContextProviderProps<TButtons>) => {
@@ -22,7 +22,8 @@ export const ButtonContextProvider = <TButtons extends string>({children, defaul
 			useEnable: function (button, enable = true, deps = []) {
 				this.useDisable(button, !enable, deps);
 			},
-		}}
-		children={children}
-	/>;
+		} as IButtonContext<TButtons>}
+	>
+		{children}
+	</ButtonContext.Provider>;
 };

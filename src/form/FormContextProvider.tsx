@@ -7,7 +7,7 @@ import {ServerEvents} from "../server/ServerEvents";
 import {FormBlockContext} from "./FormBlockContext";
 import {FormContext} from "./FormContext";
 import {FormUtils} from "./FormUtils";
-import {IFormErrors} from "./interface";
+import {IFormErrors, IFormFields} from "./interface";
 
 export interface IFormContextProviderProps {
 }
@@ -28,47 +28,46 @@ export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) =
 		})));
 	};
 
-	const resetErrors = () => FormUtils.fields(form).then(fields => fields.map(([field]) => form.setFields([{errors: [], name: field}])));
+	const resetErrors = () => FormUtils.fields(form).then((fields: IFormFields[]) => fields.map(([field]) => form.setFields([{errors: [], name: field}])));
 
 	const formBlockContext = new BlockContextClass(useState<boolean>(false), useState<number>(0));
 
-	return (
-		<FormBlockContext.Provider
-			value={formBlockContext}
+	return <FormBlockContext.Provider
+		value={formBlockContext}
+	>
+		<FormContext.Provider
+			value={{
+				form,
+				errors: errors as IFormErrors,
+				setErrors: setErrorsInternal,
+				setValues: values => form.setFieldsValue(values),
+				reset: () => form.resetFields(),
+				events: () => ServerEvents()
+					.on("request", () => {
+						formBlockContext.block();
+						blockContext.block();
+					})
+					.on("http400", setErrorsInternal)
+					.on("http401", setErrorsInternal)
+					.on("http403", setErrorsInternal)
+					.on("http500", () => setErrorsInternal({
+						message: t("common.form.server-error"),
+						errors: [],
+					}))
+					.on("catch", e => {
+						console.error(e);
+					})
+					.on("done", () => {
+						formBlockContext.unblock();
+						blockContext.unblock();
+					}),
+				values: form.getFieldsValue,
+				resetErrors,
+				refresh: () => form.validateFields().then(() => resetErrors(), () => resetErrors()),
+				blockContext: formBlockContext,
+			}}
 		>
-			<FormContext.Provider
-				value={{
-					form,
-					errors: errors as IFormErrors,
-					setErrors: setErrorsInternal,
-					setValues: values => form.setFieldsValue(values),
-					reset: () => form.resetFields(),
-					events: () => ServerEvents()
-						.on("request", () => {
-							formBlockContext.block();
-							blockContext.block();
-						})
-						.on("http400", setErrorsInternal)
-						.on("http401", setErrorsInternal)
-						.on("http403", setErrorsInternal)
-						.on("http500", () => setErrorsInternal({
-							message: t("common.form.server-error"),
-							errors: [],
-						}))
-						.on("catch", e => {
-							console.error(e);
-						})
-						.on("done", () => {
-							formBlockContext.unblock();
-							blockContext.unblock();
-						}),
-					values: form.getFieldsValue,
-					resetErrors,
-					refresh: () => form.validateFields().then(() => resetErrors(), () => resetErrors()),
-					blockContext: formBlockContext,
-				}}
-				children={children}
-			/>
-		</FormBlockContext.Provider>
-	);
+			{children}
+		</FormContext.Provider>
+	</FormBlockContext.Provider>;
 };

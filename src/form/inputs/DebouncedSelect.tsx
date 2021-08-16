@@ -94,7 +94,7 @@ export const DebouncedSelect = forwardRef(({fetch, params, extra, limit = 10, ma
 		deps.concat([formItemContext && formItemContext.getValue()])
 	);
 
-	const onSearch = search => {
+	const onSearch = (search: string) => {
 		setLoading(true);
 		clearTimeout(tid);
 		setTid(setTimeout(() => {

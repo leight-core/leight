@@ -1,4 +1,5 @@
 import {EditOutlined} from "@ant-design/icons";
-import React from "react";
+import {IIconProps} from "@leight-core/leight";
+import React, {FC} from "react";
 
-export const CreateIcon = (props) => <EditOutlined {...props}/>;
+export const CreateIcon: FC<IIconProps> = props => <EditOutlined {...props}/>;

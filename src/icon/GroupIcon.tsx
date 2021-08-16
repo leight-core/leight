@@ -1,4 +1,5 @@
 import {ClusterOutlined} from "@ant-design/icons";
-import React from "react";
+import {IIconProps} from "@leight-core/leight";
+import React, {FC} from "react";
 
-export const GroupIcon = (props) => <ClusterOutlined {...props}/>;
+export const GroupIcon: FC<IIconProps> = props => <ClusterOutlined {...props}/>;

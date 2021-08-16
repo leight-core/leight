@@ -20,7 +20,7 @@ export interface ICleverLink {
  * @param params
  */
 export function useCleverLink(to: string, params?: IParams): ICleverLink {
-	const current = omitEmpty(params);
+	const current = omitEmpty(params as any) as IParams;
 	try {
 		return {
 			enable: true,

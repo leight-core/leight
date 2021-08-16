@@ -1,4 +1,5 @@
 import {PoweroffOutlined} from "@ant-design/icons";
-import React from "react";
+import {IIconProps} from "@leight-core/leight";
+import React, {FC} from "react";
 
-export const SignOutIcon = (props) => <PoweroffOutlined {...props}/>;
+export const SignOutIcon: FC<IIconProps> = props => <PoweroffOutlined {...props}/>;

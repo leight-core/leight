@@ -7,15 +7,15 @@ export type IEventResult = boolean | any;
  * A shape of event handler - some arguments and optional boolean return.
  */
 export interface IEventCallback {
-	(...args): IEventResult
+	(...args: any): IEventResult;
 }
 
 /**
  * Internal event structure.
  */
 export interface IEvent {
-	priority: number
-	callback: IEventCallback
+	priority: number;
+	callback: IEventCallback;
 }
 
 export type IBaseEventTypes = "dismiss" | string;
@@ -37,7 +37,7 @@ export interface IEvents<TEventTypes extends IBaseEventTypes, TEventHandlers ext
 	/**
 	 * Registers a handler of the given event name.
 	 */
-	on<T extends TEventTypes>(event: T, callback: TEventHandlers[T], priority?: number): IEvents<TEventTypes, TEventHandlers>
+	on<T extends TEventTypes>(event: T, callback: TEventHandlers[T], priority?: number): IEvents<TEventTypes, TEventHandlers>;
 
 	/**
 	 * Returns the handler of an event.
@@ -49,14 +49,14 @@ export interface IEvents<TEventTypes extends IBaseEventTypes, TEventHandlers ext
 	 *
 	 * Defaults to true.
 	 */
-	dismiss(dismiss?: boolean): IEvents<TEventTypes, TEventHandlers>
+	dismiss(dismiss?: boolean): IEvents<TEventTypes, TEventHandlers>;
 
 	/**
 	 * Set required event handlers; when required event is called, but handler not present, an error is thrown.
 	 *
 	 * @param events
 	 */
-	required(...events: TEventTypes[]): IEvents<TEventTypes, TEventHandlers>
+	required(...events: TEventTypes[]): IEvents<TEventTypes, TEventHandlers>;
 
 	/**
 	 * Chain with the given events (events still respects event handler priority).
@@ -65,7 +65,7 @@ export interface IEvents<TEventTypes extends IBaseEventTypes, TEventHandlers ext
 	 *
 	 * @return Events instance chain method was called on.
 	 */
-	chain(events: IEvents<any, any>): IEvents<TEventTypes, TEventHandlers>
+	chain(events: IEvents<any, any>): IEvents<TEventTypes, TEventHandlers>;
 
 	/**
 	 * Like a chain, but with the name: when used same name, the previous events are replaced. Useful if there is need for
@@ -78,5 +78,5 @@ export interface IEvents<TEventTypes extends IBaseEventTypes, TEventHandlers ext
 	/**
 	 * Function useful for hooks - return back cleaner callback for this events.
 	 */
-	cleaner(): () => void
+	cleaner(): () => void;
 }
