@@ -1,6 +1,5 @@
+import {IParams, useLinkContext} from "@leight-core/leight";
 import omitEmpty from "omit-empty";
-import {IParams} from "../link/interface";
-import {useLinkContext} from "../link/LinkContext";
 
 export interface ICleverLink {
 	/**
