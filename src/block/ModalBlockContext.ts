@@ -1,6 +1,5 @@
+import {IBlockContext, useContext} from "@leight-core/leight";
 import {createContext} from "react";
-import {useContext} from "../utils/useContext";
-import {IBlockContext} from "./interface";
 
 export const ModalBlockContext = createContext<IBlockContext>(null as any);
 

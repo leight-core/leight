@@ -1,8 +1,8 @@
+import {BackIcon} from "@leight-core/leight";
 import {Button, ButtonProps} from "antd";
 import {useRouter} from "next/router";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {BackIcon} from "../icon/BackIcon";
 
 export interface IBackLinkProps extends Partial<ButtonProps> {
 	/**
@@ -32,7 +32,8 @@ export const BackLink: FC<IBackLinkProps> = (
 		size={"small"}
 		icon={<BackIcon/>}
 		onClick={() => router.back()}
-		children={text ? t(text) : null}
 		{...props}
-	/>;
+	>
+		{text ? t(text) : null}
+	</Button>;
 };

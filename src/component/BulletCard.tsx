@@ -1,22 +1,22 @@
 import {RightCircleOutlined} from "@ant-design/icons";
+import {NumberRange} from "@leight-core/leight";
 import {Result, Typography} from "antd";
-import {FC} from "react";
+import {FC, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
-import {NumberRange} from "../utils/NumberRange";
 
 export interface IBulletCardProps {
 	/**
 	 * Title of the bullet card; uses translation.
 	 */
-	title: string
+	title: string;
 	/**
 	 * Number of bullets.
 	 */
-	count: number
+	count: number;
 	/**
 	 * Optional icon (used in Result under the hood).
 	 */
-	icon: boolean | JSX.Element
+	icon: boolean | ReactNode;
 }
 
 /**
@@ -39,17 +39,15 @@ export const BulletCard: FC<IBulletCardProps> = (
 		icon = false,
 	}) => {
 	const {t} = useTranslation();
-	return (
-		<Result
-			icon={icon === false ? <></> : icon}
-			title={t(title)}
-			style={{paddingTop: 0}}
-		>
-			{NumberRange(count).map(index => (
-				<Typography.Paragraph key={index}>
-					<RightCircleOutlined style={{color: "#1890ff"}}/>&nbsp;{t(title + ".list.item-" + index)}
-				</Typography.Paragraph>
-			))}
-		</Result>
-	);
+	return <Result
+		icon={icon === false ? <></> : icon}
+		title={t(title)}
+		style={{paddingTop: 0}}
+	>
+		{NumberRange(count).map(index => (
+			<Typography.Paragraph key={index}>
+				<RightCircleOutlined style={{color: "#1890ff"}}/>&nbsp;{t(title + ".list.item-" + index)}
+			</Typography.Paragraph>
+		))}
+	</Result>;
 };

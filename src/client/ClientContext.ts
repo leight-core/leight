@@ -1,6 +1,5 @@
+import {IClientContext, useContext} from "@leight-core/leight";
 import {createContext} from "react";
-import {useContext} from "../utils/useContext";
-import {IClientContext} from "./interface";
 
 export const ClientContext = createContext(null as unknown as IClientContext);
 

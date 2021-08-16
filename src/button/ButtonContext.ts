@@ -1,6 +1,5 @@
+import {IButtonContext, useContext} from "@leight-core/leight";
 import {createContext} from "react";
-import {useContext} from "../utils/useContext";
-import {IButtonContext} from "./interface";
 
 export const ButtonContext = createContext<IButtonContext<any>>(null as any);
 

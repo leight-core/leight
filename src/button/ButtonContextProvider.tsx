@@ -1,6 +1,5 @@
+import {ButtonContext, IButtonContext, IButtonIndex} from "@leight-core/leight";
 import {ReactNode, useEffect, useState} from "react";
-import {ButtonContext} from "./ButtonContext";
-import {IButtonContext, IButtonIndex} from "./interface";
 
 export interface IButtonContextProviderProps<TButtons extends string> {
 	defaultDisabled?: IButtonIndex<TButtons>;
