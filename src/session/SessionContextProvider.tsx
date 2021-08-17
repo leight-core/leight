@@ -38,6 +38,7 @@ export const SessionContextProvider: FC<ISessionContextProviderProps> = ({link =
 	return <SessionContext.Provider
 		value={{
 			session,
+			setSession,
 		}}
 	>
 		<Loader
