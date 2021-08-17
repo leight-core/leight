@@ -1,29 +1,27 @@
+import {FormItemContext, useFormContext, useOptionalItemGroupContext} from "@leight-core/leight";
 import {Form, FormItemProps, Input} from "antd";
 import {NamePath, Rule} from "rc-field-form/lib/interface";
 import {cloneElement, FC} from "react";
 import {useTranslation} from "react-i18next";
-import {useFormContext} from "./FormContext";
-import {FormItemContext} from "./FormItemContext";
-import {useOptionalItemGroupContext} from "./group/ItemGroupContext";
 
 export interface IFormItemProps extends Partial<FormItemProps> {
 	/**
 	 * Field name; also used for translations.
 	 */
-	field: NamePath
+	field: NamePath;
 	/**
 	 * Attach required validation rule?
 	 */
-	required?: boolean
+	required?: boolean;
 	/**
 	 * Show Antd Form.Item label.
 	 */
-	showLabel?: boolean
+	showLabel?: boolean;
 	/**
 	 * Disable default Antd Form.Item margin.
 	 */
-	noMargin?: boolean
-	labels?: string[]
+	noMargin?: boolean;
+	labels?: string[];
 }
 
 export const FormItem: FC<IFormItemProps> = (

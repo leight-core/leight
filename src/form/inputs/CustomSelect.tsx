@@ -1,13 +1,9 @@
+import {IGetCallback, IParams, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
 import {DependencyList, forwardRef, Ref, useEffect, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {useDiscoveryContext} from "../../discovery/DiscoveryContext";
-import {IParams} from "../../link/interface";
-import {IGetCallback} from "../../server/interface";
-import {useOptionalFormContext} from "../FormContext";
-import {useOptionalFormItemContext} from "../FormItemContext";
 
-export interface ICustomBaseSelectProps<TData, TSelected = any> extends SelectProps<TSelected> {
+export interface ICustomSelectProps<TData, TSelected = any> extends SelectProps<TSelected> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
@@ -34,7 +30,7 @@ export interface ICustomBaseSelectProps<TData, TSelected = any> extends SelectPr
 	ref?: Ref<any>;
 }
 
-export const CustomBaseSelect = forwardRef(({fetch, fetchParams, children, usePlaceholder, deps = [], ...props}: ICustomBaseSelectProps<any>, ref) => {
+export const CustomSelect = forwardRef(({fetch, fetchParams, children, usePlaceholder, deps = [], ...props}: ICustomSelectProps<any>, ref) => {
 	const {t} = useTranslation();
 	const [data, setData] = useState<any[]>([]);
 	const first = useRef(true);
@@ -70,4 +66,4 @@ export const CustomBaseSelect = forwardRef(({fetch, fetchParams, children, usePl
 		children={data.map(children)}
 		{...props}
 	/>;
-}) as <TData, TSelected = any>(props: ICustomBaseSelectProps<TData, TSelected>) => JSX.Element;
+}) as <TData, TSelected = any>(props: ICustomSelectProps<TData, TSelected>) => JSX.Element;

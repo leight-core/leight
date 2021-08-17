@@ -1,10 +1,4 @@
-import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {IParams} from "../link/interface";
-import {useNavigate} from "../router/useNavigate";
-import {IServerEvents, IUpdateCallback} from "../server/interface";
-import {ServerEvents} from "../server/ServerEvents";
-import {Form, IFormProps} from "./Form";
-import {IFormInitialMapper, IFormOnSuccess, IFormPostMapper} from "./interface";
+import {Form, IFormInitialMapper, IFormOnSuccess, IFormPostMapper, IFormProps, IParams, IServerEvents, IUpdateCallback, ServerEvents, useDiscoveryContext, useNavigate} from "@leight-core/leight";
 
 export interface ICommonFormProps<TFormValues = any, TRequest = TFormValues, TResponse = TRequest> extends Partial<Omit<IFormProps<TFormValues>, "name">> {
 	/**

@@ -1,5 +1,5 @@
+import {ISubmitButtonProps, SubmitButton} from "@leight-core/leight";
 import React, {FC} from "react";
-import {ISubmitButtonProps, SubmitButton} from "./SubmitButton";
 
 export interface IFormSubmitButtonProps extends ISubmitButtonProps {
 }

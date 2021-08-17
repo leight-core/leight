@@ -1,6 +1,5 @@
+import {IDiscoveryContext, useContext} from "@leight-core/leight";
 import {createContext} from "react";
-import {useContext} from "../utils/useContext";
-import {IDiscoveryContext} from "./interface";
 
 export const DiscoveryContext = createContext(null as unknown as IDiscoveryContext);
 

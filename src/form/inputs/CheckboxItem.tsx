@@ -1,7 +1,7 @@
+import {FormItem, IFormItemProps} from "@leight-core/leight";
 import {Checkbox as CoolCheckbox, CheckboxProps} from "antd";
 import {NamePath} from "rc-field-form/lib/interface";
 import React, {FC} from "react";
-import {FormItem, IFormItemProps} from "../FormItem";
 
 export interface ICheckboxItemProps extends Partial<IFormItemProps> {
 	/**
@@ -9,9 +9,9 @@ export interface ICheckboxItemProps extends Partial<IFormItemProps> {
 	 *
 	 * - https://ant.design/components/form/#NamePath
 	 */
-	field: NamePath
-	labels?: string[]
-	checkboxProps?: Partial<CheckboxProps>
+	field: NamePath;
+	labels?: string[];
+	checkboxProps?: Partial<CheckboxProps>;
 }
 
 /**

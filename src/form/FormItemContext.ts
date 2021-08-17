@@ -1,6 +1,5 @@
+import {IFormItemContext, useContext, useOptionalContext} from "@leight-core/leight";
 import {createContext} from "react";
-import {useContext, useOptionalContext} from "../utils/useContext";
-import {IFormItemContext} from "./interface";
 
 export const FormItemContext = createContext<IFormItemContext>(null as any);
 

@@ -2,13 +2,13 @@ import {Events} from "./Events";
 import {IEventHandlers, IEventResult} from "./interface";
 
 interface ITestEventHandlers extends IEventHandlers {
-	test: () => IEventResult
+	test: () => IEventResult;
 }
 
 interface IRequiredEventHandlers extends IEventHandlers {
-	thisIsRequired: () => IEventResult
-	anotherRequired: () => IEventResult
-	junc: (junc: string) => void
+	thisIsRequired: () => IEventResult;
+	anotherRequired: () => IEventResult;
+	junc: (junc: string) => void;
 }
 
 const TestEvents = () => Events<"test", ITestEventHandlers>();

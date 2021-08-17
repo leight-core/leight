@@ -1,7 +1,7 @@
+import {FormItem, IFormItemProps} from "@leight-core/leight";
 import {Switch as CoolSwitch, SwitchProps} from "antd";
 import {NamePath} from "rc-field-form/lib/interface";
 import React, {FC} from "react";
-import {FormItem, IFormItemProps} from "../FormItem";
 
 export interface ISwitchItemProps extends Partial<IFormItemProps> {
 	/**
@@ -9,9 +9,9 @@ export interface ISwitchItemProps extends Partial<IFormItemProps> {
 	 *
 	 * - https://ant.design/components/form/#NamePath
 	 */
-	field: NamePath
-	labels?: string[]
-	switchProps?: Partial<SwitchProps>
+	field: NamePath;
+	labels?: string[];
+	switchProps?: Partial<SwitchProps>;
 }
 
 /**

@@ -1,4 +1,4 @@
-import {IParams} from "../link/interface";
+import {IParams} from "@leight-core/leight";
 
 export interface IDiscoveryContext {
 	/**
