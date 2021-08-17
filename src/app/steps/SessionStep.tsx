@@ -27,7 +27,6 @@ export const SessionStep: FC<ISessionStepProps> = ({link = "session.ticket", eve
 	return (
 		<LoaderStep
 			icon={<UserOutlined/>}
-			{...props}
 			onStep={() => httpGet<ISession>(discoveryContext.link(link))
 				.on("response", session => {
 					sessionContext.events.handler("ticket")(session);
@@ -45,6 +44,7 @@ export const SessionStep: FC<ISessionStepProps> = ({link = "session.ticket", eve
 				})
 				.chain(events)
 				.cleaner()}
+			{...props}
 		/>
 	);
 };
