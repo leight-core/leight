@@ -1,5 +1,5 @@
-export * from "./BaseGroupSelect";
-export * from "./BaseSelect";
+export * from "./GroupSelect";
+export * from "./Select";
 export * from "./CheckboxItem";
 export * from "./CustomBaseSelect";
 export * from "./CustomDebouncedSelect";
