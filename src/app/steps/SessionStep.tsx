@@ -20,7 +20,7 @@ export interface ISessionStepProps {
 	events?: IServerEvents;
 }
 
-export const SessionStep: FC<ISessionStepProps> = ({link = "public.user.ticket", events = ServerEvents(), ...props}) => {
+export const SessionStep: FC<ISessionStepProps> = ({link = "user.ticket", events = ServerEvents(), ...props}) => {
 	const discoveryContext = useDiscoveryContext();
 	const sessionContext = useSessionContext();
 	const stepLoaderContext = useStepLoaderContext();
