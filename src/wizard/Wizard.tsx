@@ -1,21 +1,13 @@
+import {ButtonContextProvider, Form, IDeepMerge, IOutputMapper, IWizardButton, IWizardEvents, IWizardStep, PushRight, useFormContext, useWizardContext, WizardContext, WizardEvents} from "@leight-core/leight";
 import {Col, Divider, Row, Space, Steps} from "antd";
 import deepmerge from "deepmerge";
 import {isPlainObject} from "is-plain-object";
-import {FC, ReactNode, useEffect, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {ButtonContextProvider} from "../button/ButtonContextProvider";
-import {Form} from "../form/Form";
-import {useFormContext} from "../form/FormContext";
-import {IDeepMerge, IOutputMapper} from "../interface/interface";
-import {PushRight} from "../layout/PushRight";
-import {StepLoader} from "../loader/StepLoader";
 import {CancelButton} from "./button/CancelButton";
 import {FinishButton} from "./button/FinishButton";
 import {NextButton} from "./button/NextButton";
 import {PreviousButton} from "./button/PreviousButton";
-import {IWizardButton, IWizardEvents, IWizardStep} from "./interface";
-import {useWizardContext, WizardContext} from "./WizardContext";
-import {WizardEvents} from "./WizardEvents";
 
 interface IWizardInternalProps {
 	name: string;
@@ -84,12 +76,6 @@ export interface IWizardProps {
 	 */
 	steps: IWizardStep[];
 	/**
-	 * If specified, Wizard will preload/do something before first step appears.
-	 *
-	 * Useful for data prefetch.
-	 */
-	loaders?: ReactNode[];
-	/**
 	 * Initial values for the underlying form.
 	 */
 	initialValues?: Object;
@@ -110,7 +96,6 @@ export const Wizard: FC<IWizardProps> = (
 		events,
 		steps,
 		initialValues = {},
-		loaders = [],
 		outputMapper = value => value,
 		merge = (a, b) => deepmerge<any>(
 			a,
@@ -164,18 +149,14 @@ export const Wizard: FC<IWizardProps> = (
 			},
 		}}
 	>
-		<StepLoader
-			steps={loaders}
+		<Form
+			preserve={false}
+			onSubmit={() => null}
+			layout={"vertical"}
+			initialValues={initialValues}
+			size={"large"}
 		>
-			<Form
-				preserve={false}
-				onSubmit={() => null}
-				layout={"vertical"}
-				initialValues={initialValues}
-				size={"large"}
-			>
-				<WizardInternal name={name} steps={steps}/>
-			</Form>
-		</StepLoader>
+			<WizardInternal name={name} steps={steps}/>
+		</Form>
 	</WizardContext.Provider>;
 };

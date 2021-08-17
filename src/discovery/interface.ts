@@ -2,10 +2,6 @@ import {IParams} from "../link/interface";
 
 export interface IDiscoveryContext {
 	/**
-	 * Set current discovery index.
-	 */
-	setDiscovery: (discovery: IDiscovery) => void;
-	/**
 	 * Generate link from the given discovery index ID. Or throws an error if
 	 * the ID does not exist.
 	 */

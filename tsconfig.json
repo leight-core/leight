@@ -32,9 +32,6 @@
 		"paths": {
 			"@leight-core/leight": [
 				"."
-			],
-			"@leight-core/leight/*": [
-				"./*"
 			]
 		}
 	},
