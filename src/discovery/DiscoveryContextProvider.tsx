@@ -26,7 +26,7 @@ export const DiscoveryContextProvider: FC<IDiscoveryContextProviderProps> = ({ch
 					/**
 					 * A little replace hack to convert `/{foo}/bar` form into `/:foo/bar` form.
 					 */
-					const link = discovery.index[id].href.replaceAll(/{(.*?)}/g, ":$1");
+					const link = discovery.index[id].link.replaceAll(/{(.*?)}/g, ":$1");
 					try {
 						const url = new URL(link);
 						url.pathname = linkContext.generate(url.pathname, params);
