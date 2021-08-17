@@ -14,7 +14,7 @@ export interface ITranslationStepProps {
 	link?: string;
 }
 
-export const TranslationStep: FC<ITranslationStepProps> = ({link = "public.translation", ...props}) => {
+export const TranslationStep: FC<ITranslationStepProps> = ({link = "translation", ...props}) => {
 	const discoveryContext = useDiscoveryContext();
 	const stepLoaderContext = useStepLoaderContext();
 	return (
