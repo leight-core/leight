@@ -6,4 +6,3 @@ export * from "./Placeholder";
 export * from "./ResultSpinner";
 export * from "./ScrollToTop";
 export * from "./Search";
-export * from "./SessionCloseButton";

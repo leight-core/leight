@@ -1,21 +1,5 @@
 import {AntDesignOutlined} from "@ant-design/icons";
-import {
-	AppContextProvider,
-	ClientContextProvider,
-	ClientStep,
-	DiscoveryContextProvider,
-	DiscoveryStep,
-	FinishStep,
-	InitialStep,
-	IServerEvents,
-	LinkContextProvider,
-	LoadingPage,
-	SessionContextProvider,
-	SessionStep,
-	StepLoader,
-	TranslationStep,
-	useAppContext
-} from "@leight-core/leight";
+import {AppContextProvider, ClientContextProvider, DiscoveryContextProvider, IServerEvents, LinkContextProvider, LoadingPage, SessionContextProvider, TranslationLoader, useAppContext} from "@leight-core/leight";
 import {Result} from "antd";
 import {FC, ReactNode, Suspense} from "react";
 
@@ -29,7 +13,7 @@ export interface IAppProps {
 	/**
 	 * Optional href to obtain user ticket (user session) when app starts; defaults to "public.user.user-ticket".
 	 */
-	sessionHref?: string;
+	sessionLink?: string;
 	/**
 	 * Optional icon shown when an application bootstraps.
 	 */
@@ -40,7 +24,7 @@ export interface IAppProps {
 	sessionEvents?: IServerEvents;
 }
 
-const AppInternal: FC<IAppProps> = ({icon, clientHref, sessionHref, sessionEvents, children}) => {
+const AppInternal: FC<IAppProps> = ({icon, children}) => {
 	const appContext = useAppContext();
 	return <>
 		{appContext.isReady ?
@@ -49,14 +33,7 @@ const AppInternal: FC<IAppProps> = ({icon, clientHref, sessionHref, sessionEvent
 			</Suspense> :
 			<Result icon={icon || <AntDesignOutlined/>}>
 				<div style={{display: "flex", justifyContent: "center"}}>
-					<StepLoader steps={[
-						<InitialStep key={"initial"}/>,
-						<ClientStep key={"client"} href={clientHref}/>,
-						<DiscoveryStep key={"discovery"}/>,
-						<TranslationStep key={"translation"}/>,
-						<SessionStep key={"session"} events={sessionEvents} link={sessionHref}/>,
-						<FinishStep key={"finish"}/>,
-					]}/>
+					{children}
 				</div>
 			</Result>
 		}
@@ -72,24 +49,26 @@ const AppInternal: FC<IAppProps> = ({icon, clientHref, sessionHref, sessionEvent
 export const App: FC<IAppProps> = (
 	{
 		clientHref = process.env.NEXT_PUBLIC_CLIENT,
-		sessionHref,
+		sessionLink,
 		sessionEvents,
 		icon,
 		children,
 	}) => {
 	return <AppContextProvider>
 		<LinkContextProvider>
-			<ClientContextProvider>
+			<ClientContextProvider href={clientHref}>
 				<DiscoveryContextProvider>
-					<SessionContextProvider>
-						<AppInternal
-							clientHref={clientHref}
-							sessionHref={sessionHref}
-							sessionEvents={sessionEvents}
-							icon={icon}
-							children={children}
-						/>
-					</SessionContextProvider>
+					<TranslationLoader>
+						<SessionContextProvider link={sessionLink}>
+							<AppInternal
+								clientHref={clientHref}
+								sessionLink={sessionLink}
+								sessionEvents={sessionEvents}
+								icon={icon}
+								children={children}
+							/>
+						</SessionContextProvider>
+					</TranslationLoader>
 				</DiscoveryContextProvider>
 			</ClientContextProvider>
 		</LinkContextProvider>
