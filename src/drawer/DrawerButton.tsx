@@ -1,6 +1,6 @@
+import {useDrawerContext} from "@leight-core/leight";
 import {Button, ButtonProps} from "antd";
 import {FC, ReactNode} from "react";
-import {useDrawerContext} from "./DrawerContext";
 
 export interface IDrawerButtonProps extends Partial<ButtonProps> {
 	/**

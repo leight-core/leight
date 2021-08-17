@@ -1,8 +1,8 @@
+import {useFormContext} from "@leight-core/leight";
 import {FC, useEffect} from "react";
-import {useFormContext} from "./FormContext";
 
 export interface IRefreshFormProps {
-	children?: never
+	children?: never;
 }
 
 /**

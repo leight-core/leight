@@ -1,5 +1,4 @@
-import {FakeServerEvents} from "../server/ServerEvents";
-import {CommonForm, ICommonFormProps} from "./CommonForm";
+import {CommonForm, FakeServerEvents, ICommonFormProps} from "@leight-core/leight";
 
 export interface ISimpleFormProps<TFormValues = any, TRequest = TFormValues, TResponse = TRequest> extends Partial<ICommonFormProps<TFormValues, TRequest, TResponse>> {
 }

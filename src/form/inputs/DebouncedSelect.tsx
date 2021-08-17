@@ -1,12 +1,7 @@
+import {IParams, IPostCallback, ISearchRequest, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
 import {DependencyList, forwardRef, Ref, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {useDiscoveryContext} from "../../discovery/DiscoveryContext";
-import {ISearchRequest} from "../../interface/interface";
-import {IParams} from "../../link/interface";
-import {IPostCallback} from "../../server/interface";
-import {useOptionalFormContext} from "../FormContext";
-import {useOptionalFormItemContext} from "../FormItemContext";
 
 export interface IDebouncedSelectProps<TItem, TSelected = any> extends SelectProps<TSelected> {
 	/**

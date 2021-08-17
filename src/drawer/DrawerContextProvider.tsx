@@ -1,6 +1,6 @@
+import {DrawerContext} from "@leight-core/leight";
 import {FC, ReactNode, useState} from "react";
 import ReactMarkdown from "react-markdown";
-import {DrawerContext} from "./DrawerContext";
 
 export interface IDrawerContextProviderProps {
 }

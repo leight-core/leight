@@ -1,10 +1,6 @@
+import {FormContextProvider, IFormSubmitCallback, IFormSubmitFailedCallback, LoaderIcon, useFormBlockContext, useFormContext} from "@leight-core/leight";
 import {Form as CoolForm, FormProps, Spin} from "antd";
 import React, {FC, PropsWithChildren} from "react";
-import {LoaderIcon} from "../icon/LoaderIcon";
-import {useFormBlockContext} from "./FormBlockContext";
-import {useFormContext} from "./FormContext";
-import {FormContextProvider} from "./FormContextProvider";
-import {IFormSubmitCallback, IFormSubmitFailedCallback} from "./interface";
 
 interface IFormInternalProps {
 	name?: string;

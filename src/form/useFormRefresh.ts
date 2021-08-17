@@ -1,5 +1,5 @@
+import {useFormContext} from "@leight-core/leight";
 import {DependencyList, useEffect} from "react";
-import {useFormContext} from "./FormContext";
 
 /**
  * Just a hook used to execute form refresh in an effect.

@@ -1,6 +1,5 @@
+import {IItemGroupContext, useContext, useOptionalContext} from "@leight-core/leight";
 import {createContext} from "react";
-import {useContext, useOptionalContext} from "../../utils/useContext";
-import {IItemGroupContext} from "./interface";
 
 export const ItemGroupContext = createContext<IItemGroupContext>(null as any);
 

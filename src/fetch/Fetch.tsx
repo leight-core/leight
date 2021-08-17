@@ -1,5 +1,5 @@
+import {ResultSpinner} from "@leight-core/leight";
 import {DependencyList, Dispatch, ReactNode, SetStateAction, useEffect, useState} from "react";
-import {ResultSpinner} from "../component/ResultSpinner";
 
 export interface IFetchProps<TData = any> {
 	/**
@@ -17,7 +17,7 @@ export interface IFetchProps<TData = any> {
 	/**
 	 * Placeholder rendered when data are not available.
 	 */
-	placeholder?: () => ReactNode
+	placeholder?: () => ReactNode;
 }
 
 /**

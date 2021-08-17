@@ -1,11 +1,6 @@
+import {Fetch, IFetchProps, IGetCallback, IParams, IServerEvents, ServerEvents, useBlockContext, useDiscoveryContext} from "@leight-core/leight";
 import {message} from "antd";
 import {useTranslation} from "react-i18next";
-import {useBlockContext} from "../block/BlockContext";
-import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {IParams} from "../link/interface";
-import {IGetCallback, IServerEvents} from "../server/interface";
-import {ServerEvents} from "../server/ServerEvents";
-import {Fetch, IFetchProps} from "./Fetch";
 
 export interface IFetchBlockingProps<TResponse = any> extends Omit<IFetchProps<TResponse>, "fetch"> {
 	/**

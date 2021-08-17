@@ -1,29 +1,25 @@
+import {FormUtils, Spinner, SubmitDisabledIcon, useFormBlockContext, useFormContext} from "@leight-core/leight";
 import {Button, ButtonProps, Form, FormInstance} from "antd";
 import React, {FC, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {Spinner} from "../icon/Spinner";
-import {SubmitDisabledIcon} from "../icon/SubmitDisabledIcon";
-import {useFormBlockContext} from "./FormBlockContext";
-import {useFormContext} from "./FormContext";
-import {FormUtils} from "./FormUtils";
 
 export interface ISubmitButtonProps extends Partial<ButtonProps> {
 	/**
 	 * Disable Form.Item styling.
 	 */
-	noStyle?: boolean
+	noStyle?: boolean;
 	/**
 	 * An Antd Form Instance used for validation checks and others.
 	 */
-	formInstance?: FormInstance
+	formInstance?: FormInstance;
 	/**
 	 * Title on the button; goes through react-i18next.
 	 */
-	label: string | string[]
+	label: string | string[];
 	/**
 	 * When button is disabled, show this icon.
 	 */
-	disabledIcon?: boolean | JSX.Element
+	disabledIcon?: boolean | JSX.Element;
 }
 
 /**
