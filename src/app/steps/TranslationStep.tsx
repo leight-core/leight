@@ -14,23 +14,21 @@ export interface ITranslationStepProps {
 	link?: string;
 }
 
-export const TranslationStep: FC<ITranslationStepProps> = ({link = "translation", ...props}) => {
+export const TranslationStep: FC<ITranslationStepProps> = ({link = "translation.index", ...props}) => {
 	const discoveryContext = useDiscoveryContext();
 	const stepLoaderContext = useStepLoaderContext();
-	return (
-		<LoaderStep
-			icon={<TranslationOutlined/>}
-			onStep={() => httpGet<ITranslations>(discoveryContext.link(link), {timeout: 10 * 1000 * 3})
-				.on("response", ({translations}) => {
-					translations.forEach(translation => i18next.addResource(translation.language, translation.namespace, translation.label, translation.text));
-					stepLoaderContext.next();
-				})
-				.on("catch", e => {
-					console.error(e);
-					stepLoaderContext.setStatus("error");
-				})
-				.cleaner()}
-			{...props}
-		/>
-	);
+	return <LoaderStep
+		icon={<TranslationOutlined/>}
+		onStep={() => httpGet<ITranslations>(discoveryContext.link(link), {timeout: 10 * 1000 * 3})
+			.on("response", ({translations}) => {
+				translations.forEach(translation => i18next.addResource(translation.language, translation.namespace, translation.label, translation.text));
+				stepLoaderContext.next();
+			})
+			.on("catch", e => {
+				console.error(e);
+				stepLoaderContext.setStatus("error");
+			})
+			.cleaner()}
+		{...props}
+	/>;
 };
