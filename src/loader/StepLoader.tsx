@@ -31,9 +31,10 @@ export const StepLoader: FC<IStepLoaderProps> = ({steps, children, ...props}) =>
 					}}
 					current={current}
 					status={status}
-					children={steps.map(step => step)}
 					{...props}
-				/>
+				>
+					{steps.map(step => step)}
+				</Steps>
 			</StepLoaderContext.Provider>}
 	</>;
 };
