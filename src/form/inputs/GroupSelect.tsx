@@ -1,12 +1,8 @@
+import {IBaseGroupSelectOption, IGetCallback, IParams, useDiscoveryContext, useOptionalFormContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
 import {DependencyList, forwardRef, Ref, useEffect, useState} from "react";
-import {useDiscoveryContext} from "../../discovery/DiscoveryContext";
-import {IParams} from "../../link/interface";
-import {IGetCallback} from "../../server/interface";
-import {useOptionalFormContext} from "../FormContext";
-import {IBaseGroupSelectOption} from "../interface";
 
-export interface IBaseGroupSelectProps<TResponse, TSelected = any> extends SelectProps<TSelected> {
+export interface IGroupSelectProps<TResponse, TSelected = any> extends SelectProps<TSelected> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
@@ -29,7 +25,7 @@ export interface IBaseGroupSelectProps<TResponse, TSelected = any> extends Selec
 	ref?: Ref<any>;
 }
 
-export const BaseGroupSelect = forwardRef(({fetch, fetchParams, mapper, deps = [], ...props}: IBaseGroupSelectProps<any>, ref) => {
+export const GroupSelect = forwardRef(({fetch, fetchParams, mapper, deps = [], ...props}: IGroupSelectProps<any>, ref) => {
 	const [options, setOptions] = useState<IBaseGroupSelectOption[]>([]);
 	const discoveryContext = useDiscoveryContext();
 	const formContext = useOptionalFormContext();
@@ -58,4 +54,4 @@ export const BaseGroupSelect = forwardRef(({fetch, fetchParams, mapper, deps = [
 			</Select.OptGroup>
 		))}
 	</Select>;
-}) as <TResponse extends any, TSelected = any>(props: IBaseGroupSelectProps<TResponse, TSelected>) => JSX.Element;
+}) as <TResponse extends any, TSelected = any>(props: IGroupSelectProps<TResponse, TSelected>) => JSX.Element;

@@ -1,13 +1,8 @@
-import {Select, SelectProps} from "antd";
+import {IBaseSelectOption, IGetCallback, IParams, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
+import {Select as CoolSelect, SelectProps} from "antd";
 import {DependencyList, forwardRef, Ref, useEffect, useRef, useState} from "react";
-import {useDiscoveryContext} from "../../discovery/DiscoveryContext";
-import {IParams} from "../../link/interface";
-import {IGetCallback} from "../../server/interface";
-import {useOptionalFormContext} from "../FormContext";
-import {useOptionalFormItemContext} from "../FormItemContext";
-import {IBaseSelectOption} from "../interface";
 
-export interface IBaseSelectProps<TData, TSelected = any> extends SelectProps<TSelected> {
+export interface ISelectProps<TData, TSelected = any> extends SelectProps<TSelected> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
@@ -40,7 +35,7 @@ export interface IBaseSelectProps<TData, TSelected = any> extends SelectProps<TS
 	useFirst?: boolean;
 }
 
-export const BaseSelect = forwardRef(({fetch, fetchParams, mapper, usePlaceholder, useFirst = false, deps = [], ...props}: IBaseSelectProps<any>, ref) => {
+export const Select = forwardRef(({fetch, fetchParams, mapper, usePlaceholder, useFirst = false, deps = [], ...props}: ISelectProps<any>, ref) => {
 	const [options, setOptions] = useState<IBaseSelectOption[]>([]);
 	const first = useRef(true);
 	const discoveryContext = useDiscoveryContext();
@@ -70,10 +65,10 @@ export const BaseSelect = forwardRef(({fetch, fetchParams, mapper, usePlaceholde
 			formContext && formContext.blockContext.unblock();
 		})
 		.cleaner(), deps);
-	return <Select
+	return <CoolSelect
 		ref={ref as any}
 		options={options}
 		showSearch={true}
 		{...props}
 	/>;
-}) as <TData, TSelected = any>(props: IBaseSelectProps<TData, TSelected>) => JSX.Element;
+}) as <TData, TSelected = any>(props: ISelectProps<TData, TSelected>) => JSX.Element;

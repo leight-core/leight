@@ -1,12 +1,8 @@
-import {List, ListProps} from "antd";
+import {IPageCallback, IPageIndex, IParams, IRecordItem, LoaderIcon, PageIndex, useDiscoveryContext} from "@leight-core/leight";
+import {List as CoolList, ListProps} from "antd";
 import {DependencyList, ReactNode, useEffect, useState} from "react";
-import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {LoaderIcon} from "../icon/LoaderIcon";
-import {IPageCallback, IPageIndex, IRecordItem} from "../interface/interface";
-import {IParams} from "../link/interface";
-import {PageIndex} from "../utils/PageIndex";
 
-export interface IBaseListProps<TItem extends IRecordItem> extends Partial<ListProps<TItem>> {
+export interface IListProps<TItem extends IRecordItem> extends Partial<ListProps<TItem>> {
 	onFetchPage: IPageCallback<TItem>;
 	/**
 	 * Optional parameter for the URL.
@@ -21,7 +17,7 @@ export interface IBaseListProps<TItem extends IRecordItem> extends Partial<ListP
 	deps?: DependencyList;
 }
 
-export const BaseList = <TItem extends IRecordItem = any>(
+export const List = <TItem extends IRecordItem = any>(
 	{
 		onFetchPage,
 		onFetchParams,
@@ -30,7 +26,7 @@ export const BaseList = <TItem extends IRecordItem = any>(
 		deps = [],
 		children,
 		...props
-	}: IBaseListProps<TItem>) => {
+	}: IListProps<TItem>) => {
 	const discoveryContext = useDiscoveryContext();
 	const [page, setPage] = useState<IPageIndex<TItem>>(PageIndex());
 	const [loading, setLoading] = useState<boolean>(true);
@@ -56,7 +52,7 @@ export const BaseList = <TItem extends IRecordItem = any>(
 	 */
 	useEffect(() => onPage(0, pageSize).cleaner(), deps);
 
-	return <List
+	return <CoolList
 		style={{minHeight: "50vh"}}
 		dataSource={items}
 		rowKey={record => record.id}

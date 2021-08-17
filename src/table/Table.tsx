@@ -1,17 +1,11 @@
-import {Table, TableProps} from "antd";
+import {IBaseTableChildrenCallback, IPageCallback, IPageIndex, IParams, IRecordItem, LoaderIcon, PageIndex, useDiscoveryContext, useInterval} from "@leight-core/leight";
+import {Table as CoolTable, TableProps} from "antd";
 import {ColumnProps} from "antd/lib/table";
 import isCallable from "is-callable";
 import {DependencyList, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {LoaderIcon} from "../icon/LoaderIcon";
-import {IPageCallback, IPageIndex, IRecordItem} from "../interface/interface";
-import {IParams} from "../link/interface";
-import {PageIndex} from "../utils/PageIndex";
-import {useInterval} from "../utils/useInterval";
-import {IBaseTableChildrenCallback} from "./interface";
 
-export interface IBaseTableProps<TItem extends IRecordItem> extends TableProps<TItem> {
+export interface ITableProps<TItem extends IRecordItem> extends TableProps<TItem> {
 	/**
 	 * Callback for getting page for the table.
 	 */
@@ -33,7 +27,7 @@ export interface IBaseTableProps<TItem extends IRecordItem> extends TableProps<T
 	children: IBaseTableChildrenCallback<TItem>;
 }
 
-export const BaseTable = <TItem extends IRecordItem>(
+export const Table = <TItem extends IRecordItem>(
 	{
 		onFetchPage,
 		onFetchParams,
@@ -43,7 +37,7 @@ export const BaseTable = <TItem extends IRecordItem>(
 		deps = [],
 		children,
 		...props
-	}: IBaseTableProps<TItem>) => {
+	}: ITableProps<TItem>) => {
 	const {t} = useTranslation();
 	const discoveryContext = useDiscoveryContext();
 	const [page, setPage] = useState<IPageIndex<TItem>>(PageIndex());
@@ -72,7 +66,7 @@ export const BaseTable = <TItem extends IRecordItem>(
 
 	useInterval(() => onPage(0, pageSize), live);
 
-	return <Table
+	return <CoolTable
 		style={{minHeight: "50vh"}}
 		dataSource={items}
 		rowKey={record => record.id}
@@ -96,7 +90,7 @@ export const BaseTable = <TItem extends IRecordItem>(
 			if (props.title) {
 				props.title = t(props.title as string);
 			}
-			return <Table.Column<TItem> {...(props as ColumnProps<TItem>)}/>;
+			return <CoolTable.Column<TItem> {...(props as ColumnProps<TItem>)}/>;
 		}) : children}
-	</Table>;
+	</CoolTable>;
 };

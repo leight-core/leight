@@ -1,2 +1,2 @@
-export * from "./BaseTable";
+export * from "./Table";
 export * from "./interface";
