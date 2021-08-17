@@ -15,6 +15,7 @@ export * from "./interface";
 export * from "./layout";
 export * from "./link";
 export * from "./list";
+export * from "./loader";
 export * from "./menu";
 export * from "./page";
 export * from "./router";

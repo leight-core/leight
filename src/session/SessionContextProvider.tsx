@@ -1,6 +1,5 @@
 import {UserOutlined} from "@ant-design/icons";
-import {httpGet, ISession, LoaderIcon, SessionContext, useDiscoveryContext} from "@leight-core/leight";
-import {Result} from "antd";
+import {httpGet, ISession, Loader, SessionContext, useDiscoveryContext} from "@leight-core/leight";
 import {FC, useEffect, useState} from "react";
 
 export interface ISessionContextProviderProps<TSession extends ISession = ISession> {
@@ -41,16 +40,13 @@ export const SessionContextProvider: FC<ISessionContextProviderProps> = ({link =
 			session,
 		}}
 	>
-		{loading && !error && <Result
+		<Loader
 			icon={<UserOutlined/>}
-			title={<LoaderIcon/>}
-		/>}
-		{error && <Result
-			icon={<UserOutlined/>}
-			status={"error"}
-			title={<LoaderIcon/>}
-			subTitle={"Session ticket failed."}
-		/>}
-		{!loading && !error && children}
+			loading={loading}
+			error={error}
+			errorText={"Session ticket failed."}
+		>
+			{children}
+		</Loader>
 	</SessionContext.Provider>;
 };
