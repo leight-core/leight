@@ -1,6 +1,5 @@
 import {CompassOutlined} from "@ant-design/icons";
-import {DiscoveryContext, httpGet, IDiscovery, IParams, LoaderIcon, useClientContext, useLinkContext} from "@leight-core/leight";
-import {Result} from "antd";
+import {DiscoveryContext, httpGet, IDiscovery, IParams, Loader, useClientContext, useLinkContext} from "@leight-core/leight";
 import {FC, useEffect, useState} from "react";
 
 export interface IDiscoveryContextProviderProps {
@@ -57,16 +56,13 @@ export const DiscoveryContextProvider: FC<IDiscoveryContextProviderProps> = ({ch
 			},
 		}}
 	>
-		{loading && !error && <Result
+		<Loader
 			icon={<CompassOutlined/>}
-			title={<LoaderIcon/>}
-		/>}
-		{error && <Result
-			icon={<CompassOutlined/>}
-			status={"error"}
-			title={<LoaderIcon/>}
-			subTitle={"Discovery Failed."}
-		/>}
-		{!loading && !error && children}
+			loading={loading}
+			error={error}
+			errorText={"Discovery Failed."}
+		>
+			{children}
+		</Loader>
 	</DiscoveryContext.Provider>;
 };

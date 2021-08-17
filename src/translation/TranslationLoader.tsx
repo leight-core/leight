@@ -1,6 +1,5 @@
 import {TranslationOutlined} from "@ant-design/icons";
-import {httpGet, ITranslations, LoaderIcon, useDiscoveryContext} from "@leight-core/leight";
-import {Result} from "antd";
+import {httpGet, ITranslations, Loader, useDiscoveryContext} from "@leight-core/leight";
 import i18next from "i18next";
 import {FC, useEffect, useState} from "react";
 
@@ -28,17 +27,12 @@ export const TranslationLoader: FC<ITranslationLoaderProps> = ({link = "translat
 		.cleaner(), []
 	);
 
-	return <>
-		{loading && !error && <Result
-			icon={<TranslationOutlined/>}
-			title={<LoaderIcon/>}
-		/>}
-		{error && <Result
-			icon={<TranslationOutlined/>}
-			status={"error"}
-			title={<LoaderIcon/>}
-			subTitle={"Translations cannot be loaded."}
-		/>}
-		{!loading && !error && children}
-	</>;
+	return <Loader
+		icon={<TranslationOutlined/>}
+		loading={loading}
+		error={error}
+		errorText={"Translations cannot be loaded."}
+	>
+		{children}
+	</Loader>;
 };
