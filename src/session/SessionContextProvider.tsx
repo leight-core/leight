@@ -14,8 +14,8 @@ export const SessionContextProvider: FC<ISessionContextProviderProps> = ({link =
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<boolean>(false);
 	const [session, setSession] = useState<ISession>({
-		site: "public",
 		user: {
+			site: "public",
 			roles: [],
 		},
 	});

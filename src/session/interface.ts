@@ -15,6 +15,10 @@ export interface ISessionContext<TSession extends ISession = ISession> {
  */
 export interface IUser {
 	roles: string[];
+	/**
+	 * Current site an user is logged in (even public).
+	 */
+	site: string;
 }
 
 export interface ISession {
@@ -22,8 +26,4 @@ export interface ISession {
 	 * Default simple user with a bare minimum needed to run the library.
 	 */
 	user: IUser;
-	/**
-	 * Current site an user is logged in (even public).
-	 */
-	site: string;
 }
