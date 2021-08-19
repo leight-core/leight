@@ -15,17 +15,14 @@ export const SessionContextProvider: FC<ISessionContextProviderProps> = ({link =
 	const [error, setError] = useState<boolean>(false);
 	const [session, setSession] = useState<ISession>({
 		site: "public",
+		user: {
+			roles: [],
+		},
 	});
 
 	useEffect(() => httpGet<ISession>(discoveryContext.link(link))
 		.on("response", session => {
 			setSession(session);
-			setLoading(false);
-		})
-		.on("http401", () => {
-			/**
-			 * 401 is OK here, because if we're on public, we'll get one when session is checked.
-			 */
 			setLoading(false);
 		})
 		.on("error", e => {

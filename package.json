@@ -20,7 +20,7 @@
 	},
 	"dependencies": {
 		"@ant-design/icons": "^4.6.3",
-		"@types/react": "^17.0.18",
+		"@types/react": "^17.0.19",
 		"antd": "^4.16.12",
 		"axios": "^0.21.1",
 		"cancelable-promise": "^4.2.1",
@@ -43,7 +43,7 @@
 		"@types/filesize": "^5.0.0",
 		"@types/is-callable": "^1.1.0",
 		"@types/jest": "^26.0.24",
-		"@types/node": "^16.6.1",
+		"@types/node": "^16.6.2",
 		"@types/omit-empty": "1.0.1",
 		"axios-mock-adapter": "^1.20.0",
 		"jest": "^27.0.6",
