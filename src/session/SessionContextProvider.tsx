@@ -25,7 +25,7 @@ export const SessionContextProvider: FC<ISessionContextProviderProps> = ({link =
 			setSession(session);
 			setLoading(false);
 		})
-		.on("error", e => {
+		.on("catch", e => {
 			console.error(e);
 			setError(true);
 		})
