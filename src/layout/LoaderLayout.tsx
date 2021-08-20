@@ -1,22 +1,22 @@
 import {AntDesignOutlined} from "@ant-design/icons";
-import {Centered} from "@leight-core/leight";
-import {Card, Col, Divider, Layout, LayoutProps, Row} from "antd";
+import {Centered, ILoaderProps, Loader} from "@leight-core/leight";
+import {Card, Col, Divider, Layout, Row} from "antd";
 import {FC, ReactNode} from "react";
 
-export interface ILoaderLayoutProps extends Partial<LayoutProps> {
-	icon?: ReactNode;
+export interface ILoaderLayoutProps extends ILoaderProps {
+	logo?: ReactNode;
 }
 
-export const LoaderLayout: FC<ILoaderLayoutProps> = ({icon, children, ...props}) => {
-	return <Layout style={{height: "100vh"}} {...props}>
+export const LoaderLayout: FC<ILoaderLayoutProps> = ({logo, ...props}) => {
+	return <Layout style={{height: "100vh"}}>
 		<Row justify={"center"} align={"middle"}>
 			<Col span={24}>
 				<Card
-					title={icon || <AntDesignOutlined/>}
+					title={logo || <AntDesignOutlined/>}
 					headStyle={{textAlign: "center", padding: "2em 0"}}
 				>
 					<Centered>
-						{children}
+						<Loader {...props}/>
 					</Centered>
 					<Divider/>
 					<Centered>

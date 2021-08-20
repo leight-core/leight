@@ -1,7 +1,8 @@
 import {ClientContextProvider, DiscoveryContextProvider, LinkContextProvider, SessionContextProvider, TranslationLoader} from "@leight-core/leight";
-import {FC} from "react";
+import {FC, ReactNode} from "react";
 
 export interface IAppProps {
+	logo?: ReactNode;
 	/**
 	 * Url from where a client get it's configuration, for example "/client.json".
 	 *
@@ -24,15 +25,16 @@ export interface IAppProps {
  */
 export const App: FC<IAppProps> = (
 	{
+		logo,
 		clientHref = process.env.NEXT_PUBLIC_CLIENT,
 		sessionLink,
 		children,
 	}) => {
 	return <LinkContextProvider>
-		<ClientContextProvider href={clientHref}>
-			<DiscoveryContextProvider>
-				<TranslationLoader>
-					<SessionContextProvider link={sessionLink}>
+		<ClientContextProvider href={clientHref} logo={logo}>
+			<DiscoveryContextProvider logo={logo}>
+				<TranslationLoader logo={logo}>
+					<SessionContextProvider link={sessionLink} logo={logo}>
 						{children}
 					</SessionContextProvider>
 				</TranslationLoader>
