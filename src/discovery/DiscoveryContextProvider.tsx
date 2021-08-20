@@ -1,11 +1,12 @@
 import {CompassOutlined} from "@ant-design/icons";
-import {DiscoveryContext, httpGet, IDiscovery, IParams, Loader, useClientContext, useLinkContext} from "@leight-core/leight";
-import {FC, useEffect, useState} from "react";
+import {DiscoveryContext, httpGet, IDiscovery, IParams, LoaderLayout, useClientContext, useLinkContext} from "@leight-core/leight";
+import {FC, ReactNode, useEffect, useState} from "react";
 
 export interface IDiscoveryContextProviderProps {
+	logo?: ReactNode;
 }
 
-export const DiscoveryContextProvider: FC<IDiscoveryContextProviderProps> = ({children}) => {
+export const DiscoveryContextProvider: FC<IDiscoveryContextProviderProps> = ({logo, children}) => {
 	const clientContext = useClientContext();
 	const [discovery, setDiscovery] = useState<IDiscovery>();
 	const [loading, setLoading] = useState<boolean>(true);
@@ -56,13 +57,14 @@ export const DiscoveryContextProvider: FC<IDiscoveryContextProviderProps> = ({ch
 			},
 		}}
 	>
-		<Loader
+		<LoaderLayout
+			logo={logo}
 			icon={<CompassOutlined/>}
 			loading={loading}
 			error={error}
 			errorText={"Discovery Failed."}
 		>
 			{children}
-		</Loader>
+		</LoaderLayout>
 	</DiscoveryContext.Provider>;
 };

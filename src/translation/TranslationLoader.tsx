@@ -1,16 +1,17 @@
 import {TranslationOutlined} from "@ant-design/icons";
-import {httpGet, ITranslations, Loader, useDiscoveryContext} from "@leight-core/leight";
+import {httpGet, ITranslations, LoaderLayout, useDiscoveryContext} from "@leight-core/leight";
 import i18next from "i18next";
-import {FC, useEffect, useState} from "react";
+import {FC, ReactNode, useEffect, useState} from "react";
 
 export interface ITranslationLoaderProps {
+	logo?: ReactNode;
 	/**
 	 * Which link from Discovery index should be used to retrieve translations.
 	 */
 	link?: string;
 }
 
-export const TranslationLoader: FC<ITranslationLoaderProps> = ({link = "translation.index", children}) => {
+export const TranslationLoader: FC<ITranslationLoaderProps> = ({logo, link = "translation.index", children}) => {
 	const discoveryContext = useDiscoveryContext();
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<boolean>(false);
@@ -27,12 +28,13 @@ export const TranslationLoader: FC<ITranslationLoaderProps> = ({link = "translat
 		.cleaner(), []
 	);
 
-	return <Loader
+	return <LoaderLayout
+		logo={logo}
 		icon={<TranslationOutlined/>}
 		loading={loading}
 		error={error}
 		errorText={"Translations cannot be loaded."}
 	>
 		{children}
-	</Loader>;
+	</LoaderLayout>;
 };

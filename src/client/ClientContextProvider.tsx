@@ -1,12 +1,13 @@
 import {CloudDownloadOutlined} from "@ant-design/icons";
-import {ClientContext, httpGet, IClient, Loader} from "@leight-core/leight";
-import {FC, useEffect, useState} from "react";
+import {ClientContext, httpGet, IClient, LoaderLayout} from "@leight-core/leight";
+import {FC, ReactNode, useEffect, useState} from "react";
 
 export interface IClientContextProviderProps {
+	logo?: ReactNode;
 	href?: string;
 }
 
-export const ClientContextProvider: FC<IClientContextProviderProps> = ({href, children}) => {
+export const ClientContextProvider: FC<IClientContextProviderProps> = ({logo, href, children}) => {
 	const [client, setClient] = useState<IClient>();
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<boolean>(false);
@@ -28,13 +29,14 @@ export const ClientContextProvider: FC<IClientContextProviderProps> = ({href, ch
 			client: client!!,
 		}}
 	>
-		<Loader
+		<LoaderLayout
+			logo={logo}
 			icon={<CloudDownloadOutlined/>}
 			loading={loading}
 			error={error}
 			errorText={"Client config failed."}
 		>
 			{children}
-		</Loader>
+		</LoaderLayout>
 	</ClientContext.Provider>;
 };
