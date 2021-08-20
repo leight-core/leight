@@ -1,7 +1,7 @@
-import {SettingOutlined} from "@ant-design/icons";
 import {Result} from "antd";
 import {FC, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
+import {LoaderIcon} from "../icon";
 
 export interface ILoaderProps {
 	icon: ReactNode;
@@ -15,7 +15,7 @@ export const Loader: FC<ILoaderProps> = ({icon, loading, error, errorText, child
 
 	return <>
 		{loading && !error && <Result
-			icon={<SettingOutlined spin/>}
+			icon={<LoaderIcon/>}
 		/>}
 		{error && <Result
 			icon={icon}

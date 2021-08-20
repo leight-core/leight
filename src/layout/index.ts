@@ -6,5 +6,6 @@ export * from "./interface";
 export * from "./LayoutBlockContext";
 export * from "./LayoutBlockContextProvider";
 export * from "./LayoutContext";
+export * from "./LoaderLayout";
 export * from "./PushRight";
 export * from "./UpdatePageHeader";
