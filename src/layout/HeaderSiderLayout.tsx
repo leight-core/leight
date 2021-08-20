@@ -9,9 +9,9 @@ const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer,
 	return <Layout>
 		<Spin indicator={<LoaderIcon/>} spinning={layoutBlockContext.isBlocked()}>
 			<Drawer/>
-			<Layout.Header style={{backgroundColor: "#fff", padding: 0, ...headerStyle}}>
+			{header && <Layout.Header style={{backgroundColor: "#fff", padding: 0, ...headerStyle}}>
 				{header}
-			</Layout.Header>
+			</Layout.Header>}
 			<Layout>
 				{layoutContext.fullwidth ? null :
 					<Layout.Sider
@@ -30,9 +30,9 @@ const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer,
 						<Suspense fallback={<PlaceholderPage/>}>
 							{children}
 						</Suspense>
-						<Layout.Footer>
+						{footer && <Layout.Footer>
 							{footer}
-						</Layout.Footer>
+						</Layout.Footer>}
 					</Layout.Content>
 				</Layout>
 			</Layout>
