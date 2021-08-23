@@ -5,4 +5,5 @@ export * from "./MenuDivider";
 export * from "./MenuGroup";
 export * from "./MenuItem";
 export * from "./MenuProvider";
+export * from "./SimpleMenuItem";
 export * from "./UpdateMenu";
