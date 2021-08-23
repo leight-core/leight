@@ -1,9 +1,4 @@
-import {DividerProps, Menu} from "antd";
-import React, {FC} from "react";
+import {Menu} from "antd";
+import React from "react";
 
-export interface IMenuDividerProps extends Partial<DividerProps> {
-}
-
-export const MenuDivider: FC<IMenuDividerProps> = props => {
-	return <Menu.Divider {...props}/>;
-};
+export const MenuDivider = Menu.Divider;
