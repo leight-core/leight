@@ -15,7 +15,6 @@ export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) =
 	const setErrorsInternal = (errors: IFormErrors) => {
 		setErrors(errors);
 		errors.message && message.error(t("error." + errors.message));
-		console.info("errors", errors);
 		form.setFields(((errors || {}).errors || []).map(item => ({
 			name: item.id,
 			errors: [t("error." + item.error)],
