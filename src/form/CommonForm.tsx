@@ -17,6 +17,7 @@ import {
 	useNavigate
 } from "@leight-core/leight";
 import {message} from "antd";
+import {AxiosError} from "axios";
 import isCallable from "is-callable";
 import {PropsWithChildren} from "react";
 import {useTranslation} from "react-i18next";
@@ -74,24 +75,26 @@ export function CommonForm<TFormValues extends any = any, TRequest extends any =
 	const {t} = useTranslation();
 
 	function handleError(formError: IFormError | IFormErrorHandler, error: any, formContext: IFormContext) {
-		if (!isCallable(formError)) {
-			formError = () => formContext.setErrors({
+		let handle = formError;
+		if (!isCallable(handle)) {
+			handle = () => formContext.setErrors({
 				errors: [
 					(formError as IFormError),
 				],
 			});
 		}
-		(formError as IFormErrorHandler)(error, formContext);
+		(handle as IFormErrorHandler)(error, formContext);
 	}
 
 	onFailure = onFailure || ((error, formContext) => {
 		const map = mapError(error, formContext);
-		const formError = map[error?.data];
+		const formError = map[error];
 		const general = map["general"];
 		formError && handleError(formError, error, formContext);
 		!formError && general && handleError(general, error, formContext);
 		!formError && !general && message.error(t(error));
 	});
+
 	return <Form<TFormValues>
 		colon={false}
 		size={"large"}
@@ -100,7 +103,7 @@ export function CommonForm<TFormValues extends any = any, TRequest extends any =
 				.chain(formContext.events())
 				.chain(events)
 				.on("response", data => onSuccess(navigate, values, data), 1000)
-				.on("catch", error => onFailure!!(error.response || error, formContext), 1000);
+				.on("catch", error => onFailure!!((error as AxiosError).response?.data || error, formContext), 1000);
 		}}
 		labelCol={{span: 8}}
 		labelAlign={"left"}

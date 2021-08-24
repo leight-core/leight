@@ -101,7 +101,7 @@ export interface IFormOnSuccess<TFormValues, TResponse> {
 }
 
 export interface IFormOnFailure {
-	(error: any, formContext: IFormContext): void;
+	(error: string, formContext: IFormContext): void;
 }
 
 export type IBaseSelectItem = any;
