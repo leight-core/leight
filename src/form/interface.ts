@@ -16,6 +16,10 @@ export interface IFormError {
 	error: string;
 }
 
+export interface IFormErrorMap {
+	[index: string]: IFormError;
+}
+
 export interface IFormErrors {
 	message?: string;
 	errors: IFormError[];
@@ -92,8 +96,8 @@ export interface IFormOnSuccess<TFormValues, TResponse> {
 	(navigate: INavigate, values: TFormValues, data: TResponse): void;
 }
 
-export interface IFormOnError {
-	(error: any, formContext: IFormContext, navigate: INavigate): void;
+export interface IFormOnFailure {
+	(error: any, formContext: IFormContext): void;
 }
 
 export type IBaseSelectItem = any;
