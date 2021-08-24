@@ -18,7 +18,7 @@ export const TranslationLoader: FC<ITranslationLoaderProps> = ({logo, link = "tr
 
 	useEffect(() => httpGet<ITranslations>(discoveryContext.link(link), {timeout: 10 * 1000 * 3})
 		.on("response", ({translations}) => {
-			translations.forEach(translation => i18next.addResource(translation.language, translation.namespace, translation.label, translation.text));
+			translations.forEach(translation => i18next.addResource(translation.language, "translation", translation.label, translation.text));
 			setLoading(false);
 		})
 		.on("catch", e => {
