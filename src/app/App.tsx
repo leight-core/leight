@@ -1,4 +1,4 @@
-import {ClientContextProvider, DiscoveryContextProvider, LinkContextProvider, SessionContextProvider, TranslationLoader} from "@leight-core/leight";
+import {ClientContextProvider, DiscoveryContextProvider, FingerprintContextProvider, LinkContextProvider, SessionContextProvider, TranslationLoader} from "@leight-core/leight";
 import {FC, ReactNode} from "react";
 
 export interface IAppProps {
@@ -31,14 +31,16 @@ export const App: FC<IAppProps> = (
 		children,
 	}) => {
 	return <LinkContextProvider>
-		<ClientContextProvider href={clientHref} logo={logo}>
-			<DiscoveryContextProvider logo={logo}>
-				<TranslationLoader logo={logo}>
-					<SessionContextProvider link={sessionLink} logo={logo}>
-						{children}
-					</SessionContextProvider>
-				</TranslationLoader>
-			</DiscoveryContextProvider>
-		</ClientContextProvider>
+		<FingerprintContextProvider logo={logo}>
+			<ClientContextProvider href={clientHref} logo={logo}>
+				<DiscoveryContextProvider logo={logo}>
+					<TranslationLoader logo={logo}>
+						<SessionContextProvider link={sessionLink} logo={logo}>
+							{children}
+						</SessionContextProvider>
+					</TranslationLoader>
+				</DiscoveryContextProvider>
+			</ClientContextProvider>
+		</FingerprintContextProvider>
 	</LinkContextProvider>;
 };
