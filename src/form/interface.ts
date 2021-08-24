@@ -16,8 +16,12 @@ export interface IFormError {
 	error: string;
 }
 
+export interface IFormErrorHandler {
+	(error: any, formContext: IFormContext): void;
+}
+
 export interface IFormErrorMap {
-	[index: string]: IFormError;
+	[index: string]: IFormError | IFormErrorHandler;
 }
 
 export interface IFormErrors {

@@ -1,5 +1,23 @@
-import {Form, IFormContext, IFormErrorMap, IFormInitialMapper, IFormOnFailure, IFormOnSuccess, IFormPostMapper, IFormProps, IParams, IServerEvents, IUpdateCallback, ServerEvents, useDiscoveryContext, useNavigate} from "@leight-core/leight";
+import {
+	Form,
+	IFormContext,
+	IFormError,
+	IFormErrorHandler,
+	IFormErrorMap,
+	IFormInitialMapper,
+	IFormOnFailure,
+	IFormOnSuccess,
+	IFormPostMapper,
+	IFormProps,
+	IParams,
+	IServerEvents,
+	IUpdateCallback,
+	ServerEvents,
+	useDiscoveryContext,
+	useNavigate
+} from "@leight-core/leight";
 import {message} from "antd";
+import isCallable from "is-callable";
 import {PropsWithChildren} from "react";
 import {useTranslation} from "react-i18next";
 
@@ -54,15 +72,25 @@ export function CommonForm<TFormValues extends any = any, TRequest extends any =
 	const discoveryContext = useDiscoveryContext();
 	const navigate = useNavigate();
 	const {t} = useTranslation();
+
+	function handleError(formError: IFormError | IFormErrorHandler, error: any, formContext: IFormContext) {
+		if (!isCallable(formError)) {
+			formError = () => formContext.setErrors({
+				errors: [
+					(formError as IFormError),
+				],
+			});
+		}
+		(formError as IFormErrorHandler)(error, formContext);
+	}
+
 	onFailure = onFailure || ((error, formContext) => {
 		const map = mapError(error, formContext);
 		const formError = map[error?.data];
-		formContext.setErrors({
-			errors: [
-				formError,
-			],
-		});
-		!formError && message.error(t(map["general"].error || error));
+		const general = map["general"];
+		formError && handleError(formError, error, formContext);
+		!formError && general && handleError(general, error, formContext);
+		!formError && !general && message.error(t(error));
 	});
 	return <Form<TFormValues>
 		colon={false}
