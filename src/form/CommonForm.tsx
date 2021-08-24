@@ -1,5 +1,7 @@
-import {Form, IFormInitialMapper, IFormOnError, IFormOnSuccess, IFormPostMapper, IFormProps, IParams, IServerEvents, IUpdateCallback, ServerEvents, useDiscoveryContext, useNavigate} from "@leight-core/leight";
+import {Form, IFormContext, IFormErrorMap, IFormInitialMapper, IFormOnFailure, IFormOnSuccess, IFormPostMapper, IFormProps, IParams, IServerEvents, IUpdateCallback, ServerEvents, useDiscoveryContext, useNavigate} from "@leight-core/leight";
+import {message} from "antd";
 import {PropsWithChildren} from "react";
+import {useTranslation} from "react-i18next";
 
 export interface ICommonFormProps<TFormValues = any, TRequest = TFormValues, TResponse = TRequest> extends Partial<Omit<IFormProps<TFormValues>, "name">> {
 	/**
@@ -29,7 +31,8 @@ export interface ICommonFormProps<TFormValues = any, TRequest = TFormValues, TRe
 	/**
 	 * Called when an error occurs.
 	 */
-	onFailure?: IFormOnError;
+	onFailure?: IFormOnFailure;
+	mapError?: (error: any, formContext: IFormContext) => IFormErrorMap;
 	/**
 	 * Optional events if needed to be hooked in.
 	 */
@@ -43,12 +46,24 @@ export function CommonForm<TFormValues extends any = any, TRequest extends any =
 		postMapper = values => values as any,
 		initialMapper = () => null as any,
 		onSuccess = () => null,
-		onFailure = () => null,
+		mapError = () => ({}),
+		onFailure,
 		events = ServerEvents(),
 		...props
 	}: PropsWithChildren<ICommonFormProps<TFormValues, TRequest, TResponse>>): JSX.Element {
 	const discoveryContext = useDiscoveryContext();
 	const navigate = useNavigate();
+	const {t} = useTranslation();
+	onFailure = onFailure || ((error, formContext) => {
+		const map = mapError(error, formContext);
+		const formError = map[error?.data];
+		formContext.setErrors({
+			errors: [
+				formError,
+			],
+		});
+		!formError && message.error(t(map["general"].error || error));
+	});
 	return <Form<TFormValues>
 		colon={false}
 		size={"large"}
@@ -57,7 +72,7 @@ export function CommonForm<TFormValues extends any = any, TRequest extends any =
 				.chain(formContext.events())
 				.chain(events)
 				.on("response", data => onSuccess(navigate, values, data), 1000)
-				.on("catch", error => onFailure(error.response, formContext, navigate), 1000);
+				.on("catch", error => onFailure!!(error.response || error, formContext), 1000);
 		}}
 		labelCol={{span: 8}}
 		labelAlign={"left"}
