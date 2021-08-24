@@ -1,6 +1,7 @@
 import {GlobalOutlined} from "@ant-design/icons";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import {FingerprintContext, LoaderLayout} from "@leight-core/leight";
+import axios from "axios";
 import {FC, ReactNode, useEffect, useState} from "react";
 
 export interface IFingerprintContextProviderProps {
@@ -10,12 +11,17 @@ export interface IFingerprintContextProviderProps {
 export const FingerprintContextProvider: FC<IFingerprintContextProviderProps> = ({logo, children}) => {
 	const [fingerprint, setFingerprint] = useState<string>("unknown");
 
+	function updateFingerprint(fingerprint: string) {
+		setFingerprint(fingerprint);
+		axios.defaults.headers["X-Hash"] = fingerprint;
+	}
+
 	useEffect(() => {
 		FingerprintJS.load()
 			.then(agent => agent.get()
-				.then(result => setFingerprint(result.visitorId))
-				.catch(() => setFingerprint("unknown")))
-			.catch(() => setFingerprint("unknown"));
+				.then(result => updateFingerprint(result.visitorId))
+				.catch(() => updateFingerprint("unknown")))
+			.catch(() => updateFingerprint("unknown"));
 	}, []);
 
 	return <FingerprintContext.Provider
