@@ -40,21 +40,11 @@ export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) =
 					.on("request", () => {
 						formBlockContext.block();
 						blockContext.block();
-					})
-					.on("http400", setErrorsInternal)
-					.on("http401", setErrorsInternal)
-					.on("http403", setErrorsInternal)
-					.on("http500", () => setErrorsInternal({
-						message: t("common.form.server-error"),
-						errors: [],
-					}))
-					.on("catch", e => {
-						console.error(e);
-					})
+					}, 1000)
 					.on("done", () => {
 						formBlockContext.unblock();
 						blockContext.unblock();
-					}),
+					}, 1000),
 				values: form.getFieldsValue,
 				resetErrors,
 				refresh: () => form.validateFields().then(() => resetErrors(), () => resetErrors()),
