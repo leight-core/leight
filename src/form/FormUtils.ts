@@ -1,7 +1,7 @@
+import {IFormFields} from "@leight-core/leight";
 import {FormInstance} from "antd";
 import CancelablePromise from "cancelable-promise";
 import {NamePath} from "rc-field-form/lib/interface";
-import {IFormFields} from "./interface";
 
 type ICancelableResolveCallback = (resolve: any) => void
 

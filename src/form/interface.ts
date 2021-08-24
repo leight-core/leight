@@ -1,8 +1,6 @@
+import {IBlockContext, INavigate, IServerEvents} from "@leight-core/leight";
 import {FormInstance} from "antd";
 import {NamePath, ValidateErrorEntity} from "rc-field-form/lib/interface";
-import {IBlockContext} from "../block/interface";
-import {INavigate} from "../router/useNavigate";
-import {IServerEvents} from "../server/interface";
 
 export interface IFormItemContext {
 	field: NamePath;
@@ -92,6 +90,10 @@ export interface IFormInitialMapper<TFormValues> {
 
 export interface IFormOnSuccess<TFormValues, TResponse> {
 	(navigate: INavigate, values: TFormValues, data: TResponse): void;
+}
+
+export interface IFormOnError {
+	(error: any, formContext: IFormContext, navigate: INavigate): void;
 }
 
 export type IBaseSelectItem = any;

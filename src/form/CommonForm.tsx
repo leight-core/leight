@@ -1,4 +1,5 @@
-import {Form, IFormInitialMapper, IFormOnSuccess, IFormPostMapper, IFormProps, IParams, IServerEvents, IUpdateCallback, ServerEvents, useDiscoveryContext, useNavigate} from "@leight-core/leight";
+import {Form, IFormInitialMapper, IFormOnError, IFormOnSuccess, IFormPostMapper, IFormProps, IParams, IServerEvents, IUpdateCallback, ServerEvents, useDiscoveryContext, useNavigate} from "@leight-core/leight";
+import {PropsWithChildren} from "react";
 
 export interface ICommonFormProps<TFormValues = any, TRequest = TFormValues, TResponse = TRequest> extends Partial<Omit<IFormProps<TFormValues>, "name">> {
 	/**
@@ -26,21 +27,26 @@ export interface ICommonFormProps<TFormValues = any, TRequest = TFormValues, TRe
 	 */
 	onSuccess?: IFormOnSuccess<TFormValues, TResponse>;
 	/**
+	 * Called when an error occurs.
+	 */
+	onFailure?: IFormOnError;
+	/**
 	 * Optional events if needed to be hooked in.
 	 */
 	events?: IServerEvents<TResponse>;
 }
 
-export const CommonForm = <TFormValues extends any = any, TRequest extends any = TFormValues, TResponse extends any = TRequest>(
+export function CommonForm<TFormValues extends any = any, TRequest extends any = TFormValues, TResponse extends any = TRequest>(
 	{
 		post,
 		postParams,
 		postMapper = values => values as any,
 		initialMapper = () => null as any,
 		onSuccess = () => null,
+		onFailure = () => null,
 		events = ServerEvents(),
 		...props
-	}: ICommonFormProps<TFormValues, TRequest, TResponse>) => {
+	}: PropsWithChildren<ICommonFormProps<TFormValues, TRequest, TResponse>>): JSX.Element {
 	const discoveryContext = useDiscoveryContext();
 	const navigate = useNavigate();
 	return <Form<TFormValues>
@@ -50,7 +56,8 @@ export const CommonForm = <TFormValues extends any = any, TRequest extends any =
 			post(postMapper(values), discoveryContext, postParams)
 				.chain(formContext.events())
 				.chain(events)
-				.on("response", data => onSuccess(navigate, values, data));
+				.on("response", data => onSuccess(navigate, values, data), 1000)
+				.on("catch", error => onFailure(error.response, formContext, navigate), 1000);
 		}}
 		labelCol={{span: 8}}
 		labelAlign={"left"}
@@ -59,4 +66,4 @@ export const CommonForm = <TFormValues extends any = any, TRequest extends any =
 		initialValues={initialMapper() as any}
 		{...props}
 	/>;
-};
+}

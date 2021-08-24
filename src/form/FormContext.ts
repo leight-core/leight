@@ -1,6 +1,5 @@
+import {IFormContext, useContext, useOptionalContext} from "@leight-core/leight";
 import {createContext} from "react";
-import {useContext, useOptionalContext} from "../utils/useContext";
-import {IFormContext} from "./interface";
 
 /**
  * Access to current Form Context; do not use this directly, see {@link useFormContext}.

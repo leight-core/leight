@@ -47,9 +47,7 @@ export const Form = <TFormValues extends unknown = any>(
 		children,
 		...props
 	}: PropsWithChildren<IFormProps<TFormValues>>) => {
-	return (
-		<FormContextProvider>
-			<FormInternal onSubmitFailed={onSubmitFailed} children={children} {...props}/>
-		</FormContextProvider>
-	);
+	return <FormContextProvider>
+		<FormInternal onSubmitFailed={onSubmitFailed} children={children} {...props}/>
+	</FormContextProvider>;
 };
