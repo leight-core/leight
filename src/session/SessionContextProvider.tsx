@@ -1,5 +1,5 @@
 import {UserOutlined} from "@ant-design/icons";
-import {httpGet, ISession, LoaderLayout, SessionContext, useDiscoveryContext} from "@leight-core/leight";
+import {httpPost, ISession, LoaderLayout, SessionContext, useDiscoveryContext, useFingerprintContext} from "@leight-core/leight";
 import {FC, ReactNode, useEffect, useState} from "react";
 
 export interface ISessionContextProviderProps<TSession extends ISession = ISession> {
@@ -12,6 +12,7 @@ export interface ISessionContextProviderProps<TSession extends ISession = ISessi
 
 export const SessionContextProvider: FC<ISessionContextProviderProps> = ({logo, link = "session.ticket", children}) => {
 	const discoveryContext = useDiscoveryContext();
+	const fingerprintContext = useFingerprintContext();
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<boolean>(false);
 	const [session, setSession] = useState<ISession>({
@@ -21,7 +22,7 @@ export const SessionContextProvider: FC<ISessionContextProviderProps> = ({logo, 
 		},
 	});
 
-	useEffect(() => httpGet<ISession>(discoveryContext.link(link))
+	useEffect(() => httpPost<{ hash: string }, ISession>(discoveryContext.link(link), {hash: fingerprintContext.fingerprint})
 		.on("response", session => {
 			setSession(session);
 			setLoading(false);

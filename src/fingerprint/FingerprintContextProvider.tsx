@@ -8,7 +8,7 @@ export interface IFingerprintContextProviderProps {
 }
 
 export const FingerprintContextProvider: FC<IFingerprintContextProviderProps> = ({logo, children}) => {
-	const [fingerprint, setFingerprint] = useState<string>();
+	const [fingerprint, setFingerprint] = useState<string>("unknown");
 
 	useEffect(() => {
 		FingerprintJS.load()
