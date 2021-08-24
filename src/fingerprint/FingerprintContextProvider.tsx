@@ -12,8 +12,8 @@ export const FingerprintContextProvider: FC<IFingerprintContextProviderProps> = 
 	const [fingerprint, setFingerprint] = useState<string>("unknown");
 
 	function updateFingerprint(fingerprint: string) {
-		setFingerprint(fingerprint);
 		axios.defaults.headers["X-Client-Hash"] = fingerprint;
+		setFingerprint(fingerprint);
 	}
 
 	useEffect(() => {
