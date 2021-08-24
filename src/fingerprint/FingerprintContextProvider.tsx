@@ -1,6 +1,7 @@
 import {GlobalOutlined} from "@ant-design/icons";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import {FingerprintContext, LoaderLayout} from "@leight-core/leight";
+import axios from "axios";
 import {FC, ReactNode, useEffect, useState} from "react";
 
 export interface IFingerprintContextProviderProps {
@@ -12,7 +13,7 @@ export const FingerprintContextProvider: FC<IFingerprintContextProviderProps> = 
 
 	function updateFingerprint(fingerprint: string) {
 		setFingerprint(fingerprint);
-		// axios.defaults.headers["X-Hash"] = fingerprint;
+		axios.defaults.headers["X-Client-Hash"] = fingerprint;
 	}
 
 	useEffect(() => {
