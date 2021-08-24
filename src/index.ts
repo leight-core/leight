@@ -8,6 +8,7 @@ export * from "./discovery";
 export * from "./drawer";
 export * from "./event";
 export * from "./fetch";
+export * from "./fingerprint";
 export * from "./form";
 export * from "./hook";
 export * from "./icon";

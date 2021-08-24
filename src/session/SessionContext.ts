@@ -1,6 +1,5 @@
+import {ISession, ISessionContext, useContext} from "@leight-core/leight";
 import {createContext} from "react";
-import {useContext} from "../utils/useContext";
-import {ISession, ISessionContext} from "./interface";
 
 export const SessionContext = createContext(null as unknown as ISessionContext<any>);
 
