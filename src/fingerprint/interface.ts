@@ -1,4 +1,4 @@
 export interface IFingerprintContext {
-	readonly fingerprint?: string;
+	readonly fingerprint: string;
 	setFingerprint: (fingerprint: string) => void;
 }
