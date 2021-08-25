@@ -14,7 +14,7 @@ export interface IPageProps extends IEmptyPageProps {
 export const Page: FC<IPageProps> = ({h1, children, ...props}) => {
 	const {t} = useTranslation();
 	const router = useRouter();
-	return <EmptyPage menuItems={[router.pathname]} {...props}>
+	return <EmptyPage menuItems={[router.route]} {...props}>
 		<Card title={t(h1 ? h1 : props.name + ".title")}>
 			{children}
 		</Card>
