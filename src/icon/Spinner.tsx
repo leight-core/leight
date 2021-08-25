@@ -14,5 +14,5 @@ export const Spinner: FC<ISpinner> = (
 		done = false,
 		children
 	}) => {
-	return (done ? <>{children}</> : <LoaderIcon spin/>);
+	return (done ? <>{children}</> : <LoaderIcon/>);
 };
