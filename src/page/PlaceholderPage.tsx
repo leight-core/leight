@@ -16,7 +16,7 @@ export const PlaceholderPage: FC<IPlaceholderPageProps> = ({children}) => {
 	return <EmptyPage name={"common.placeholder.title"}>
 		<Card style={{minHeight: "65vh"}}>
 			<Result
-				icon={<LoaderIcon spin/>}
+				icon={<LoaderIcon/>}
 				title={t("common.placeholder.title")}
 				subTitle={t("common.placeholder.subtitle")}
 				children={children}
