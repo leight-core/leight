@@ -1,18 +1,12 @@
+import {BlockContextProvider, ScrollToTop, UpdatePageHeader, useBlockContext, useLayoutBlockContext, useLayoutContext, useMenuContext} from "@leight-core/leight";
 import {Spin} from "antd";
 import Head from "next/head";
 import {FC, ReactNode, useEffect} from "react";
 import {useTranslation} from "react-i18next";
-import {useBlockContext} from "../block/BlockContext";
-import {BlockContextProvider} from "../block/BlockContextProvider";
-import {ScrollToTop} from "../component/ScrollToTop";
-import {useLayoutBlockContext} from "../layout/LayoutBlockContext";
-import {useLayoutContext} from "../layout/LayoutContext";
-import {UpdatePageHeader} from "../layout/UpdatePageHeader";
-import {useMenuContext} from "../menu/MenuContext";
 
 export interface IEmptyPageProps {
 	/**
-	 * Name of this page; it's also used for menu selection.
+	 * Name (and title) of this page.
 	 */
 	name: string;
 	/**
@@ -26,7 +20,7 @@ export interface IEmptyPageProps {
 	/**
 	 * Menu for this view.
 	 */
-	menu?: () => JSX.Element;
+	menu?: () => ReactNode;
 	/**
 	 * Currently selected menu items (if any).
 	 */
@@ -79,7 +73,7 @@ export const EmptyPage: FC<IEmptyPageProps> = (
 	const menuContext = useMenuContext();
 	const layoutContext = useLayoutContext();
 	const blockContext = useLayoutBlockContext();
-	menuContext.useMenu(menu ? menu() : undefined, name);
+	menuContext.useMenu(menu, name);
 	menuContext.useSelect(menuItems || [name]);
 	layoutContext.useEnableFullwidth(fullwidth, restore);
 	useEffect(() => {

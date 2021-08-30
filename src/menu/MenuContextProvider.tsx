@@ -2,10 +2,10 @@ import {MenuContext} from "@leight-core/leight";
 import equal from "fast-deep-equal/es6/react";
 import {FC, ReactNode, useEffect, useRef, useState} from "react";
 
-export interface IMenuProviderProps {
+export interface IMenuContextProviderProps {
 }
 
-export const MenuProvider: FC<IMenuProviderProps> = ({children}) => {
+export const MenuContextProvider: FC<IMenuContextProviderProps> = ({children}) => {
 	const [current, setCurrent] = useState<string[]>([]);
 	const [menu, setMenu] = useState<ReactNode>(null);
 	const [collapsed, setCollapse] = useState<boolean>(false);
@@ -33,15 +33,18 @@ export const MenuProvider: FC<IMenuProviderProps> = ({children}) => {
 					return;
 				}
 				if (!name) {
-					setMenu(menu);
+					setMenu(menu());
 					menuKey.current = undefined;
 				}
 				if (name && menuKey.current !== name) {
-					setMenu(menu);
+					setMenu(menu());
 					menuKey.current = name;
 				}
-			}, []),
-			setMenu,
+			}, [name]),
+			setMenu: menu => {
+				setMenu(menu);
+				menuKey.current = undefined;
+			},
 		}}
 	>
 		{children}
