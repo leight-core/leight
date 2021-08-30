@@ -9,16 +9,21 @@ export interface ISessionContext<TSession extends ISession = ISession> {
 	setSession: (session: TSession) => void;
 }
 
+export interface IRole {
+	readonly id: string;
+	readonly name: string;
+}
+
 /**
  * A very bare user without any irrelevant information for the library:
  * just roles to enable automagic checks on Pages
  */
 export interface IUser {
-	roles: string[];
+	readonly roles: IRole[];
 	/**
 	 * Current site an user is logged in (even public).
 	 */
-	site: string;
+	readonly site: string;
 }
 
 export interface ISession {
