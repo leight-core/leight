@@ -5,7 +5,7 @@ import isCallable from "is-callable";
 import {DependencyList, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface ITableProps<TItem extends IRecordItem> extends TableProps<TItem> {
+export interface ITableProps<TItem extends Object> extends TableProps<TItem> {
 	/**
 	 * Callback for getting page for the table.
 	 */
@@ -27,7 +27,7 @@ export interface ITableProps<TItem extends IRecordItem> extends TableProps<TItem
 	children: IBaseTableChildrenCallback<TItem>;
 }
 
-export const Table = <TItem extends IRecordItem>(
+export const Table = <TItem extends Object = IRecordItem>(
 	{
 		onFetchPage,
 		onFetchParams,
@@ -69,7 +69,7 @@ export const Table = <TItem extends IRecordItem>(
 	return <CoolTable
 		style={{minHeight: "50vh"}}
 		dataSource={items}
-		rowKey={record => record.id}
+		rowKey={(record: any) => record.id}
 		loading={{
 			spinning: loading,
 			indicator: <LoaderIcon/>,

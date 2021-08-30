@@ -2,7 +2,7 @@ import {IPageCallback, IPageIndex, IParams, IRecordItem, LoaderIcon, PageIndex, 
 import {List as CoolList, ListProps} from "antd";
 import {DependencyList, ReactNode, useEffect, useState} from "react";
 
-export interface IListProps<TItem extends IRecordItem> extends Partial<ListProps<TItem>> {
+export interface IListProps<TItem> extends Partial<ListProps<TItem>> {
 	onFetchPage: IPageCallback<TItem>;
 	/**
 	 * Optional parameter for the URL.
@@ -17,7 +17,7 @@ export interface IListProps<TItem extends IRecordItem> extends Partial<ListProps
 	deps?: DependencyList;
 }
 
-export const List = <TItem extends IRecordItem = any>(
+export const List = <TItem extends Object = IRecordItem>(
 	{
 		onFetchPage,
 		onFetchParams,
@@ -55,7 +55,7 @@ export const List = <TItem extends IRecordItem = any>(
 	return <CoolList
 		style={{minHeight: "50vh"}}
 		dataSource={items}
-		rowKey={record => record.id}
+		rowKey={(record: any) => record.id}
 		loading={{
 			spinning: loading,
 			indicator: <LoaderIcon/>,
