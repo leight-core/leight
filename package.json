@@ -19,7 +19,8 @@
 		"test:watch": "jest src --watchAll"
 	},
 	"dependencies": {
-		"@ant-design/icons": "^4.6.3",
+		"@ant-design/icons": "^4.6.4",
+		"@fingerprintjs/fingerprintjs": "^3.3.0",
 		"@types/react": "^17.0.19",
 		"antd": "^4.16.13",
 		"axios": "^0.21.1",
@@ -35,21 +36,20 @@
 		"omit-empty": "^1.0.0",
 		"path-to-regexp": "^6.2.0",
 		"react": "^17.0.2",
+		"react-cookie": "^4.1.1",
 		"react-dom": "^17.0.2",
 		"react-i18next": "^11.11.4",
-		"react-markdown": "^6.0.3",
-		"@fingerprintjs/fingerprintjs": "^3.3.0",
-		"react-cookie": "^4.1.1"
+		"react-markdown": "^6.0.3"
 	},
 	"devDependencies": {
 		"@types/filesize": "^5.0.0",
 		"@types/is-callable": "^1.1.0",
 		"@types/jest": "^26.0.24",
-		"@types/node": "^16.7.1",
+		"@types/node": "^16.7.6",
 		"@types/omit-empty": "1.0.1",
 		"axios-mock-adapter": "^1.20.0",
-		"jest": "^27.0.6",
+		"jest": "^27.1.0",
 		"ts-jest": "^27.0.5",
-		"typescript": "^4.3.5"
+		"typescript": "^4.4.2"
 	}
 }
