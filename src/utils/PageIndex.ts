@@ -1,4 +1,4 @@
-import {IPageIndex} from "../interface/interface";
+import {IPageIndex} from "@leight-core/leight";
 
 export function PageIndex(): IPageIndex<any> {
 	return {
