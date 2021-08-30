@@ -1,5 +1,5 @@
+import {useMenuContext} from "@leight-core/leight";
 import {DependencyList, FC, useEffect} from "react";
-import {useMenuContext} from "./MenuContext";
 
 export interface IUpdateMenuProps {
 	deps?: DependencyList;

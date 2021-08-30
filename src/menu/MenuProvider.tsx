@@ -1,6 +1,6 @@
+import {MenuContext} from "@leight-core/leight";
 import equal from "fast-deep-equal/es6/react";
 import {FC, ReactNode, useEffect, useRef, useState} from "react";
-import {MenuContext} from "./MenuContext";
 
 export interface IMenuProviderProps {
 }
@@ -40,7 +40,7 @@ export const MenuProvider: FC<IMenuProviderProps> = ({children}) => {
 					setMenu(menu);
 					menuKey.current = name;
 				}
-			}, [name]),
+			}, []),
 			setMenu,
 		}}
 	>

@@ -1,6 +1,5 @@
+import {IMenuContext, useContext} from "@leight-core/leight";
 import {createContext} from "react";
-import {useContext} from "../utils/useContext";
-import {IMenuContext} from "./interface";
 
 export const MenuContext = createContext<IMenuContext>(null as unknown as IMenuContext);
 
