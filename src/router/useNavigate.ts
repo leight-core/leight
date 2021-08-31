@@ -1,5 +1,5 @@
+import {IParams} from "@leight-core/leight";
 import {useRouter} from "next/router";
-import {IParams} from "../link/interface";
 
 export interface INavigate {
 	(href: string, params?: IParams): void;

@@ -1,11 +1,6 @@
+import {httpPut, IDiscoveryContext, IParams, IPutCallback, ServerEvents, useDiscoveryContext} from "@leight-core/leight";
 import {AxiosRequestConfig} from "axios";
 import {DependencyList, useEffect} from "react";
-import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {IDiscoveryContext} from "../discovery/interface";
-import {IParams} from "../link/interface";
-import {httpPut} from "./httpPut";
-import {IPutCallback} from "./interface";
-import {ServerEvents} from "./ServerEvents";
 
 /**
  * Simple factory for creating `put` based on the discovery link id.

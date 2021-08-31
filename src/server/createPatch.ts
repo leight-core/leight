@@ -1,11 +1,6 @@
+import {httpPatch, IDiscoveryContext, IParams, IPatchCallback, ServerEvents, useDiscoveryContext} from "@leight-core/leight";
 import {AxiosRequestConfig} from "axios";
 import {DependencyList, useEffect} from "react";
-import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {IDiscoveryContext} from "../discovery/interface";
-import {IParams} from "../link/interface";
-import {httpPatch} from "./httpPatch";
-import {IPatchCallback} from "./interface";
-import {ServerEvents} from "./ServerEvents";
 
 /**
  * Simple factory for creating `patch` based on the discovery link id.

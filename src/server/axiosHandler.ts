@@ -1,9 +1,7 @@
+import {axiosError, axiosSuccess, ServerEventPriority, ServerEvents} from "@leight-core/leight";
 import axios, {AxiosRequestConfig} from "axios";
-import {ServerEventPriority} from "./constants";
-import {axiosError, axiosSuccess} from "./events";
-import {ServerEvents} from "./ServerEvents";
 
-export const handler = (call: (config: AxiosRequestConfig) => Promise<any>, config?: AxiosRequestConfig) => {
+export const axiosHandler = (call: (config: AxiosRequestConfig) => Promise<any>, config?: AxiosRequestConfig) => {
 	const cancelToken = axios.CancelToken.source();
 	const events = ServerEvents();
 	events

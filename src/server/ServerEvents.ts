@@ -1,5 +1,4 @@
-import {Events} from "../event/Events";
-import {IServerEvents} from "./interface";
+import {Events, IServerEvents} from "@leight-core/leight";
 
 /**
  * Typed server event bus. Most common usage when doing any remote calls (internally using Axios).
