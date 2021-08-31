@@ -1,5 +1,5 @@
 import {IBaseEventTypes, IDiscoveryContext, IEventHandlers, IEventResult, IEvents, IParams} from "@leight-core/leight";
-import {AxiosError} from "axios";
+import {AxiosError, AxiosRequestConfig} from "axios";
 
 /**
  * Available http events.
@@ -56,6 +56,7 @@ export interface IUpdateCallback<TRequest = any, TResponse = any> {
 		data: TRequest,
 		discoveryContext: IDiscoveryContext,
 		params?: IParams,
+		config?: AxiosRequestConfig,
 	): IServerEvents<TResponse>;
 }
 

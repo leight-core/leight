@@ -1,8 +1,7 @@
+import {EmptyPage, LoaderIcon} from "@leight-core/leight";
 import {Card, Result} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {LoaderIcon} from "../icon/LoaderIcon";
-import {EmptyPage} from "./EmptyPage";
 
 export interface IPlaceholderPageProps {
 }

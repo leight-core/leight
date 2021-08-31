@@ -1,15 +1,22 @@
+import {
+	createDelete,
+	createGet,
+	createPatch,
+	createPost,
+	createPut,
+	createUseDelete,
+	createUseGet,
+	createUsePatch,
+	createUsePost,
+	createUsePut,
+	httpDelete,
+	httpGet,
+	httpPatch,
+	httpPost,
+	httpPut,
+	ServerRequestTimeout
+} from "@leight-core/leight";
 import axios from "axios";
-import {ServerRequestTimeout} from "./constants";
-import {createDelete, createUseDelete} from "./createDelete";
-import {createGet, createUseGet} from "./createGet";
-import {createPatch, createUsePatch} from "./createPatch";
-import {createPost, createUsePost} from "./createPost";
-import {createPut, createUsePut} from "./createPut";
-import {httpDelete} from "./httpDelete";
-import {httpGet} from "./httpGet";
-import {httpPatch} from "./httpPatch";
-import {httpPost} from "./httpPost";
-import {httpPut} from "./httpPut";
 
 axios.defaults.timeout = ServerRequestTimeout;
 

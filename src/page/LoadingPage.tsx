@@ -1,7 +1,6 @@
+import {EmptyPage, IEmptyPageProps, LoaderIcon} from "@leight-core/leight";
 import {Result} from "antd";
 import {FC, ReactNode} from "react";
-import {LoaderIcon} from "../icon/LoaderIcon";
-import {EmptyPage, IEmptyPageProps} from "./EmptyPage";
 
 export interface ILoadingPageProps extends Partial<IEmptyPageProps> {
 	icon?: ReactNode;

@@ -1,5 +1,5 @@
+import {IServerEvents, IServerEventTypes} from "@leight-core/leight";
 import axios, {AxiosError, AxiosResponse} from "axios";
-import {IServerEvents, IServerEventTypes} from "./interface";
 
 /**
  * Handle axios error.

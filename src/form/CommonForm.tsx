@@ -17,7 +17,7 @@ import {
 	useNavigate
 } from "@leight-core/leight";
 import {message} from "antd";
-import {AxiosError} from "axios";
+import {AxiosError, AxiosRequestConfig} from "axios";
 import isCallable from "is-callable";
 import {PropsWithChildren} from "react";
 import {useTranslation} from "react-i18next";
@@ -35,6 +35,7 @@ export interface ICommonFormProps<TFormValues = any, TRequest = TFormValues, TRe
 	 * Optional POSt param.
 	 */
 	postParams?: IParams;
+	postConfig?: AxiosRequestConfig,
 	/**
 	 * Map form data to data being sent to server.
 	 */
@@ -62,6 +63,7 @@ export function CommonForm<TFormValues extends any = any, TRequest extends any =
 	{
 		post,
 		postParams,
+		postConfig,
 		postMapper = values => values as any,
 		initialMapper = () => null as any,
 		onSuccess = () => null,
@@ -99,7 +101,7 @@ export function CommonForm<TFormValues extends any = any, TRequest extends any =
 		colon={false}
 		size={"large"}
 		onSubmit={(values, formContext) => {
-			post(postMapper(values), discoveryContext, postParams)
+			post(postMapper(values), discoveryContext, postParams, postConfig)
 				.chain(formContext.events())
 				.chain(events)
 				.on("response", data => onSuccess(navigate, values, data), 1000)

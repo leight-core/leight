@@ -1,11 +1,6 @@
+import {httpGet, IDiscoveryContext, IGetCallback, IParams, ServerEvents, useDiscoveryContext} from "@leight-core/leight";
 import {AxiosRequestConfig} from "axios";
 import {DependencyList, useEffect} from "react";
-import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {IDiscoveryContext} from "../discovery/interface";
-import {IParams} from "../link/interface";
-import {httpGet} from "./httpGet";
-import {IGetCallback} from "./interface";
-import {ServerEvents} from "./ServerEvents";
 
 /**
  * Simple factory for creating `get` based on the discovery link id.

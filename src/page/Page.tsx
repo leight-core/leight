@@ -1,8 +1,8 @@
+import {EmptyPage, IEmptyPageProps} from "@leight-core/leight";
 import {Card} from "antd";
 import {useRouter} from "next/router";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {EmptyPage, IEmptyPageProps} from "./EmptyPage";
 
 export interface IPageProps extends IEmptyPageProps {
 	/**

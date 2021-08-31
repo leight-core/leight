@@ -1,11 +1,6 @@
+import {httpPost, IDiscoveryContext, IParams, IPostCallback, ServerEvents, useDiscoveryContext} from "@leight-core/leight";
 import {AxiosRequestConfig} from "axios";
 import {DependencyList, useEffect} from "react";
-import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {IDiscoveryContext} from "../discovery/interface";
-import {IParams} from "../link/interface";
-import {httpPost} from "./httpPost";
-import {IPostCallback} from "./interface";
-import {ServerEvents} from "./ServerEvents";
 
 /**
  * Simple factory for creating `post` based on the discovery link id.
