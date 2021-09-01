@@ -1,6 +1,5 @@
 export * from "./axios";
 export * from "./axiosHandler";
-export * from "./constants";
 export * from "./createDelete";
 export * from "./createGet";
 export * from "./createPatch";
