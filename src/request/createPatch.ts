@@ -1,4 +1,4 @@
-import {httpPatch, IDiscoveryContext, IParams, IPatchCallback, ServerEvents, useDiscoveryContext} from "@leight-core/leight";
+import {httpPatch, IDiscoveryContext, IParams, IPatchCallback, RequestEvents, useDiscoveryContext} from "@leight-core/leight";
 import {AxiosRequestConfig} from "axios";
 import {DependencyList, useEffect} from "react";
 
@@ -22,7 +22,7 @@ export function createPatch<TRequest = any, TResponse = any>(link: string): IPat
 
 export function createUsePatch<TRequest = any, TResponse = any>(link: string, deps: DependencyList = []) {
 	return (request: TRequest, params?: IParams, config?: AxiosRequestConfig) => {
-		const events = ServerEvents<TResponse>();
+		const events = RequestEvents<TResponse>();
 		const discoveryContext = useDiscoveryContext();
 		useEffect(() => httpPatch<TRequest, TResponse>(discoveryContext.link(link, params), request, config).chain(events).cleaner(), deps);
 		return events;

@@ -10,9 +10,9 @@ import {
 	IFormPostMapper,
 	IFormProps,
 	IParams,
-	IServerEvents,
+	IRequestEvents,
 	IUpdateCallback,
-	ServerEvents,
+	RequestEvents,
 	useDiscoveryContext,
 	useNavigate
 } from "@leight-core/leight";
@@ -56,7 +56,7 @@ export interface ICommonFormProps<TFormValues = any, TRequest = TFormValues, TRe
 	/**
 	 * Optional events if needed to be hooked in.
 	 */
-	events?: IServerEvents<TResponse>;
+	events?: IRequestEvents<TResponse>;
 }
 
 export function CommonForm<TFormValues extends any = any, TRequest extends any = TFormValues, TResponse extends any = TRequest>(
@@ -69,7 +69,7 @@ export function CommonForm<TFormValues extends any = any, TRequest extends any =
 		onSuccess = () => null,
 		mapError = () => ({}),
 		onFailure,
-		events = ServerEvents(),
+		events = RequestEvents(),
 		...props
 	}: PropsWithChildren<ICommonFormProps<TFormValues, TRequest, TResponse>>): JSX.Element {
 	const discoveryContext = useDiscoveryContext();

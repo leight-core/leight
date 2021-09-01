@@ -1,4 +1,4 @@
-import {IBlockContext, INavigate, IServerEvents} from "@leight-core/leight";
+import {IBlockContext, INavigate, IRequestEvents} from "@leight-core/leight";
 import {FormInstance} from "antd";
 import {NamePath, ValidateErrorEntity} from "rc-field-form/lib/interface";
 
@@ -57,7 +57,7 @@ export interface IFormContext<TValues = any> {
 	/**
 	 * Create default events handling some things in the form.
 	 */
-	events: <TResponse = any>() => IServerEvents<TResponse>;
+	events: <TResponse = any>() => IRequestEvents<TResponse>;
 	/**
 	 * Return current form values.
 	 */

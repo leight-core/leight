@@ -1,15 +1,15 @@
-import {IServerEvents, IServerEventTypes} from "@leight-core/leight";
+import {IRequestEvents, IRequestEventTypes} from "@leight-core/leight";
 import axios, {AxiosError, AxiosResponse} from "axios";
 
 /**
  * Handle axios error.
  */
-export const axiosError = (error: AxiosError, events: IServerEvents) => {
+export const axiosError = (error: AxiosError, events: IRequestEvents) => {
 	if (axios.isCancel(error)) {
 		return;
 	}
 	if (error.response && error.response.status) {
-		events.handler("http" + error.response.status as IServerEventTypes)(error.response.data);
+		events.handler("http" + error.response.status as IRequestEventTypes)(error.response.data);
 	} else {
 		events.handler("error")(error);
 	}
@@ -20,7 +20,7 @@ export const axiosError = (error: AxiosError, events: IServerEvents) => {
 /**
  * Handle axios success.
  */
-export const axiosSuccess = <TResponse = any>(axiosResponse: AxiosResponse<TResponse>, events: IServerEvents) => {
+export const axiosSuccess = <TResponse = any>(axiosResponse: AxiosResponse<TResponse>, events: IRequestEvents) => {
 	events.handler("response")(axiosResponse.data);
 	events.handler("done")();
 };

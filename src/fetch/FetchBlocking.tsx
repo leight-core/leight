@@ -1,4 +1,4 @@
-import {Fetch, IFetchProps, IGetCallback, IParams, IServerEvents, ServerEvents, useBlockContext, useDiscoveryContext} from "@leight-core/leight";
+import {Fetch, IFetchProps, IGetCallback, IParams, IRequestEvents, RequestEvents, useBlockContext, useDiscoveryContext} from "@leight-core/leight";
 import {message} from "antd";
 import {useTranslation} from "react-i18next";
 
@@ -31,7 +31,7 @@ export interface IFetchBlockingProps<TResponse = any> extends Omit<IFetchProps<T
 	/**
 	 * If there is a need to hook deeply into server events, this is a way.
 	 */
-	events?: IServerEvents<TResponse>;
+	events?: IRequestEvents<TResponse>;
 	/**
 	 * Optional external state update if needed; state is updated based on the lifecycle of request:
 	 * - set undefined
@@ -43,7 +43,7 @@ export interface IFetchBlockingProps<TResponse = any> extends Omit<IFetchProps<T
 	setState?: (data?: TResponse) => void;
 }
 
-export const FetchBlocking = <TResponse extends any>({translation, fetch, setState = () => null, params, events = ServerEvents(), deps = [], block = false, unblock = false, children, ...props}: IFetchBlockingProps<TResponse>) => {
+export const FetchBlocking = <TResponse extends any>({translation, fetch, setState = () => null, params, events = RequestEvents(), deps = [], block = false, unblock = false, children, ...props}: IFetchBlockingProps<TResponse>) => {
 	const discoveryContext = useDiscoveryContext();
 	const blockContext = useBlockContext();
 	const {t} = useTranslation();

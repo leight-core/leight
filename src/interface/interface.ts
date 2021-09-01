@@ -1,4 +1,4 @@
-import {IPostCallback} from "../server/interface";
+import {IPostCallback} from "@leight-core/leight";
 
 export interface IOutputMapper {
 	<T extends Object = any>(values: T): T;
@@ -6,17 +6,6 @@ export interface IOutputMapper {
 
 export interface IDeepMerge {
 	<T1, T2>(x: Partial<T1>, y: Partial<T2>): T1 & T2;
-}
-
-export interface ITranslation {
-	language: string;
-	namespace: string;
-	label: string;
-	text: string;
-}
-
-export interface ITranslations {
-	translations: ITranslation[];
 }
 
 /**
