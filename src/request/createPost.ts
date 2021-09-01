@@ -1,4 +1,4 @@
-import {httpPost, IDiscoveryContext, IParams, IPostCallback, RequestEvents, useDiscoveryContext} from "@leight-core/leight";
+import {httpPost, IDiscoveryContext, IPostCallback, IQuery, RequestEvents, useDiscoveryContext} from "@leight-core/leight";
 import {AxiosRequestConfig} from "axios";
 import {DependencyList, useEffect} from "react";
 
@@ -11,20 +11,20 @@ export function createPost<TRequest = any, TResponse = any>(link: string): IPost
 	return (
 		request: TRequest,
 		discoveryContext: IDiscoveryContext,
-		params?: IParams,
+		query?: IQuery,
 		config?: AxiosRequestConfig,
 	) => httpPost<TRequest, TResponse>(
-		discoveryContext.link(link, params),
+		discoveryContext.link(link, query),
 		request,
 		config,
 	);
 }
 
 export function createUsePost<TRequest = any, TResponse = any>(link: string, deps: DependencyList = []) {
-	return (request: TRequest, params?: IParams, config?: AxiosRequestConfig) => {
+	return (request: TRequest, query?: IQuery, config?: AxiosRequestConfig) => {
 		const events = RequestEvents<TResponse>();
 		const discoveryContext = useDiscoveryContext();
-		useEffect(() => httpPost<TRequest, TResponse>(discoveryContext.link(link, params), request, config).chain(events).cleaner(), deps);
+		useEffect(() => httpPost<TRequest, TResponse>(discoveryContext.link(link, query), request, config).chain(events).cleaner(), deps);
 		return events;
 	};
 }

@@ -1,5 +1,5 @@
 import {CompassOutlined} from "@ant-design/icons";
-import {DiscoveryContext, httpGet, IDiscovery, IParams, LoaderLayout, useClientContext, useLinkContext} from "@leight-core/leight";
+import {DiscoveryContext, httpGet, IDiscovery, IQuery, LoaderLayout, useClientContext, useLinkContext} from "@leight-core/leight";
 import {FC, ReactNode, useEffect, useState} from "react";
 
 export interface IDiscoveryContextProviderProps {
@@ -28,7 +28,7 @@ export const DiscoveryContextProvider: FC<IDiscoveryContextProviderProps> = ({lo
 
 	return <DiscoveryContext.Provider
 		value={{
-			link(id: string, params: IParams | undefined): string {
+			link(id: string, params: IQuery | undefined): string {
 				if (!discovery) {
 					throw new Error(`Cannot resolve link from Discovery for linkId [${id}]; discovery is not initialized yet!`);
 				}

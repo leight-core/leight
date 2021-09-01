@@ -1,4 +1,4 @@
-import {IBaseGroupSelectOption, IGetCallback, IParams, useDiscoveryContext, useOptionalFormContext} from "@leight-core/leight";
+import {IBaseGroupSelectOption, IGetCallback, IQuery, useDiscoveryContext, useOptionalFormContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
 import {DependencyList, forwardRef, Ref, useEffect, useState} from "react";
 
@@ -10,7 +10,7 @@ export interface IGroupSelectProps<TResponse, TSelected = any> extends SelectPro
 	/**
 	 * Optional parameters provided into fetch method.
 	 */
-	fetchParams?: IParams;
+	fetchParams?: IQuery;
 	/**
 	 * Map requested data into Select options.
 	 */

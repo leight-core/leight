@@ -1,4 +1,4 @@
-import {IParams} from "@leight-core/leight";
+import {IQuery} from "@leight-core/leight";
 import {Button, ButtonProps} from "antd";
 import Link from "next/link";
 import React, {FC} from "react";
@@ -16,13 +16,13 @@ export interface IButtonLinkProps extends Omit<ButtonProps, "title"> {
 	/**
 	 * Optional params for the link generator.
 	 */
-	params?: IParams;
+	query?: IQuery;
 }
 
-export const ButtonLink: FC<IButtonLinkProps> = ({href, title, params, ...props}) => {
+export const ButtonLink: FC<IButtonLinkProps> = ({href, title, query, ...props}) => {
 	const {t} = useTranslation();
 	try {
-		return <Link href={{pathname: href, query: params}}>
+		return <Link href={{pathname: href, query}}>
 			<Button
 				type={"primary"}
 				{...props}
@@ -31,15 +31,13 @@ export const ButtonLink: FC<IButtonLinkProps> = ({href, title, params, ...props}
 			</Button>
 		</Link>;
 	} catch (e) {
-		console.warn(`Cannot generate link [${href}] for ButtonLink. Params:`, params, e);
-		return (
-			<Button
-				type={"primary"}
-				disabled
-				{...props}
-			>
-				{title ? t(title) : null}
-			</Button>
-		);
+		console.warn(`Cannot generate link [${href}] for ButtonLink. Params:`, query, e);
+		return <Button
+			type={"primary"}
+			disabled
+			{...props}
+		>
+			{title ? t(title) : null}
+		</Button>;
 	}
 };

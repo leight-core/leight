@@ -1,4 +1,4 @@
-import {IBaseTableChildrenCallback, IPageCallback, IPageResponse, IParams, IRecordItem, LoaderIcon, PageIndex, useDiscoveryContext, useInterval} from "@leight-core/leight";
+import {IBaseTableChildrenCallback, IPageCallback, IPageResponse, IQuery, IRecordItem, LoaderIcon, PageIndex, useDiscoveryContext, useInterval} from "@leight-core/leight";
 import {Table as CoolTable, TableProps} from "antd";
 import {ColumnProps} from "antd/lib/table";
 import isCallable from "is-callable";
@@ -13,7 +13,7 @@ export interface ITableProps<TItem extends Object> extends TableProps<TItem> {
 	/**
 	 * Optional parameter for the URL.
 	 */
-	onFetchParams?: IParams;
+	onFetchParams?: IQuery;
 	/**
 	 * Extra parameters for the Paging.
 	 */

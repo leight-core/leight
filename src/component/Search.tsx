@@ -1,5 +1,5 @@
 import {LoadingOutlined, SearchOutlined} from "@ant-design/icons";
-import {IParams, IPostCallback, ISearchItem, ISearchRequest, ISearchResult, useDiscoveryContext} from "@leight-core/leight";
+import {IPostCallback, IQuery, ISearchItem, ISearchRequest, ISearchResult, useDiscoveryContext} from "@leight-core/leight";
 import {Empty, Select, SelectProps} from "antd";
 import {FC, ReactNode, useState} from "react";
 import {useTranslation} from "react-i18next";
@@ -12,7 +12,7 @@ export interface ISearchProps extends Partial<SelectProps<any>> {
 	/**
 	 * Optional search parameters
 	 */
-	params?: IParams;
+	query?: IQuery;
 	/**
 	 * Optional method responsible for rendering an item
 	 */
@@ -22,7 +22,7 @@ export interface ISearchProps extends Partial<SelectProps<any>> {
 export const Search: FC<ISearchProps> = (
 	{
 		search,
-		params,
+		query,
 		render = (item => item.name),
 		...props
 	}) => {
@@ -36,7 +36,7 @@ export const Search: FC<ISearchProps> = (
 		clearTimeout(id);
 		setLoading(true);
 		setId(setTimeout(() => {
-			search({search: value}, discoveryContext, params)
+			search({search: value}, discoveryContext, query)
 				.on("response", setResult)
 				.on("done", () => {
 					setLoading(false);

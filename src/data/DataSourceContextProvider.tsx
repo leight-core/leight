@@ -1,4 +1,4 @@
-import {DataSourceContext, IPageCallback, IPageResponse, PageIndex, useDiscoveryContext} from "@leight-core/leight";
+import {DataSourceContext, IPageCallback, IPageResponse, IParams, IQuery, PageIndex, useDiscoveryContext} from "@leight-core/leight";
 import {PropsWithChildren, useState} from "react";
 
 export interface IDataSourceContextProviderProps<TItem> {
@@ -7,28 +7,37 @@ export interface IDataSourceContextProviderProps<TItem> {
 
 export const DataSourceContextProvider = <TItem, >({fetch, children}: PropsWithChildren<IDataSourceContextProviderProps<TItem>>) => {
 	const discoveryContext = useDiscoveryContext();
-	const [data, setData] = useState<IPageResponse<any>>(PageIndex());
+	const [data, setData] = useState<IPageResponse<TItem>>(PageIndex());
+	const [params, setParams] = useState<IParams>();
+	const [query, setQuery] = useState<IQuery>();
+	const [size, setSize] = useState<number>(10);
 	const [loading, setLoading] = useState<boolean>(false);
 	return <DataSourceContext.Provider
 		value={{
-			page: (page: number, size: number | undefined) => {
+			page: (page: number, pageSize: number | undefined = size) => {
 				setLoading(true);
 				return fetch(
 					{
 						page,
-						size: size || 10,
-						params: onPageParams,
+						size: pageSize,
+						params,
 					},
 					discoveryContext,
-					{...onFetchParams},
+					query,
 				)
 					.on("response", setData)
 					.on("done", () => setLoading(false));
 			},
+			size,
+			setSize,
 			data,
 			setData,
 			loading,
 			setLoading,
+			params,
+			setParams,
+			query,
+			setQuery,
 		}}
 	>
 		{children}

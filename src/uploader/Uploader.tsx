@@ -1,12 +1,9 @@
+import {Centered, IQuery, IUploaderEvents, useDiscoveryContext} from "@leight-core/leight";
 import {message, Progress, Typography, Upload} from "antd";
 import {DraggerProps, RcFile, UploadChangeParam} from "antd/lib/upload";
 import fileSize from "filesize";
-import {useState} from "react";
+import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {useDiscoveryContext} from "../discovery/DiscoveryContext";
-import {Centered} from "../layout/Centered";
-import {IParams} from "../link/interface";
-import {IUploaderEvents} from "./interface";
 
 export interface IUploaderProps extends Partial<DraggerProps> {
 	/**
@@ -32,10 +29,10 @@ export interface IUploaderProps extends Partial<DraggerProps> {
 	/**
 	 * Optional params for the action.
 	 */
-	params?: IParams;
+	query?: IQuery;
 }
 
-export const Uploader = ({name, limit, events, translation, action, params, ...props}: IUploaderProps) => {
+export const Uploader: FC<IUploaderProps> = ({name, limit, events, translation, action, query, ...props}) => {
 	const discoveryContext = useDiscoveryContext();
 	const [loading, setLoading] = useState(false);
 	const [status, setStatus] = useState<any>("active");
@@ -75,22 +72,20 @@ export const Uploader = ({name, limit, events, translation, action, params, ...p
 				break;
 		}
 	};
-	return <>
-		<Upload.Dragger
-			name={name}
-			listType={"text"}
-			action={discoveryContext.link(action, params)}
-			beforeUpload={onBeforeUpload}
-			onChange={onChange}
-			showUploadList={false}
-			disabled={loading}
-			{...props}
-		>
-			<Centered span={22}>
-				<Progress size={"default"} type={"line"} percent={progress} showInfo={false} status={status}/>
-			</Centered>
-			<Typography.Title level={3}>{t(translation + ".upload")}</Typography.Title>
-			<Typography.Paragraph>{t(translation + ".upload.hint")}</Typography.Paragraph>
-		</Upload.Dragger>
-	</>;
+	return <Upload.Dragger
+		name={name}
+		listType={"text"}
+		action={discoveryContext.link(action, query)}
+		beforeUpload={onBeforeUpload}
+		onChange={onChange}
+		showUploadList={false}
+		disabled={loading}
+		{...props}
+	>
+		<Centered span={22}>
+			<Progress size={"default"} type={"line"} percent={progress} showInfo={false} status={status}/>
+		</Centered>
+		<Typography.Title level={3}>{t(translation + ".upload")}</Typography.Title>
+		<Typography.Paragraph>{t(translation + ".upload.hint")}</Typography.Paragraph>
+	</Upload.Dragger>;
 };

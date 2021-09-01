@@ -9,7 +9,7 @@ import {
 	IFormOnSuccess,
 	IFormPostMapper,
 	IFormProps,
-	IParams,
+	IQuery,
 	IRequestEvents,
 	IUpdateCallback,
 	RequestEvents,
@@ -34,7 +34,7 @@ export interface ICommonFormProps<TFormValues = any, TRequest = TFormValues, TRe
 	/**
 	 * Optional POSt param.
 	 */
-	postParams?: IParams;
+	postParams?: IQuery;
 	postConfig?: AxiosRequestConfig,
 	/**
 	 * Map form data to data being sent to server.

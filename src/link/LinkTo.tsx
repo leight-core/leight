@@ -1,6 +1,6 @@
 import Link from "next/link";
 import {FC} from "react";
-import {IParams} from "./interface";
+import {IQuery} from "./interface";
 
 export interface ILinkToProps {
 	/**
@@ -10,14 +10,14 @@ export interface ILinkToProps {
 	/**
 	 * Optional params used to generate a link.
 	 */
-	params?: IParams;
+	query?: IQuery;
 }
 
 /**
  * Wrapper component over Next.js Link with underlying <a> with children passed through.
  */
-export const LinkTo: FC<ILinkToProps> = ({href, params, children}) => {
-	return <Link href={{pathname: href, query: params}}>
+export const LinkTo: FC<ILinkToProps> = ({href, query, children}) => {
+	return <Link href={{pathname: href, query}}>
 		<a>{children}</a>
 	</Link>;
 };

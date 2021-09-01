@@ -1,11 +1,11 @@
-import {IParams} from "@leight-core/leight";
+import {IQuery} from "@leight-core/leight";
 
 export interface IDiscoveryContext {
 	/**
 	 * Generate link from the given discovery index ID. Or throws an error if
 	 * the ID does not exist.
 	 */
-	link: (id: string, params ?: IParams) => string;
+	link: (id: string, params ?: IQuery) => string;
 }
 
 export interface IDiscoveryItem {

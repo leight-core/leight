@@ -1,4 +1,4 @@
-import {IParams, IPostCallback, ISearchRequest, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
+import {IParams, IPostCallback, IQuery, ISearchRequest, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
 import {DependencyList, forwardRef, Ref, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
@@ -11,7 +11,7 @@ export interface IDebouncedSelectProps<TItem, TSelected = any> extends SelectPro
 	/**
 	 * Extra (optional) search request parameters.
 	 */
-	extra?: any;
+	params?: IParams;
 	/**
 	 * Limit number of items (if the fetch side respects this setting).
 	 *
@@ -21,7 +21,7 @@ export interface IDebouncedSelectProps<TItem, TSelected = any> extends SelectPro
 	/**
 	 * Optional fetch params.
 	 */
-	params?: IParams;
+	query?: IQuery;
 	/**
 	 * Map requested data into Select's options.
 	 */
@@ -54,7 +54,7 @@ export interface IDebouncedSelectProps<TItem, TSelected = any> extends SelectPro
 	deps?: DependencyList;
 }
 
-export const DebouncedSelect = forwardRef(({fetch, params, extra, limit = 10, mapper, usePlaceholder, useFirst = false, deps = [], initial = undefined, debounce = 250, ...props}: IDebouncedSelectProps<any>, ref) => {
+export const DebouncedSelect = forwardRef(({fetch, query, params, limit = 10, mapper, usePlaceholder, useFirst = false, deps = [], initial = undefined, debounce = 250, ...props}: IDebouncedSelectProps<any>, ref) => {
 	const discoveryContext = useDiscoveryContext();
 	const [options, setOptions] = useState<any[]>([]);
 	const [tid, setTid] = useState<number>();
@@ -66,9 +66,9 @@ export const DebouncedSelect = forwardRef(({fetch, params, extra, limit = 10, ma
 	useEffect(
 		() => fetch({
 			search: initial || (formItemContext ? (formItemContext.getValue() || "") : ""),
-			params: extra,
+			params,
 			limit,
-		}, discoveryContext, params)
+		}, discoveryContext, query)
 			.on("request", () => {
 				formContext && formContext.blockContext.block();
 				setLoading(true);
@@ -93,7 +93,7 @@ export const DebouncedSelect = forwardRef(({fetch, params, extra, limit = 10, ma
 		setLoading(true);
 		clearTimeout(tid);
 		setTid(setTimeout(() => {
-			fetch({search, params: extra, limit}, discoveryContext, params)
+			fetch({search, params, limit}, discoveryContext, query)
 				.on("response", data => {
 					setOptions(data.map(mapper));
 					setLoading(false);

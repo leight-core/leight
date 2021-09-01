@@ -1,13 +1,13 @@
-import {IParams} from "@leight-core/leight";
+import {IQuery} from "@leight-core/leight";
 import {useRouter} from "next/router";
 
 export interface INavigate {
-	(href: string, params?: IParams): void;
+	(href: string, query?: IQuery): void;
 }
 
 export const useNavigate = (): INavigate => {
 	const router = useRouter();
-	return (href: string, params?: IParams) => {
-		router.push({pathname: href, query: params});
+	return (href: string, query?: IQuery) => {
+		router.push({pathname: href, query});
 	};
 };

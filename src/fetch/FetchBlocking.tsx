@@ -1,4 +1,4 @@
-import {Fetch, IFetchProps, IGetCallback, IParams, IRequestEvents, RequestEvents, useBlockContext, useDiscoveryContext} from "@leight-core/leight";
+import {Fetch, IFetchProps, IGetCallback, IQuery, IRequestEvents, RequestEvents, useBlockContext, useDiscoveryContext} from "@leight-core/leight";
 import {message} from "antd";
 import {useTranslation} from "react-i18next";
 
@@ -14,7 +14,7 @@ export interface IFetchBlockingProps<TResponse = any> extends Omit<IFetchProps<T
 	/**
 	 * Optional params for fetch callback.
 	 */
-	params?: IParams;
+	query?: IQuery;
 	/**
 	 * Do initial block on request; this could be useful, when there are more fetches on a single page.
 	 *
@@ -43,37 +43,35 @@ export interface IFetchBlockingProps<TResponse = any> extends Omit<IFetchProps<T
 	setState?: (data?: TResponse) => void;
 }
 
-export const FetchBlocking = <TResponse extends any>({translation, fetch, setState = () => null, params, events = RequestEvents(), deps = [], block = false, unblock = false, children, ...props}: IFetchBlockingProps<TResponse>) => {
+export const FetchBlocking = <TResponse extends any>({translation, fetch, setState = () => null, query, events = RequestEvents(), deps = [], block = false, unblock = false, children, ...props}: IFetchBlockingProps<TResponse>) => {
 	const discoveryContext = useDiscoveryContext();
 	const blockContext = useBlockContext();
 	const {t} = useTranslation();
-	return (
-		<Fetch<TResponse>
-			fetch={setData => {
-				/**
-				 * Setting data to undefined forces component to render loading.
-				 */
-				setData(undefined);
-				setState(undefined);
-				return fetch(discoveryContext, params)
-					.on("request", () => {
-						block && blockContext.block();
-					})
-					.on("response", data => {
-						setData(data);
-						setState(data);
-					})
-					.on("catch", () => {
-						blockContext.unblock(unblock);
-						message.error(t(translation + ".fetch.error-occurred"));
-					})
-					.on("done", () => blockContext.unblock(unblock))
-					.chain(events)
-					.cleaner();
-			}}
-			children={children}
-			deps={deps}
-			{...props}
-		/>
-	);
+	return <Fetch<TResponse>
+		fetch={setData => {
+			/**
+			 * Setting data to undefined forces component to render loading.
+			 */
+			setData(undefined);
+			setState(undefined);
+			return fetch(discoveryContext, query)
+				.on("request", () => {
+					block && blockContext.block();
+				})
+				.on("response", data => {
+					setData(data);
+					setState(data);
+				})
+				.on("catch", () => {
+					blockContext.unblock(unblock);
+					message.error(t(translation + ".fetch.error-occurred"));
+				})
+				.on("done", () => blockContext.unblock(unblock))
+				.chain(events)
+				.cleaner();
+		}}
+		children={children}
+		deps={deps}
+		{...props}
+	/>;
 };

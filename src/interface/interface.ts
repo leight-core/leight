@@ -13,6 +13,8 @@ export interface IRecordItem {
 	id: string;
 }
 
+export type IParams = any[] | null | undefined;
+
 export interface ISearchRequest<TParams = any> {
 	/** the search string */
 	search: string;
@@ -21,7 +23,7 @@ export interface ISearchRequest<TParams = any> {
 	limit?: number | null;
 
 	/** extra parameters used for example for result filtering (eg. search just in the context of a client) */
-	params?: any[] | null;
+	params?: IParams;
 }
 
 export interface ISearchItem {

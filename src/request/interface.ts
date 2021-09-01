@@ -1,4 +1,4 @@
-import {IBaseEventTypes, IDiscoveryContext, IEventHandlers, IEventResult, IEvents, IParams} from "@leight-core/leight";
+import {IBaseEventTypes, IDiscoveryContext, IEventHandlers, IEventResult, IEvents, IQuery} from "@leight-core/leight";
 import {AxiosError, AxiosRequestConfig} from "axios";
 
 /**
@@ -38,7 +38,7 @@ export interface IRequestEvents<TResponse = any> extends IEvents<IRequestEventTy
 export interface IGetCallback<TResponse = any> {
 	(
 		discoveryContext: IDiscoveryContext,
-		params?: IParams,
+		query?: IQuery,
 	): IRequestEvents<TResponse>;
 }
 
@@ -49,7 +49,7 @@ export interface IUpdateCallback<TRequest = any, TResponse = any> {
 	(
 		data: TRequest,
 		discoveryContext: IDiscoveryContext,
-		params?: IParams,
+		query?: IQuery,
 		config?: AxiosRequestConfig,
 	): IRequestEvents<TResponse>;
 }
@@ -66,6 +66,6 @@ export interface IPatchCallback<TRequest = any, TResponse = any> extends IUpdate
 export interface IDeleteCallback<TResponse = any> {
 	(
 		discoveryContext: IDiscoveryContext,
-		params?: IParams,
+		query?: IQuery,
 	): IRequestEvents<TResponse>;
 }
