@@ -105,7 +105,7 @@ export function CommonForm<TFormValues extends any = any, TRequest extends any =
 				.chain(formContext.events())
 				.chain(events)
 				.on("response", data => onSuccess(navigate, values, data), 1000)
-				.on("catch", error => onFailure!!((error as AxiosError).response?.data || error, formContext), 1000);
+				.on("catch", (error: AxiosError) => onFailure!!((error && error.response && error.response.data) || error, formContext), 1000);
 		}}
 		labelCol={{span: 8}}
 		labelAlign={"left"}
