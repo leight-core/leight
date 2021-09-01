@@ -12,6 +12,7 @@ export const List = <TItem extends Object = IRecordItem>(
 		...props
 	}: IListProps<TItem>) => {
 	const dataSourceContext = useDataSourceContext<TItem>();
+
 	// useEffect(() => onPage(0, dataSourceContext.size).cleaner(), deps);
 
 	return <CoolList
