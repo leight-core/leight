@@ -31,7 +31,10 @@ export const List = <TItem extends Object = IRecordItem>(
 			defaultPageSize: dataSourceContext.data.size,
 			showQuickJumper: true,
 			hideOnSinglePage: true,
-			onChange: (current, size) => dataSourceContext.page(current - 1, size),
+			onChange: (current, size) => {
+				size && dataSourceContext.setSize(size);
+				dataSourceContext.page(current - 1, size);
+			},
 		}}
 		renderItem={children}
 		{...props}
