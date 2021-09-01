@@ -1,6 +1,6 @@
-import {IPageIndex} from "@leight-core/leight";
+import {IPageResponse} from "@leight-core/leight";
 
-export function PageIndex(): IPageIndex<any> {
+export function PageIndex(): IPageResponse<any> {
 	return {
 		total: 0,
 		size: 0,

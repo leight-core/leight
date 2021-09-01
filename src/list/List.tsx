@@ -1,40 +1,24 @@
-import {IPageCallback, IPageIndex, IParams, IRecordItem, LoaderIcon, PageIndex, useDiscoveryContext} from "@leight-core/leight";
+import {IRecordItem, LoaderIcon, useDataSourceContext, useDiscoveryContext} from "@leight-core/leight";
 import {List as CoolList, ListProps} from "antd";
-import {DependencyList, ReactNode, useEffect, useState} from "react";
+import {DependencyList, ReactNode, useEffect} from "react";
 
 export interface IListProps<TItem> extends Partial<ListProps<TItem>> {
-	onFetchPage: IPageCallback<TItem>;
-	/**
-	 * Optional parameter for the URL.
-	 */
-	onFetchParams?: IParams;
-	/**
-	 * Extra parameters for the Paging.
-	 */
-	onPageParams?: any;
-	pageSize?: number;
 	children: (item: TItem, index: number) => ReactNode;
 	deps?: DependencyList;
 }
 
 export const List = <TItem extends Object = IRecordItem>(
 	{
-		onFetchPage,
-		onFetchParams,
-		onPageParams,
-		pageSize = 10,
 		deps = [],
 		children,
 		...props
 	}: IListProps<TItem>) => {
 	const discoveryContext = useDiscoveryContext();
-	const [page, setPage] = useState<IPageIndex<TItem>>(PageIndex());
-	const [loading, setLoading] = useState<boolean>(true);
-	const items = page.items;
+	const dataSourceContext = useDataSourceContext();
 
 	const onPage = (page: number, size: number | undefined) => {
 		setLoading(true);
-		return onFetchPage(
+		return dataSourceContext.page(
 			{
 				page,
 				size: size || 10,
@@ -50,7 +34,7 @@ export const List = <TItem extends Object = IRecordItem>(
 	/**
 	 * Without dependency, because onPage is callback which changes overtime (thus forcing re-rendering).
 	 */
-	useEffect(() => onPage(0, pageSize).cleaner(), deps);
+	useEffect(() => onPage(0, dataSourceContext.size).cleaner(), deps);
 
 	return <CoolList
 		style={{minHeight: "50vh"}}

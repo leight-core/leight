@@ -1,4 +1,4 @@
-import {IBaseTableChildrenCallback, IPageCallback, IPageIndex, IParams, IRecordItem, LoaderIcon, PageIndex, useDiscoveryContext, useInterval} from "@leight-core/leight";
+import {IBaseTableChildrenCallback, IPageCallback, IPageResponse, IParams, IRecordItem, LoaderIcon, PageIndex, useDiscoveryContext, useInterval} from "@leight-core/leight";
 import {Table as CoolTable, TableProps} from "antd";
 import {ColumnProps} from "antd/lib/table";
 import isCallable from "is-callable";
@@ -40,7 +40,7 @@ export const Table = <TItem extends Object = IRecordItem>(
 	}: ITableProps<TItem>) => {
 	const {t} = useTranslation();
 	const discoveryContext = useDiscoveryContext();
-	const [page, setPage] = useState<IPageIndex<TItem>>(PageIndex());
+	const [page, setPage] = useState<IPageResponse<TItem>>(PageIndex());
 	const [loading, setLoading] = useState<boolean>(true);
 	const items = page.items;
 
