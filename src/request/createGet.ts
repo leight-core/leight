@@ -1,4 +1,4 @@
-import {httpGet, IDiscoveryContext, IGetCallback, IParams, ServerEvents, useDiscoveryContext} from "@leight-core/leight";
+import {httpGet, IDiscoveryContext, IGetCallback, IParams, RequestEvents, useDiscoveryContext} from "@leight-core/leight";
 import {AxiosRequestConfig} from "axios";
 import {DependencyList, useEffect} from "react";
 
@@ -20,7 +20,7 @@ export function createGet<TResponse = any>(link: string): IGetCallback<TResponse
 
 export function createUseGet<TResponse = any>(link: string, deps: DependencyList = []) {
 	return (params?: IParams, config?: AxiosRequestConfig) => {
-		const events = ServerEvents<TResponse>();
+		const events = RequestEvents<TResponse>();
 		const discoveryContext = useDiscoveryContext();
 		useEffect(() => httpGet<TResponse>(discoveryContext.link(link, params), config).chain(events).cleaner(), deps);
 		return events;

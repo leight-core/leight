@@ -1,4 +1,4 @@
-import {httpPut, IDiscoveryContext, IParams, IPutCallback, ServerEvents, useDiscoveryContext} from "@leight-core/leight";
+import {httpPut, IDiscoveryContext, IParams, IPutCallback, RequestEvents, useDiscoveryContext} from "@leight-core/leight";
 import {AxiosRequestConfig} from "axios";
 import {DependencyList, useEffect} from "react";
 
@@ -22,7 +22,7 @@ export function createPut<TRequest = any, TResponse = any>(link: string): IPutCa
 
 export function createUsePut<TRequest = any, TResponse = any>(link: string, deps: DependencyList = []) {
 	return (request: TRequest, params?: IParams, config?: AxiosRequestConfig) => {
-		const events = ServerEvents<TResponse>();
+		const events = RequestEvents<TResponse>();
 		const discoveryContext = useDiscoveryContext();
 		useEffect(() => httpPut<TRequest, TResponse>(discoveryContext.link(link, params), request, config).chain(events).cleaner(), deps);
 		return events;

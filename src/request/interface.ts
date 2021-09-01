@@ -19,12 +19,12 @@ export interface IHttpErrorEvents extends IEventHandlers {
 /**
  * Available server events.
  */
-export type IServerEventTypes = "request" | "response" | "catch" | "error" | "done" | IHttpErrorEventTypes;
+export type IRequestEventTypes = "request" | "response" | "catch" | "error" | "done" | IHttpErrorEventTypes;
 
 /**
  * Events emitted in server util methods.
  */
-export interface IServerEventHandlers<TResponse = any> extends IHttpErrorEvents {
+export interface IRequestEventHandlers<TResponse = any> extends IHttpErrorEvents {
 	request: <TRequest>(request?: TRequest) => void;
 	response: (data: TResponse) => void;
 	done: () => void;
@@ -32,20 +32,14 @@ export interface IServerEventHandlers<TResponse = any> extends IHttpErrorEvents 
 	catch: (error: AxiosError) => void;
 }
 
-export interface IServerEvents<TResponse = any> extends IEvents<IServerEventTypes, IServerEventHandlers<TResponse>> {
-}
-
-export interface IPage<TParams = any> {
-	page: number;
-	limit: number;
-	params?: TParams;
+export interface IRequestEvents<TResponse = any> extends IEvents<IRequestEventTypes, IRequestEventHandlers<TResponse>> {
 }
 
 export interface IGetCallback<TResponse = any> {
 	(
 		discoveryContext: IDiscoveryContext,
 		params?: IParams,
-	): IServerEvents<TResponse>;
+	): IRequestEvents<TResponse>;
 }
 
 /**
@@ -57,7 +51,7 @@ export interface IUpdateCallback<TRequest = any, TResponse = any> {
 		discoveryContext: IDiscoveryContext,
 		params?: IParams,
 		config?: AxiosRequestConfig,
-	): IServerEvents<TResponse>;
+	): IRequestEvents<TResponse>;
 }
 
 export interface IPostCallback<TRequest = any, TResponse = any> extends IUpdateCallback<TRequest, TResponse> {
@@ -73,5 +67,5 @@ export interface IDeleteCallback<TResponse = any> {
 	(
 		discoveryContext: IDiscoveryContext,
 		params?: IParams,
-	): IServerEvents<TResponse>;
+	): IRequestEvents<TResponse>;
 }

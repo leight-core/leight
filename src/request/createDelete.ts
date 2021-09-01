@@ -1,4 +1,4 @@
-import {httpDelete, IDeleteCallback, IDiscoveryContext, IParams, ServerEvents, useDiscoveryContext} from "@leight-core/leight";
+import {httpDelete, IDeleteCallback, IDiscoveryContext, IParams, RequestEvents, useDiscoveryContext} from "@leight-core/leight";
 import {AxiosRequestConfig} from "axios";
 import {DependencyList, useEffect} from "react";
 
@@ -20,7 +20,7 @@ export function createDelete<TResponse = any>(link: string): IDeleteCallback<TRe
 
 export function createUseDelete<TResponse = any>(link: string, deps: DependencyList = []) {
 	return (params?: IParams, config?: AxiosRequestConfig) => {
-		const events = ServerEvents<TResponse>();
+		const events = RequestEvents<TResponse>();
 		const discoveryContext = useDiscoveryContext();
 		useEffect(() => httpDelete<TResponse>(discoveryContext.link(link, params), config).chain(events).cleaner(), deps);
 		return events;
