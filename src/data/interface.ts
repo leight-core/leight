@@ -37,14 +37,44 @@ export interface IDataSourceContext<TItem> {
 	 * Callback for retrieving one page of data.
 	 */
 	readonly page: (page: number, pageSize: number | undefined) => void;
+	/**
+	 * Page size
+	 */
 	readonly size: number;
+	/**
+	 * Set a new page size
+	 */
 	setSize: (size: number) => void;
+	/**
+	 * Data returned by paging.
+	 */
 	readonly data: IPageResponse<TItem>;
+	/**
+	 * Set a new paged data.
+	 */
 	setData: (data: IPageResponse<TItem>) => void;
+	/**
+	 * Is data source in loading state?
+	 */
 	readonly loading: boolean;
+	/**
+	 * Set loading state of data source.
+	 */
 	setLoading: (loading: boolean) => void;
+	/**
+	 * Access to current page params.
+	 */
 	readonly params: IParams;
+	/**
+	 * Set new page params.
+	 */
 	setParams: (params: IParams) => void;
+	/**
+	 * Access to current query used to fetch a page.
+	 */
 	readonly query: IQuery;
+	/**
+	 * Set a new query.
+	 */
 	setQuery: (query: IQuery) => void;
 }
