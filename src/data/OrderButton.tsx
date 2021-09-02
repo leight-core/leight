@@ -1,4 +1,4 @@
-import {CloseCircleOutlined, DownOutlined, MinusCircleOutlined, UpOutlined} from "@ant-design/icons";
+import {DownOutlined, MinusCircleOutlined, UpOutlined} from "@ant-design/icons";
 import {useDataSourceContext} from "@leight-core/leight";
 import {Button, Space, Tooltip} from "antd";
 import {useTranslation} from "react-i18next";
@@ -25,10 +25,5 @@ export const OrderButton = <TOrderBy, >({orderBy}: IOrderButtonProps<TOrderBy>) 
 			(order === true && <Tooltip title={t("common.order.ascending.tooltip")}>{t("order-by.label." + orderBy)}</Tooltip>) ||
 			(order === false && <Tooltip title={t("common.order.descending.tooltip")}>{t("order-by.label." + orderBy)}</Tooltip>)}
 		</Button>
-		<Button
-			type={"link"}
-			icon={<Tooltip title={t("common.order.clear.tooltip")}><CloseCircleOutlined/></Tooltip>}
-			onClick={() => dataSourceContext.setOrderBy(null)}
-		/>
 	</Space>;
 };
