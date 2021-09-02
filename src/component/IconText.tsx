@@ -6,19 +6,20 @@ export interface IIconTextProps extends Partial<SpaceProps> {
 	icon: ReactNode;
 	text?: string | number;
 	tooltip?: string;
+	data?: any;
 }
 
-export const IconText: FC<IIconTextProps> = ({icon, text, tooltip, ...props}) => {
+export const IconText: FC<IIconTextProps> = ({icon, text, tooltip, data, ...props}) => {
 	const {t} = useTranslation();
 	return tooltip ?
-		<Tooltip title={t(tooltip)}>
+		<Tooltip title={t(tooltip, {data})}>
 			<Space {...props}>
 				{icon}
-				<>{text && t("" + text)}</>
+				<>{text && t("" + text, {data})}</>
 			</Space>
 		</Tooltip> :
 		<Space {...props}>
 			{icon}
-			<>{text && t("" + text)}</>
+			<>{text && t("" + text, {data})}</>
 		</Space>;
 };
