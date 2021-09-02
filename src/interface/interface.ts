@@ -13,7 +13,7 @@ export interface IRecordItem {
 	id: string;
 }
 
-export type IParams = any[] | null | undefined;
+export type IParams = { [index: string]: string | number | boolean | null | undefined | IParams } | null | undefined;
 
 export interface ISearchRequest<TParams = any> {
 	/** the search string */
