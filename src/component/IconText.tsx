@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 
 export interface IIconTextProps extends Partial<SpaceProps> {
 	icon: ReactNode;
-	text: string;
+	text: string | number;
 	tooltip?: string;
 }
 
@@ -14,11 +14,11 @@ export const IconText: FC<IIconTextProps> = ({icon, text, tooltip, ...props}) =>
 		<Tooltip title={t(tooltip)}>
 			<Space {...props}>
 				{icon}
-				{t(text)}
+				{t("" + text)}
 			</Space>
 		</Tooltip> :
 		<Space {...props}>
 			{icon}
-			{t(text)}
+			{t("" + text)}
 		</Space>;
 };
