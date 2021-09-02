@@ -1,4 +1,4 @@
-import {DataSourceContext, IPageCallback, IPageResponse, IParams, IQuery, PageIndex, useDiscoveryContext} from "@leight-core/leight";
+import {DataSourceContext, IOrderBy, IPageCallback, IPageResponse, IQuery, PageIndex, useDiscoveryContext} from "@leight-core/leight";
 import {DependencyList, PropsWithChildren, useEffect, useState} from "react";
 
 export interface IDataSourceContextProviderProps<TItem> {
@@ -10,7 +10,7 @@ export interface IDataSourceContextProviderProps<TItem> {
 export const DataSourceContextProvider = <TItem, >({fetch, defaultSize = 10, deps = [], children}: PropsWithChildren<IDataSourceContextProviderProps<TItem>>) => {
 	const discoveryContext = useDiscoveryContext();
 	const [data, setData] = useState<IPageResponse<TItem>>(PageIndex());
-	const [params, setParams] = useState<IParams>();
+	const [orderBy, setOrderBy] = useState<IOrderBy | null>();
 	const [query, setQuery] = useState<IQuery>();
 	const [size, setSize] = useState<number>(defaultSize);
 	const [loading, setLoading] = useState<boolean>(true);
@@ -21,7 +21,7 @@ export const DataSourceContextProvider = <TItem, >({fetch, defaultSize = 10, dep
 			{
 				page,
 				size: pageSize,
-				params,
+				orderBy,
 			},
 			discoveryContext,
 			query,
@@ -41,8 +41,8 @@ export const DataSourceContextProvider = <TItem, >({fetch, defaultSize = 10, dep
 			setData,
 			loading,
 			setLoading,
-			params,
-			setParams,
+			orderBy,
+			setOrderBy,
 			query,
 			setQuery,
 		}}

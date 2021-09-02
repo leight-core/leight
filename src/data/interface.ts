@@ -1,14 +1,18 @@
-import {IParams, IPostCallback, IQuery} from "@leight-core/leight";
+import {IPostCallback, IQuery} from "@leight-core/leight";
 
-export interface IPageRequest<TParams = any> {
+export interface IOrderBy {
+	[index: string]: boolean | null;
+}
+
+export interface IPageRequest<TOrderBy extends IOrderBy = {}> {
 	/** currently requested page */
 	readonly page: number;
 
 	/** limit number of items per page */
 	readonly size: number;
 
-	/** optional parameters for paging (for example filtering options, ...) */
-	readonly params: IParams;
+	/** support for ordering items */
+	readonly orderBy?: TOrderBy | null;
 }
 
 export interface IPageResponse<TItem> {
@@ -31,8 +35,7 @@ export interface IPageResponse<TItem> {
 export interface IPageCallback<TItem> extends IPostCallback<IPageRequest, IPageResponse<TItem>> {
 }
 
-
-export interface IDataSourceContext<TItem> {
+export interface IDataSourceContext<TItem, TOrderBy extends IOrderBy = {}> {
 	/**
 	 * Callback for retrieving one page of data.
 	 */
@@ -62,13 +65,13 @@ export interface IDataSourceContext<TItem> {
 	 */
 	setLoading: (loading: boolean) => void;
 	/**
-	 * Access to current page params.
+	 * Current order by.
 	 */
-	readonly params: IParams;
+	readonly orderBy?: TOrderBy | null;
 	/**
-	 * Set new page params.
+	 * Set new order by.
 	 */
-	setParams: (params: IParams) => void;
+	setOrderBy: (orderBy?: TOrderBy | null) => void;
 	/**
 	 * Access to current query used to fetch a page.
 	 */
