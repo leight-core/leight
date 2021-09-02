@@ -1,4 +1,4 @@
-import {CloseCircleOutlined} from "@ant-design/icons";
+import {RollbackOutlined} from "@ant-design/icons";
 import {useDataSourceContext} from "@leight-core/leight";
 import {Button, ButtonProps, Tooltip} from "antd";
 import {FC} from "react";
@@ -12,7 +12,7 @@ export const CancelOrderButton: FC<ICancelOrderButtonProps> = props => {
 	const {t} = useTranslation();
 	return <Button
 		type={"link"}
-		icon={<Tooltip title={t("common.order.clear.tooltip")}><CloseCircleOutlined/></Tooltip>}
+		icon={<Tooltip title={t("common.order.clear.tooltip")}><RollbackOutlined/></Tooltip>}
 		onClick={() => dataSourceContext.setOrderBy(null)}
 		{...props}
 	/>;
