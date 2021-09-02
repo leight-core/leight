@@ -1,19 +1,30 @@
 import {DataSourceContext, IPageCallback, IPageResponse, IQuery, PageIndex, useDiscoveryContext} from "@leight-core/leight";
 import {DependencyList, PropsWithChildren, useEffect, useState} from "react";
 
-export interface IDataSourceContextProviderProps<TItem, TOrderBy = never> {
-	fetch: IPageCallback<TItem, TOrderBy>;
+export interface IDataSourceContextProviderProps<TItem, TOrderBy = never, TFilter = never> {
+	fetch: IPageCallback<TItem, TOrderBy, TFilter>;
 	deps?: DependencyList;
 	defaultSize?: number;
 	defaultOrderBy?: TOrderBy | null;
+	defaultFilter?: TFilter | null;
 	defaultQuery?: IQuery;
 }
 
-export const DataSourceContextProvider = <TItem, TOrderBy = never>({fetch, defaultSize = 10, defaultOrderBy, defaultQuery, deps = [], children}: PropsWithChildren<IDataSourceContextProviderProps<TItem, TOrderBy>>) => {
+export const DataSourceContextProvider = <TItem, TOrderBy = never, TFilter = never>(
+	{
+		fetch,
+		defaultSize = 10,
+		defaultOrderBy,
+		defaultFilter,
+		defaultQuery,
+		deps = [],
+		children
+	}: PropsWithChildren<IDataSourceContextProviderProps<TItem, TOrderBy, TFilter>>) => {
 	const discoveryContext = useDiscoveryContext();
 	const [page, setPage] = useState<number>(0);
 	const [data, setData] = useState<IPageResponse<TItem>>(PageIndex());
 	const [orderBy, setOrderBy] = useState<TOrderBy | null | undefined>(defaultOrderBy);
+	const [filter, setFilter] = useState<TFilter | null | undefined>(defaultFilter);
 	const [query, setQuery] = useState<IQuery>(defaultQuery);
 	const [size, setSize] = useState<number>(defaultSize);
 	const [loading, setLoading] = useState<boolean>(true);
@@ -30,7 +41,7 @@ export const DataSourceContextProvider = <TItem, TOrderBy = never>({fetch, defau
 			.on("response", setData)
 			.on("done", () => setLoading(false))
 			.cleaner(),
-		[orderBy, page, query, size].concat(deps)
+		[orderBy, filter, page, query, size].concat(deps)
 	);
 
 	return <DataSourceContext.Provider
@@ -48,6 +59,8 @@ export const DataSourceContextProvider = <TItem, TOrderBy = never>({fetch, defau
 			setLoading,
 			orderBy,
 			setOrderBy,
+			filter,
+			setFilter,
 			query,
 			setQuery,
 		}}

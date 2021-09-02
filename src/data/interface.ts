@@ -1,6 +1,6 @@
 import {IPostCallback, IQuery} from "@leight-core/leight";
 
-export interface IPageRequest<TOrderBy = never> {
+export interface IPageRequest<TOrderBy = never, TFilter = never> {
 	/** currently requested page */
 	readonly page: number;
 
@@ -9,6 +9,10 @@ export interface IPageRequest<TOrderBy = never> {
 
 	/** support for ordering items */
 	readonly orderBy?: TOrderBy | null;
+	/**
+	 * support for exact item filtering (like by an id or name or whatever)
+	 */
+	readonly filter?: TOrderBy | null;
 }
 
 export interface IPageResponse<TItem> {
@@ -28,10 +32,10 @@ export interface IPageResponse<TItem> {
 	readonly items: TItem[];
 }
 
-export interface IPageCallback<TItem, TOrderBy = never> extends IPostCallback<IPageRequest<TOrderBy>, IPageResponse<TItem>> {
+export interface IPageCallback<TItem, TOrderBy = never, TFilter = never> extends IPostCallback<IPageRequest<TOrderBy, TFilter>, IPageResponse<TItem>> {
 }
 
-export interface IDataSourceContext<TItem, TOrderBy = never> {
+export interface IDataSourceContext<TItem, TOrderBy = never, TFilter = never> {
 	/**
 	 * Current page
 	 */
@@ -72,6 +76,8 @@ export interface IDataSourceContext<TItem, TOrderBy = never> {
 	 * Set new order by.
 	 */
 	setOrderBy: (orderBy?: TOrderBy | null) => void;
+	readonly filter?: TFilter | null;
+	setFilter: (filter?: TFilter | null) => void;
 	/**
 	 * Access to current query used to fetch a page.
 	 */
