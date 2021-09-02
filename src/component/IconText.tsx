@@ -1,16 +1,24 @@
-import {Space, SpaceProps} from "antd";
+import {Space, SpaceProps, Tooltip} from "antd";
 import {FC, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface IIconTextProps extends Partial<SpaceProps> {
 	icon: ReactNode;
 	text: string;
+	tooltip?: string;
 }
 
-export const IconText: FC<IIconTextProps> = ({icon, text, ...props}) => {
+export const IconText: FC<IIconTextProps> = ({icon, text, tooltip, ...props}) => {
 	const {t} = useTranslation();
-	return <Space {...props}>
+
+	const Inner = () => <Space {...props}>
 		{icon}
 		{t(text)}
 	</Space>;
+
+	return tooltip ?
+		<Tooltip title={t(tooltip)}>
+			<Inner/>
+		</Tooltip> :
+		<Inner/>;
 };
