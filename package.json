@@ -1,6 +1,6 @@
 {
 	"name": "@leight-core/leight",
-	"version": "0.9.55",
+	"version": "0.9.56",
 	"description": "A component library for Next.js and Ant Design.",
 	"license": "MIT",
 	"repository": {
