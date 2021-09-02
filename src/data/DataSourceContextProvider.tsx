@@ -30,7 +30,7 @@ export const DataSourceContextProvider = <TItem, TOrderBy = never>({fetch, defau
 			.on("response", setData)
 			.on("done", () => setLoading(false))
 			.cleaner(),
-		[orderBy, query, size].concat(deps)
+		[orderBy, page, query, size].concat(deps)
 	);
 
 	return <DataSourceContext.Provider
