@@ -15,11 +15,11 @@ export const IconText: FC<IIconTextProps> = ({icon, text, tooltip, data, ...prop
 		<Tooltip title={t(tooltip, {data})}>
 			<Space {...props}>
 				{icon}
-				<>{text && t("" + text, {data})}</>
+				{text && t("" + text, {data})}
 			</Space>
 		</Tooltip> :
 		<Space {...props}>
 			{icon}
-			<>{text && t("" + text, {data})}</>
+			{text && t("" + text, {data})}
 		</Space>;
 };
