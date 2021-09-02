@@ -4,11 +4,11 @@ import {Button, Space, Tooltip} from "antd";
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface IOrderButtonProps<T> {
-	orderBy: keyof T;
+export interface IOrderButtonProps<TOrderBy> {
+	orderBy: keyof TOrderBy;
 }
 
-export const OrderButton = <T, >({orderBy}: IOrderButtonProps<T>) => {
+export const OrderButton = <TOrderBy, >({orderBy}: IOrderButtonProps<TOrderBy>) => {
 	const dataSourceContext = useDataSourceContext<any, any>();
 	const [order, setOrder] = useState<boolean | undefined>(dataSourceContext.orderBy ? dataSourceContext.orderBy[orderBy] : undefined);
 	const {t} = useTranslation();
