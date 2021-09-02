@@ -33,9 +33,13 @@ export interface IPageCallback<TItem, TOrderBy = never> extends IPostCallback<IP
 
 export interface IDataSourceContext<TItem, TOrderBy = never> {
 	/**
-	 * Callback for retrieving one page of data.
+	 * Current page
 	 */
-	readonly page: (page: number, pageSize: number | undefined) => void;
+	readonly page: number;
+	/**
+	 * Set a new page (and eventually size).
+	 */
+	setPage: (page: number, pageSize?: number) => void;
 	/**
 	 * Page size
 	 */

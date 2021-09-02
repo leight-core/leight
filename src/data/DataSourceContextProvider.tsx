@@ -11,32 +11,35 @@ export interface IDataSourceContextProviderProps<TItem, TOrderBy = never> {
 
 export const DataSourceContextProvider = <TItem, TOrderBy = never>({fetch, defaultSize = 10, defaultOrderBy, defaultQuery, deps = [], children}: PropsWithChildren<IDataSourceContextProviderProps<TItem, TOrderBy>>) => {
 	const discoveryContext = useDiscoveryContext();
+	const [page, setPage] = useState<number>(0);
 	const [data, setData] = useState<IPageResponse<TItem>>(PageIndex());
 	const [orderBy, setOrderBy] = useState<TOrderBy | null | undefined>(defaultOrderBy);
 	const [query, setQuery] = useState<IQuery>(defaultQuery);
 	const [size, setSize] = useState<number>(defaultSize);
 	const [loading, setLoading] = useState<boolean>(true);
 
-	function doFetchPage(page: number, pageSize: number | undefined = size) {
-		setLoading(true);
-		return fetch(
+	useEffect(() => fetch(
 			{
 				page,
-				size: pageSize,
+				size,
 				orderBy,
 			},
 			discoveryContext,
 			query,
 		)
 			.on("response", setData)
-			.on("done", () => setLoading(false));
-	}
-
-	useEffect(() => doFetchPage(0, size).cleaner(), deps);
+			.on("done", () => setLoading(false))
+			.cleaner(),
+		[orderBy, query, size].concat(deps)
+	);
 
 	return <DataSourceContext.Provider
 		value={{
-			page: doFetchPage,
+			page,
+			setPage: (page, size) => {
+				setPage(page);
+				setSize(size || defaultSize);
+			},
 			size,
 			setSize,
 			data,

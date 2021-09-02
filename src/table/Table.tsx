@@ -24,7 +24,7 @@ export const Table = <TItem extends Object = IRecordItem>(
 	const {t} = useTranslation();
 	const dataSourceContext = useDataSourceContext<TItem>();
 
-	useInterval(() => dataSourceContext.page(0, dataSourceContext.size), live);
+	useInterval(() => dataSourceContext.setPage(0, dataSourceContext.size), live);
 
 	return <CoolTable
 		style={{minHeight: "50vh"}}
@@ -42,10 +42,7 @@ export const Table = <TItem extends Object = IRecordItem>(
 			defaultPageSize: dataSourceContext.data.size,
 			showQuickJumper: true,
 			hideOnSinglePage: true,
-			onChange: (current, size) => {
-				size && dataSourceContext.setSize(size);
-				dataSourceContext.page(current - 1, size);
-			},
+			onChange: (current, size) => dataSourceContext.setPage(current - 1, size),
 		}}
 		{...props}
 	>
