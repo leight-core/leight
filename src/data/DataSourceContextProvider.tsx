@@ -5,13 +5,15 @@ export interface IDataSourceContextProviderProps<TItem, TOrderBy = never> {
 	fetch: IPageCallback<TItem, TOrderBy>;
 	deps?: DependencyList;
 	defaultSize?: number;
+	defaultOrderBy?: TOrderBy | null;
+	defaultQuery?: IQuery;
 }
 
-export const DataSourceContextProvider = <TItem, TOrderBy = never>({fetch, defaultSize = 10, deps = [], children}: PropsWithChildren<IDataSourceContextProviderProps<TItem, TOrderBy>>) => {
+export const DataSourceContextProvider = <TItem, TOrderBy = never>({fetch, defaultSize = 10, defaultOrderBy, defaultQuery, deps = [], children}: PropsWithChildren<IDataSourceContextProviderProps<TItem, TOrderBy>>) => {
 	const discoveryContext = useDiscoveryContext();
 	const [data, setData] = useState<IPageResponse<TItem>>(PageIndex());
-	const [orderBy, setOrderBy] = useState<TOrderBy | null | undefined>();
-	const [query, setQuery] = useState<IQuery>();
+	const [orderBy, setOrderBy] = useState<TOrderBy | null | undefined>(defaultOrderBy);
+	const [query, setQuery] = useState<IQuery>(defaultQuery);
 	const [size, setSize] = useState<number>(defaultSize);
 	const [loading, setLoading] = useState<boolean>(true);
 
