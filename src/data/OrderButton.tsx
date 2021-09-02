@@ -1,4 +1,4 @@
-import {DownOutlined, MinusCircleOutlined, UpOutlined} from "@ant-design/icons";
+import {DashOutlined, DownOutlined, UpOutlined} from "@ant-design/icons";
 import {useDataSourceContext} from "@leight-core/leight";
 import {Button, Space, Tooltip} from "antd";
 import {useTranslation} from "react-i18next";
@@ -14,7 +14,7 @@ export const OrderButton = <TOrderBy, >({orderBy}: IOrderButtonProps<TOrderBy>) 
 	return <Space size={"small"}>
 		<Button
 			icon={
-				(order === undefined && <Tooltip title={t("common.order.undefined.tooltip")}><MinusCircleOutlined/></Tooltip>) ||
+				(order === undefined && <Tooltip title={t("common.order.undefined.tooltip")}><DashOutlined/></Tooltip>) ||
 				(order === true && <Tooltip title={t("common.order.ascending.tooltip")}><UpOutlined/></Tooltip>) ||
 				(order === false && <Tooltip title={t("common.order.descending.tooltip")}><DownOutlined/></Tooltip>)
 			}
