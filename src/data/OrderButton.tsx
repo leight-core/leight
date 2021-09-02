@@ -10,7 +10,7 @@ export interface IOrderButtonProps<T> {
 
 export const OrderButton = <T, >({orderBy}: IOrderButtonProps<T>) => {
 	const dataSourceContext = useDataSourceContext<any, any>();
-	const [order, setOrder] = useState<boolean | undefined>(dataSourceContext.orderBy[orderBy]);
+	const [order, setOrder] = useState<boolean | undefined>(dataSourceContext.orderBy ? dataSourceContext.orderBy[orderBy] : undefined);
 	const {t} = useTranslation();
 	return <Space size={"small"}>
 		<Button
