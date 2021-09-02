@@ -1,16 +1,16 @@
-import {DataSourceContext, IOrderBy, IPageCallback, IPageResponse, IQuery, PageIndex, useDiscoveryContext} from "@leight-core/leight";
+import {DataSourceContext, IPageCallback, IPageResponse, IQuery, PageIndex, useDiscoveryContext} from "@leight-core/leight";
 import {DependencyList, PropsWithChildren, useEffect, useState} from "react";
 
-export interface IDataSourceContextProviderProps<TItem> {
-	fetch: IPageCallback<TItem>;
+export interface IDataSourceContextProviderProps<TItem, TOrderBy = never> {
+	fetch: IPageCallback<TItem, TOrderBy>;
 	deps?: DependencyList;
 	defaultSize?: number;
 }
 
-export const DataSourceContextProvider = <TItem, >({fetch, defaultSize = 10, deps = [], children}: PropsWithChildren<IDataSourceContextProviderProps<TItem>>) => {
+export const DataSourceContextProvider = <TItem, TOrderBy = never>({fetch, defaultSize = 10, deps = [], children}: PropsWithChildren<IDataSourceContextProviderProps<TItem, TOrderBy>>) => {
 	const discoveryContext = useDiscoveryContext();
 	const [data, setData] = useState<IPageResponse<TItem>>(PageIndex());
-	const [orderBy, setOrderBy] = useState<IOrderBy | null>();
+	const [orderBy, setOrderBy] = useState<TOrderBy | null | undefined>();
 	const [query, setQuery] = useState<IQuery>();
 	const [size, setSize] = useState<number>(defaultSize);
 	const [loading, setLoading] = useState<boolean>(true);

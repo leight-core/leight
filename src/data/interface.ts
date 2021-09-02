@@ -1,10 +1,6 @@
 import {IPostCallback, IQuery} from "@leight-core/leight";
 
-export interface IOrderBy {
-	[index: string]: boolean | null;
-}
-
-export interface IPageRequest<TOrderBy extends IOrderBy = {}> {
+export interface IPageRequest<TOrderBy = never> {
 	/** currently requested page */
 	readonly page: number;
 
@@ -32,10 +28,10 @@ export interface IPageResponse<TItem> {
 	readonly items: TItem[];
 }
 
-export interface IPageCallback<TItem> extends IPostCallback<IPageRequest, IPageResponse<TItem>> {
+export interface IPageCallback<TItem, TOrderBy = never> extends IPostCallback<IPageRequest<TOrderBy>, IPageResponse<TItem>> {
 }
 
-export interface IDataSourceContext<TItem, TOrderBy extends IOrderBy = {}> {
+export interface IDataSourceContext<TItem, TOrderBy = never> {
 	/**
 	 * Callback for retrieving one page of data.
 	 */
