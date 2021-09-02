@@ -12,7 +12,7 @@ export const OrderButton = <T, >({orderBy}: IOrderButtonProps<T>) => {
 	const dataSourceContext = useDataSourceContext<any, any>();
 	const [order, setOrder] = useState<boolean | undefined>(dataSourceContext.orderBy[orderBy]);
 	const {t} = useTranslation();
-	return <Space>
+	return <Space size={"small"}>
 		<Button
 			icon={
 				(order === undefined && <Tooltip title={t("common.order.undefined.tooltip")}><MinusCircleOutlined/></Tooltip>) ||
