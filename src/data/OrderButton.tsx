@@ -1,7 +1,6 @@
 import {CloseCircleOutlined, DownOutlined, MinusCircleOutlined, UpOutlined} from "@ant-design/icons";
 import {useDataSourceContext} from "@leight-core/leight";
 import {Button, Space, Tooltip} from "antd";
-import {useState} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface IOrderButtonProps<TOrderBy> {
@@ -10,7 +9,7 @@ export interface IOrderButtonProps<TOrderBy> {
 
 export const OrderButton = <TOrderBy, >({orderBy}: IOrderButtonProps<TOrderBy>) => {
 	const dataSourceContext = useDataSourceContext<any, any>();
-	const [order, setOrder] = useState<boolean | undefined>(dataSourceContext.orderBy ? dataSourceContext.orderBy[orderBy] : undefined);
+	const order = dataSourceContext.orderBy ? dataSourceContext.orderBy[orderBy] : undefined;
 	const {t} = useTranslation();
 	return <Space size={"small"}>
 		<Button
@@ -20,10 +19,7 @@ export const OrderButton = <TOrderBy, >({orderBy}: IOrderButtonProps<TOrderBy>) 
 				(order === false && <Tooltip title={t("common.order.descending.tooltip")}><DownOutlined/></Tooltip>)
 			}
 			type={"link"}
-			onClick={() => {
-				setOrder(order => !order);
-				dataSourceContext.setOrderBy({[orderBy]: !order});
-			}}
+			onClick={() => dataSourceContext.setOrderBy({[orderBy]: !order})}
 		>
 			{(order === undefined && <Tooltip title={t("common.order.undefined.tooltip")}>{t("order-by.label." + orderBy)}</Tooltip>) ||
 			(order === true && <Tooltip title={t("common.order.ascending.tooltip")}>{t("order-by.label." + orderBy)}</Tooltip>) ||
@@ -32,10 +28,7 @@ export const OrderButton = <TOrderBy, >({orderBy}: IOrderButtonProps<TOrderBy>) 
 		<Button
 			type={"link"}
 			icon={<Tooltip title={t("common.order.clear.tooltip")}><CloseCircleOutlined/></Tooltip>}
-			onClick={() => {
-				setOrder(undefined);
-				dataSourceContext.setOrderBy(null);
-			}}
+			onClick={() => dataSourceContext.setOrderBy(null)}
 		/>
 	</Space>;
 };
