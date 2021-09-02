@@ -10,15 +10,15 @@ export interface IIconTextProps extends Partial<SpaceProps> {
 
 export const IconText: FC<IIconTextProps> = ({icon, text, tooltip, ...props}) => {
 	const {t} = useTranslation();
-
-	const Inner = () => <Space {...props}>
-		{icon}
-		{t(text)}
-	</Space>;
-
 	return tooltip ?
 		<Tooltip title={t(tooltip)}>
-			<Inner/>
+			<Space {...props}>
+				{icon}
+				{t(text)}
+			</Space>
 		</Tooltip> :
-		<Inner/>;
+		<Space {...props}>
+			{icon}
+			{t(text)}
+		</Space>;
 };
