@@ -25,9 +25,9 @@ export const OrderButton = <T, >({orderBy}: IOrderButtonProps<T>) => {
 				dataSourceContext.setOrderBy({[orderBy]: !order});
 			}}
 		>
-			(order === undefined && <Tooltip title={t("common.order.undefined.tooltip")}>{t("order-by.label." + orderBy)}</Tooltip>) ||
+			{(order === undefined && <Tooltip title={t("common.order.undefined.tooltip")}>{t("order-by.label." + orderBy)}</Tooltip>) ||
 			(order === true && <Tooltip title={t("common.order.ascending.tooltip")}>{t("order-by.label." + orderBy)}</Tooltip>) ||
-			(order === false && <Tooltip title={t("common.order.descending.tooltip")}>{t("order-by.label." + orderBy)}</Tooltip>)
+			(order === false && <Tooltip title={t("common.order.descending.tooltip")}>{t("order-by.label." + orderBy)}</Tooltip>)}
 		</Button>
 		<Button
 			type={"link"}
