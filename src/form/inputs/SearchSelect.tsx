@@ -43,7 +43,6 @@ export interface ISearchSelectProps<TItem, TOrderBy, TFilter> extends SelectProp
 	 * Dependency used to force redraw (re-fetch data).
 	 */
 	deps?: DependencyList;
-	ref: React.Ref<any>;
 }
 
 export const SearchSelect = <TItem, TOrderBy, TFilter>(
