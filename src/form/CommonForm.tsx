@@ -34,16 +34,16 @@ export interface ICommonFormProps<TRequest = any, TResponse = TRequest> extends 
 	/**
 	 * Optional POSt param.
 	 */
-	postParams?: IQuery;
+	query?: IQuery;
 	postConfig?: AxiosRequestConfig,
 	/**
 	 * Map form data to data being sent to server.
 	 */
-	postMapper?: IFormPostMapper<any, TRequest>;
+	toPost?: IFormPostMapper<any, TRequest>;
 	/**
 	 * Map data to the initial state of the form (if any).
 	 */
-	initialMapper?: IFormInitialMapper<any>;
+	toForm?: IFormInitialMapper<any>;
 	/**
 	 * Called when a form is successfully committed.
 	 */
@@ -52,7 +52,7 @@ export interface ICommonFormProps<TRequest = any, TResponse = TRequest> extends 
 	 * Called when an error occurs.
 	 */
 	onFailure?: IFormOnFailure;
-	mapError?: (error: any, formContext: IFormContext) => IFormErrorMap;
+	toError?: (error: any, formContext: IFormContext) => IFormErrorMap;
 	/**
 	 * Optional events if needed to be hooked in.
 	 */
@@ -62,12 +62,12 @@ export interface ICommonFormProps<TRequest = any, TResponse = TRequest> extends 
 export function CommonForm<TRequest = any, TResponse = TRequest>(
 	{
 		post,
-		postParams,
+		query,
 		postConfig,
-		postMapper = values => values,
-		initialMapper = () => null as any,
+		toPost = values => values,
+		toForm = () => null as any,
 		onSuccess = () => null,
-		mapError = () => ({}),
+		toError = () => ({}),
 		onFailure,
 		events = RequestEvents(),
 		...props
@@ -89,7 +89,7 @@ export function CommonForm<TRequest = any, TResponse = TRequest>(
 	}
 
 	onFailure = onFailure || ((error, formContext) => {
-		const map = mapError(error, formContext);
+		const map = toError(error, formContext);
 		const formError = map[error];
 		const general = map["general"];
 		formError && handleError(formError, error, formContext);
@@ -101,7 +101,7 @@ export function CommonForm<TRequest = any, TResponse = TRequest>(
 		colon={false}
 		size={"large"}
 		onSubmit={(values, formContext) => {
-			post(postMapper(values), discoveryContext, postParams, postConfig)
+			post(toPost(values), discoveryContext, query, postConfig)
 				.chain(formContext.events())
 				.chain(events)
 				.on("response", data => onSuccess(navigate, values, data), 1000)
@@ -111,7 +111,7 @@ export function CommonForm<TRequest = any, TResponse = TRequest>(
 		labelAlign={"left"}
 		wrapperCol={{span: 24}}
 		scrollToFirstError
-		initialValues={initialMapper() as any}
+		initialValues={toForm() as any}
 		{...props}
 	/>;
 }
