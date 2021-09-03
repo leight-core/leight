@@ -22,7 +22,7 @@ import isCallable from "is-callable";
 import {PropsWithChildren} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface ICommonFormProps<TFormValues = any, TRequest = TFormValues, TResponse = TRequest> extends Partial<Omit<IFormProps<TFormValues>, "name">> {
+export interface ICommonFormProps<TRequest = any, TResponse = TRequest> extends Partial<Omit<IFormProps, "name">> {
 	/**
 	 * Name of the form.
 	 */
@@ -39,15 +39,15 @@ export interface ICommonFormProps<TFormValues = any, TRequest = TFormValues, TRe
 	/**
 	 * Map form data to data being sent to server.
 	 */
-	postMapper?: IFormPostMapper<TFormValues, TRequest>;
+	postMapper?: IFormPostMapper<any, TRequest>;
 	/**
 	 * Map data to the initial state of the form (if any).
 	 */
-	initialMapper?: IFormInitialMapper<TFormValues>;
+	initialMapper?: IFormInitialMapper<any>;
 	/**
 	 * Called when a form is successfully committed.
 	 */
-	onSuccess?: IFormOnSuccess<TFormValues, TResponse>;
+	onSuccess?: IFormOnSuccess<any, TResponse>;
 	/**
 	 * Called when an error occurs.
 	 */
@@ -59,19 +59,19 @@ export interface ICommonFormProps<TFormValues = any, TRequest = TFormValues, TRe
 	events?: IRequestEvents<TResponse>;
 }
 
-export function CommonForm<TFormValues extends any = any, TRequest extends any = TFormValues, TResponse extends any = TRequest>(
+export function CommonForm<TRequest = any, TResponse = TRequest>(
 	{
 		post,
 		postParams,
 		postConfig,
-		postMapper = values => values as any,
+		postMapper = values => values,
 		initialMapper = () => null as any,
 		onSuccess = () => null,
 		mapError = () => ({}),
 		onFailure,
 		events = RequestEvents(),
 		...props
-	}: PropsWithChildren<ICommonFormProps<TFormValues, TRequest, TResponse>>): JSX.Element {
+	}: PropsWithChildren<ICommonFormProps<TRequest, TResponse>>): JSX.Element {
 	const discoveryContext = useDiscoveryContext();
 	const navigate = useNavigate();
 	const {t} = useTranslation();
@@ -97,7 +97,7 @@ export function CommonForm<TFormValues extends any = any, TRequest extends any =
 		!formError && !general && message.error(t(error));
 	});
 
-	return <Form<TFormValues>
+	return <Form
 		colon={false}
 		size={"large"}
 		onSubmit={(values, formContext) => {
