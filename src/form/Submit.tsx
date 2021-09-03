@@ -1,25 +1,17 @@
-import {FormUtils, Spinner, SubmitDisabledIcon, useFormBlockContext, useFormContext} from "@leight-core/leight";
-import {Button, ButtonProps, Form, FormInstance} from "antd";
+import {FormUtils, useFormContext} from "@leight-core/leight";
+import {Button, ButtonProps, Form} from "antd";
 import React, {FC, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface ISubmitButtonProps extends Partial<ButtonProps> {
+export interface ISubmitProps extends Partial<ButtonProps> {
 	/**
 	 * Disable Form.Item styling.
 	 */
 	noStyle?: boolean;
 	/**
-	 * An Antd Form Instance used for validation checks and others.
-	 */
-	formInstance?: FormInstance;
-	/**
 	 * Title on the button; goes through react-i18next.
 	 */
 	label: string | string[];
-	/**
-	 * When button is disabled, show this icon.
-	 */
-	disabledIcon?: boolean | JSX.Element;
 }
 
 /**
@@ -46,10 +38,9 @@ export interface ISubmitButtonProps extends Partial<ButtonProps> {
  * - https://ant.design/components/button/
  * - https://ant.design/components/form/#API
  */
-export const SubmitButton: FC<ISubmitButtonProps> = ({formInstance, noStyle, label, icon, disabledIcon, ...props}) => {
+export const Submit: FC<ISubmitProps> = ({noStyle, label, ...props}) => {
 	const [disabled, setDisabled] = useState(true);
 	const formContext = useFormContext();
-	const formBlockContext = useFormBlockContext();
 
 	const Internal = () => {
 		const {t} = useTranslation();
@@ -64,10 +55,14 @@ export const SubmitButton: FC<ISubmitButtonProps> = ({formInstance, noStyle, lab
 			type={"primary"}
 			disabled={disabled}
 			children={t(label)}
-			icon={<Spinner done={!formBlockContext.isBlocked()} children={(disabled || props.disabled) ? (disabledIcon || <SubmitDisabledIcon/>) : icon}/>}
 			{...props}
 		/>;
 	};
 
-	return <Form.Item shouldUpdate noStyle={noStyle} children={() => <Internal/>}/>;
+	return <Form.Item
+		shouldUpdate
+		noStyle={noStyle}
+	>
+		{() => <Internal/>}
+	</Form.Item>;
 };
