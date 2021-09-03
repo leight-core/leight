@@ -3,7 +3,7 @@ export * from "./Select";
 export * from "./CheckboxItem";
 export * from "./CustomSelect";
 export * from "./CustomDebouncedSelect";
-export * from "./DebouncedSelect";
+export * from "./SearchSelect";
 export * from "./Input";
 export * from "./PasswordInput";
 export * from "./SwitchItem";

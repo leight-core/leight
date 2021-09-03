@@ -10,15 +10,15 @@ export interface ICreateTemplateProps {
 
 export const CreateTemplate: FC<ICreateTemplateProps> = ({icon, title, children}) => {
 	const {t} = useTranslation();
-	return <Result
-		icon={icon}
-		title={t(title + ".create.title")}
-		subTitle={t(title + ".create.subtitle")}
-		extra={<>
-			<Divider/>
-			<Centered span={16}>
-				{children}
-			</Centered>
-		</>}
-	/>;
+	return <>
+		<Result
+			icon={icon}
+			title={t(title + ".create.title")}
+			subTitle={t(title + ".create.subtitle")}
+			extra={<Divider/>}
+		/>
+		<Centered span={16}>
+			{children}
+		</Centered>
+	</>;
 };

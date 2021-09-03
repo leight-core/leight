@@ -1,31 +1,26 @@
-import {IParams, IPostCallback, IQuery, ISearchRequest, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
+import {IBaseSelectOption, IPageCallback, IPageRequest, IQuery, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
-import {DependencyList, forwardRef, Ref, useEffect, useState} from "react";
+import React, {DependencyList, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface IDebouncedSelectProps<TItem, TSelected = any> extends SelectProps<TSelected> {
+
+export interface ISearchSelectProps<TItem, TOrderBy, TFilter> extends SelectProps<any> {
 	/**
-	 * Fetch used in effect to fetch data.
+	 * Search callback.
 	 */
-	fetch: IPostCallback<ISearchRequest, TItem[]>;
-	/**
-	 * Extra (optional) search request parameters.
-	 */
-	params?: IParams;
-	/**
-	 * Limit number of items (if the fetch side respects this setting).
-	 *
-	 * Defaults to 10.
-	 */
-	limit?: number;
+	search: IPageCallback<TItem, TOrderBy, TFilter>;
 	/**
 	 * Optional fetch params.
 	 */
 	query?: IQuery;
 	/**
+	 * How to map searched input to request on server-side.
+	 */
+	toSearch: (search?: string) => IPageRequest<TOrderBy, TFilter>;
+	/**
 	 * Map requested data into Select's options.
 	 */
-	toOption: (item: TItem) => any;
+	toOption: (item: TItem) => IBaseSelectOption;
 	/**
 	 * Debounce interval in ms.
 	 */
@@ -39,10 +34,6 @@ export interface IDebouncedSelectProps<TItem, TSelected = any> extends SelectPro
 	 */
 	usePlaceholder?: boolean;
 	/**
-	 * An ability to forward refs as the control itself does not behave correctly if used without forwardRef.
-	 */
-	ref?: Ref<any>;
-	/**
 	 * Select a first value.
 	 *
 	 * Defaults to false.
@@ -52,11 +43,24 @@ export interface IDebouncedSelectProps<TItem, TSelected = any> extends SelectPro
 	 * Dependency used to force redraw (re-fetch data).
 	 */
 	deps?: DependencyList;
+	ref: React.Ref<any>;
 }
 
-export const DebouncedSelect = forwardRef(({fetch, query, params, limit = 10, toOption, usePlaceholder, useFirst = false, deps = [], initial = undefined, debounce = 250, ...props}: IDebouncedSelectProps<any>, ref) => {
+export const SearchSelect = <TItem, TOrderBy, TFilter>(
+	{
+		search,
+		query,
+		toSearch,
+		toOption,
+		usePlaceholder,
+		useFirst = false,
+		deps = [],
+		initial = undefined,
+		debounce = 250,
+		...props
+	}: ISearchSelectProps<TItem, TOrderBy, TFilter>) => {
 	const discoveryContext = useDiscoveryContext();
-	const [options, setOptions] = useState<any[]>([]);
+	const [options, setOptions] = useState<any[]>();
 	const [tid, setTid] = useState<number>();
 	const formContext = useOptionalFormContext();
 	const [loading, setLoading] = useState(false);
@@ -64,17 +68,13 @@ export const DebouncedSelect = forwardRef(({fetch, query, params, limit = 10, to
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
 	useEffect(
-		() => fetch({
-			search: initial || (formItemContext ? (formItemContext.getValue() || "") : ""),
-			params,
-			limit,
-		}, discoveryContext, query)
+		() => search(toSearch(initial || (formItemContext && formItemContext.getValue())), discoveryContext, query)
 			.on("request", () => {
 				formContext && formContext.blockContext.block();
 				setLoading(true);
 			})
 			.on("response", data => {
-				const options = data.map(toOption);
+				const options = data.items.map(toOption);
 				setOptions(options);
 				if (useFirst && options.length > 0) {
 					formItemContext && formItemContext.setValue(options[0].value);
@@ -89,20 +89,19 @@ export const DebouncedSelect = forwardRef(({fetch, query, params, limit = 10, to
 		deps.concat([formItemContext && formItemContext.getValue()])
 	);
 
-	const onSearch = (search: string) => {
+	const onSearch = (text: string) => {
 		setLoading(true);
 		clearTimeout(tid);
 		setTid(setTimeout(() => {
-			fetch({search, params, limit}, discoveryContext, query)
+			search(toSearch(text), discoveryContext, query)
 				.on("response", data => {
-					setOptions(data.map(toOption));
+					setOptions(data.items.map(toOption));
 					setLoading(false);
 				});
 		}, debounce) as unknown as number);
 	};
 
-	return <Select
-		ref={ref as any}
+	return options ? <Select
 		options={options}
 		showSearch={true}
 		loading={loading}
@@ -110,5 +109,9 @@ export const DebouncedSelect = forwardRef(({fetch, query, params, limit = 10, to
 		notFoundContent={t("common.nothing-found")}
 		onSearch={onSearch}
 		{...props}
+	/> : <Select
+		options={options}
+		showSearch={true}
+		loading={loading}
 	/>;
-}) as <TItem, TSelected = any>(props: IDebouncedSelectProps<TItem, TSelected>) => JSX.Element;
+};
