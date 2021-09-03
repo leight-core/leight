@@ -27,4 +27,3 @@ export * from "./table";
 export * from "./translation";
 export * from "./uploader";
 export * from "./utils";
-export * from "./wizard";
