@@ -55,6 +55,7 @@ export const FormItem: FC<IFormItemProps> = (
 	 * The idea is to clear errors set from form context and this solution could do that with ease!
 	 */
 	rules.push(() => ({validator: () => Promise.resolve()}));
+	props.tooltip = props.tooltip ? t("" + props.tooltip) : props.tooltip;
 	return (
 		<FormItemContext.Provider
 			value={{
