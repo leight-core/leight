@@ -34,6 +34,7 @@ export const DataSourceContextProvider = <TItem, TOrderBy = never, TFilter = nev
 				page,
 				size,
 				orderBy,
+				filter,
 			},
 			discoveryContext,
 			query,
