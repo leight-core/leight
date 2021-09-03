@@ -52,6 +52,7 @@ export const Submit: FC<ISubmitProps> = ({noStyle, label, ...props}) => {
 			return () => promise.cancel();
 		});
 		return <Button
+			htmlType={"submit"}
 			type={"primary"}
 			disabled={disabled}
 			children={t(label)}
