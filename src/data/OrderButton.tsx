@@ -19,6 +19,7 @@ export const OrderButton = <TOrderBy, >({orderBy}: IOrderButtonProps<TOrderBy>) 
 				(order === false && <Tooltip title={t("common.order.descending.tooltip")}><ArrowDownOutlined/></Tooltip>)
 			}
 			type={"link"}
+			size={"small"}
 			onClick={() => dataSourceContext.setOrderBy({[orderBy]: !order})}
 		>
 			{(order === undefined && <Tooltip title={t("common.order.undefined.tooltip")}>{t("order-by.label." + orderBy)}</Tooltip>) ||
