@@ -26,6 +26,7 @@ export interface ICheckboxItemProps extends Partial<IFormItemProps> {
 export const CheckboxItem: FC<ICheckboxItemProps> = ({field, labels = [], checkboxProps, ...props}) => {
 	return <FormItem
 		field={field}
+		initialValue={false}
 		valuePropName={"checked"}
 		labels={labels}
 		{...props}

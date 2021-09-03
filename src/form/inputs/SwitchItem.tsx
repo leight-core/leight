@@ -26,6 +26,7 @@ export interface ISwitchItemProps extends Partial<IFormItemProps> {
 export const SwitchItem: FC<ISwitchItemProps> = ({field, labels = [], switchProps, ...props}) => {
 	return <FormItem
 		field={field}
+		initialValue={false}
 		valuePropName={"checked"}
 		labels={labels}
 		{...props}
