@@ -29,6 +29,6 @@ export const CheckboxItem: FC<ICheckboxItemProps> = ({field, labels = [], checkb
 		valuePropName={"checked"}
 		labels={labels}
 		{...props}
-		children={<CoolCheckbox {...checkboxProps}/>}
+		children={<CoolCheckbox defaultChecked={false} {...checkboxProps}/>}
 	/>;
 };
