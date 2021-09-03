@@ -1,8 +1,7 @@
-import {IBaseSelectOption, IPageCallback, IPageRequest, IQuery, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
+import {IPageCallback, IQuery, IToOptionMapper, IToSearchMapper, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
 import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-
 
 export interface ISearchSelectProps<TItem, TOrderBy, TFilter> extends SelectProps<any> {
 	/**
@@ -16,11 +15,11 @@ export interface ISearchSelectProps<TItem, TOrderBy, TFilter> extends SelectProp
 	/**
 	 * How to map searched input to request on server-side.
 	 */
-	toSearch: (search?: string) => IPageRequest<TOrderBy, TFilter>;
+	toSearch: IToSearchMapper<TOrderBy, TFilter>;
 	/**
 	 * Map requested data into Select's options.
 	 */
-	toOption: (item: TItem) => IBaseSelectOption;
+	toOption: IToOptionMapper<TItem>;
 	/**
 	 * Debounce interval in ms.
 	 */
