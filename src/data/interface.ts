@@ -12,7 +12,7 @@ export interface IPageRequest<TOrderBy = never, TFilter = never> {
 	/**
 	 * support for exact item filtering (like by an id or name or whatever)
 	 */
-	readonly filter?: TOrderBy | null;
+	readonly filter?: TFilter | null;
 }
 
 export interface IPageResponse<TItem> {
