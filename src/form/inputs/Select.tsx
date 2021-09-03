@@ -1,6 +1,6 @@
 import {IBaseSelectOption, IGetCallback, IQuery, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select as CoolSelect, SelectProps} from "antd";
-import {DependencyList, forwardRef, Ref, useEffect, useRef, useState} from "react";
+import {DependencyList, forwardRef, useEffect, useRef, useState} from "react";
 
 export interface ISelectProps<TData, TSelected = any> extends SelectProps<TSelected> {
 	/**
@@ -10,11 +10,11 @@ export interface ISelectProps<TData, TSelected = any> extends SelectProps<TSelec
 	/**
 	 * Optional parameters provided into fetch method.
 	 */
-	fetchParams?: IQuery;
+	query?: IQuery;
 	/**
 	 * Map requested data into Select options.
 	 */
-	mapper: (item: TData) => IBaseSelectOption | false;
+	toOption: (item: TData) => IBaseSelectOption | false;
 	/**
 	 * Dependency used to force redraw (re-fetch data).
 	 */
@@ -24,10 +24,6 @@ export interface ISelectProps<TData, TSelected = any> extends SelectProps<TSelec
 	 */
 	usePlaceholder?: boolean;
 	/**
-	 * An ability to forward refs as the control itself does not behave correctly if used without forwardRef.
-	 */
-	ref?: Ref<any>;
-	/**
 	 * Select a first value.
 	 *
 	 * Defaults to false.
@@ -35,14 +31,14 @@ export interface ISelectProps<TData, TSelected = any> extends SelectProps<TSelec
 	useFirst?: boolean;
 }
 
-export const Select = forwardRef(({fetch, fetchParams, mapper, usePlaceholder, useFirst = false, deps = [], ...props}: ISelectProps<any>, ref) => {
+export const Select = forwardRef(({fetch, query, toOption, usePlaceholder, useFirst = false, deps = [], ...props}: ISelectProps<any>, ref) => {
 	const [options, setOptions] = useState<IBaseSelectOption[]>([]);
 	const first = useRef(true);
 	const discoveryContext = useDiscoveryContext();
 	const formContext = useOptionalFormContext();
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
-	useEffect(() => fetch(discoveryContext, fetchParams)
+	useEffect(() => fetch(discoveryContext, query)
 		.on("request", () => {
 			formContext && formContext.blockContext.block();
 			setOptions([]);
@@ -53,7 +49,7 @@ export const Select = forwardRef(({fetch, fetchParams, mapper, usePlaceholder, u
 					{name: formItemContext.field, value: undefined},
 				]);
 			}
-			const options = data.map(mapper).filter(item => item !== false) as IBaseSelectOption[];
+			const options = data.map(toOption).filter(item => item !== false) as IBaseSelectOption[];
 			setOptions(options);
 			first.current = false;
 			if (useFirst && options.length > 0 && !(formItemContext && formItemContext.getValue())) {

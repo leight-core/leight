@@ -1,6 +1,6 @@
 import {IGetCallback, IQuery, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
-import {DependencyList, forwardRef, Ref, useEffect, useRef, useState} from "react";
+import {DependencyList, forwardRef, useEffect, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface ICustomSelectProps<TData, TSelected = any> extends SelectProps<TSelected> {
@@ -11,7 +11,7 @@ export interface ICustomSelectProps<TData, TSelected = any> extends SelectProps<
 	/**
 	 * Optional parameters provided into fetch method.
 	 */
-	fetchParams?: IQuery;
+	query?: IQuery;
 	/**
 	 * Map requested data into Select options.
 	 */
@@ -24,13 +24,9 @@ export interface ICustomSelectProps<TData, TSelected = any> extends SelectProps<
 	 * Use form item label as a placeholder.
 	 */
 	usePlaceholder?: boolean;
-	/**
-	 * An ability to forward refs as the control itself does not behave correctly if used without forwardRef.
-	 */
-	ref?: Ref<any>;
 }
 
-export const CustomSelect = forwardRef(({fetch, fetchParams, children, usePlaceholder, deps = [], ...props}: ICustomSelectProps<any>, ref) => {
+export const CustomSelect = forwardRef(({fetch, query, children, usePlaceholder, deps = [], ...props}: ICustomSelectProps<any>, ref) => {
 	const {t} = useTranslation();
 	const [data, setData] = useState<any[]>([]);
 	const first = useRef(true);
@@ -39,7 +35,7 @@ export const CustomSelect = forwardRef(({fetch, fetchParams, children, usePlaceh
 	const formContext = useOptionalFormContext();
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
-	useEffect(() => fetch(discoveryContext, fetchParams)
+	useEffect(() => fetch(discoveryContext, query)
 		.on("request", () => {
 			formContext && formContext.blockContext.block();
 			setData([]);

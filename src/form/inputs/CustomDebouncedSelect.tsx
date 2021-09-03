@@ -1,6 +1,6 @@
 import {IParams, IPostCallback, IQuery, ISearchRequest, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
-import {DependencyList, forwardRef, Ref, useEffect, useState} from "react";
+import {DependencyList, forwardRef, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface ICustomDebouncedSelectProps<TItem, TSelected = any> extends SelectProps<TSelected> {
@@ -38,10 +38,6 @@ export interface ICustomDebouncedSelectProps<TItem, TSelected = any> extends Sel
 	 * Use label as placeholder for the select.
 	 */
 	usePlaceholder?: boolean;
-	/**
-	 * An ability to forward refs as the control itself does not behave correctly if used without forwardRef.
-	 */
-	ref?: Ref<any>;
 	/**
 	 * Dependency used to force redraw (re-fetch data).
 	 */

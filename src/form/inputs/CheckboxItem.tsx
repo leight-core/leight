@@ -24,13 +24,11 @@ export interface ICheckboxItemProps extends Partial<IFormItemProps> {
  * - https://ant.design/components/checkbox/
  */
 export const CheckboxItem: FC<ICheckboxItemProps> = ({field, labels = [], checkboxProps, ...props}) => {
-	return (
-		<FormItem
-			field={field}
-			valuePropName={"checked"}
-			labels={labels}
-			{...props}
-			children={<CoolCheckbox {...checkboxProps}/>}
-		/>
-	);
+	return <FormItem
+		field={field}
+		valuePropName={"checked"}
+		labels={labels}
+		{...props}
+		children={<CoolCheckbox {...checkboxProps}/>}
+	/>;
 };

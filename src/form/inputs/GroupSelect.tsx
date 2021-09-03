@@ -1,6 +1,6 @@
 import {IBaseGroupSelectOption, IGetCallback, IQuery, useDiscoveryContext, useOptionalFormContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
-import {DependencyList, forwardRef, Ref, useEffect, useState} from "react";
+import {DependencyList, forwardRef, useEffect, useState} from "react";
 
 export interface IGroupSelectProps<TResponse, TSelected = any> extends SelectProps<TSelected> {
 	/**
@@ -10,31 +10,27 @@ export interface IGroupSelectProps<TResponse, TSelected = any> extends SelectPro
 	/**
 	 * Optional parameters provided into fetch method.
 	 */
-	fetchParams?: IQuery;
+	query?: IQuery;
 	/**
 	 * Map requested data into Select options.
 	 */
-	mapper: (item: TResponse) => IBaseGroupSelectOption;
+	toOption: (item: TResponse) => IBaseGroupSelectOption;
 	/**
 	 * Dependency used to force redraw (re-fetch data).
 	 */
 	deps?: DependencyList;
-	/**
-	 * An ability to forward refs as the control itself does not behave correctly if used without forwardRef.
-	 */
-	ref?: Ref<any>;
 }
 
-export const GroupSelect = forwardRef(({fetch, fetchParams, mapper, deps = [], ...props}: IGroupSelectProps<any>, ref) => {
+export const GroupSelect = forwardRef(({fetch, query, toOption, deps = [], ...props}: IGroupSelectProps<any>, ref) => {
 	const [options, setOptions] = useState<IBaseGroupSelectOption[]>([]);
 	const discoveryContext = useDiscoveryContext();
 	const formContext = useOptionalFormContext();
-	useEffect(() => fetch(discoveryContext, fetchParams)
+	useEffect(() => fetch(discoveryContext, query)
 		.on("request", () => {
 			formContext && formContext.blockContext.block();
 		})
 		.on("response", data => {
-			setOptions(data.map(mapper));
+			setOptions(data.map(toOption));
 		})
 		.on("done", () => {
 			formContext && formContext.blockContext.unblock();
