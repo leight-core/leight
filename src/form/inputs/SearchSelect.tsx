@@ -1,6 +1,6 @@
 import {IBaseSelectOption, IPageCallback, IPageRequest, IQuery, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
-import React, {DependencyList, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 
 
@@ -26,10 +26,6 @@ export interface ISearchSelectProps<TItem, TOrderBy, TFilter> extends SelectProp
 	 */
 	debounce?: number;
 	/**
-	 * Initial value.
-	 */
-	initial?: string;
-	/**
 	 * Use label as placeholder for the select.
 	 */
 	usePlaceholder?: boolean;
@@ -39,10 +35,6 @@ export interface ISearchSelectProps<TItem, TOrderBy, TFilter> extends SelectProp
 	 * Defaults to false.
 	 */
 	useFirst?: boolean;
-	/**
-	 * Dependency used to force redraw (re-fetch data).
-	 */
-	deps?: DependencyList;
 }
 
 export const SearchSelect = <TItem, TOrderBy, TFilter>(
@@ -53,8 +45,6 @@ export const SearchSelect = <TItem, TOrderBy, TFilter>(
 		toOption,
 		usePlaceholder,
 		useFirst = false,
-		deps = [],
-		initial = undefined,
 		debounce = 250,
 		...props
 	}: ISearchSelectProps<TItem, TOrderBy, TFilter>) => {
@@ -67,7 +57,7 @@ export const SearchSelect = <TItem, TOrderBy, TFilter>(
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
 	useEffect(
-		() => search(toSearch(initial || (formItemContext && formItemContext.getValue())), discoveryContext, query)
+		() => search(toSearch(formItemContext && formItemContext.getValue()), discoveryContext, query)
 			.on("request", () => {
 				formContext && formContext.blockContext.block();
 				setLoading(true);
@@ -85,7 +75,7 @@ export const SearchSelect = <TItem, TOrderBy, TFilter>(
 				formContext && formContext.blockContext.unblock();
 			})
 			.cleaner(),
-		deps.concat([formItemContext && formItemContext.getValue()])
+		[],
 	);
 
 	const onSearch = (text: string) => {
