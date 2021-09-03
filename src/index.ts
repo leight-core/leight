@@ -24,6 +24,7 @@ export * from "./request";
 export * from "./router";
 export * from "./session";
 export * from "./table";
+export * from "./template";
 export * from "./translation";
 export * from "./uploader";
 export * from "./utils";
