@@ -105,6 +105,7 @@ const FormInternal: FC<IFormProps> = (
 	});
 
 	return <CoolForm
+		form={formContext.form}
 		colon={false}
 		size={"large"}
 		onFinish={values => post(toPost(values), discoveryContext, query, axios)

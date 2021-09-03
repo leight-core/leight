@@ -9,6 +9,4 @@ export interface IFormSubmitButtonProps extends ISubmitButtonProps {
  *
  * Internally just sets htmlType of the underlying SubmitButton.
  */
-export const FormSubmitButton: FC<IFormSubmitButtonProps> = (props) => {
-	return <SubmitButton htmlType={"submit"} {...props}/>;
-};
+export const FormSubmitButton: FC<IFormSubmitButtonProps> = props => <SubmitButton htmlType={"submit"} {...props}/>;
