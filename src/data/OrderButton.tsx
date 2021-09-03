@@ -5,12 +5,14 @@ import {useTranslation} from "react-i18next";
 
 export interface IOrderButtonProps<TOrderBy> {
 	orderBy: keyof TOrderBy;
+	prefix: string;
 }
 
-export const OrderButton = <TOrderBy, >({orderBy}: IOrderButtonProps<TOrderBy>) => {
+export const OrderButton = <TOrderBy, >({orderBy, prefix}: IOrderButtonProps<TOrderBy>) => {
 	const dataSourceContext = useDataSourceContext<any, any>();
 	const order = dataSourceContext.orderBy ? dataSourceContext.orderBy[orderBy] : undefined;
 	const {t} = useTranslation();
+	const label = t("order-by.label." + prefix + "." + orderBy);
 	return <Space size={"small"}>
 		<Button
 			icon={
@@ -22,9 +24,9 @@ export const OrderButton = <TOrderBy, >({orderBy}: IOrderButtonProps<TOrderBy>) 
 			size={"small"}
 			onClick={() => dataSourceContext.setOrderBy({[orderBy]: !order})}
 		>
-			{(order === undefined && <Tooltip title={t("common.order.undefined.tooltip")}>{t("order-by.label." + orderBy)}</Tooltip>) ||
-			(order === true && <Tooltip title={t("common.order.ascending.tooltip")}>{t("order-by.label." + orderBy)}</Tooltip>) ||
-			(order === false && <Tooltip title={t("common.order.descending.tooltip")}>{t("order-by.label." + orderBy)}</Tooltip>)}
+			{(order === undefined && <Tooltip title={t("common.order.undefined.tooltip")}>{label}</Tooltip>) ||
+			(order === true && <Tooltip title={t("common.order.ascending.tooltip")}>{label}</Tooltip>) ||
+			(order === false && <Tooltip title={t("common.order.descending.tooltip")}>{label}</Tooltip>)}
 		</Button>
 	</Space>;
 };
