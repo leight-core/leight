@@ -11,12 +11,12 @@ export interface ITranslationLoaderProps {
 	link?: string;
 }
 
-export const TranslationLoader: FC<ITranslationLoaderProps> = ({logo, link = "translation.index", children}) => {
+export const TranslationLoader: FC<ITranslationLoaderProps> = ({logo, link, children}) => {
 	const discoveryContext = useDiscoveryContext();
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<boolean>(false);
 
-	useEffect(() => httpGet<ITranslations>(discoveryContext.link(link), {timeout: 10 * 1000 * 3})
+	useEffect(() => httpGet<ITranslations>(discoveryContext.link(link || "translation.index"), {timeout: 10 * 1000 * 3})
 		.on("response", ({translations}) => {
 			translations.forEach(translation => i18next.addResource(translation.language, "translation", translation.label, translation.text));
 			setLoading(false);

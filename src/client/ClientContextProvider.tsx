@@ -4,15 +4,15 @@ import {FC, ReactNode, useEffect, useState} from "react";
 
 export interface IClientContextProviderProps {
 	logo?: ReactNode;
-	href?: string;
+	link?: string;
 }
 
-export const ClientContextProvider: FC<IClientContextProviderProps> = ({logo, href, children}) => {
+export const ClientContextProvider: FC<IClientContextProviderProps> = ({logo, link, children}) => {
 	const [client, setClient] = useState<IClient>();
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<boolean>(false);
 
-	useEffect(() => httpGet<IClient>(href || "/client.json")
+	useEffect(() => httpGet<IClient>(link || "/client.json")
 		.on("response", client => {
 			setClient(client);
 			setLoading(false);

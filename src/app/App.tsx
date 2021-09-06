@@ -9,11 +9,12 @@ export interface IAppProps {
 	 *
 	 * Defaults to **`process.env.REACT_APP_CLIENT`**.
 	 */
-	clientHref?: string;
+	clientLink?: string;
 	/**
 	 * Optional href to obtain user ticket (user session) when app starts; defaults to "public.user.user-ticket".
 	 */
 	sessionLink?: string;
+	translationLink?: string;
 }
 
 /**
@@ -27,16 +28,17 @@ export interface IAppProps {
 export const App: FC<IAppProps> = (
 	{
 		logo,
-		clientHref = process.env.NEXT_PUBLIC_CLIENT,
+		clientLink = process.env.NEXT_PUBLIC_CLIENT,
+		translationLink,
 		sessionLink,
 		children,
 	}) => {
 	return <LinkContextProvider>
 		<CookiesProvider>
 			<FingerprintContextProvider logo={logo}>
-				<ClientContextProvider href={clientHref} logo={logo}>
+				<ClientContextProvider link={clientLink} logo={logo}>
 					<DiscoveryContextProvider logo={logo}>
-						<TranslationLoader logo={logo}>
+						<TranslationLoader link={translationLink} logo={logo}>
 							<SessionContextProvider link={sessionLink} logo={logo}>
 								{children}
 							</SessionContextProvider>
