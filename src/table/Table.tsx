@@ -44,6 +44,9 @@ export const Table = <TItem extends Object = IRecordItem>(
 			hideOnSinglePage: true,
 			onChange: (current, size) => dataSourceContext.setPage(current - 1, size),
 		}}
+		onChange={(_, __, sorter: any) => {
+			dataSourceContext.setOrderBy(sorter.column === undefined ? undefined : {[sorter.columnKey]: sorter.order === "ascend"} as any);
+		}}
 		{...props}
 	>
 		{isCallable(children) ? (children as ITableChildrenCallback<TItem>)(props => {
