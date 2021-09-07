@@ -8,11 +8,13 @@ import {
 	IFormOnFailure,
 	IFormOnSuccess,
 	IFormPostMapper,
+	INavigate,
 	IQuery,
 	IRequestEvents,
 	IUpdateCallback,
 	LoaderIcon,
 	RequestEvents,
+	useBlockContext,
 	useDiscoveryContext,
 	useFormBlockContext,
 	useFormContext,
@@ -78,10 +80,16 @@ const FormInternal: FC<IFormProps> = (
 		...props
 	}) => {
 	const formContext = useFormContext();
+	const blockContext = useBlockContext();
 	const formBlockContext = useFormBlockContext();
 	const discoveryContext = useDiscoveryContext();
-	const navigate = useNavigate();
+	const doNavigate = useNavigate();
 	const {t} = useTranslation();
+
+	const navigate: INavigate = (href: string, query?: IQuery) => {
+		blockContext.block();
+		doNavigate(href, query);
+	};
 
 	function handleError(formError: IFormError | IFormErrorHandler, error: any, formContext: IFormContext) {
 		let handle = formError;
