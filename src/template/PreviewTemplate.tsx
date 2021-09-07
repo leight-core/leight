@@ -9,7 +9,7 @@ export interface IPreviewTemplateProps {
 
 export const PreviewTemplate: FC<IPreviewTemplateProps> = ({icon, title, translation = true, children}) => {
 	return <Template
-		title={title + ".preview"}
+		title={translation ? title + ".preview" : title}
 		icon={icon}
 		translation={translation}
 	>
