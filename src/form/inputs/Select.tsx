@@ -2,11 +2,11 @@ import {IBaseSelectOption, IGetCallback, IQuery, useDiscoveryContext, useOptiona
 import {Select as CoolSelect, SelectProps} from "antd";
 import React, {DependencyList, useEffect, useRef, useState} from "react";
 
-export interface ISelectProps<TData, TSelected = any> extends SelectProps<TSelected> {
+export interface ISelectProps<TItem> extends SelectProps<any> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
-	fetch: IGetCallback<TData[]>;
+	fetch: IGetCallback<TItem[]>;
 	/**
 	 * Optional parameters provided into fetch method.
 	 */
@@ -14,7 +14,7 @@ export interface ISelectProps<TData, TSelected = any> extends SelectProps<TSelec
 	/**
 	 * Map requested data into Select options.
 	 */
-	toOption: (item: TData) => IBaseSelectOption | false;
+	toOption: (item: TItem) => IBaseSelectOption | false;
 	/**
 	 * Dependency used to force redraw (re-fetch data).
 	 */
@@ -31,7 +31,7 @@ export interface ISelectProps<TData, TSelected = any> extends SelectProps<TSelec
 	useFirst?: boolean;
 }
 
-export const Select = ({fetch, query, toOption, usePlaceholder, useFirst = false, deps = [], ...props}: ISelectProps<any>) => {
+export const Select = <TItem, >({fetch, query, toOption, usePlaceholder, useFirst = false, deps = [], ...props}: ISelectProps<TItem>) => {
 	const [options, setOptions] = useState<IBaseSelectOption[]>();
 	const first = useRef(true);
 	const discoveryContext = useDiscoveryContext();
