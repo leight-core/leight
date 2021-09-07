@@ -41,7 +41,7 @@ export const Select = ({fetch, query, toOption, usePlaceholder, useFirst = false
 	useEffect(() => fetch(discoveryContext, query)
 		.on("request", () => {
 			formContext && formContext.blockContext.block();
-			setOptions([]);
+			setOptions(undefined);
 		})
 		.on("response", data => {
 			if (!first.current && formItemContext && formContext) {
