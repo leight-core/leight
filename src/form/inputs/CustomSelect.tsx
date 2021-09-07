@@ -1,13 +1,13 @@
 import {IGetCallback, IQuery, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
-import {DependencyList, forwardRef, useEffect, useRef, useState} from "react";
+import React, {DependencyList, useEffect, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface ICustomSelectProps<TData, TSelected = any> extends SelectProps<TSelected> {
+export interface ICustomSelectProps<TItem> extends SelectProps<any> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
-	fetch: IGetCallback<TData[]>;
+	fetch: IGetCallback<TItem[]>;
 	/**
 	 * Optional parameters provided into fetch method.
 	 */
@@ -15,7 +15,7 @@ export interface ICustomSelectProps<TData, TSelected = any> extends SelectProps<
 	/**
 	 * Map requested data into Select options.
 	 */
-	children: (item: TData) => JSX.Element;
+	children: (item: TItem) => JSX.Element;
 	/**
 	 * Dependency used to force redraw (re-fetch data).
 	 */
@@ -26,9 +26,9 @@ export interface ICustomSelectProps<TData, TSelected = any> extends SelectProps<
 	usePlaceholder?: boolean;
 }
 
-export const CustomSelect = forwardRef(({fetch, query, children, usePlaceholder, deps = [], ...props}: ICustomSelectProps<any>, ref) => {
+export const CustomSelect = <TItem, >({fetch, query, children, usePlaceholder, deps = [], ...props}: ICustomSelectProps<TItem>) => {
 	const {t} = useTranslation();
-	const [data, setData] = useState<any[]>([]);
+	const [data, setData] = useState<any[]>();
 	const first = useRef(true);
 	const [loading, setLoading] = useState(false);
 	const discoveryContext = useDiscoveryContext();
@@ -55,11 +55,15 @@ export const CustomSelect = forwardRef(({fetch, query, children, usePlaceholder,
 			setLoading(false);
 		})
 		.cleaner(), deps);
-	return <Select
-		ref={ref as any}
+	return data ? <Select
 		loading={loading}
 		notFoundContent={t("common.nothing-found")}
-		children={data.map(children)}
+		{...props}
+	>
+		{data.map(children)}
+	</Select> : <Select
+		showSearch={true}
+		loading={loading}
 		{...props}
 	/>;
-}) as <TData, TSelected = any>(props: ICustomSelectProps<TData, TSelected>) => JSX.Element;
+};

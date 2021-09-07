@@ -80,8 +80,8 @@ export const CustomSearchSelect = <TItem, TOrderBy, TFilter>({search, query, toS
 	>
 		{data.items.map(children)}
 	</Select> : <Select
-		options={data}
 		showSearch={true}
 		loading={loading}
+		{...props}
 	/>;
 };

@@ -98,8 +98,8 @@ export const SearchSelect = <TItem, TOrderBy, TFilter>(
 		onSearch={onSearch}
 		{...props}
 	/> : <Select
-		options={options}
 		showSearch={true}
 		loading={loading}
+		{...props}
 	/>;
 };

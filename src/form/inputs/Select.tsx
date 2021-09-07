@@ -66,8 +66,8 @@ export const Select = <TItem, >({fetch, query, toOption, usePlaceholder, useFirs
 		showSearch={true}
 		{...props}
 	/> : <CoolSelect
-		options={options}
 		showSearch={true}
 		loading={true}
+		{...props}
 	/>;
 };
