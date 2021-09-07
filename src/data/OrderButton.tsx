@@ -1,5 +1,5 @@
 import {ArrowDownOutlined, ArrowUpOutlined, DashOutlined} from "@ant-design/icons";
-import {useDataSourceContext} from "@leight-core/leight";
+import {usePageContext} from "@leight-core/leight";
 import {Button, Space, Tooltip} from "antd";
 import {useTranslation} from "react-i18next";
 
@@ -9,7 +9,7 @@ export interface IOrderButtonProps<TOrderBy> {
 }
 
 export const OrderButton = <TOrderBy, >({orderBy, prefix}: IOrderButtonProps<TOrderBy>) => {
-	const dataSourceContext = useDataSourceContext<any, any>();
+	const dataSourceContext = usePageContext<any, any>();
 	const order = dataSourceContext.orderBy ? dataSourceContext.orderBy[orderBy] : undefined;
 	const {t} = useTranslation();
 	const label = t("order-by.label." + prefix + "." + orderBy);

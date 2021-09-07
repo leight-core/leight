@@ -1,4 +1,4 @@
-import {IRecordItem, LoaderIcon, useDataSourceContext} from "@leight-core/leight";
+import {IRecordItem, LoaderIcon, usePageContext} from "@leight-core/leight";
 import {List as CoolList, ListProps} from "antd";
 import {ReactNode} from "react";
 
@@ -11,7 +11,7 @@ export const List = <TItem extends Object = IRecordItem>(
 		children,
 		...props
 	}: IListProps<TItem>) => {
-	const dataSourceContext = useDataSourceContext<TItem>();
+	const dataSourceContext = usePageContext<TItem>();
 	return <CoolList
 		style={{minHeight: "50vh"}}
 		dataSource={dataSourceContext.data.items}

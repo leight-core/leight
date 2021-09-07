@@ -1,7 +1,7 @@
-import {DataSourceContext, IPageCallback, IPageResponse, IQuery, PageIndex, useDiscoveryContext} from "@leight-core/leight";
+import {IPageCallback, IPageResponse, IQuery, PageContext, PageIndex, useDiscoveryContext} from "@leight-core/leight";
 import {DependencyList, PropsWithChildren, useEffect, useState} from "react";
 
-export interface IDataSourceContextProviderProps<TItem, TOrderBy = never, TFilter = never> {
+export interface IPageContextProviderProps<TItem, TOrderBy = never, TFilter = never> {
 	fetch: IPageCallback<TItem, TOrderBy, TFilter>;
 	deps?: DependencyList;
 	defaultSize?: number;
@@ -10,7 +10,7 @@ export interface IDataSourceContextProviderProps<TItem, TOrderBy = never, TFilte
 	defaultQuery?: IQuery;
 }
 
-export const DataSourceContextProvider = <TItem, TOrderBy = never, TFilter = never>(
+export const PageContextProvider = <TItem, TOrderBy = never, TFilter = never>(
 	{
 		fetch,
 		defaultSize = 10,
@@ -19,7 +19,7 @@ export const DataSourceContextProvider = <TItem, TOrderBy = never, TFilter = nev
 		defaultQuery,
 		deps = [],
 		children
-	}: PropsWithChildren<IDataSourceContextProviderProps<TItem, TOrderBy, TFilter>>) => {
+	}: PropsWithChildren<IPageContextProviderProps<TItem, TOrderBy, TFilter>>) => {
 	const discoveryContext = useDiscoveryContext();
 	const [page, setPage] = useState<number>(0);
 	const [data, setData] = useState<IPageResponse<TItem>>(PageIndex());
@@ -45,7 +45,7 @@ export const DataSourceContextProvider = <TItem, TOrderBy = never, TFilter = nev
 		[orderBy, filter, page, query, size].concat(deps)
 	);
 
-	return <DataSourceContext.Provider
+	return <PageContext.Provider
 		value={{
 			page,
 			setPage: (page, size) => {
@@ -67,5 +67,5 @@ export const DataSourceContextProvider = <TItem, TOrderBy = never, TFilter = nev
 		}}
 	>
 		{children}
-	</DataSourceContext.Provider>;
+	</PageContext.Provider>;
 };

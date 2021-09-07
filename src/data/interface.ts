@@ -35,7 +35,7 @@ export interface IPageResponse<TItem> {
 export interface IPageCallback<TItem, TOrderBy = never, TFilter = never> extends IPostCallback<IPageRequest<TOrderBy, TFilter>, IPageResponse<TItem>> {
 }
 
-export interface IDataSourceContext<TItem, TOrderBy = never, TFilter = never> {
+export interface IPageContext<TItem, TOrderBy = never, TFilter = never> {
 	/**
 	 * Current page
 	 */

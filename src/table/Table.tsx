@@ -1,4 +1,4 @@
-import {IRecordItem, ITableChildrenCallback, LoaderIcon, useDataSourceContext, useInterval} from "@leight-core/leight";
+import {IRecordItem, ITableChildrenCallback, LoaderIcon, useInterval, usePageContext} from "@leight-core/leight";
 import {Table as CoolTable, TableProps} from "antd";
 import {ColumnProps} from "antd/lib/table";
 import isCallable from "is-callable";
@@ -22,7 +22,7 @@ export const Table = <TItem extends Object = IRecordItem>(
 		...props
 	}: ITableProps<TItem>) => {
 	const {t} = useTranslation();
-	const dataSourceContext = useDataSourceContext<TItem>();
+	const dataSourceContext = usePageContext<TItem>();
 
 	useInterval(() => dataSourceContext.setPage(0, dataSourceContext.size), live);
 
