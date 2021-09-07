@@ -1,6 +1,6 @@
 import {IBaseSelectOption, IGetCallback, IQuery, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select as CoolSelect, SelectProps} from "antd";
-import {DependencyList, forwardRef, useEffect, useRef, useState} from "react";
+import React, {DependencyList, useEffect, useRef, useState} from "react";
 
 export interface ISelectProps<TData, TSelected = any> extends SelectProps<TSelected> {
 	/**
@@ -31,8 +31,8 @@ export interface ISelectProps<TData, TSelected = any> extends SelectProps<TSelec
 	useFirst?: boolean;
 }
 
-export const Select = forwardRef(({fetch, query, toOption, usePlaceholder, useFirst = false, deps = [], ...props}: ISelectProps<any>, ref) => {
-	const [options, setOptions] = useState<IBaseSelectOption[]>([]);
+export const Select = ({fetch, query, toOption, usePlaceholder, useFirst = false, deps = [], ...props}: ISelectProps<any>) => {
+	const [options, setOptions] = useState<IBaseSelectOption[]>();
 	const first = useRef(true);
 	const discoveryContext = useDiscoveryContext();
 	const formContext = useOptionalFormContext();
@@ -61,10 +61,13 @@ export const Select = forwardRef(({fetch, query, toOption, usePlaceholder, useFi
 			formContext && formContext.blockContext.unblock();
 		})
 		.cleaner(), deps);
-	return <CoolSelect
-		ref={ref as any}
+	return options ? <CoolSelect
 		options={options}
 		showSearch={true}
 		{...props}
+	/> : <CoolSelect
+		options={options}
+		showSearch={true}
+		loading={true}
 	/>;
-}) as <TData, TSelected = any>(props: ISelectProps<TData, TSelected>) => JSX.Element;
+};
