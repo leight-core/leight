@@ -67,5 +67,6 @@ export const CustomSelect = <TItem, >({fetch, query, children, usePlaceholder, d
 		showSearch={true}
 		loading={loading}
 		{...props}
+		value={undefined}
 	/>;
 };

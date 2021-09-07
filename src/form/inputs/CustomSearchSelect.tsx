@@ -80,5 +80,6 @@ export const CustomSearchSelect = <TItem, TOrderBy, TFilter>({search, query, toS
 		showSearch={true}
 		loading={loading}
 		{...props}
+		value={undefined}
 	/>;
 };

@@ -103,5 +103,6 @@ export const SearchSelect = <TItem, TOrderBy, TFilter>(
 		showSearch={true}
 		loading={loading}
 		{...props}
+		value={undefined}
 	/>;
 };

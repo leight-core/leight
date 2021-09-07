@@ -71,5 +71,6 @@ export const Select = <TItem, >({fetch, query, toOption, usePlaceholder, useFirs
 		showSearch={true}
 		loading={true}
 		{...props}
+		value={undefined}
 	/>;
 };
