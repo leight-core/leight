@@ -44,6 +44,7 @@ export const SearchSelect = <TItem, TOrderBy, TFilter>(
 		toSearch,
 		toOption,
 		usePlaceholder,
+		value,
 		deps = [],
 		useFirst = false,
 		debounce = 250,
@@ -98,11 +99,11 @@ export const SearchSelect = <TItem, TOrderBy, TFilter>(
 		filterOption={() => true}
 		notFoundContent={t("common.nothing-found")}
 		onSearch={onSearch}
+		value={value}
 		{...props}
 	/> : <Select
 		showSearch={true}
 		loading={loading}
 		{...props}
-		value={undefined}
 	/>;
 };

@@ -31,7 +31,7 @@ export interface ICustomSearchSelectProps<TItem, TOrderBy, TFilter> extends Sele
 	deps?: DependencyList;
 }
 
-export const CustomSearchSelect = <TItem, TOrderBy, TFilter>({search, query, toSearch, children, usePlaceholder, deps = [], debounce = 250, ...props}: ICustomSearchSelectProps<TItem, TOrderBy, TFilter>) => {
+export const CustomSearchSelect = <TItem, TOrderBy, TFilter>({search, query, toSearch, children, usePlaceholder, value, deps = [], debounce = 250, ...props}: ICustomSearchSelectProps<TItem, TOrderBy, TFilter>) => {
 	const discoveryContext = useDiscoveryContext();
 	const [data, setData] = useState<IPageResponse<TItem>>();
 	const [tid, setTid] = useState<number>();
@@ -73,6 +73,7 @@ export const CustomSearchSelect = <TItem, TOrderBy, TFilter>({search, query, toS
 		filterOption={() => true}
 		notFoundContent={t("common.nothing-found")}
 		onSearch={onSearch}
+		value={value}
 		{...props}
 	>
 		{data.items.map(children)}
@@ -80,6 +81,5 @@ export const CustomSearchSelect = <TItem, TOrderBy, TFilter>({search, query, toS
 		showSearch={true}
 		loading={loading}
 		{...props}
-		value={undefined}
 	/>;
 };

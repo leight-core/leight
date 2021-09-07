@@ -26,7 +26,7 @@ export interface ICustomSelectProps<TItem> extends SelectProps<any> {
 	usePlaceholder?: boolean;
 }
 
-export const CustomSelect = <TItem, >({fetch, query, children, usePlaceholder, deps = [], ...props}: ICustomSelectProps<TItem>) => {
+export const CustomSelect = <TItem, >({fetch, query, children, usePlaceholder, value, deps = [], ...props}: ICustomSelectProps<TItem>) => {
 	const {t} = useTranslation();
 	const [data, setData] = useState<any[]>();
 	const first = useRef(true);
@@ -60,6 +60,7 @@ export const CustomSelect = <TItem, >({fetch, query, children, usePlaceholder, d
 	return data ? <Select
 		loading={loading}
 		notFoundContent={t("common.nothing-found")}
+		value={value}
 		{...props}
 	>
 		{data.map(children)}
@@ -67,6 +68,5 @@ export const CustomSelect = <TItem, >({fetch, query, children, usePlaceholder, d
 		showSearch={true}
 		loading={loading}
 		{...props}
-		value={undefined}
 	/>;
 };

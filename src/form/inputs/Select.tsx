@@ -31,7 +31,7 @@ export interface ISelectProps<TItem> extends SelectProps<any> {
 	useFirst?: boolean;
 }
 
-export const Select = <TItem, >({fetch, query, toOption, usePlaceholder, useFirst = false, deps = [], ...props}: ISelectProps<TItem>) => {
+export const Select = <TItem, >({fetch, query, toOption, usePlaceholder, useFirst = false, deps = [], value, ...props}: ISelectProps<TItem>) => {
 	const [options, setOptions] = useState<IBaseSelectOption[]>();
 	const first = useRef(true);
 	const discoveryContext = useDiscoveryContext();
@@ -66,11 +66,11 @@ export const Select = <TItem, >({fetch, query, toOption, usePlaceholder, useFirs
 	return options ? <CoolSelect
 		options={options}
 		showSearch={true}
+		value={value}
 		{...props}
 	/> : <CoolSelect
 		showSearch={true}
 		loading={true}
 		{...props}
-		value={undefined}
 	/>;
 };
