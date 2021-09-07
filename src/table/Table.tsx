@@ -1,4 +1,4 @@
-import {IRecordItem, ITableChildrenCallback, LoaderIcon, useInterval, usePageContext} from "@leight-core/leight";
+import {IRecordItem, ITableChildrenCallback, LoaderIcon, useDataContext, useInterval} from "@leight-core/leight";
 import {Table as CoolTable, TableProps} from "antd";
 import {ColumnProps} from "antd/lib/table";
 import isCallable from "is-callable";
@@ -22,30 +22,30 @@ export const Table = <TItem extends Object = IRecordItem>(
 		...props
 	}: ITableProps<TItem>) => {
 	const {t} = useTranslation();
-	const dataSourceContext = usePageContext<TItem>();
+	const dataContext = useDataContext<TItem>();
 
-	useInterval(() => dataSourceContext.setPage(0, dataSourceContext.size), live);
+	useInterval(() => dataContext.setPage(0, dataContext.size), live);
 
 	return <CoolTable
 		style={{minHeight: "50vh"}}
-		dataSource={dataSourceContext.data.items}
+		dataSource={dataContext.data.items}
 		rowKey={(record: any) => record.id}
 		loading={{
-			spinning: dataSourceContext.loading,
+			spinning: dataContext.loading,
 			indicator: <LoaderIcon/>,
 			delay: 50,
 		}}
 		size={"large"}
 		pagination={{
-			total: dataSourceContext.data.total,
-			pageSize: dataSourceContext.data.size,
-			defaultPageSize: dataSourceContext.data.size,
+			total: dataContext.data.total,
+			pageSize: dataContext.data.size,
+			defaultPageSize: dataContext.data.size,
 			showQuickJumper: true,
 			hideOnSinglePage: true,
-			onChange: (current, size) => dataSourceContext.setPage(current - 1, size),
+			onChange: (current, size) => dataContext.setPage(current - 1, size),
 		}}
 		onChange={(_, __, sorter: any) => {
-			dataSourceContext.setOrderBy(sorter.column === undefined ? undefined : {[sorter.columnKey]: sorter.order === "ascend"} as any);
+			dataContext.setOrderBy(sorter.column === undefined ? undefined : {[sorter.columnKey]: sorter.order === "ascend"} as any);
 		}}
 		{...props}
 	>
