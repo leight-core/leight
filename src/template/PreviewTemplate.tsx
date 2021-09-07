@@ -1,14 +1,14 @@
 import {FC, ReactNode} from "react";
 import {Template} from "./Template";
 
-export interface ICreateTemplateProps {
+export interface IPreviewTemplateProps {
 	title: string;
 	icon: ReactNode;
 }
 
-export const CreateTemplate: FC<ICreateTemplateProps> = ({icon, title, children}) => {
+export const PreviewTemplate: FC<IPreviewTemplateProps> = ({icon, title, children}) => {
 	return <Template
-		title={title + ".create"}
+		title={title + ".preview"}
 		icon={icon}
 	>
 		{children}
