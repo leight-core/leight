@@ -36,25 +36,27 @@ export const CustomSelect = <TItem, >({fetch, query, children, usePlaceholder, d
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
 	useEffect(() => fetch(discoveryContext, query)
-		.on("request", () => {
-			formContext && formContext.blockContext.block();
-			setData([]);
-			setLoading(true);
-		})
-		.on("response", data => {
-			if (!first.current && formItemContext && formContext) {
-				formContext.form.setFields([
-					{name: formItemContext.field, value: undefined},
-				]);
-			}
-			setData(data);
-			first.current = false;
-		})
-		.on("done", () => {
-			formContext && formContext.blockContext.unblock();
-			setLoading(false);
-		})
-		.cleaner(), deps);
+			.on("request", () => {
+				formContext && formContext.blockContext.block();
+				setData([]);
+				setLoading(true);
+			})
+			.on("response", data => {
+				if (!first.current && formItemContext && formContext) {
+					formContext.form.setFields([
+						{name: formItemContext.field, value: undefined},
+					]);
+				}
+				setData(data);
+				first.current = false;
+			})
+			.on("done", () => {
+				formContext && formContext.blockContext.unblock();
+				setLoading(false);
+			})
+			.cleaner(),
+		deps
+	);
 	return data ? <Select
 		loading={loading}
 		notFoundContent={t("common.nothing-found")}

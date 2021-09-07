@@ -1,6 +1,6 @@
 import {IPageCallback, IPageResponse, IQuery, IToSearchMapper, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
-import React, {useEffect, useState} from "react";
+import React, {DependencyList, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface ICustomSearchSelectProps<TItem, TOrderBy, TFilter> extends SelectProps<any> {
@@ -25,16 +25,13 @@ export interface ICustomSearchSelectProps<TItem, TOrderBy, TFilter> extends Sele
 	 */
 	debounce?: number;
 	/**
-	 * Initial value.
-	 */
-	initial?: string;
-	/**
 	 * Use label as placeholder for the select.
 	 */
 	usePlaceholder?: boolean;
+	deps?: DependencyList;
 }
 
-export const CustomSearchSelect = <TItem, TOrderBy, TFilter>({search, query, toSearch, children, usePlaceholder, debounce = 250, ...props}: ICustomSearchSelectProps<TItem, TOrderBy, TFilter>) => {
+export const CustomSearchSelect = <TItem, TOrderBy, TFilter>({search, query, toSearch, children, usePlaceholder, deps = [], debounce = 250, ...props}: ICustomSearchSelectProps<TItem, TOrderBy, TFilter>) => {
 	const discoveryContext = useDiscoveryContext();
 	const [data, setData] = useState<IPageResponse<TItem>>();
 	const [tid, setTid] = useState<number>();
@@ -55,7 +52,7 @@ export const CustomSearchSelect = <TItem, TOrderBy, TFilter>({search, query, toS
 				formContext && formContext.blockContext.unblock();
 			})
 			.cleaner(),
-		[],
+		deps,
 	);
 
 	const onSearch = (text: string) => {

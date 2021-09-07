@@ -1,6 +1,6 @@
 import {IPageCallback, IQuery, IToOptionMapper, IToSearchMapper, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
-import React, {useEffect, useState} from "react";
+import React, {DependencyList, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface ISearchSelectProps<TItem, TOrderBy, TFilter> extends SelectProps<any> {
@@ -34,6 +34,7 @@ export interface ISearchSelectProps<TItem, TOrderBy, TFilter> extends SelectProp
 	 * Defaults to false.
 	 */
 	useFirst?: boolean;
+	deps?: DependencyList;
 }
 
 export const SearchSelect = <TItem, TOrderBy, TFilter>(
@@ -43,6 +44,7 @@ export const SearchSelect = <TItem, TOrderBy, TFilter>(
 		toSearch,
 		toOption,
 		usePlaceholder,
+		deps = [],
 		useFirst = false,
 		debounce = 250,
 		...props
@@ -74,7 +76,7 @@ export const SearchSelect = <TItem, TOrderBy, TFilter>(
 				formContext && formContext.blockContext.unblock();
 			})
 			.cleaner(),
-		[],
+		deps,
 	);
 
 	const onSearch = (text: string) => {

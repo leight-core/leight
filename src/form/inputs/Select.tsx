@@ -39,28 +39,30 @@ export const Select = <TItem, >({fetch, query, toOption, usePlaceholder, useFirs
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
 	useEffect(() => fetch(discoveryContext, query)
-		.on("request", () => {
-			formContext && formContext.blockContext.block();
-			setOptions(undefined);
-		})
-		.on("response", data => {
-			if (!first.current && formItemContext && formContext) {
-				formContext.form.setFields([
-					{name: formItemContext.field, value: undefined},
-				]);
-			}
-			const options = data.map(toOption).filter(item => item !== false) as IBaseSelectOption[];
-			setOptions(options);
-			first.current = false;
-			if (useFirst && options.length > 0 && !(formItemContext && formItemContext.getValue())) {
-				formItemContext && formItemContext.setValue(options[0].value);
-				props.onChange && props.onChange(options[0].value, options[0]);
-			}
-		})
-		.on("done", () => {
-			formContext && formContext.blockContext.unblock();
-		})
-		.cleaner(), deps);
+			.on("request", () => {
+				formContext && formContext.blockContext.block();
+				setOptions(undefined);
+			})
+			.on("response", data => {
+				if (!first.current && formItemContext && formContext) {
+					formContext.form.setFields([
+						{name: formItemContext.field, value: undefined},
+					]);
+				}
+				const options = data.map(toOption).filter(item => item !== false) as IBaseSelectOption[];
+				setOptions(options);
+				first.current = false;
+				if (useFirst && options.length > 0 && !(formItemContext && formItemContext.getValue())) {
+					formItemContext && formItemContext.setValue(options[0].value);
+					props.onChange && props.onChange(options[0].value, options[0]);
+				}
+			})
+			.on("done", () => {
+				formContext && formContext.blockContext.unblock();
+			})
+			.cleaner(),
+		deps
+	);
 	return options ? <CoolSelect
 		options={options}
 		showSearch={true}
