@@ -5,4 +5,4 @@ export * from "./IconText";
 export * from "./Placeholder";
 export * from "./ResultSpinner";
 export * from "./ScrollToTop";
-export * from "./Search";
+export * from "./TabTitle";
