@@ -38,7 +38,7 @@ export const CustomSelect = <TItem, >({fetch, query, children, usePlaceholder, v
 	useEffect(() => fetch(discoveryContext, query)
 			.on("request", () => {
 				formContext && formContext.blockContext.block();
-				setData([]);
+				setData(undefined);
 				setLoading(true);
 			})
 			.on("response", data => {
