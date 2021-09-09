@@ -12,6 +12,7 @@ export const PreviewTemplate: FC<IPreviewTemplateProps> = ({icon, title, transla
 		title={translation ? title + ".preview" : title}
 		icon={icon}
 		translation={translation}
+		span={20}
 	>
 		{children}
 	</Template>;

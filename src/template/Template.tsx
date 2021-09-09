@@ -7,9 +7,10 @@ export interface ITemplateProps {
 	title: string;
 	icon: ReactNode;
 	translation?: boolean;
+	span?: number;
 }
 
-export const Template: FC<ITemplateProps> = ({icon, title, translation = true, children}) => {
+export const Template: FC<ITemplateProps> = ({icon, title, translation = true, span = 16, children}) => {
 	const {t} = useTranslation();
 	return <>
 		<Result
@@ -18,7 +19,7 @@ export const Template: FC<ITemplateProps> = ({icon, title, translation = true, c
 			subTitle={translation ? t(title + ".subtitle") : null}
 			extra={<Divider/>}
 		/>
-		<Centered span={16}>
+		<Centered span={span}>
 			{children}
 		</Centered>
 	</>;
