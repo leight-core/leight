@@ -39,6 +39,7 @@ export const DataContextProvider = <TItem, TOrderBy = never, TFilter = never>(
 			discoveryContext,
 			query,
 		)
+			.on("request", () => setLoading(true))
 			.on("response", setData)
 			.on("done", () => setLoading(false))
 			.cleaner(),
