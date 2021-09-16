@@ -1,7 +1,7 @@
 import {DataContext, IPageCallback, IPageResponse, IQuery, PageIndex, useDiscoveryContext} from "@leight-core/leight";
 import {DependencyList, PropsWithChildren, useEffect, useState} from "react";
 
-export interface IDataContextProviderProps<TItem, TOrderBy = never, TFilter = never> {
+export interface IDataContextProviderProps<TItem, TOrderBy = void, TFilter = void> {
 	fetch: IPageCallback<TItem, TOrderBy, TFilter>;
 	deps?: DependencyList;
 	defaultSize?: number;
@@ -10,7 +10,7 @@ export interface IDataContextProviderProps<TItem, TOrderBy = never, TFilter = ne
 	defaultQuery?: IQuery;
 }
 
-export const DataContextProvider = <TItem, TOrderBy = never, TFilter = never>(
+export const DataContextProvider = <TItem, TOrderBy = void, TFilter = void>(
 	{
 		fetch,
 		defaultSize = 10,
