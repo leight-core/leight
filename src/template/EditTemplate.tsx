@@ -9,7 +9,7 @@ export interface IEditTemplateProps {
 
 export const EditTemplate: FC<IEditTemplateProps> = ({icon, title, translation = true, children}) => {
 	return <Template
-		title={title + ".edit"}
+		title={translation ? title + ".edit" : title}
 		icon={icon}
 		translation={translation}
 	>

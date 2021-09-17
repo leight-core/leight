@@ -9,7 +9,7 @@ export interface ICreateTemplateProps {
 
 export const CreateTemplate: FC<ICreateTemplateProps> = ({icon, title, translation = true, children}) => {
 	return <Template
-		title={title + ".create"}
+		title={translation ? title + ".create" : title}
 		icon={icon}
 		translation={translation}
 	>
