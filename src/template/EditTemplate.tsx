@@ -1,18 +1,13 @@
-import {FC, ReactNode} from "react";
-import {Template} from "./Template";
+import {FC} from "react";
+import {isString} from "../utils";
+import {ITemplateProps, Template} from "./Template";
 
-export interface IEditTemplateProps {
-	title: string;
-	icon: ReactNode;
-	translation?: boolean;
+export interface IEditTemplateProps extends ITemplateProps {
 }
 
-export const EditTemplate: FC<IEditTemplateProps> = ({icon, title, translation = true, children}) => {
+export const EditTemplate: FC<IEditTemplateProps> = ({title, ...props}) => {
 	return <Template
-		title={translation ? title + ".edit" : title}
-		icon={icon}
-		translation={translation}
-	>
-		{children}
-	</Template>;
+		title={(props.translation && isString(title)) ? title + ".edit" : title}
+		{...props}
+	/>;
 };

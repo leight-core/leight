@@ -1,4 +1,5 @@
 export * from "./CopyText";
+export * from "./isString";
 export * from "./NumberRange";
 export * from "./PageIndex";
 export * from "./Random";

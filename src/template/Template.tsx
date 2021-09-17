@@ -1,22 +1,23 @@
-import {Centered} from "@leight-core/leight";
+import {Centered, isString} from "@leight-core/leight";
 import {Divider, Result} from "antd";
 import {FC, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface ITemplateProps {
-	title: string;
+	title: ReactNode;
+	subTitle?: ReactNode;
 	icon: ReactNode;
 	translation?: boolean;
 	span?: number;
 }
 
-export const Template: FC<ITemplateProps> = ({icon, title, translation = true, span = 16, children}) => {
+export const Template: FC<ITemplateProps> = ({icon, title, subTitle, translation = true, span = 16, children}) => {
 	const {t} = useTranslation();
 	return <>
 		<Result
 			icon={icon}
-			title={translation ? t(title + ".title") : title}
-			subTitle={translation ? t(title + ".subtitle") : null}
+			title={(translation && isString(title)) ? t(title + ".title") : title}
+			subTitle={(translation && isString(title)) ? t(title + ".subtitle") : subTitle}
 			extra={<Divider/>}
 		/>
 		<Centered span={span}>

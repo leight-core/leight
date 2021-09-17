@@ -1,18 +1,13 @@
-import {FC, ReactNode} from "react";
-import {Template} from "./Template";
+import {isString} from "@leight-core/leight";
+import {FC} from "react";
+import {ITemplateProps, Template} from "./Template";
 
-export interface ICreateTemplateProps {
-	title: string;
-	icon: ReactNode;
-	translation?: boolean;
+export interface ICreateTemplateProps extends ITemplateProps {
 }
 
-export const CreateTemplate: FC<ICreateTemplateProps> = ({icon, title, translation = true, children}) => {
+export const CreateTemplate: FC<ICreateTemplateProps> = ({title, ...props}) => {
 	return <Template
-		title={translation ? title + ".create" : title}
-		icon={icon}
-		translation={translation}
-	>
-		{children}
-	</Template>;
+		title={(props.translation && isString(title)) ? title + ".create" : title}
+		{...props}
+	/>;
 };

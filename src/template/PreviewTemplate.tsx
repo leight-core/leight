@@ -1,19 +1,13 @@
-import {FC, ReactNode} from "react";
-import {Template} from "./Template";
+import {FC} from "react";
+import {isString} from "../utils";
+import {ITemplateProps, Template} from "./Template";
 
-export interface IPreviewTemplateProps {
-	title: string;
-	icon: ReactNode;
-	translation?: boolean;
+export interface IPreviewTemplateProps extends ITemplateProps {
 }
 
-export const PreviewTemplate: FC<IPreviewTemplateProps> = ({icon, title, translation = true, children}) => {
+export const PreviewTemplate: FC<IPreviewTemplateProps> = ({title, ...props}) => {
 	return <Template
-		title={translation ? title + ".preview" : title}
-		icon={icon}
-		translation={translation}
-		span={20}
-	>
-		{children}
-	</Template>;
+		title={(props.translation && isString(title)) ? title + ".p[review" : title}
+		{...props}
+	/>;
 };
