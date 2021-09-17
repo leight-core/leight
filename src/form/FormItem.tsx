@@ -22,7 +22,7 @@ export interface IFormItemProps extends Partial<FormItemProps> {
 	 */
 	noMargin?: boolean;
 	labels?: string[];
-	onNormalize: (value: any, formItemContext: IFormItemContext) => void,
+	onNormalize?: (value: any, formItemContext: IFormItemContext) => void,
 }
 
 export const FormItem: FC<IFormItemProps> = (
