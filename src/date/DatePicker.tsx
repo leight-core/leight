@@ -10,7 +10,6 @@ const DatePickerInternal = generatePicker<Dayjs>(dayjsGenerateConfig);
 export const DatePicker = React.forwardRef<any, { usePlaceholder?: boolean } & Partial<PickerProps<Dayjs>>>((props, ref) => {
 	const formItemContext = useOptionalFormItemContext();
 	const dayJsContext = useDayjsContext();
-	console.log("leight day:", dayJsContext.dayjs.localeData);
 	return (
 		<DatePickerInternal
 			format={dayJsContext.dayjs.localeData().longDateFormat("L")}
