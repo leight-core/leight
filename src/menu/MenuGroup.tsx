@@ -4,7 +4,7 @@ import React, {FC} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface IMenuGroupProps extends Partial<MenuItemGroupProps> {
-	id: string
+	id: string;
 }
 
 export const MenuGroup: FC<IMenuGroupProps> = (
@@ -14,6 +14,6 @@ export const MenuGroup: FC<IMenuGroupProps> = (
 	}) => {
 	const {t} = useTranslation();
 	return (
-		<Menu.ItemGroup key={id} title={t(id + ".menu")} {...props}/>
+		<Menu.ItemGroup title={t(id + ".menu")} {...props}/>
 	);
 };
