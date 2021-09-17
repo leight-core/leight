@@ -33,7 +33,7 @@ export const FormItem: FC<IFormItemProps> = (
 		noMargin = false,
 		children = <Input/>,
 		labels = [],
-		onNormalize = () => null,
+		onNormalize,
 		...props
 	}) => {
 	const {t} = useTranslation();
@@ -69,13 +69,13 @@ export const FormItem: FC<IFormItemProps> = (
 			}, 0);
 		},
 	};
+	onNormalize && !props.normalize && (props.normalize = value => onNormalize(value, context));
 	return (
 		<FormItemContext.Provider value={context}>
 			<Form.Item
 				name={field}
 				label={showLabel === false ? null : t(["form-item." + fieldName + ".label"].concat(labels))}
 				rules={rules}
-				normalize={value => onNormalize(value, context)}
 				{...props}
 			>
 				{children ? cloneElement(children as any, {["data-required"]: required}) : null}
