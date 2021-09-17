@@ -17,7 +17,7 @@ export const Template: FC<ITemplateProps> = ({icon, title, subTitle, translation
 		<Result
 			icon={icon}
 			title={(translation && isString(title)) ? t(title + ".title") : title}
-			subTitle={(translation && isString(title)) ? t(title + ".subtitle") : subTitle}
+			subTitle={(translation && isString(subTitle)) ? t(subTitle + ".subtitle") : subTitle}
 			extra={<Divider/>}
 		/>
 		<Centered span={span}>
