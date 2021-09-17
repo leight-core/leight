@@ -1,4 +1,4 @@
-import {FormItemContext, useFormContext, useOptionalItemGroupContext} from "@leight-core/leight";
+import {FormItemContext, IFormItemContext, useFormContext, useOptionalItemGroupContext} from "@leight-core/leight";
 import {Form, FormItemProps, Input} from "antd";
 import {NamePath, Rule} from "rc-field-form/lib/interface";
 import {cloneElement, FC} from "react";
@@ -22,6 +22,7 @@ export interface IFormItemProps extends Partial<FormItemProps> {
 	 */
 	noMargin?: boolean;
 	labels?: string[];
+	onNormalize: (value: any, formItemContext: IFormItemContext) => void,
 }
 
 export const FormItem: FC<IFormItemProps> = (
@@ -32,6 +33,7 @@ export const FormItem: FC<IFormItemProps> = (
 		noMargin = false,
 		children = <Input/>,
 		labels = [],
+		onNormalize = () => null,
 		...props
 	}) => {
 	const {t} = useTranslation();
@@ -56,22 +58,24 @@ export const FormItem: FC<IFormItemProps> = (
 	 */
 	rules.push(() => ({validator: () => Promise.resolve()}));
 	props.tooltip = props.tooltip ? t("" + props.tooltip) : props.tooltip;
+	const context: IFormItemContext = {
+		field,
+		label: t(["form-item." + fieldName + ".label"].concat(labels)) as string,
+		getValue: () => formContext.form.getFieldValue(field),
+		setValue: value => formContext.form.setFields([{name: field, value}]),
+		setErrors: (errors: string[]) => formContext.form.setFields([{name: field, errors: errors.map(item => t(item))}]),
+	};
 	return (
-		<FormItemContext.Provider
-			value={{
-				field,
-				label: t(["form-item." + fieldName + ".label"].concat(labels)) as string,
-				getValue: () => formContext.form.getFieldValue(field),
-				setValue: value => formContext.form.setFields([{name: field, value}])
-			}}
-		>
+		<FormItemContext.Provider value={context}>
 			<Form.Item
 				name={field}
 				label={showLabel === false ? null : t(["form-item." + fieldName + ".label"].concat(labels))}
 				rules={rules}
+				normalize={value => onNormalize(value, context)}
 				{...props}
-				children={children ? cloneElement(children as any, {["data-required"]: required}) : null}
-			/>
+			>
+				{children ? cloneElement(children as any, {["data-required"]: required}) : null}
+			</Form.Item>
 		</FormItemContext.Provider>
 	);
 };
