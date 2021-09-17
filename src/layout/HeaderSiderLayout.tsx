@@ -71,7 +71,7 @@ export const HeaderSiderLayout: FC<IHeaderSiderLayoutProps> = (
 		headerStyle,
 	}) => {
 	const [fullwidth, setFullwidth] = useState<boolean>(false);
-	const [siderSize, setSiderSize] = useState<number>(240);
+	const [siderSize, setSiderSize] = useState<number>(280);
 	const [pageHeader, setPageHeader] = useState<ReactNode>(<HeaderPlaceholder/>);
 	return <LayoutBlockContextProvider>
 		<MenuContextProvider>

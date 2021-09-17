@@ -1,7 +1,5 @@
+import {BlockContextClass, IBlockContextProviderProps, LayoutBlockContext} from "@leight-core/leight";
 import {FC, useState} from "react";
-import {BlockContextClass} from "../block/BlockContextClass";
-import {IBlockContextProviderProps} from "../block/BlockContextProvider";
-import {LayoutBlockContext} from "./LayoutBlockContext";
 
 export interface ILayoutBlockContextProviderProps extends Partial<IBlockContextProviderProps> {
 	/**

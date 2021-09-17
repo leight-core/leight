@@ -1,6 +1,5 @@
+import {ILayoutContext, useContext} from "@leight-core/leight";
 import {createContext} from "react";
-import {useContext} from "../utils/useContext";
-import {ILayoutContext} from "./interface";
 
 /**
  * Common Layout context; you should **not** use this directly, see {@link useLayoutContext}.
