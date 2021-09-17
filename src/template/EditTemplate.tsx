@@ -5,9 +5,10 @@ import {ITemplateProps, Template} from "./Template";
 export interface IEditTemplateProps extends ITemplateProps {
 }
 
-export const EditTemplate: FC<IEditTemplateProps> = ({title, ...props}) => {
+export const EditTemplate: FC<IEditTemplateProps> = ({title, translation = true, ...props}) => {
 	return <Template
-		title={(props.translation && isString(title)) ? title + ".edit" : title}
+		title={(translation && isString(title)) ? title + ".edit" : title}
+		translation={translation}
 		{...props}
 	/>;
 };

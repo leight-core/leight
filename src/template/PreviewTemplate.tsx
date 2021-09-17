@@ -5,9 +5,10 @@ import {ITemplateProps, Template} from "./Template";
 export interface IPreviewTemplateProps extends ITemplateProps {
 }
 
-export const PreviewTemplate: FC<IPreviewTemplateProps> = ({title, ...props}) => {
+export const PreviewTemplate: FC<IPreviewTemplateProps> = ({title, translation = true, ...props}) => {
 	return <Template
-		title={(props.translation && isString(title)) ? title + ".p[review" : title}
+		title={(translation && isString(title)) ? title + ".preview" : title}
+		translation={translation}
 		{...props}
 	/>;
 };
