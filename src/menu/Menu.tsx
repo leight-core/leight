@@ -26,6 +26,7 @@ export const Menu: FC<IMenuProps> = props => {
 		selectable={true}
 		selectedKeys={menuContext.current}
 		defaultOpenKeys={items}
+		subMenuCloseDelay={0.35}
 		{...props}
 	/>;
 };
