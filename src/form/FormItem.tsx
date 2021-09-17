@@ -63,7 +63,11 @@ export const FormItem: FC<IFormItemProps> = (
 		label: t(["form-item." + fieldName + ".label"].concat(labels)) as string,
 		getValue: () => formContext.form.getFieldValue(field),
 		setValue: value => formContext.form.setFields([{name: field, value}]),
-		setErrors: (errors: string[]) => formContext.form.setFields([{name: field, errors: errors.map(item => t(item))}]),
+		setErrors: (errors: string[]) => {
+			setTimeout(() => {
+				formContext.form.setFields([{name: field, errors: errors.map(item => t(item))}]);
+			}, 0);
+		},
 	};
 	return (
 		<FormItemContext.Provider value={context}>
