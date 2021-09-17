@@ -1,7 +1,7 @@
-import {useOptionalFormItemContext} from "@leight-core/leight";
+import {useDayjsContext, useOptionalFormItemContext} from "@leight-core/leight";
 import generatePicker, {PickerProps} from "antd/lib/date-picker/generatePicker";
 import "antd/lib/date-picker/style/index";
-import dayjs, {Dayjs} from "dayjs";
+import {Dayjs} from "dayjs";
 import dayjsGenerateConfig from "rc-picker/lib/generate/dayjs";
 import React from "react";
 
@@ -9,9 +9,11 @@ const DatePickerInternal = generatePicker<Dayjs>(dayjsGenerateConfig);
 
 export const DatePicker = React.forwardRef<any, { usePlaceholder?: boolean } & Partial<PickerProps<Dayjs>>>((props, ref) => {
 	const formItemContext = useOptionalFormItemContext();
+	const dayJsContext = useDayjsContext();
+	console.log("leight day:", dayJsContext.dayjs.localeData);
 	return (
 		<DatePickerInternal
-			format={(dayjs as any).localeData().longDateFormat("L")}
+			format={dayJsContext.dayjs.localeData().longDateFormat("L")}
 			ref={ref}
 			{...props}
 			placeholder={formItemContext && (props as any).usePlaceholder ? formItemContext.label : undefined}
