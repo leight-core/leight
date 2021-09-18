@@ -17,7 +17,7 @@ export const Preview: FC<IPreviewProps> = ({width = 220, translation, children, 
 		labelStyle={{width: width + "px"}}
 		{...props}
 	>
-		{Object.entries(children).map(([key, item]) => <Descriptions.Item key={key} label={t(translation ? translation + "." + key : key)}>
+		{Object.entries(children).map(([key, item]) => <Descriptions.Item key={key} label={t(translation ? (translation + "." + key) : key)}>
 			{item ?? "-"}
 		</Descriptions.Item>)}
 	</Descriptions>;
