@@ -20,6 +20,12 @@ const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer,
 						onCollapse={menuContext.setCollapse}
 						collapsed={menuContext.collapsed}
 						width={layoutContext.siderSize}
+						style={{
+							overflow: "auto",
+							height: "100vh",
+							position: "fixed",
+							left: 0,
+						}}
 					>
 						{menuContext.menu}
 					</Layout.Sider>
