@@ -31,7 +31,7 @@ const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer,
 					</Layout.Sider>
 				}
 				<Layout>
-					<Layout.Content style={{marginLeft: (layoutContext.siderSize + 16) + "px", minHeight: "100vh", padding: "0em 1.5em", ...contentStyle}}>
+					<Layout.Content style={{marginLeft: menuContext.collapsed ? 0 : layoutContext.siderSize + "px", minHeight: "100vh", padding: "0em 1.5em", ...contentStyle}}>
 						<PageHeader style={{padding: 0}} title={layoutContext.pageHeader}/>
 						<Suspense fallback={<PlaceholderPage/>}>
 							{children}
