@@ -3,6 +3,7 @@ export * from "./BulletCard";
 export * from "./ButtonLink";
 export * from "./IconText";
 export * from "./Placeholder";
+export * from "./Preview";
 export * from "./ResultSpinner";
 export * from "./ScrollToTop";
 export * from "./TabTitle";
