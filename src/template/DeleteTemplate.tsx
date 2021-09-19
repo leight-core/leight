@@ -8,6 +8,7 @@ export const DeleteTemplate: FC<IDeleteTemplateProps> = ({title, translation = t
 	return <Template
 		title={(translation && isString(title)) ? title + ".delete" : title}
 		translation={translation}
+		status={"error"}
 		{...props}
 	/>;
 };
