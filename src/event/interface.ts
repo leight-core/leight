@@ -65,7 +65,7 @@ export interface IEvents<TEventTypes extends IBaseEventTypes, TEventHandlers ext
 	 *
 	 * @return Events instance chain method was called on.
 	 */
-	chain(events: IEvents<any, any>): IEvents<TEventTypes, TEventHandlers>;
+	chain(events?: IEvents<any, any>): IEvents<TEventTypes, TEventHandlers>;
 
 	/**
 	 * Like a chain, but with the name: when used same name, the previous events are replaced. Useful if there is need for

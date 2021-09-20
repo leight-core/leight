@@ -49,8 +49,8 @@ class EventsClass<TEventTypes extends IBaseEventTypes, TEventHandlers extends IE
 		return this;
 	}
 
-	chain(events: IEvents<any, any>): IEvents<TEventTypes, TEventHandlers> {
-		this.chains.push(events);
+	chain(events?: IEvents<any, any>): IEvents<TEventTypes, TEventHandlers> {
+		events && this.chains.push(events);
 		return this;
 	}
 
