@@ -1,4 +1,4 @@
-import {DeleteItemIcon, IDeleteCallback, IQuery, isString, ITemplateProps, Template, useBlockContext, useDiscoveryContext, useNavigate} from "@leight-core/leight";
+import {DeleteItemIcon, IDeleteCallback, IQuery, ITemplateProps, Template, useBlockContext, useDiscoveryContext, useNavigate} from "@leight-core/leight";
 import {Button, Divider, message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
@@ -11,21 +11,15 @@ export interface IDeleteTemplateProps extends ITemplateProps {
 	 */
 	navigateTo: string;
 	navigateQuery?: IQuery;
-	/**
-	 * Base translation for delete messages (.delete.success, .delete.submit, and .delete.error).
-	 */
-	deleteTranslation: string;
 }
 
-export const DeleteTemplate: FC<IDeleteTemplateProps> = ({title, subTitle, deleteTranslation, navigateTo, navigateQuery, onDelete, deleteQuery, translation = true, ...props}) => {
+export const DeleteTemplate: FC<IDeleteTemplateProps> = ({label, navigateTo, navigateQuery, onDelete, deleteQuery, ...props}) => {
 	const blockContext = useBlockContext();
 	const discoveryContext = useDiscoveryContext();
 	const navigate = useNavigate();
 	const {t} = useTranslation();
 	return <Template
-		title={(translation && isString(title)) ? title + ".delete" : title}
-		subTitle={(translation && isString(subTitle)) ? subTitle + ".delete" : subTitle}
-		translation={translation}
+		label={label ? label + ".delete" : label}
 		status={"error"}
 		extra={<>
 			<Button
@@ -37,14 +31,14 @@ export const DeleteTemplate: FC<IDeleteTemplateProps> = ({title, subTitle, delet
 					onDelete(discoveryContext, deleteQuery)
 						.on("response", data => {
 							navigate(navigateTo, navigateQuery);
-							message.success(t(deleteTranslation + ".delete.success", {data}));
+							message.success(t(label + ".delete.success", {data}));
 						})
 						.on("catch", () => {
-							message.error(t(deleteTranslation + ".delete.error"));
+							message.error(t(label + ".delete.error"));
 						});
 				}}
 			>
-				{t(deleteTranslation + ".delete.submit")}
+				{t(label + ".delete.submit")}
 			</Button>
 			{props.children ? <Divider/> : null}
 		</>}
