@@ -1,5 +1,6 @@
-import {IBaseEventTypes, IDiscoveryContext, IEventHandlers, IEventResult, IEvents, IQuery} from "@leight-core/leight";
+import {IBaseEventTypes, IDiscoveryContext, IEventHandlers, IEventResult, IEvents, IQueryParams} from "@leight-core/leight";
 import {AxiosError, AxiosRequestConfig} from "axios";
+import {UseQueryResult} from "react-query";
 
 /**
  * Available http events.
@@ -35,37 +36,19 @@ export interface IRequestEventHandlers<TResponse = any> extends IHttpErrorEvents
 export interface IRequestEvents<TResponse = any> extends IEvents<IRequestEventTypes, IRequestEventHandlers<TResponse>> {
 }
 
-export interface IGetCallback<TResponse = any> {
-	(
-		discoveryContext: IDiscoveryContext,
-		query?: IQuery,
-	): IRequestEvents<TResponse>;
-}
-
 /**
  * Possible callbacks used to update a resource.
  */
-export interface IUpdateCallback<TRequest = any, TResponse = any> {
+export interface IRequestCallback<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any> {
 	(
 		data: TRequest,
 		discoveryContext: IDiscoveryContext,
-		query?: IQuery,
+		query?: TQuery,
 		config?: AxiosRequestConfig,
 	): IRequestEvents<TResponse>;
 }
 
-export interface IPostCallback<TRequest = any, TResponse = any> extends IUpdateCallback<TRequest, TResponse> {
-}
-
-export interface IPutCallback<TRequest = any, TResponse = any> extends IUpdateCallback<TRequest, TResponse> {
-}
-
-export interface IPatchCallback<TRequest = any, TResponse = any> extends IUpdateCallback<TRequest, TResponse> {
-}
-
-export interface IDeleteCallback<TResponse = any> {
-	(
-		discoveryContext: IDiscoveryContext,
-		query?: IQuery,
-	): IRequestEvents<TResponse>;
+export interface IUseRequestResult<TResponse = any> {
+	result: UseQueryResult<TResponse>;
+	events: IRequestEvents<TResponse>;
 }

@@ -1,4 +1,4 @@
-import {DataContext, IPageCallback, IPageResponse, IQuery, PageIndex, useDiscoveryContext} from "@leight-core/leight";
+import {DataContext, IPageCallback, IPageResponse, IQueryParams, PageIndex, useDiscoveryContext} from "@leight-core/leight";
 import {DependencyList, PropsWithChildren, useEffect, useState} from "react";
 
 export interface IDataContextProviderProps<TItem, TOrderBy = void, TFilter = void> {
@@ -7,7 +7,7 @@ export interface IDataContextProviderProps<TItem, TOrderBy = void, TFilter = voi
 	defaultSize?: number;
 	defaultOrderBy?: TOrderBy | null;
 	defaultFilter?: TFilter | null;
-	defaultQuery?: IQuery;
+	defaultQuery?: IQueryParams;
 }
 
 export const DataContextProvider = <TItem, TOrderBy = void, TFilter = void>(
@@ -25,7 +25,7 @@ export const DataContextProvider = <TItem, TOrderBy = void, TFilter = void>(
 	const [data, setData] = useState<IPageResponse<TItem>>(PageIndex());
 	const [orderBy, setOrderBy] = useState<TOrderBy | null | undefined>(defaultOrderBy);
 	const [filter, setFilter] = useState<TFilter | null | undefined>(defaultFilter);
-	const [query, setQuery] = useState<IQuery>(defaultQuery);
+	const [query, setQuery] = useState<IQueryParams>(defaultQuery);
 	const [size, setSize] = useState<number>(defaultSize);
 	const [loading, setLoading] = useState<boolean>(true);
 

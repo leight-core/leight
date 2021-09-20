@@ -1,16 +1,16 @@
-import {DeleteItemIcon, IDeleteCallback, IQuery, ITemplateProps, Template, useBlockContext, useDiscoveryContext, useNavigate} from "@leight-core/leight";
+import {DeleteItemIcon, IDeleteCallback, IQueryParams, ITemplateProps, Template, useBlockContext, useDiscoveryContext, useNavigate} from "@leight-core/leight";
 import {Button, Divider, message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface IDeleteTemplateProps extends ITemplateProps {
 	onDelete: IDeleteCallback;
-	deleteQuery?: IQuery;
+	deleteQuery?: IQueryParams;
 	/**
 	 * Where to navigate on successful delete.
 	 */
 	navigateTo: string;
-	navigateQuery?: IQuery;
+	navigateQuery?: IQueryParams;
 }
 
 export const DeleteTemplate: FC<IDeleteTemplateProps> = ({label, navigateTo, navigateQuery, onDelete, deleteQuery, ...props}) => {

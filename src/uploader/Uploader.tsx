@@ -1,4 +1,4 @@
-import {Centered, IQuery, IUploaderEvents, useDiscoveryContext} from "@leight-core/leight";
+import {Centered, IQueryParams, IUploaderEvents, useDiscoveryContext} from "@leight-core/leight";
 import {message, Progress, Typography, Upload} from "antd";
 import {DraggerProps, RcFile, UploadChangeParam} from "antd/lib/upload";
 import fileSize from "filesize";
@@ -29,7 +29,7 @@ export interface IUploaderProps extends Partial<DraggerProps> {
 	/**
 	 * Optional params for the action.
 	 */
-	query?: IQuery;
+	query?: IQueryParams;
 }
 
 export const Uploader: FC<IUploaderProps> = ({name, limit, events, translation, action, query, ...props}) => {

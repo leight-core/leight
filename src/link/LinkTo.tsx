@@ -1,6 +1,6 @@
 import Link from "next/link";
 import {FC} from "react";
-import {IQuery} from "./interface";
+import {IQueryParams} from "./interface";
 
 export interface ILinkToProps {
 	/**
@@ -10,7 +10,7 @@ export interface ILinkToProps {
 	/**
 	 * Optional params used to generate a link.
 	 */
-	query?: IQuery;
+	query?: IQueryParams;
 }
 
 /**

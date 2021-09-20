@@ -1,4 +1,4 @@
-import {IBaseSelectOption, IGetCallback, IQuery, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
+import {IBaseSelectOption, IGetCallback, IQueryParams, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select as CoolSelect, SelectProps} from "antd";
 import React, {DependencyList, useEffect, useRef, useState} from "react";
 
@@ -10,7 +10,7 @@ export interface ISelectProps<TItem> extends SelectProps<any> {
 	/**
 	 * Optional parameters provided into fetch method.
 	 */
-	query?: IQuery;
+	query?: IQueryParams;
 	/**
 	 * Map requested data into Select options.
 	 */

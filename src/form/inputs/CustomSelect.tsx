@@ -1,4 +1,4 @@
-import {IGetCallback, IQuery, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
+import {IGetCallback, IQueryParams, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
 import React, {DependencyList, useEffect, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
@@ -11,7 +11,7 @@ export interface ICustomSelectProps<TItem> extends SelectProps<any> {
 	/**
 	 * Optional parameters provided into fetch method.
 	 */
-	query?: IQuery;
+	query?: IQueryParams;
 	/**
 	 * Map requested data into Select options.
 	 */

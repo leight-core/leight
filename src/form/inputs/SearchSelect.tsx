@@ -1,4 +1,4 @@
-import {IPageCallback, IQuery, IToOptionMapper, IToSearchMapper, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
+import {IPageCallback, IQueryParams, IToOptionMapper, IToSearchMapper, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
 import React, {DependencyList, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
@@ -11,7 +11,7 @@ export interface ISearchSelectProps<TItem, TOrderBy, TFilter> extends SelectProp
 	/**
 	 * Optional fetch params.
 	 */
-	query?: IQuery;
+	query?: IQueryParams;
 	/**
 	 * How to map searched input to request on server-side.
 	 */

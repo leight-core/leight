@@ -1,4 +1,4 @@
-import {IQuery} from "@leight-core/leight";
+import {IQueryParams} from "@leight-core/leight";
 import {Button, ButtonProps} from "antd";
 import Link from "next/link";
 import React, {FC} from "react";
@@ -16,7 +16,7 @@ export interface IButtonLinkProps extends Omit<ButtonProps, "title"> {
 	/**
 	 * Optional params for the link generator.
 	 */
-	query?: IQuery;
+	query?: IQueryParams;
 }
 
 export const ButtonLink: FC<IButtonLinkProps> = ({href, title, query, ...props}) => {

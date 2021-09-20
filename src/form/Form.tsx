@@ -9,9 +9,9 @@ import {
 	IFormOnSuccess,
 	IFormPostMapper,
 	INavigate,
-	IQuery,
+	IQueryParams,
+	IRequestCallback,
 	IRequestEvents,
-	IUpdateCallback,
 	LoaderIcon,
 	RequestEvents,
 	useBlockContext,
@@ -30,11 +30,11 @@ export interface IFormProps<TRequest = any, TResponse = TRequest> extends Partia
 	/**
 	 * What to do on form submit.
 	 */
-	post: IUpdateCallback<TRequest, TResponse>;
+	post: IRequestCallback<TRequest, TResponse>;
 	/**
 	 * Optional POSt param.
 	 */
-	query?: IQuery;
+	query?: IQueryParams;
 	/**
 	 * Axios request config.
 	 */
@@ -86,7 +86,7 @@ const FormInternal: FC<IFormProps> = (
 	const doNavigate = useNavigate();
 	const {t} = useTranslation();
 
-	const navigate: INavigate = (href: string, query?: IQuery) => {
+	const navigate: INavigate = (href: string, query?: IQueryParams) => {
 		blockContext.block();
 		doNavigate(href, query);
 	};

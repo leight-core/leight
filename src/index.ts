@@ -20,6 +20,7 @@ export * from "./list";
 export * from "./loader";
 export * from "./menu";
 export * from "./page";
+export * from "./query";
 export * from "./request";
 export * from "./router";
 export * from "./session";

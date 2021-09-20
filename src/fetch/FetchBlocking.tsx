@@ -1,4 +1,4 @@
-import {Fetch, IFetchProps, IGetCallback, IQuery, IRequestEvents, RequestEvents, useBlockContext, useDiscoveryContext} from "@leight-core/leight";
+import {Fetch, IFetchProps, IGetCallback, IQueryParams, IRequestEvents, RequestEvents, useBlockContext, useDiscoveryContext} from "@leight-core/leight";
 import {message} from "antd";
 import {useTranslation} from "react-i18next";
 
@@ -14,7 +14,7 @@ export interface IFetchBlockingProps<TResponse = any> extends Omit<IFetchProps<T
 	/**
 	 * Optional params for fetch callback.
 	 */
-	query?: IQuery;
+	query?: IQueryParams;
 	/**
 	 * Do initial block on request; this could be useful, when there are more fetches on a single page.
 	 *

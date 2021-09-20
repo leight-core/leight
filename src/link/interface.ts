@@ -1,5 +1,5 @@
-export type IQuery = NodeJS.Dict<string | number | boolean | ReadonlyArray<string> | ReadonlyArray<number> | ReadonlyArray<boolean> | null> | undefined;
+import {IQueryParams} from "@leight-core/leight";
 
 export interface ILinkContext {
-	generate(href: string, query?: IQuery): string;
+	generate(href: string, query?: IQueryParams): string;
 }
