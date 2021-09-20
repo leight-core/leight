@@ -17,13 +17,14 @@ export interface IDeleteTemplateProps extends ITemplateProps {
 	deleteTranslation: string;
 }
 
-export const DeleteTemplate: FC<IDeleteTemplateProps> = ({title, deleteTranslation, navigateTo, navigateQuery, onDelete, deleteQuery, translation = true, ...props}) => {
+export const DeleteTemplate: FC<IDeleteTemplateProps> = ({title, subTitle, deleteTranslation, navigateTo, navigateQuery, onDelete, deleteQuery, translation = true, ...props}) => {
 	const blockContext = useBlockContext();
 	const discoveryContext = useDiscoveryContext();
 	const navigate = useNavigate();
 	const {t} = useTranslation();
 	return <Template
 		title={(translation && isString(title)) ? title + ".delete" : title}
+		subTitle={(translation && isString(subTitle)) ? subTitle + ".delete" : subTitle}
 		translation={translation}
 		status={"error"}
 		extra={<>
