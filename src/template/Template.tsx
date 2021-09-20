@@ -13,8 +13,8 @@ export const Template: FC<ITemplateProps> = ({icon, label, title, subTitle, span
 	return <>
 		<Result
 			icon={icon}
-			title={title ? title : (label ? t(label + ".title") : label)}
-			subTitle={subTitle ? subTitle : (label ? t(label + ".subtitle") : label)}
+			title={(title || title === null) ? title : (label ? t(label + ".title") : label)}
+			subTitle={(subTitle || subTitle === null) ? subTitle : (label ? t(label + ".subtitle") : label)}
 			extra={<Divider/>}
 			{...props}
 		/>
