@@ -4,9 +4,10 @@ import {useRouter} from "next/router";
 import React, {FC} from "react";
 
 export interface IMenuProps extends Partial<MenuProps> {
+	extraOpenKeys?: string[];
 }
 
-export const Menu: FC<IMenuProps> = props => {
+export const Menu: FC<IMenuProps> = ({extraOpenKeys = [], ...props}) => {
 	const menuContext = useMenuContext();
 	const router = useRouter();
 
@@ -22,7 +23,7 @@ export const Menu: FC<IMenuProps> = props => {
 				items.push(current.join("."));
 			});
 			return items;
-		})()}
+		})().concat(extraOpenKeys)}
 		subMenuCloseDelay={0.35}
 		{...props}
 	/>;
