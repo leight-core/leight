@@ -1,6 +1,8 @@
 import {ClientContextProvider, DiscoveryContextProvider, FingerprintContextProvider, LinkContextProvider, SessionContextProvider, TranslationLoader} from "@leight-core/leight";
 import {FC, ReactNode} from "react";
 import {CookiesProvider} from "react-cookie";
+import {QueryClient, QueryClientProvider} from "react-query";
+import {ReactQueryDevtools} from "react-query/devtools";
 
 export interface IAppProps {
 	logo?: ReactNode;
@@ -15,6 +17,7 @@ export interface IAppProps {
 	 */
 	sessionLink?: string;
 	translationLink?: string;
+	queryClient?: QueryClient;
 }
 
 /**
@@ -31,21 +34,25 @@ export const App: FC<IAppProps> = (
 		clientLink = process.env.NEXT_PUBLIC_CLIENT,
 		translationLink,
 		sessionLink,
+		queryClient,
 		children,
 	}) => {
-	return <LinkContextProvider>
-		<CookiesProvider>
-			<FingerprintContextProvider logo={logo}>
-				<ClientContextProvider link={clientLink} logo={logo}>
-					<DiscoveryContextProvider logo={logo}>
-						<TranslationLoader link={translationLink} logo={logo}>
-							<SessionContextProvider link={sessionLink} logo={logo}>
-								{children}
-							</SessionContextProvider>
-						</TranslationLoader>
-					</DiscoveryContextProvider>
-				</ClientContextProvider>
-			</FingerprintContextProvider>
-		</CookiesProvider>
-	</LinkContextProvider>;
+	return <QueryClientProvider client={queryClient ? queryClient : new QueryClient()}>
+		<LinkContextProvider>
+			<CookiesProvider>
+				<FingerprintContextProvider logo={logo}>
+					<ClientContextProvider link={clientLink} logo={logo}>
+						<DiscoveryContextProvider logo={logo}>
+							<TranslationLoader link={translationLink} logo={logo}>
+								<SessionContextProvider link={sessionLink} logo={logo}>
+									{children}
+								</SessionContextProvider>
+							</TranslationLoader>
+						</DiscoveryContextProvider>
+					</ClientContextProvider>
+				</FingerprintContextProvider>
+			</CookiesProvider>
+		</LinkContextProvider>
+		<ReactQueryDevtools initialIsOpen={false}/>
+	</QueryClientProvider>;
 };
