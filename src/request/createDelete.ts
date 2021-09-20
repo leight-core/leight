@@ -1,9 +1,9 @@
-import {axiosHandler, IQueryParams, IRequestHookCallback, IRequestHookResult, RequestEvents, useLinkContext, useOptionalDiscoveryContext} from "@leight-core/leight";
+import {axiosHandler, IQueryOptions, IQueryParams, IRequestHookCallback, IRequestHookResult, RequestEvents, useLinkContext, useOptionalDiscoveryContext} from "@leight-core/leight";
 import axios, {AxiosRequestConfig} from "axios";
 import {useQuery} from "react-query";
 
 export function createDeleteHook<TQuery extends IQueryParams = IQueryParams, TResponse = any>(link: string): IRequestHookCallback<TQuery, void, TResponse> {
-	return (request: void, query?: TQuery, config?: AxiosRequestConfig): IRequestHookResult<TResponse> => {
+	return (request: void, query?: TQuery, options?: IQueryOptions<TResponse>, config?: AxiosRequestConfig): IRequestHookResult<TResponse> => {
 		const events = RequestEvents<TResponse>();
 		const linkContext = useLinkContext();
 		const discoveryContext = useOptionalDiscoveryContext();
@@ -14,7 +14,7 @@ export function createDeleteHook<TQuery extends IQueryParams = IQueryParams, TRe
 					.on("error", reject)
 					.chain(events);
 			});
-		});
+		}, options);
 		return {events, result};
 	};
 }

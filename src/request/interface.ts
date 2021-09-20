@@ -1,4 +1,4 @@
-import {IBaseEventTypes, IDiscoveryContext, IEventHandlers, IEventResult, IEvents, IQueryParams} from "@leight-core/leight";
+import {IBaseEventTypes, IDiscoveryContext, IEventHandlers, IEventResult, IEvents, IQueryOptions, IQueryParams} from "@leight-core/leight";
 import {AxiosError, AxiosRequestConfig} from "axios";
 import {UseQueryResult} from "react-query";
 
@@ -54,5 +54,5 @@ export interface IRequestHookResult<TResponse = any> {
 }
 
 export interface IRequestHookCallback<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any> {
-	(request: TRequest, query?: TQuery, config?: AxiosRequestConfig): IRequestHookResult<TResponse>;
+	(request: TRequest, query?: TQuery, options?: IQueryOptions<TResponse>, config?: AxiosRequestConfig): IRequestHookResult<TResponse>;
 }

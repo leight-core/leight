@@ -1,9 +1,9 @@
-import {axiosHandler, IQueryParams, IRequestHookCallback, IRequestHookResult, RequestEvents, useLinkContext, useOptionalDiscoveryContext} from "@leight-core/leight";
+import {axiosHandler, IQueryOptions, IQueryParams, IRequestHookCallback, IRequestHookResult, RequestEvents, useLinkContext, useOptionalDiscoveryContext} from "@leight-core/leight";
 import axios, {AxiosRequestConfig} from "axios";
 import {useQuery} from "react-query";
 
 export function createPutHook<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(link: string): IRequestHookCallback<TQuery, TRequest, TResponse> {
-	return (request: TRequest, query?: TQuery, config?: AxiosRequestConfig): IRequestHookResult<TResponse> => {
+	return (request: TRequest, query?: TQuery, options?: IQueryOptions<TResponse>, config?: AxiosRequestConfig): IRequestHookResult<TResponse> => {
 		const events = RequestEvents<TResponse>();
 		const linkContext = useLinkContext();
 		const discoveryContext = useOptionalDiscoveryContext();
@@ -14,7 +14,7 @@ export function createPutHook<TQuery extends IQueryParams = IQueryParams, TReque
 					.on("error", reject)
 					.chain(events);
 			});
-		});
+		}, options);
 		return {events, result};
 	};
 }
