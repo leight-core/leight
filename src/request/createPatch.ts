@@ -9,7 +9,7 @@ export function createPatchHook<TQuery extends IQueryParams = IQueryParams, TReq
 		const discoveryContext = useOptionalDiscoveryContext();
 		const result = useQuery([link, {query, config}], () => {
 			return new Promise<TResponse>((resolve, reject) => {
-				axiosHandler(config => axios.patch<TResponse>(discoveryContext ? discoveryContext.link(link, query) : linkContext.generate(link, query), request, config), config)
+				axiosHandler(config => axios.patch<TResponse>(linkContext.link(link, query, discoveryContext), request, config), config)
 					.on("response", resolve)
 					.on("error", reject)
 					.chain(events);

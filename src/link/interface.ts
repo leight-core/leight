@@ -1,5 +1,7 @@
-import {IQueryParams} from "@leight-core/leight";
+import {IDiscoveryContext, IQueryParams} from "@leight-core/leight";
 
 export interface ILinkContext {
-	generate(href: string, query?: IQueryParams): string;
+	generate<TQuery extends IQueryParams = IQueryParams>(href: string, query?: TQuery): string;
+
+	link<TQuery extends IQueryParams = IQueryParams>(href: string, query?: TQuery, discoveryContext?: IDiscoveryContext | null): string;
 }

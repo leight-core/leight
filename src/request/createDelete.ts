@@ -9,7 +9,7 @@ export function createDeleteHook<TQuery extends IQueryParams = IQueryParams, TRe
 		const discoveryContext = useOptionalDiscoveryContext();
 		const result = useQuery([link, {query, config}], () => {
 			return new Promise<TResponse>((resolve, reject) => {
-				axiosHandler(config => axios.delete<TResponse>(discoveryContext ? discoveryContext.link(link, query) : linkContext.generate(link, query), config), config)
+				axiosHandler(config => axios.delete<TResponse>(linkContext.link(link, query, discoveryContext), config), config)
 					.on("response", resolve)
 					.on("error", reject)
 					.chain(events);

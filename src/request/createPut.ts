@@ -9,7 +9,7 @@ export function createPutHook<TQuery extends IQueryParams = IQueryParams, TReque
 		const discoveryContext = useOptionalDiscoveryContext();
 		const result = useQuery([link, {query, config}], () => {
 			return new Promise<TResponse>((resolve, reject) => {
-				axiosHandler(config => axios.put<TResponse>(discoveryContext ? discoveryContext.link(link, query) : linkContext.generate(link, query), request, config), config)
+				axiosHandler(config => axios.put<TResponse>(linkContext.link(link, query, discoveryContext), request, config), config)
 					.on("response", resolve)
 					.on("error", reject)
 					.chain(events);

@@ -1,4 +1,4 @@
-import {IQueryParams, LinkContext} from "@leight-core/leight";
+import {IDiscoveryContext, IQueryParams, LinkContext} from "@leight-core/leight";
 import {compile} from "path-to-regexp";
 import {FC, useRef} from "react";
 
@@ -21,10 +21,15 @@ export const LinkContextProvider: FC<ILinkContextProviderProps> = ({children}) =
 		return cache.current[path] = generator;
 	}
 
+	function generate<TQuery extends IQueryParams = IQueryParams>(path: string, query?: TQuery): string {
+		return path === "/" ? path : generator(path)(query, {pretty: true});
+	}
+
 	return <LinkContext.Provider
 		value={{
-			generate<TQuery extends IQueryParams = IQueryParams>(path: string, query?: TQuery): string {
-				return path === "/" ? path : generator(path)(query, {pretty: true});
+			generate,
+			link<TQuery extends IQueryParams = IQueryParams>(href: string, query?: TQuery, discoveryContext?: IDiscoveryContext): string {
+				return generate(discoveryContext ? discoveryContext.link(href, query) : generate(href, query));
 			}
 		}}
 	>
