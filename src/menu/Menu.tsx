@@ -16,14 +16,17 @@ export const Menu: FC<IMenuProps> = ({extraOpenKeys = [], ...props}) => {
 		selectable={true}
 		selectedKeys={menuContext.current}
 		defaultOpenKeys={(() => {
+			if (menuContext.collapsed) {
+				return [];
+			}
 			const current: string[] = [];
 			const items: string[] = [];
 			router.route.substr(1).split("/").forEach(item => {
 				current.push(item);
 				items.push(current.join("."));
 			});
-			return items;
-		})().concat(extraOpenKeys)}
+			return items.concat(extraOpenKeys);
+		})()}
 		subMenuCloseDelay={0.35}
 		{...props}
 	/>;
