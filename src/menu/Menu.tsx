@@ -10,7 +10,6 @@ export interface IMenuProps extends Partial<MenuProps> {
 export const Menu: FC<IMenuProps> = ({extraOpenKeys = [], ...props}) => {
 	const menuContext = useMenuContext();
 	const router = useRouter();
-
 	return <CoolMenu
 		mode={"inline"}
 		selectable={true}
