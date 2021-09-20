@@ -1,6 +1,5 @@
+import {ILinkContext, useContext} from "@leight-core/leight";
 import {createContext} from "react";
-import {useContext} from "../utils/useContext";
-import {ILinkContext} from "./interface";
 
 export const LinkContext = createContext<ILinkContext>(null as unknown as ILinkContext);
 

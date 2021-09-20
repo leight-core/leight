@@ -1,13 +1,13 @@
-import {IGetCallback, IQueryParams, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
+import {IQueryParams, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
-import React, {DependencyList, useEffect, useRef, useState} from "react";
+import React, {DependencyList, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface ICustomSelectProps<TItem> extends SelectProps<any> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
-	fetch: IGetCallback<TItem[]>;
+	fetch: () => void;
 	/**
 	 * Optional parameters provided into fetch method.
 	 */
@@ -35,28 +35,28 @@ export const CustomSelect = <TItem, >({fetch, query, children, usePlaceholder, v
 	const formContext = useOptionalFormContext();
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
-	useEffect(() => fetch(discoveryContext, query)
-			.on("request", () => {
-				formContext && formContext.blockContext.block();
-				setData(undefined);
-				setLoading(true);
-			})
-			.on("response", data => {
-				if (!first.current && formItemContext && formContext) {
-					formContext.form.setFields([
-						{name: formItemContext.field, value: undefined},
-					]);
-				}
-				setData(data);
-				first.current = false;
-			})
-			.on("done", () => {
-				formContext && formContext.blockContext.unblock();
-				setLoading(false);
-			})
-			.cleaner(),
-		deps
-	);
+	// useEffect(() => fetch(discoveryContext, query)
+	// 		.on("request", () => {
+	// 			formContext && formContext.blockContext.block();
+	// 			setData(undefined);
+	// 			setLoading(true);
+	// 		})
+	// 		.on("response", data => {
+	// 			if (!first.current && formItemContext && formContext) {
+	// 				formContext.form.setFields([
+	// 					{name: formItemContext.field, value: undefined},
+	// 				]);
+	// 			}
+	// 			setData(data);
+	// 			first.current = false;
+	// 		})
+	// 		.on("done", () => {
+	// 			formContext && formContext.blockContext.unblock();
+	// 			setLoading(false);
+	// 		})
+	// 		.cleaner(),
+	// 	deps
+	// );
 	return data ? <Select
 		loading={loading}
 		notFoundContent={t("common.nothing-found")}

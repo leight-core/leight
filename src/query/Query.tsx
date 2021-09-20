@@ -4,4 +4,5 @@ export interface IQueryProps {
 }
 
 export const Query: FC<IQueryProps> = () => {
+	return <></>;
 };

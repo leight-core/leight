@@ -1,7 +1,7 @@
 import {TranslationOutlined} from "@ant-design/icons";
-import {httpGet, ITranslations, LoaderLayout, useDiscoveryContext} from "@leight-core/leight";
-import i18next from "i18next";
-import {FC, ReactNode, useEffect, useState} from "react";
+import {LoaderLayout} from "@leight-core/leight";
+import {FC, ReactNode} from "react";
+import {useTranslationQuery} from "./useTranslationQuery";
 
 export interface ITranslationLoaderProps {
 	logo?: ReactNode;
@@ -12,27 +12,11 @@ export interface ITranslationLoaderProps {
 }
 
 export const TranslationLoader: FC<ITranslationLoaderProps> = ({logo, link, children}) => {
-	const discoveryContext = useDiscoveryContext();
-	const [loading, setLoading] = useState<boolean>(true);
-	const [error, setError] = useState<boolean>(false);
-
-	useEffect(() => httpGet<ITranslations>(discoveryContext.link(link || "translation.index"), {timeout: 10 * 1000 * 3})
-		.on("response", ({translations}) => {
-			translations.forEach(translation => i18next.addResource(translation.language, "translation", translation.label, translation.text));
-			setLoading(false);
-		})
-		.on("catch", e => {
-			console.error(e);
-			setError(true);
-		})
-		.cleaner(), []
-	);
-
+	const {result} = useTranslationQuery(link || "translation.index");
 	return <LoaderLayout
 		logo={logo}
 		icon={<TranslationOutlined/>}
-		loading={loading}
-		error={error}
+		queryResult={result}
 		errorText={"Translations cannot be loaded."}
 	>
 		{children}

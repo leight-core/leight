@@ -1,17 +1,17 @@
-import {IPageCallback, IPageResponse, IQueryParams, IToSearchMapper, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
+import {IPageResponse, IQueryCallback, IQueryParams, IToSearchMapper, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
 import React, {DependencyList, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface ICustomSearchSelectProps<TItem, TOrderBy, TFilter> extends SelectProps<any> {
+export interface ICustomSearchSelectProps<TItem, TQuery extends IQueryParams, TOrderBy, TFilter> extends SelectProps<any> {
 	/**
 	 * Search callback.
 	 */
-	search: IPageCallback<TItem, TOrderBy, TFilter>;
+	search: IQueryCallback<TItem, TQuery, TOrderBy, TFilter>;
 	/**
 	 * Optional fetch params.
 	 */
-	query?: IQueryParams;
+	query?: TQuery;
 	/**
 	 * How to map searched input to request on server-side.
 	 */
@@ -31,7 +31,18 @@ export interface ICustomSearchSelectProps<TItem, TOrderBy, TFilter> extends Sele
 	deps?: DependencyList;
 }
 
-export const CustomSearchSelect = <TItem, TOrderBy, TFilter>({search, query, toSearch, children, usePlaceholder, value, deps = [], debounce = 250, ...props}: ICustomSearchSelectProps<TItem, TOrderBy, TFilter>) => {
+export const CustomSearchSelect = <TItem, TQuery extends IQueryParams, TOrderBy, TFilter>(
+	{
+		search,
+		query,
+		toSearch,
+		children,
+		usePlaceholder,
+		value,
+		deps = [],
+		debounce = 250,
+		...props
+	}: ICustomSearchSelectProps<TItem, TQuery, TOrderBy, TFilter>) => {
 	const discoveryContext = useDiscoveryContext();
 	const [data, setData] = useState<IPageResponse<TItem>>();
 	const [tid, setTid] = useState<number>();

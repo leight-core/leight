@@ -1,4 +1,4 @@
-import {IPostCallback, IQueryParams} from "@leight-core/leight";
+import {IQueryParams} from "@leight-core/leight";
 
 export interface IPageRequest<TOrderBy = void, TFilter = void> {
 	/** currently requested page */
@@ -32,10 +32,7 @@ export interface IPageResponse<TItem> {
 	readonly items: TItem[];
 }
 
-export interface IPageCallback<TItem, TOrderBy = void, TFilter = void> extends IPostCallback<IPageRequest<TOrderBy, TFilter>, IPageResponse<TItem>> {
-}
-
-export interface IDataContext<TItem, TOrderBy = void, TFilter = void> {
+export interface IDataContext<TItem, TQuery extends IQueryParams = IQueryParams, TOrderBy = any, TFilter = any> {
 	/**
 	 * Current page
 	 */
@@ -81,9 +78,9 @@ export interface IDataContext<TItem, TOrderBy = void, TFilter = void> {
 	/**
 	 * Access to current query used to fetch a page.
 	 */
-	readonly query: IQueryParams;
+	readonly query: TQuery;
 	/**
 	 * Set a new query.
 	 */
-	setQuery: (query: IQueryParams) => void;
+	setQuery: (query?: TQuery) => void;
 }

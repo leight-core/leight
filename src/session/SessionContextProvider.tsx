@@ -1,6 +1,6 @@
 import {UserOutlined} from "@ant-design/icons";
-import {httpGet, ISession, LoaderLayout, SessionContext, useDiscoveryContext} from "@leight-core/leight";
-import {FC, ReactNode, useEffect, useState} from "react";
+import {ISession, LoaderLayout, SessionContext, useSessionTicketQuery} from "@leight-core/leight";
+import {FC, ReactNode} from "react";
 
 export interface ISessionContextProviderProps<TSession extends ISession = ISession> {
 	logo?: ReactNode;
@@ -11,39 +11,19 @@ export interface ISessionContextProviderProps<TSession extends ISession = ISessi
 }
 
 export const SessionContextProvider: FC<ISessionContextProviderProps> = ({logo, link = "session.ticket", children}) => {
-	const discoveryContext = useDiscoveryContext();
-	const [loading, setLoading] = useState<boolean>(true);
-	const [error, setError] = useState<boolean>(false);
-	const [session, setSession] = useState<ISession>({
-		user: {
-			site: "public",
-			roles: [],
-		},
-	});
-
-	useEffect(() => httpGet<ISession>(discoveryContext.link(link))
-		.on("response", session => {
-			setSession(session);
-			setLoading(false);
-		})
-		.on("catch", e => {
-			console.error(e);
-			setError(true);
-		})
-		.cleaner(), []
-	);
-
+	const {result} = useSessionTicketQuery(link);
 	return <SessionContext.Provider
 		value={{
-			session,
-			setSession,
+			session: result.data,
+			setSession: (session: ISession) => {
+				throw Error("Investigate react-query mutations do to this");
+			},
 		}}
 	>
 		<LoaderLayout
 			logo={logo}
 			icon={<UserOutlined/>}
-			loading={loading}
-			error={error}
+			queryResult={result}
 			errorText={"Session ticket failed."}
 		>
 			{children}

@@ -2,39 +2,34 @@ import {GlobalOutlined} from "@ant-design/icons";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import {FingerprintContext, LoaderLayout} from "@leight-core/leight";
 import axios from "axios";
-import {FC, ReactNode, useEffect, useState} from "react";
+import {FC, ReactNode} from "react";
+import {useQuery} from "react-query";
 
 export interface IFingerprintContextProviderProps {
 	logo?: ReactNode;
 }
 
 export const FingerprintContextProvider: FC<IFingerprintContextProviderProps> = ({logo, children}) => {
-	const [fingerprint, setFingerprint] = useState<string>("unknown");
-
-	function updateFingerprint(fingerprint: string) {
-		axios.defaults.headers["X-Client-Hash"] = fingerprint;
-		setTimeout(() => setFingerprint(fingerprint), 0);
-	}
-
-	useEffect(() => {
+	const fingerprint = useQuery("fingerprint", () => new Promise<string>((resolve) => {
+		const done = (fingerprint: string) => {
+			resolve(axios.defaults.headers["X-Client-Hash"] = fingerprint);
+		};
 		FingerprintJS.load()
 			.then(agent => agent.get()
-				.then(result => updateFingerprint(result.visitorId))
-				.catch(() => updateFingerprint("unknown")))
-			.catch(() => updateFingerprint("unknown"));
-	}, []);
+				.then(result => done(result.visitorId))
+				.catch(() => done("unknown")))
+			.catch(() => done("unknown"));
+	}));
 
 	return <FingerprintContext.Provider
 		value={{
-			fingerprint,
-			setFingerprint,
+			fingerprint: fingerprint.data!!,
 		}}
 	>
 		<LoaderLayout
 			logo={logo}
 			icon={<GlobalOutlined/>}
-			loading={!fingerprint}
-			error={false}
+			queryResult={fingerprint}
 			errorText={"Fingerprint detection failed."}
 		>
 			{children}

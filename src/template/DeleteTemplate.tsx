@@ -1,10 +1,10 @@
-import {DeleteItemIcon, IDeleteCallback, IQueryParams, ITemplateProps, Template, useBlockContext, useDiscoveryContext, useNavigate} from "@leight-core/leight";
-import {Button, Divider, message} from "antd";
+import {DeleteItemIcon, IQueryParams, ITemplateProps, Template, useBlockContext, useDiscoveryContext, useNavigate} from "@leight-core/leight";
+import {Button, Divider} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface IDeleteTemplateProps extends ITemplateProps {
-	onDelete: IDeleteCallback;
+	onDelete: () => void;
 	deleteQuery?: IQueryParams;
 	/**
 	 * Where to navigate on successful delete.
@@ -28,14 +28,14 @@ export const DeleteTemplate: FC<IDeleteTemplateProps> = ({label, navigateTo, nav
 				icon={<DeleteItemIcon/>}
 				onClick={() => {
 					blockContext.block();
-					onDelete(discoveryContext, deleteQuery)
-						.on("response", data => {
-							navigate(navigateTo, navigateQuery);
-							message.success(t(label + ".delete.success", {data}));
-						})
-						.on("catch", () => {
-							message.error(t(label + ".delete.error"));
-						});
+					// onDelete(discoveryContext, deleteQuery)
+					// 	.on("response", data => {
+					// 		navigate(navigateTo, navigateQuery);
+					// 		message.success(t(label + ".delete.success", {data}));
+					// 	})
+					// 	.on("catch", () => {
+					// 		message.error(t(label + ".delete.error"));
+					// 	});
 				}}
 			>
 				{t(label + ".delete.submit")}

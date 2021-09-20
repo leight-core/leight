@@ -1,7 +1,6 @@
 export * from "./CheckboxItem";
 export * from "./CustomSearchSelect";
 export * from "./CustomSelect";
-export * from "./GroupSelect";
 export * from "./Input";
 export * from "./PasswordInput";
 export * from "./SearchSelect";

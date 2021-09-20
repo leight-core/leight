@@ -1,6 +1,6 @@
 import {CompassOutlined} from "@ant-design/icons";
-import {DiscoveryContext, httpGet, IDiscovery, IQueryParams, LoaderLayout, useClientContext, useLinkContext} from "@leight-core/leight";
-import {FC, ReactNode, useEffect, useState} from "react";
+import {DiscoveryContext, IQueryParams, LoaderLayout, useClientContext, useDiscoveryQuery, useLinkContext} from "@leight-core/leight";
+import {FC, ReactNode} from "react";
 
 export interface IDiscoveryContextProviderProps {
 	logo?: ReactNode;
@@ -8,40 +8,24 @@ export interface IDiscoveryContextProviderProps {
 
 export const DiscoveryContextProvider: FC<IDiscoveryContextProviderProps> = ({logo, children}) => {
 	const clientContext = useClientContext();
-	const [discovery, setDiscovery] = useState<IDiscovery>();
-	const [loading, setLoading] = useState<boolean>(true);
-	const [error, setError] = useState<boolean>(false);
 	const linkContext = useLinkContext();
-
-	useEffect(() => httpGet<IDiscovery>(clientContext.client.discovery)
-			.on("response", discovery => {
-				setDiscovery(discovery);
-				setLoading(false);
-			})
-			.on("catch", e => {
-				console.error(e);
-				setError(true);
-			})
-			.cleaner(),
-		[]
-	);
-
+	const {result} = useDiscoveryQuery(clientContext.client.discovery);
 	return <DiscoveryContext.Provider
 		value={{
 			link(id: string, params: IQueryParams | undefined): string {
-				if (!discovery) {
+				if (!result.data) {
 					throw new Error(`Cannot resolve link from Discovery for linkId [${id}]; discovery is not initialized yet!`);
 				}
-				if (Object.keys(discovery.index).length === 0) {
+				if (Object.keys(result.data.index).length === 0) {
 					throw new Error(`Cannot resolve link from Discovery for linkId [${id}]; discovery index is empty! Check if backend returns good and nice data.`);
 				}
-				if (!discovery.index[id]) {
+				if (!result.data.index[id]) {
 					throw new Error(`Cannot resolve link from Discovery for linkId [${id}]; discovery link does not exist.`);
 				}
 				/**
 				 * A little replace hack to convert `/{foo}/bar` form into `/:foo/bar` form.
 				 */
-				const link = discovery.index[id].url.replaceAll(/{(.*?)}/g, ":$1");
+				const link = result.data.index[id].url.replaceAll(/{(.*?)}/g, ":$1");
 				try {
 					const url = new URL(link);
 					url.pathname = linkContext.generate(url.pathname, params);
@@ -60,8 +44,7 @@ export const DiscoveryContextProvider: FC<IDiscoveryContextProviderProps> = ({lo
 		<LoaderLayout
 			logo={logo}
 			icon={<CompassOutlined/>}
-			loading={loading}
-			error={error}
+			queryResult={result}
 			errorText={"Discovery Failed."}
 		>
 			{children}

@@ -10,7 +10,6 @@ import {
 	IFormPostMapper,
 	INavigate,
 	IQueryParams,
-	IRequestCallback,
 	IRequestEvents,
 	LoaderIcon,
 	RequestEvents,
@@ -21,7 +20,7 @@ import {
 	useNavigate
 } from "@leight-core/leight";
 import {Form as CoolForm, FormProps, message, Spin} from "antd";
-import {AxiosError, AxiosRequestConfig} from "axios";
+import {AxiosRequestConfig} from "axios";
 import isCallable from "is-callable";
 import React, {FC, PropsWithChildren} from "react";
 import {useTranslation} from "react-i18next";
@@ -30,7 +29,7 @@ export interface IFormProps<TRequest = any, TResponse = TRequest> extends Partia
 	/**
 	 * What to do on form submit.
 	 */
-	post: IRequestCallback<TRequest, TResponse>;
+	post: () => void;
 	/**
 	 * Optional POSt param.
 	 */
@@ -116,12 +115,12 @@ const FormInternal: FC<IFormProps> = (
 		form={formContext.form}
 		colon={false}
 		size={"large"}
-		onFinish={values => post(toPost(values), discoveryContext, query, axios)
-			.chain(formContext.events())
-			.chain(events)
-			.on("response", data => onSuccess(navigate, values, data), 1000)
-			.on("catch", (error: AxiosError) => onFailure && onFailure((error && error.response && error.response.data) || error, formContext), 1000)
-		}
+		// onFinish={values => post(toPost(values), discoveryContext, query, axios)
+		// 	.chain(formContext.events())
+		// 	.chain(events)
+		// 	.on("response", data => onSuccess(navigate, values, data), 1000)
+		// 	.on("catch", (error: AxiosError) => onFailure && onFailure((error && error.response && error.response.data) || error, formContext), 1000)
+		// }
 		labelCol={{span: 8}}
 		labelAlign={"left"}
 		wrapperCol={{span: 24}}

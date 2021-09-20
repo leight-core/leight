@@ -48,7 +48,11 @@ export interface IRequestCallback<TQuery extends IQueryParams = IQueryParams, TR
 	): IRequestEvents<TResponse>;
 }
 
-export interface IUseRequestResult<TResponse = any> {
+export interface IRequestHookResult<TResponse = any> {
 	result: UseQueryResult<TResponse>;
 	events: IRequestEvents<TResponse>;
+}
+
+export interface IRequestHookCallback<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any> {
+	(request: TRequest, query?: TQuery, config?: AxiosRequestConfig): IRequestHookResult<TResponse>;
 }

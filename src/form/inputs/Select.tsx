@@ -1,20 +1,20 @@
-import {IBaseSelectOption, IGetCallback, IQueryParams, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
+import {IBaseSelectOption, IQueryParams, IRequestHookCallback, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select as CoolSelect, SelectProps} from "antd";
 import React, {DependencyList, useEffect, useRef, useState} from "react";
 
-export interface ISelectProps<TItem> extends SelectProps<any> {
+export interface ISelectProps<TQuery extends IQueryParams, TResponse = any> extends SelectProps<any> {
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
-	fetch: IGetCallback<TItem[]>;
+	fetch: IRequestHookCallback<TQuery, undefined, TResponse[]>;
 	/**
 	 * Optional parameters provided into fetch method.
 	 */
-	query?: IQueryParams;
+	query?: TQuery;
 	/**
 	 * Map requested data into Select options.
 	 */
-	toOption: (item: TItem) => IBaseSelectOption | false;
+	toOption: (item: TResponse) => IBaseSelectOption | false;
 	/**
 	 * Dependency used to force redraw (re-fetch data).
 	 */
@@ -31,14 +31,14 @@ export interface ISelectProps<TItem> extends SelectProps<any> {
 	useFirst?: boolean;
 }
 
-export const Select = <TItem, >({fetch, query, toOption, usePlaceholder, useFirst = false, deps = [], value, ...props}: ISelectProps<TItem>) => {
+export const Select = <TQuery extends IQueryParams, TResponse = any>({fetch, query, toOption, usePlaceholder, useFirst = false, deps = [], value, ...props}: ISelectProps<TQuery, TResponse>) => {
 	const [options, setOptions] = useState<IBaseSelectOption[]>();
 	const first = useRef(true);
-	const discoveryContext = useDiscoveryContext();
 	const formContext = useOptionalFormContext();
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
-	useEffect(() => fetch(discoveryContext, query)
+	useEffect(() => fetch(undefined, query)
+			.events
 			.on("request", () => {
 				formContext && formContext.blockContext.block();
 				setOptions(undefined);
