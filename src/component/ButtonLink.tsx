@@ -22,7 +22,7 @@ export interface IButtonLinkProps extends Omit<ButtonProps, "title"> {
 export const ButtonLink: FC<IButtonLinkProps> = ({href, title, query, ...props}) => {
 	const {t} = useTranslation();
 	try {
-		return <Link href={{pathname: href, query}}>
+		return <Link href={{pathname: href, query: query || undefined}}>
 			<Button
 				type={"primary"}
 				{...props}

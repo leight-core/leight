@@ -1,4 +1,4 @@
-import {IBlockContext, INavigate, IPageRequest, IQueryParams} from "@leight-core/leight";
+import {IBlockContext, INavigate, IQuery, IQueryParams} from "@leight-core/leight";
 import {FormInstance} from "antd";
 import {NamePath} from "rc-field-form/lib/interface";
 
@@ -73,8 +73,8 @@ export interface IFormContext<TValues = any> {
 	readonly blockContext: IBlockContext;
 }
 
-export interface IToSearchMapper<TOrderBy, TFilter> {
-	(search?: string): IPageRequest<TOrderBy, TFilter>;
+export interface IToQueryMapper<TOrderBy, TFilter> {
+	(search?: string): IQuery<TOrderBy, TFilter>;
 }
 
 export interface IToOptionMapper<TItem> {

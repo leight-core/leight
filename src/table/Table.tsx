@@ -1,51 +1,40 @@
-import {IRecordItem, ITableChildrenCallback, LoaderIcon, useDataContext, useInterval} from "@leight-core/leight";
+import {IRecordItem, ITableChildrenCallback, LoaderIcon, useSourceContext} from "@leight-core/leight";
 import {Table as CoolTable, TableProps} from "antd";
 import {ColumnProps} from "antd/lib/table";
 import isCallable from "is-callable";
-import {DependencyList} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface ITableProps<TItem extends Object> extends TableProps<TItem> {
-	/**
-	 * Enable live data fetching; live is number in milliseconds between fetches.
-	 */
-	live?: number;
-	deps?: DependencyList;
 	children: ITableChildrenCallback<TItem>;
 }
 
 export const Table = <TItem extends Object = IRecordItem>(
 	{
-		live,
-		deps = [],
 		children,
 		...props
 	}: ITableProps<TItem>) => {
 	const {t} = useTranslation();
-	const dataContext = useDataContext<TItem>();
-
-	useInterval(() => dataContext.setPage(0, dataContext.size), live);
-
+	const sourceContext = useSourceContext();
 	return <CoolTable
 		style={{minHeight: "50vh"}}
-		dataSource={dataContext.data.items}
+		dataSource={sourceContext.result.isSuccess ? sourceContext.result.data.items : []}
 		rowKey={(record: any) => record.id}
 		loading={{
-			spinning: dataContext.loading,
+			spinning: sourceContext.result.isLoading,
 			indicator: <LoaderIcon/>,
 			delay: 50,
 		}}
 		size={"large"}
-		pagination={{
-			total: dataContext.data.total,
-			pageSize: dataContext.data.size,
-			defaultPageSize: dataContext.data.size,
+		pagination={sourceContext.result.isSuccess ? {
+			total: sourceContext.result.data.total,
+			pageSize: sourceContext.result.data.size,
+			defaultPageSize: sourceContext.result.data.size,
 			showQuickJumper: true,
 			hideOnSinglePage: true,
-			onChange: (current, size) => dataContext.setPage(current - 1, size),
-		}}
+			onChange: (current, size) => sourceContext.setPage(current - 1, size),
+		} : undefined}
 		onChange={(_, __, sorter: any) => {
-			dataContext.setOrderBy(sorter.column === undefined ? undefined : {[sorter.columnKey]: sorter.order === "ascend"} as any);
+			sourceContext.setOrderBy(sorter.column === undefined ? undefined : {[sorter.columnKey]: sorter.order === "ascend"} as any);
 		}}
 		{...props}
 	>

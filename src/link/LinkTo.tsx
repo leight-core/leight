@@ -17,7 +17,7 @@ export interface ILinkToProps {
  * Wrapper component over Next.js Link with underlying <a> with children passed through.
  */
 export const LinkTo: FC<ILinkToProps> = ({href, query, children}) => {
-	return <Link href={{pathname: href, query}}>
+	return <Link href={{pathname: href, query: query || undefined}}>
 		<a>{children}</a>
 	</Link>;
 };

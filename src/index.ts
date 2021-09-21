@@ -3,7 +3,6 @@ export * from "./block";
 export * from "./button";
 export * from "./client";
 export * from "./component";
-export * from "./data";
 export * from "./date";
 export * from "./discovery";
 export * from "./drawer";

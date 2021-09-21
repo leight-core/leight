@@ -1,4 +1,4 @@
-import {IQueryParams, IToOptionMapper, IToSearchMapper, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
+import {IQueryParams, IToOptionMapper, IToQueryMapper, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
 import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
@@ -15,7 +15,7 @@ export interface ISearchSelectProps<TItem, TQuery extends IQueryParams = IQueryP
 	/**
 	 * How to map searched input to request on server-side.
 	 */
-	toSearch: IToSearchMapper<TOrderBy, TFilter>;
+	toQuery: IToQueryMapper<TOrderBy, TFilter>;
 	/**
 	 * Map requested data into Select's options.
 	 */
@@ -40,7 +40,7 @@ export const SearchSelect = <TItem, TQuery extends IQueryParams = IQueryParams, 
 	{
 		search,
 		query,
-		toSearch,
+		toQuery,
 		toOption,
 		usePlaceholder,
 		value,

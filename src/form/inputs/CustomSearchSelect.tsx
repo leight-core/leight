@@ -1,5 +1,5 @@
-import {IPageResponse, IQueryParams, IToSearchMapper, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
-import {Select, SelectProps} from "antd";
+import {IQueryParams, IToQueryMapper, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
+import {SelectProps} from "antd";
 import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
 
@@ -15,7 +15,7 @@ export interface ICustomSearchSelectProps<TItem, TQuery extends IQueryParams, TO
 	/**
 	 * How to map searched input to request on server-side.
 	 */
-	toSearch: IToSearchMapper<TOrderBy, TFilter>;
+	toQuery: IToQueryMapper<TOrderBy, TFilter>;
 	/**
 	 * Map requested data into Select's options.
 	 */
@@ -34,7 +34,7 @@ export const CustomSearchSelect = <TItem, TQuery extends IQueryParams, TOrderBy,
 	{
 		search,
 		query,
-		toSearch,
+		toQuery,
 		children,
 		usePlaceholder,
 		value,
@@ -42,7 +42,6 @@ export const CustomSearchSelect = <TItem, TQuery extends IQueryParams, TOrderBy,
 		...props
 	}: ICustomSearchSelectProps<TItem, TQuery, TOrderBy, TFilter>) => {
 	const discoveryContext = useDiscoveryContext();
-	const [data, setData] = useState<IPageResponse<TItem>>();
 	const [tid, setTid] = useState<number>();
 	const formContext = useOptionalFormContext();
 	const [loading, setLoading] = useState(false);
@@ -76,19 +75,21 @@ export const CustomSearchSelect = <TItem, TQuery extends IQueryParams, TOrderBy,
 		// }, debounce) as unknown as number);
 	};
 
-	return data ? <Select
-		showSearch={true}
-		loading={loading}
-		filterOption={() => true}
-		notFoundContent={t("common.nothing-found")}
-		onSearch={onSearch}
-		value={value}
-		{...props}
-	>
-		{data.items.map(children)}
-	</Select> : <Select
-		showSearch={true}
-		loading={loading}
-		{...props}
-	/>;
+	return <>todo</>;
+
+	// return data ? <Select
+	// 	showSearch={true}
+	// 	loading={loading}
+	// 	filterOption={() => true}
+	// 	notFoundContent={t("common.nothing-found")}
+	// 	onSearch={onSearch}
+	// 	value={value}
+	// 	{...props}
+	// >
+	// 	{data.items.map(children)}
+	// </Select> : <Select
+	// 	showSearch={true}
+	// 	loading={loading}
+	// 	{...props}
+	// />;
 };

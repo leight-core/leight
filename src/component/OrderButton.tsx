@@ -1,7 +1,7 @@
 import {ArrowDownOutlined, ArrowUpOutlined, DashOutlined} from "@ant-design/icons";
-import {useDataContext} from "@leight-core/leight";
 import {Button, Space, Tooltip} from "antd";
 import {useTranslation} from "react-i18next";
+import {useSourceContext} from "../query";
 
 export interface IOrderButtonProps<TOrderBy> {
 	orderBy: keyof TOrderBy;
@@ -9,8 +9,8 @@ export interface IOrderButtonProps<TOrderBy> {
 }
 
 export const OrderButton = <TOrderBy, >({orderBy, prefix}: IOrderButtonProps<TOrderBy>) => {
-	const dataContext = useDataContext<any, any>();
-	const order = dataContext.orderBy ? dataContext.orderBy[orderBy] : undefined;
+	const sourceContext = useSourceContext();
+	const order = sourceContext.orderBy ? sourceContext.orderBy[orderBy] : undefined;
 	const {t} = useTranslation();
 	const label = t("order-by.label." + prefix + "." + orderBy);
 	return <Space size={"small"}>
@@ -22,7 +22,7 @@ export const OrderButton = <TOrderBy, >({orderBy, prefix}: IOrderButtonProps<TOr
 			}
 			type={"link"}
 			size={"small"}
-			onClick={() => dataContext.setOrderBy({[orderBy]: !order})}
+			onClick={() => sourceContext.setOrderBy({[orderBy]: !order})}
 		>
 			{(order === undefined && <Tooltip title={t("common.order.undefined.tooltip")}>{label}</Tooltip>) ||
 			(order === true && <Tooltip title={t("common.order.ascending.tooltip")}>{label}</Tooltip>) ||

@@ -1,4 +1,4 @@
-import {IRecordItem, LoaderIcon, useDataContext} from "@leight-core/leight";
+import {IRecordItem, LoaderIcon, useSourceContext} from "@leight-core/leight";
 import {List as CoolList, ListProps} from "antd";
 import {ReactNode} from "react";
 
@@ -11,26 +11,26 @@ export const List = <TItem extends Object = IRecordItem>(
 		children,
 		...props
 	}: IListProps<TItem>) => {
-	const dataContext = useDataContext<TItem>();
+	const sourceContext = useSourceContext();
 	return <CoolList
 		style={{minHeight: "50vh"}}
-		dataSource={dataContext.data.items}
+		dataSource={sourceContext.result.isSuccess ? sourceContext.result.data.items : []}
 		rowKey={(record: any) => record.id}
 		loading={{
-			spinning: dataContext.loading,
+			spinning: sourceContext.result.isLoading,
 			indicator: <LoaderIcon/>,
 			delay: 50,
 		}}
 		itemLayout={"horizontal"}
 		size={"large"}
-		pagination={{
-			total: dataContext.data.total,
-			pageSize: dataContext.data.size,
-			defaultPageSize: dataContext.data.size,
+		pagination={sourceContext.result.isSuccess ? {
+			total: sourceContext.result.data.total,
+			pageSize: sourceContext.result.data.size,
+			defaultPageSize: sourceContext.result.data.size,
 			showQuickJumper: true,
 			hideOnSinglePage: true,
-			onChange: (current, size) => dataContext.setPage(current - 1, size),
-		}}
+			onChange: (current, size) => sourceContext.setPage(current - 1, size),
+		} : undefined}
 		renderItem={children}
 		{...props}
 	/>;
