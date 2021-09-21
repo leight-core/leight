@@ -1,4 +1,4 @@
-import {IBaseSelectOption, IQueryParams, IRequestHookCallback, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
+import {IBaseSelectOption, IQueryHookCallback, IQueryParams, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select as CoolSelect, SelectProps} from "antd";
 import React, {DependencyList, useEffect, useRef, useState} from "react";
 
@@ -6,7 +6,7 @@ export interface ISelectProps<TQuery extends IQueryParams, TResponse = any> exte
 	/**
 	 * Fetch used in effect to fetch data.
 	 */
-	fetch: IRequestHookCallback<TQuery, undefined, TResponse[]>;
+	fetch: IQueryHookCallback<TQuery, undefined, TResponse[]>;
 	/**
 	 * Optional parameters provided into fetch method.
 	 */
