@@ -1,37 +1,37 @@
-import {IQueryParams, useLinkContext, useOptionalDiscoveryContext} from "@leight-core/leight";
+import {IHookPromise, IQueryParams, useLinkContext, useOptionalDiscoveryContext} from "@leight-core/leight";
 import axios from "axios";
 
-export function usePutPromise<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(link: string, request: TRequest, query?: TQuery): () => Promise<TResponse> {
+export function usePutPromise<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(link: string, query?: TQuery, request?: TRequest): IHookPromise<TRequest, TResponse> {
 	const linkContext = useLinkContext();
 	const discoveryContext = useOptionalDiscoveryContext();
-	return () => new Promise<TResponse>((resolve, reject) => {
-		axios.put<TResponse>(linkContext.link(link, query, discoveryContext), request)
+	return (req: TRequest | undefined = request) => new Promise<TResponse>((resolve, reject) => {
+		axios.put<TResponse>(linkContext.link(link, query, discoveryContext), req)
 			.then(result => resolve(result.data))
 			.catch(reject);
 	});
 }
 
-export function usePatchPromise<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(link: string, request: TRequest, query?: TQuery): () => Promise<TResponse> {
+export function usePatchPromise<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(link: string, query?: TQuery, request?: TRequest): IHookPromise<TRequest, TResponse> {
 	const linkContext = useLinkContext();
 	const discoveryContext = useOptionalDiscoveryContext();
-	return () => new Promise<TResponse>((resolve, reject) => {
-		axios.patch<TResponse>(linkContext.link(link, query, discoveryContext), request)
+	return (req: TRequest | undefined = request) => new Promise<TResponse>((resolve, reject) => {
+		axios.patch<TResponse>(linkContext.link(link, query, discoveryContext), req)
 			.then(result => resolve(result.data))
 			.catch(reject);
 	});
 }
 
-export function usePostPromise<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(link: string, request: TRequest, query?: TQuery): () => Promise<TResponse> {
+export function usePostPromise<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(link: string, query?: TQuery, request?: TRequest): IHookPromise<TRequest, TResponse> {
 	const linkContext = useLinkContext();
 	const discoveryContext = useOptionalDiscoveryContext();
-	return () => new Promise<TResponse>((resolve, reject) => {
-		axios.post<TResponse>(linkContext.link(link, query, discoveryContext), request)
+	return (req: TRequest | undefined = request) => new Promise<TResponse>((resolve, reject) => {
+		axios.post<TResponse>(linkContext.link(link, query, discoveryContext), req)
 			.then(result => resolve(result.data))
 			.catch(reject);
 	});
 }
 
-export function useDeletePromise<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(link: string, query?: TQuery): () => Promise<TResponse> {
+export function useDeletePromise<TQuery extends IQueryParams = IQueryParams, TResponse = any>(link: string, query?: TQuery): IHookPromise<void, TResponse> {
 	const linkContext = useLinkContext();
 	const discoveryContext = useOptionalDiscoveryContext();
 	return () => new Promise<TResponse>((resolve, reject) => {
@@ -41,7 +41,7 @@ export function useDeletePromise<TQuery extends IQueryParams = IQueryParams, TRe
 	});
 }
 
-export function useGetPromise<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(link: string, query?: TQuery) {
+export function useGetPromise<TQuery extends IQueryParams = IQueryParams, TResponse = any>(link: string, query?: TQuery): IHookPromise<void, TResponse> {
 	const linkContext = useLinkContext();
 	const discoveryContext = useOptionalDiscoveryContext();
 	return () => new Promise<TResponse>((resolve, reject) => {

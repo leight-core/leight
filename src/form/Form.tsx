@@ -8,6 +8,7 @@ import {
 	IFormOnFailure,
 	IFormOnSuccess,
 	IFormPostMapper,
+	IMutationHookCallback,
 	INavigate,
 	IQueryParams,
 	LoaderIcon,
@@ -17,28 +18,19 @@ import {
 	useNavigate
 } from "@leight-core/leight";
 import {Form as CoolForm, FormProps, message, Spin} from "antd";
-import {AxiosRequestConfig} from "axios";
 import isCallable from "is-callable";
-import React, {FC, PropsWithChildren} from "react";
+import React, {PropsWithChildren} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface IFormProps<TRequest = any, TResponse = TRequest> extends Partial<FormProps> {
+export interface IFormProps<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any> extends Partial<FormProps> {
 	/**
 	 * What to do on form submit.
 	 */
-	post: () => void;
+	useMutation: IMutationHookCallback<TQuery, TRequest, TResponse>;
 	/**
-	 * Optional POSt param.
+	 * Map form data to mutation data.
 	 */
-	query?: IQueryParams;
-	/**
-	 * Axios request config.
-	 */
-	axios?: AxiosRequestConfig,
-	/**
-	 * Map form data to data being sent to server.
-	 */
-	toPost?: IFormPostMapper<any, TRequest>;
+	toMutation?: IFormPostMapper<any, TRequest>;
 	/**
 	 * Map data to the initial state of the form (if any).
 	 */
@@ -57,24 +49,24 @@ export interface IFormProps<TRequest = any, TResponse = TRequest> extends Partia
 	toError?: (error: any, formContext: IFormContext) => IFormErrorMap;
 }
 
-const FormInternal: FC<IFormProps> = (
+const FormInternal = <TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(
 	{
-		post,
-		query,
-		axios,
-		toPost = values => values,
+		useMutation,
+		toMutation = values => values,
 		toForm = () => null as any,
 		onSuccess = () => null,
 		toError = () => ({}),
 		onFailure,
 		children,
 		...props
-	}) => {
+	}: PropsWithChildren<IFormProps<TQuery, TRequest, TResponse>>) => {
 	const formContext = useFormContext();
 	const blockContext = useBlockContext();
 	const formBlockContext = useFormBlockContext();
 	const doNavigate = useNavigate();
 	const {t} = useTranslation();
+
+	const mutation = useMutation();
 
 	const navigate: INavigate = (href: string, query?: IQueryParams) => {
 		blockContext.block();
@@ -106,12 +98,10 @@ const FormInternal: FC<IFormProps> = (
 		form={formContext.form}
 		colon={false}
 		size={"large"}
-		// onFinish={values => post(toPost(values), discoveryContext, query, axios)
-		// 	.chain(formContext.events())
-		// 	.chain(events)
-		// 	.on("response", data => onSuccess(navigate, values, data), 1000)
-		// 	.on("catch", (error: AxiosError) => onFailure && onFailure((error && error.response && error.response.data) || error, formContext), 1000)
-		// }
+		onFinish={values => mutation.mutate(toMutation(values), {
+			onSuccess: data => onSuccess(navigate, values, data),
+			onError: error => onFailure && onFailure((error && error.response && error.response.data) || error, formContext),
+		})}
 		labelCol={{span: 8}}
 		labelAlign={"left"}
 		wrapperCol={{span: 24}}
@@ -125,7 +115,7 @@ const FormInternal: FC<IFormProps> = (
 	</CoolForm>;
 };
 
-export function Form<TRequest = any, TResponse = TRequest>(props: PropsWithChildren<IFormProps<TRequest, TResponse>>): JSX.Element {
+export function Form<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(props: PropsWithChildren<IFormProps<TQuery, TRequest, TResponse>>): JSX.Element {
 	return <FormContextProvider>
 		<FormInternal {...props}/>
 	</FormContextProvider>;
