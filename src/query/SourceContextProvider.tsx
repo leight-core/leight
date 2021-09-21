@@ -1,7 +1,7 @@
 import {IQuery, IQueryHookCallback, IQueryParams, IQueryResult, SourceContext} from "@leight-core/leight";
 import {PropsWithChildren, useState} from "react";
 
-export interface ISourceContextProviderProps<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any, TOrderBy = any, TFilter = any> {
+export interface ISourceContextProviderProps<TQuery extends IQueryParams = IQueryParams, TResponse = any, TOrderBy = any, TFilter = any> {
 	useQuery: IQueryHookCallback<TQuery, IQuery<TOrderBy, TFilter>, IQueryResult<TResponse>>;
 	live?: number | false,
 	defaultSize?: number;
@@ -10,7 +10,7 @@ export interface ISourceContextProviderProps<TQuery extends IQueryParams = IQuer
 	defaultQuery?: TQuery;
 }
 
-export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any, TOrderBy = any, TFilter = any>(
+export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams, TResponse = any, TOrderBy = any, TFilter = any>(
 	{
 		useQuery,
 		live = false,
@@ -19,7 +19,7 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 		defaultFilter,
 		defaultQuery,
 		children
-	}: PropsWithChildren<ISourceContextProviderProps<TQuery, TRequest, TResponse, TOrderBy, TFilter>>
+	}: PropsWithChildren<ISourceContextProviderProps<TQuery, TResponse, TOrderBy, TFilter>>
 ) => {
 	const [page, setPage] = useState<number>(0);
 	const [orderBy, setOrderBy] = useState<TOrderBy | null | undefined>(defaultOrderBy);
