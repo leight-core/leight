@@ -10,11 +10,8 @@ import {
 	IFormPostMapper,
 	INavigate,
 	IQueryParams,
-	IRequestEvents,
 	LoaderIcon,
-	RequestEvents,
 	useBlockContext,
-	useDiscoveryContext,
 	useFormBlockContext,
 	useFormContext,
 	useNavigate
@@ -58,10 +55,6 @@ export interface IFormProps<TRequest = any, TResponse = TRequest> extends Partia
 	 * Map error from outside to a state in the form (like a general error or a field error).
 	 */
 	toError?: (error: any, formContext: IFormContext) => IFormErrorMap;
-	/**
-	 * Optional events if needed to be hooked in.
-	 */
-	events?: IRequestEvents<TResponse>;
 }
 
 const FormInternal: FC<IFormProps> = (
@@ -74,14 +67,12 @@ const FormInternal: FC<IFormProps> = (
 		onSuccess = () => null,
 		toError = () => ({}),
 		onFailure,
-		events = RequestEvents(),
 		children,
 		...props
 	}) => {
 	const formContext = useFormContext();
 	const blockContext = useBlockContext();
 	const formBlockContext = useFormBlockContext();
-	const discoveryContext = useDiscoveryContext();
 	const doNavigate = useNavigate();
 	const {t} = useTranslation();
 

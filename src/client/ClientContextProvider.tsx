@@ -8,7 +8,7 @@ export interface IClientContextProviderProps {
 }
 
 export const ClientContextProvider: FC<IClientContextProviderProps> = ({logo, link, children}) => {
-	const {result} = useClientConfigQuery(link || "/client.json");
+	const result = useClientConfigQuery(link || "/client.json");
 	return <ClientContext.Provider
 		value={{
 			client: result.data!!,

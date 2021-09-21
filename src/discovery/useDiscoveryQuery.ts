@@ -1,3 +1,3 @@
-import {createGetHook} from "@leight-core/leight";
+import {createGetQuery, IDiscovery} from "@leight-core/leight";
 
-export const useDiscoveryQuery = (link: string) => createGetHook(link)();
+export const useDiscoveryQuery = (link: string) => createGetQuery<undefined, IDiscovery>(link)(undefined);

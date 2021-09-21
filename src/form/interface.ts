@@ -1,4 +1,4 @@
-import {IBlockContext, INavigate, IPageRequest, IRequestEvents} from "@leight-core/leight";
+import {IBlockContext, INavigate, IPageRequest} from "@leight-core/leight";
 import {FormInstance} from "antd";
 import {NamePath} from "rc-field-form/lib/interface";
 
@@ -56,10 +56,6 @@ export interface IFormContext<TValues = any> {
 	 */
 	reset: () => void;
 	/**
-	 * Create default events handling some things in the form.
-	 */
-	events: <TResponse = any>() => IRequestEvents<TResponse>;
-	/**
 	 * Return current form values.
 	 */
 	values: () => any;
@@ -103,4 +99,3 @@ export interface IFormOnFailure {
 
 export type IBaseSelectItem = any;
 export type IBaseSelectOption = { value: IBaseSelectItem, label: IBaseSelectItem };
-export type IBaseGroupSelectOption = { label: IBaseSelectItem, children: IBaseSelectOption[] };

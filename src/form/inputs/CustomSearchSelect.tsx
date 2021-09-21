@@ -1,13 +1,13 @@
-import {IPageResponse, IQueryCallback, IQueryParams, IToSearchMapper, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
+import {IPageResponse, IQueryParams, IToSearchMapper, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
-import React, {DependencyList, useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface ICustomSearchSelectProps<TItem, TQuery extends IQueryParams, TOrderBy, TFilter> extends SelectProps<any> {
 	/**
 	 * Search callback.
 	 */
-	search: IQueryCallback<TItem, TQuery, TOrderBy, TFilter>;
+	search: () => void;
 	/**
 	 * Optional fetch params.
 	 */
@@ -28,7 +28,6 @@ export interface ICustomSearchSelectProps<TItem, TQuery extends IQueryParams, TO
 	 * Use label as placeholder for the select.
 	 */
 	usePlaceholder?: boolean;
-	deps?: DependencyList;
 }
 
 export const CustomSearchSelect = <TItem, TQuery extends IQueryParams, TOrderBy, TFilter>(
@@ -39,7 +38,6 @@ export const CustomSearchSelect = <TItem, TQuery extends IQueryParams, TOrderBy,
 		children,
 		usePlaceholder,
 		value,
-		deps = [],
 		debounce = 250,
 		...props
 	}: ICustomSearchSelectProps<TItem, TQuery, TOrderBy, TFilter>) => {
@@ -51,31 +49,31 @@ export const CustomSearchSelect = <TItem, TQuery extends IQueryParams, TOrderBy,
 	const {t} = useTranslation();
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
-	useEffect(
-		() => search(toSearch(formItemContext && formItemContext.getValue()), discoveryContext, query)
-			.on("request", () => {
-				formContext && formContext.blockContext.block();
-				setLoading(true);
-			})
-			.on("response", setData)
-			.on("done", () => {
-				setLoading(false);
-				formContext && formContext.blockContext.unblock();
-			})
-			.cleaner(),
-		deps,
-	);
+	// useEffect(
+	// 	() => search(toSearch(formItemContext && formItemContext.getValue()), discoveryContext, query)
+	// 		.on("request", () => {
+	// 			formContext && formContext.blockContext.block();
+	// 			setLoading(true);
+	// 		})
+	// 		.on("response", setData)
+	// 		.on("done", () => {
+	// 			setLoading(false);
+	// 			formContext && formContext.blockContext.unblock();
+	// 		})
+	// 		.cleaner(),
+	// 	deps,
+	// );
 
 	const onSearch = (text: string) => {
-		setLoading(true);
-		clearTimeout(tid);
-		setTid(setTimeout(() => {
-			search(toSearch(text), discoveryContext, query)
-				.on("response", data => {
-					setData(data);
-					setLoading(false);
-				});
-		}, debounce) as unknown as number);
+		// setLoading(true);
+		// clearTimeout(tid);
+		// setTid(setTimeout(() => {
+		// 	search(toSearch(text), discoveryContext, query)
+		// 		.on("response", data => {
+		// 			setData(data);
+		// 			setLoading(false);
+		// 		});
+		// }, debounce) as unknown as number);
 	};
 
 	return data ? <Select

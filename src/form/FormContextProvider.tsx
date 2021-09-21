@@ -1,4 +1,4 @@
-import {BlockContextClass, FormBlockContext, FormContext, FormUtils, IFormErrors, IFormFields, RequestEvents, useBlockContext} from "@leight-core/leight";
+import {BlockContextClass, FormBlockContext, FormContext, FormUtils, IFormErrors, IFormFields} from "@leight-core/leight";
 import {Form as CoolForm, message} from "antd";
 import React, {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
@@ -7,7 +7,6 @@ export interface IFormContextProviderProps {
 }
 
 export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) => {
-	const blockContext = useBlockContext();
 	const {t} = useTranslation();
 	const [errors, setErrors] = useState<IFormErrors>();
 	const [form] = CoolForm.useForm();
@@ -35,15 +34,6 @@ export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) =
 				setErrors: setErrorsInternal,
 				setValues: values => form.setFieldsValue(values),
 				reset: () => form.resetFields(),
-				events: () => RequestEvents()
-					.on("request", () => {
-						formBlockContext.block();
-						blockContext.block();
-					}, 1000)
-					.on("done", () => {
-						formBlockContext.unblock();
-						blockContext.unblock();
-					}, 1000),
 				values: form.getFieldsValue,
 				resetErrors,
 				refresh: () => form.validateFields().then(() => resetErrors(), () => resetErrors()),

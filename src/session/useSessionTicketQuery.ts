@@ -1,3 +1,3 @@
-import {createGetHook} from "@leight-core/leight";
+import {createGetQuery, ISession} from "@leight-core/leight";
 
-export const useSessionTicketQuery = (link: string) => createGetHook(link)();
+export const useSessionTicketQuery = (link: string) => createGetQuery<undefined, ISession>(link)(undefined);

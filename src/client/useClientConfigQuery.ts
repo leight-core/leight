@@ -1,3 +1,3 @@
-import {createGetHook, IClient} from "@leight-core/leight";
+import {createGetQuery, IClient} from "@leight-core/leight";
 
-export const useClientConfigQuery = (link: string) => createGetHook<undefined, IClient>(link)();
+export const useClientConfigQuery = (link: string) => createGetQuery<undefined, IClient>(link)(undefined);

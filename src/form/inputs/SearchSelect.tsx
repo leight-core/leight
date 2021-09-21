@@ -1,13 +1,13 @@
-import {IQueryCallback, IQueryParams, IToOptionMapper, IToSearchMapper, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
+import {IQueryParams, IToOptionMapper, IToSearchMapper, useDiscoveryContext, useOptionalFormContext, useOptionalFormItemContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
-import React, {DependencyList, useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface ISearchSelectProps<TItem, TQuery extends IQueryParams = IQueryParams, TOrderBy = any, TFilter = any> extends SelectProps<any> {
 	/**
 	 * Search callback.
 	 */
-	search: IQueryCallback<TItem, TQuery, TOrderBy, TFilter>;
+	search: () => void;
 	/**
 	 * Optional fetch params.
 	 */
@@ -34,7 +34,6 @@ export interface ISearchSelectProps<TItem, TQuery extends IQueryParams = IQueryP
 	 * Defaults to false.
 	 */
 	useFirst?: boolean;
-	deps?: DependencyList;
 }
 
 export const SearchSelect = <TItem, TQuery extends IQueryParams = IQueryParams, TOrderBy = any, TFilter = any>(
@@ -45,7 +44,6 @@ export const SearchSelect = <TItem, TQuery extends IQueryParams = IQueryParams, 
 		toOption,
 		usePlaceholder,
 		value,
-		deps = [],
 		useFirst = false,
 		debounce = 250,
 		...props
@@ -58,38 +56,38 @@ export const SearchSelect = <TItem, TQuery extends IQueryParams = IQueryParams, 
 	const {t} = useTranslation();
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
-	useEffect(
-		() => search(toSearch(formItemContext && formItemContext.getValue()), discoveryContext, query)
-			.on("request", () => {
-				formContext && formContext.blockContext.block();
-				setLoading(true);
-			})
-			.on("response", data => {
-				const options = data.items.map(toOption);
-				setOptions(options);
-				if (useFirst && options.length > 0) {
-					formItemContext && formItemContext.setValue(options[0].value);
-					props.onChange && props.onChange(options[0].value, options[0]);
-				}
-			})
-			.on("done", () => {
-				setLoading(false);
-				formContext && formContext.blockContext.unblock();
-			})
-			.cleaner(),
-		deps,
-	);
+	// useEffect(
+	// 	() => search(toSearch(formItemContext && formItemContext.getValue()), discoveryContext, query)
+	// 		.on("request", () => {
+	// 			formContext && formContext.blockContext.block();
+	// 			setLoading(true);
+	// 		})
+	// 		.on("response", data => {
+	// 			const options = data.items.map(toOption);
+	// 			setOptions(options);
+	// 			if (useFirst && options.length > 0) {
+	// 				formItemContext && formItemContext.setValue(options[0].value);
+	// 				props.onChange && props.onChange(options[0].value, options[0]);
+	// 			}
+	// 		})
+	// 		.on("done", () => {
+	// 			setLoading(false);
+	// 			formContext && formContext.blockContext.unblock();
+	// 		})
+	// 		.cleaner(),
+	// 	deps,
+	// );
 
 	const onSearch = (text: string) => {
-		setLoading(true);
-		clearTimeout(tid);
-		setTid(setTimeout(() => {
-			search(toSearch(text), discoveryContext, query)
-				.on("response", data => {
-					setOptions(data.items.map(toOption));
-					setLoading(false);
-				});
-		}, debounce) as unknown as number);
+		// setLoading(true);
+		// clearTimeout(tid);
+		// setTid(setTimeout(() => {
+		// 	search(toSearch(text), discoveryContext, query)
+		// 		.on("response", data => {
+		// 			setOptions(data.items.map(toOption));
+		// 			setLoading(false);
+		// 		});
+		// }, debounce) as unknown as number);
 	};
 
 	return options ? <Select

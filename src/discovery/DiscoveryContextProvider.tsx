@@ -9,7 +9,7 @@ export interface IDiscoveryContextProviderProps {
 export const DiscoveryContextProvider: FC<IDiscoveryContextProviderProps> = ({logo, children}) => {
 	const clientContext = useClientContext();
 	const linkContext = useLinkContext();
-	const {result} = useDiscoveryQuery(clientContext.client.discovery);
+	const result = useDiscoveryQuery(clientContext.client.discovery);
 	return <DiscoveryContext.Provider
 		value={{
 			link(id: string, params: IQueryParams | undefined): string {

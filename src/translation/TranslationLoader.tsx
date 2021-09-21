@@ -13,7 +13,7 @@ export interface ITranslationLoaderProps {
 }
 
 export const TranslationLoader: FC<ITranslationLoaderProps> = ({logo, link, children}) => {
-	const {result} = useTranslationQuery(link || "translation.index");
+	const result = useTranslationQuery(link || "translation.index");
 	useEffect(() => {
 		result.isSuccess && result.data.translations.forEach(translation => i18next.addResource(translation.language, "translation", translation.label, translation.text));
 	}, [result.isSuccess, result.data]);

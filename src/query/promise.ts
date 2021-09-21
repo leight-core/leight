@@ -31,7 +31,7 @@ export function usePostPromise<TQuery extends IQueryParams = IQueryParams, TRequ
 	});
 }
 
-export function useDeletePromise<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(link: string, request: TRequest, query?: TQuery, config?: AxiosRequestConfig): () => Promise<TResponse> {
+export function useDeletePromise<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(link: string, query?: TQuery, config?: AxiosRequestConfig): () => Promise<TResponse> {
 	const linkContext = useLinkContext();
 	const discoveryContext = useOptionalDiscoveryContext();
 	return () => new Promise<TResponse>((resolve, reject) => {
@@ -41,7 +41,7 @@ export function useDeletePromise<TQuery extends IQueryParams = IQueryParams, TRe
 	});
 }
 
-export function useGetPromise<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(link: string, request: TRequest, query?: TQuery, config?: AxiosRequestConfig) {
+export function useGetPromise<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(link: string, query?: TQuery, config?: AxiosRequestConfig) {
 	const linkContext = useLinkContext();
 	const discoveryContext = useOptionalDiscoveryContext();
 	return () => new Promise<TResponse>((resolve, reject) => {

@@ -1,3 +1,3 @@
-import {createGetHook, ITranslations} from "@leight-core/leight";
+import {createGetQuery, ITranslations} from "@leight-core/leight";
 
-export const useTranslationQuery = (link: string) => createGetHook<undefined, ITranslations>(link)();
+export const useTranslationQuery = (link: string) => createGetQuery<undefined, ITranslations>(link)();
