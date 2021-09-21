@@ -9,7 +9,7 @@ export interface IOrderButtonProps<TOrderBy> {
 }
 
 export const OrderButton = <TOrderBy, >({orderBy, prefix}: IOrderButtonProps<TOrderBy>) => {
-	const sourceContext = useSourceContext();
+	const sourceContext = useSourceContext<any, any, any, any>();
 	const order = sourceContext.orderBy ? sourceContext.orderBy[orderBy] : undefined;
 	const {t} = useTranslation();
 	const label = t("order-by.label." + prefix + "." + orderBy);

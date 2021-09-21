@@ -11,7 +11,7 @@ export const List = <TItem extends Object = IRecordItem>(
 		children,
 		...props
 	}: IListProps<TItem>) => {
-	const sourceContext = useSourceContext();
+	const sourceContext = useSourceContext<any, TItem, any, any>();
 	return <CoolList
 		style={{minHeight: "50vh"}}
 		dataSource={sourceContext.result.isSuccess ? sourceContext.result.data.items : []}

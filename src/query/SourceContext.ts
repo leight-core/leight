@@ -1,6 +1,6 @@
 import {IQueryParams, ISourceContext, useContext} from "@leight-core/leight";
 import {createContext} from "react";
 
-export const SourceContext = createContext<ISourceContext<any>>(null as any);
+export const SourceContext = createContext<ISourceContext<any, any, any, any>>(null as any);
 
-export const useSourceContext = <TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any, TOrderBy = any, TFilter = any>() => useContext<ISourceContext<TQuery, TRequest, TResponse, TOrderBy, TFilter>>(SourceContext, "SourceContext");
+export const useSourceContext = <TQuery extends IQueryParams, TResponse, TOrderBy, TFilter>() => useContext<ISourceContext<TQuery, TResponse, TOrderBy, TFilter>>(SourceContext, "SourceContext");

@@ -14,7 +14,7 @@ export const Table = <TItem extends Object = IRecordItem>(
 		...props
 	}: ITableProps<TItem>) => {
 	const {t} = useTranslation();
-	const sourceContext = useSourceContext();
+	const sourceContext = useSourceContext<any, TItem, any, any>();
 	return <CoolTable
 		style={{minHeight: "50vh"}}
 		dataSource={sourceContext.result.isSuccess ? sourceContext.result.data.items : []}
