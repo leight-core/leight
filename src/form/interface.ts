@@ -1,4 +1,4 @@
-import {IBlockContext, INavigate, IPageRequest} from "@leight-core/leight";
+import {IBlockContext, INavigate, IPageRequest, IQueryParams} from "@leight-core/leight";
 import {FormInstance} from "antd";
 import {NamePath} from "rc-field-form/lib/interface";
 
@@ -89,8 +89,8 @@ export interface IFormInitialMapper<TFormValues> {
 	(): TFormValues;
 }
 
-export interface IFormOnSuccess<TFormValues, TResponse> {
-	(navigate: INavigate, values: TFormValues, data: TResponse): void;
+export interface IFormOnSuccess<TFormValues, TResponse, TQuery extends IQueryParams = IQueryParams> {
+	(navigate: INavigate<TQuery>, values: TFormValues, data: TResponse): void;
 }
 
 export interface IFormOnFailure {

@@ -66,9 +66,14 @@ const FormInternal = <TQuery extends IQueryParams = IQueryParams, TRequest = any
 	const doNavigate = useNavigate();
 	const {t} = useTranslation();
 
-	const mutation = useMutation();
+	const mutation = useMutation(undefined, {
+		onSettled: () => {
+			blockContext.unblock();
+			formBlockContext.unblock();
+		}
+	});
 
-	const navigate: INavigate = (href: string, query?: IQueryParams) => {
+	const navigate: INavigate = (href: string, query) => {
 		blockContext.block();
 		doNavigate(href, query);
 	};
@@ -98,10 +103,14 @@ const FormInternal = <TQuery extends IQueryParams = IQueryParams, TRequest = any
 		form={formContext.form}
 		colon={false}
 		size={"large"}
-		onFinish={values => mutation.mutate(toMutation(values), {
-			onSuccess: data => onSuccess(navigate, values, data),
-			onError: error => onFailure && onFailure((error && error.response && error.response.data) || error, formContext),
-		})}
+		onFinish={values => {
+			blockContext.block();
+			formBlockContext.block();
+			mutation.mutate(toMutation(values), {
+				onSuccess: data => onSuccess(navigate, values, data),
+				onError: error => onFailure && onFailure((error && error.response && error.response.data) || error, formContext),
+			});
+		}}
 		labelCol={{span: 8}}
 		labelAlign={"left"}
 		wrapperCol={{span: 24}}
