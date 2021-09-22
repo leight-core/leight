@@ -1,6 +1,6 @@
-import {IFulltextFilter, IQueryParams, IToOptionMapper, useOptionalFormItemContext, useSourceContext} from "@leight-core/leight";
+import {IFulltextFilter, IQueryParams, IToOptionMapper, useOptionalFormContext, useOptionalFormItemContext, useSourceContext} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
-import React, {PropsWithChildren} from "react";
+import React, {PropsWithChildren, useEffect, useRef} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface IQuerySourceSelectProps<TQuery extends IQueryParams, TResponse, TOrderBy, TFilter extends IFulltextFilter> extends Partial<SelectProps<any>> {
@@ -24,10 +24,24 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 		usePlaceholder,
 		...props
 	}: PropsWithChildren<IQuerySourceSelectProps<TQuery, TResponse, TOrderBy, TFilter>>) => {
+	const first = useRef(true);
 	const {t} = useTranslation();
 	const sourceContext = useSourceContext<TQuery, TResponse, TOrderBy, IFulltextFilter>();
+	const formContext = useOptionalFormContext();
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
+	useEffect(() => {
+		if (sourceContext.result.isSuccess) {
+			/**
+			 * Keep it this way, because this has soft dependency on form; formItemContext.setValue requires
+			 * form.
+			 */
+			!first.current && formItemContext && formContext && formContext.form.setFields([
+				{name: formItemContext.field, value: undefined},
+			]);
+			first.current = false;
+		}
+	}, [sourceContext.result.data]);
 	return sourceContext.result.isSuccess ? <Select
 		options={sourceContext.result.data.items.map(toOption)}
 		filterOption={() => true}
@@ -36,6 +50,8 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 		onSearch={fulltext => {
 			sourceContext.setFilter({fulltext});
 		}}
+		loading={sourceContext.result.isFetching}
+		disabled={sourceContext.result.isFetching}
 		value={value}
 		{...props}
 	/> : <Select
