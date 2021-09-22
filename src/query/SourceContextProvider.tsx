@@ -1,15 +1,51 @@
-import {IQuery, IQueryHookCallback, IQueryOptions, IQueryParams, IQueryResult, SourceContext} from "@leight-core/leight";
+import {IQuery, IQueryHookCallback, IQueryOptions, IQueryParams, IQueryResult, merge, SourceContext} from "@leight-core/leight";
 import {PropsWithChildren, useEffect, useState} from "react";
 
 export interface ISourceContextProviderProps<TQuery extends IQueryParams = IQueryParams, TResponse = any, TOrderBy = any, TFilter = any> {
+	/**
+	 * Source of the query
+	 */
 	useQuery: IQueryHookCallback<TQuery, IQuery<TOrderBy, TFilter>, IQueryResult<TResponse>>;
+	/**
+	 * Enables live refetches of the query
+	 */
 	live?: number | false,
+	/**
+	 * Default (initial) page; if out of range, an error occurs
+	 */
 	defaultPage?: number;
+	/**
+	 * Default page size.
+	 */
 	defaultSize?: number;
+	/**
+	 * Default order by when source is loaded.
+	 */
 	defaultOrderBy?: TOrderBy | null;
+	/**
+	 * Default filter when source is loaded; it could be overridden later on.
+	 */
 	defaultFilter?: TFilter | null;
+	/**
+	 * Default query params when source is loaded.
+	 */
 	defaultQuery?: TQuery;
+	/**
+	 * Query options.
+	 */
 	options?: IQueryOptions<IQueryResult<TResponse>>;
+	/**
+	 * Hard filter - all changes are merged against this one.
+	 */
+	filter?: TFilter
+	/**
+	 * Hard order by - all changes are merged with this one.
+	 */
+	orderBy?: TFilter
+	/**
+	 * Hard query - all changes are merge with this one.
+	 */
+	query?: TQuery
 }
 
 export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams, TResponse = any, TOrderBy = any, TFilter = any>(
@@ -23,6 +59,7 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 		defaultQuery,
 		options,
 		children,
+		...props
 	}: PropsWithChildren<ISourceContextProviderProps<TQuery, TResponse, TOrderBy, TFilter>>
 ) => {
 	const [page, setPage] = useState<number>(defaultPage);
@@ -68,11 +105,11 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 			size,
 			setSize,
 			orderBy,
-			setOrderBy,
+			setOrderBy: orderBy => setOrderBy(merge<TOrderBy, TOrderBy>(orderBy, props.orderBy || {})),
 			filter,
-			setFilter,
+			setFilter: filter => setFilter(merge<TFilter, TFilter>(filter, props.filter || {})),
 			query,
-			setQuery,
+			setQuery: query => setQuery(merge<TQuery, TQuery>(query, props.query || {})),
 			pagination: function () {
 				return result.isSuccess ? {
 					total: result.data.total,
