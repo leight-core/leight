@@ -4,6 +4,7 @@ import {PropsWithChildren, useState} from "react";
 export interface ISourceContextProviderProps<TQuery extends IQueryParams = IQueryParams, TResponse = any, TOrderBy = any, TFilter = any> {
 	useQuery: IQueryHookCallback<TQuery, IQuery<TOrderBy, TFilter>, IQueryResult<TResponse>>;
 	live?: number | false,
+	defaultPage?: number;
 	defaultSize?: number;
 	defaultOrderBy?: TOrderBy | null;
 	defaultFilter?: TFilter | null;
@@ -14,6 +15,7 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 	{
 		useQuery,
 		live = false,
+		defaultPage = 0,
 		defaultSize = 10,
 		defaultOrderBy,
 		defaultFilter,
@@ -21,10 +23,10 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 		children
 	}: PropsWithChildren<ISourceContextProviderProps<TQuery, TResponse, TOrderBy, TFilter>>
 ) => {
-	const [page, setPage] = useState<number>(0);
-	const [orderBy, setOrderBy] = useState<TOrderBy | null | undefined>(defaultOrderBy);
-	const [filter, setFilter] = useState<TFilter | null | undefined>(defaultFilter);
-	const [query, setQuery] = useState<TQuery | undefined>(defaultQuery);
+	const [page, setPage] = useState<number>(defaultPage);
+	const [orderBy, setOrderBy] = useState<TOrderBy | null | undefined>();
+	const [filter, setFilter] = useState<TFilter | null | undefined>();
+	const [query, setQuery] = useState<TQuery | undefined>();
 	const [size, setSize] = useState<number>(defaultSize);
 	const result = useQuery({
 		size,

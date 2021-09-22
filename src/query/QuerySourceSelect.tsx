@@ -31,6 +31,7 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 	return sourceContext.result.isSuccess ? <Select
 		options={sourceContext.result.data.items.map(toOption)}
 		filterOption={() => true}
+		showSearch={true}
 		notFoundContent={t("common.nothing-found")}
 		onSearch={fulltext => {
 			sourceContext.setFilter({fulltext});
