@@ -28,7 +28,7 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 		value,
 		debounce = 350,
 		usePlaceholder,
-		disableOnEmpty,
+		disableOnEmpty = true,
 		...props
 	}: PropsWithChildren<IQuerySourceSelectProps<TQuery, TResponse, TOrderBy, TFilter>>) => {
 	const first = useRef(true);
@@ -62,7 +62,7 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 				sourceContext.setFilter({fulltext});
 			}, debounce);
 		}}
-		disabled={disableOnEmpty && !sourceContext.result.data}
+		disabled={disableOnEmpty && sourceContext.result.data && !sourceContext.result.data.count}
 		value={value}
 		{...props}
 	/> : <Select
