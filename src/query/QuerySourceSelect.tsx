@@ -1,6 +1,6 @@
-import {IFulltextFilter, IQueryParams, IToOptionMapper, useOptionalFormContext, useOptionalFormItemContext, useSourceContext} from "@leight-core/leight";
+import {IFulltextFilter, IQueryParams, IToOptionMapper, useOptionalFormContext, useOptionalFormItemContext, useSourceContext, useUpdate} from "@leight-core/leight";
 import {Select, SelectProps} from "antd";
-import React, {PropsWithChildren, useEffect, useRef} from "react";
+import React, {PropsWithChildren, useRef} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface IQuerySourceSelectProps<TQuery extends IQueryParams, TResponse, TOrderBy, TFilter extends IFulltextFilter> extends Partial<SelectProps<any>> {
@@ -43,11 +43,13 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 	const formContext = useOptionalFormContext();
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
-	useEffect(() => {
-		clearOn && formItemContext && formContext && formContext.form.setFields([
+
+	useUpdate([clearOn], () => {
+		formItemContext && formContext && formContext.form.setFields([
 			{name: formItemContext.field, value: undefined},
 		]);
-	}, [clearOn]);
+	});
+
 	return sourceContext.result.isSuccess ? <Select
 		options={sourceContext.result.data.items.map(toOption)}
 		showSearch={true}
