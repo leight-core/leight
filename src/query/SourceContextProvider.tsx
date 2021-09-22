@@ -31,7 +31,7 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 		page,
 		filter,
 		orderBy,
-	}, defaultQuery, {
+	}, query, {
 		keepPreviousData: true,
 		refetchInterval: live,
 	});

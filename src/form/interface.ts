@@ -73,6 +73,10 @@ export interface IFormContext<TValues = any> {
 	readonly blockContext: IBlockContext;
 }
 
+export interface IFulltextFilter {
+	fulltext?: string | null;
+}
+
 export interface IToQueryMapper<TOrderBy, TFilter> {
 	(search?: string): IQuery<TOrderBy, TFilter>;
 }
