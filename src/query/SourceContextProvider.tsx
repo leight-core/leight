@@ -1,5 +1,5 @@
 import {IQuery, IQueryHookCallback, IQueryOptions, IQueryParams, IQueryResult, merge, SourceContext} from "@leight-core/leight";
-import {PropsWithChildren, useEffect, useState} from "react";
+import {PropsWithChildren, useState} from "react";
 
 export interface ISourceContextProviderProps<TQuery extends IQueryParams = IQueryParams, TResponse = any, TOrderBy = any, TFilter = any> {
 	/**
@@ -67,22 +67,6 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 	const [filter, setFilter] = useState<TFilter | null | undefined>(defaultFilter);
 	const [query, setQuery] = useState<TQuery | undefined>(defaultQuery);
 	const [size, setSize] = useState<number>(defaultSize);
-
-	useEffect(() => {
-		setFilter(defaultFilter);
-	}, [defaultFilter]);
-	useEffect(() => {
-		setOrderBy(defaultOrderBy);
-	}, [defaultOrderBy]);
-	useEffect(() => {
-		setQuery(defaultQuery);
-	}, [defaultQuery]);
-	useEffect(() => {
-		setPage(defaultPage);
-	}, [defaultPage]);
-	useEffect(() => {
-		setSize(defaultSize);
-	}, [defaultSize]);
 
 	const result = useQuery({
 		size,
