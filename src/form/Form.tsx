@@ -5,9 +5,9 @@ import {
 	IFormErrorHandler,
 	IFormErrorMap,
 	IFormInitialMapper,
+	IFormMutationMapper,
 	IFormOnFailure,
 	IFormOnSuccess,
-	IFormPostMapper,
 	IMutationHookCallback,
 	INavigate,
 	IQueryParams,
@@ -22,15 +22,16 @@ import isCallable from "is-callable";
 import React, {PropsWithChildren} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface IFormProps<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any> extends Partial<FormProps> {
+export interface IFormProps<TQuery extends IQueryParams, TRequest, TResponse> extends Partial<FormProps> {
 	/**
 	 * What to do on form submit.
 	 */
 	useMutation: IMutationHookCallback<TQuery, TRequest, TResponse>;
+	mutationQuery?: TQuery;
 	/**
 	 * Map form data to mutation data.
 	 */
-	toMutation?: IFormPostMapper<any, TRequest>;
+	toMutation?: IFormMutationMapper<any, TRequest>;
 	/**
 	 * Map data to the initial state of the form (if any).
 	 */
@@ -49,9 +50,10 @@ export interface IFormProps<TQuery extends IQueryParams = IQueryParams, TRequest
 	toError?: (error: any, formContext: IFormContext) => IFormErrorMap;
 }
 
-const FormInternal = <TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(
+const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 	{
 		useMutation,
+		mutationQuery,
 		toMutation = values => values,
 		toForm = () => null as any,
 		onSuccess = () => null,
@@ -66,7 +68,7 @@ const FormInternal = <TQuery extends IQueryParams = IQueryParams, TRequest = any
 	const doNavigate = useNavigate();
 	const {t} = useTranslation();
 
-	const mutation = useMutation(undefined, {
+	const mutation = useMutation(mutationQuery, {
 		onSettled: () => {
 			blockContext.unblock();
 			formBlockContext.unblock();
@@ -126,6 +128,6 @@ const FormInternal = <TQuery extends IQueryParams = IQueryParams, TRequest = any
 
 export function Form<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(props: PropsWithChildren<IFormProps<TQuery, TRequest, TResponse>>): JSX.Element {
 	return <FormContextProvider>
-		<FormInternal {...props}/>
+		<FormInternal<TQuery, TRequest, TResponse> {...props}/>
 	</FormContextProvider>;
 }

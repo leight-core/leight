@@ -81,7 +81,7 @@ export interface IToOptionMapper<TItem> {
 	(item: TItem): IBaseSelectOption;
 }
 
-export interface IFormPostMapper<TFormValues, TRequest> {
+export interface IFormMutationMapper<TFormValues, TRequest> {
 	(values: TFormValues): TRequest;
 }
 
