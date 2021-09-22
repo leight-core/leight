@@ -4,7 +4,7 @@ import {ColumnProps} from "antd/lib/table";
 import {useTranslation} from "react-i18next";
 
 export interface ITableProps<TItem extends Object> extends TableProps<TItem> {
-	children: ITableChildrenCallback<TItem>;
+	children?: ITableChildrenCallback<TItem>;
 }
 
 export const Table = <TItem extends Object = IRecordItem>(
@@ -24,14 +24,7 @@ export const Table = <TItem extends Object = IRecordItem>(
 			delay: 50,
 		}}
 		size={"large"}
-		pagination={sourceContext.result.isSuccess ? {
-			total: sourceContext.result.data.total,
-			pageSize: sourceContext.result.data.size,
-			defaultPageSize: sourceContext.result.data.size,
-			showQuickJumper: true,
-			hideOnSinglePage: true,
-			onChange: (current, size) => sourceContext.setPage(current - 1, size),
-		} : undefined}
+		pagination={sourceContext.pagination()}
 		onChange={(_, __, sorter: any) => {
 			sourceContext.setOrderBy(sorter.column === undefined ? undefined : {[sorter.columnKey]: sorter.order === "ascend"} as any);
 		}}

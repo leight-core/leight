@@ -52,6 +52,16 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 			setFilter,
 			query,
 			setQuery,
+			pagination: function () {
+				return result.isSuccess ? {
+					total: result.data.total,
+					pageSize: result.data.size,
+					defaultPageSize: result.data.size,
+					showQuickJumper: true,
+					hideOnSinglePage: true,
+					onChange: (current, size) => this.setPage(current - 1, size),
+				} : undefined;
+			}
 		}}
 	>
 		{children}

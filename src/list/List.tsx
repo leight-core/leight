@@ -23,14 +23,7 @@ export const List = <TItem extends Object = IRecordItem>(
 		}}
 		itemLayout={"horizontal"}
 		size={"large"}
-		pagination={sourceContext.result.isSuccess ? {
-			total: sourceContext.result.data.total,
-			pageSize: sourceContext.result.data.size,
-			defaultPageSize: sourceContext.result.data.size,
-			showQuickJumper: true,
-			hideOnSinglePage: true,
-			onChange: (current, size) => sourceContext.setPage(current - 1, size),
-		} : undefined}
+		pagination={sourceContext.pagination()}
 		renderItem={children}
 		{...props}
 	/>;

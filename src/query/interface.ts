@@ -1,3 +1,5 @@
+import {TablePaginationConfig} from "antd";
+import {PaginationConfig} from "antd/es/pagination";
 import {UseMutationResult, UseQueryResult} from "react-query";
 import {UseMutationOptions, UseQueryOptions} from "react-query/types/react/types";
 
@@ -98,4 +100,5 @@ export interface ISourceContext<TQuery extends IQueryParams, TResponse, TOrderBy
 	 * Set a new query.
 	 */
 	setQuery: (query?: TQuery) => void;
+	pagination: () => (TablePaginationConfig & PaginationConfig) | false | undefined;
 }
