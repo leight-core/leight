@@ -12,6 +12,11 @@ export interface IQuerySourceSelectProps<TQuery extends IQueryParams, TResponse,
 	 * Use label as placeholder for the select.
 	 */
 	usePlaceholder?: boolean;
+	/**
+	 * When this "something" changes, input is cleared (value set to undefined); this can be used to externally
+	 * clear this input on change.
+	 */
+	clearOn?: any;
 	disableOnEmpty?: boolean;
 	/**
 	 * Debounce interval in ms.
@@ -26,12 +31,12 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 		 * Value extracted from props for to prevent showing it in the placeholder Select.
 		 */
 		value,
-		debounce = 350,
+		debounce = 100,
+		clearOn,
 		usePlaceholder,
 		disableOnEmpty = true,
 		...props
 	}: PropsWithChildren<IQuerySourceSelectProps<TQuery, TResponse, TOrderBy, TFilter>>) => {
-	const first = useRef(true);
 	const tid = useRef<any>();
 	const {t} = useTranslation();
 	const sourceContext = useSourceContext<TQuery, TResponse, TOrderBy, IFulltextFilter>();
@@ -39,17 +44,10 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
 	useEffect(() => {
-		if (sourceContext.result.isSuccess) {
-			/**
-			 * Keep it this way, because this has soft dependency on form; formItemContext.setValue requires
-			 * form.
-			 */
-			// !first.current && formItemContext && formContext && formContext.form.setFields([
-			// 	{name: formItemContext.field, value: undefined},
-			// ]);
-			// first.current = false;
-		}
-	}, [sourceContext.result.data]);
+		clearOn && formItemContext && formContext && formContext.form.setFields([
+			{name: formItemContext.field, value: undefined},
+		]);
+	}, [clearOn]);
 	return sourceContext.result.isSuccess ? <Select
 		options={sourceContext.result.data.items.map(toOption)}
 		showSearch={true}
