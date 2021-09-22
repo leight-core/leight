@@ -3,7 +3,7 @@ import {useMutation, useQuery} from "react-query";
 
 export function wrapQuery<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(link: string, promise: IPromiseQueryCallback<TQuery, TRequest, TResponse>): IQueryHookCallback<TQuery, TRequest, TResponse> {
 	return (request?: TRequest, query?: TQuery, options?: IQueryOptions<TResponse>) => {
-		return useQuery(["query", link, {query}], promise(link, query, request), options);
+		return useQuery([link, {query, request}], promise(link, query, request), options);
 	};
 }
 
