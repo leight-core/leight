@@ -19,9 +19,9 @@ export const Table = <TItem extends Object = IRecordItem>(
 		dataSource={sourceContext.result.isSuccess ? sourceContext.result.data.items : []}
 		rowKey={(record: any) => record.id}
 		loading={{
-			spinning: sourceContext.result.isFetching,
+			spinning: sourceContext.result.isLoading,
 			indicator: <LoaderIcon/>,
-			delay: 150,
+			delay: 100,
 		}}
 		size={"large"}
 		pagination={sourceContext.pagination()}
