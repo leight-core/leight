@@ -1,7 +1,6 @@
-import {IRecordItem, ITableChildrenCallback, LoaderIcon, useSourceContext} from "@leight-core/leight";
+import {IRecordItem, isCallable, ITableChildrenCallback, LoaderIcon, useSourceContext} from "@leight-core/leight";
 import {Table as CoolTable, TableProps} from "antd";
 import {ColumnProps} from "antd/lib/table";
-import isCallable from "is-callable";
 import {useTranslation} from "react-i18next";
 
 export interface ITableProps<TItem extends Object> extends TableProps<TItem> {

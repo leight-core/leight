@@ -1,4 +1,3 @@
-import {Events} from "../event/Events";
-import {IUploaderEvents} from "./interface";
+import {Events, IUploaderEvents} from "@leight-core/leight";
 
 export const UploaderEvents = <TResponse = any>(): IUploaderEvents<TResponse> => Events();
