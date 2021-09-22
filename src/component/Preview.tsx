@@ -22,3 +22,15 @@ export const Preview: FC<IPreviewProps> = ({width = 220, translation, children, 
 		</Descriptions.Item>)}
 	</Descriptions>;
 };
+
+export interface ISmallPreviewProps extends IPreviewProps {
+}
+
+export const SmallPreview: FC<ISmallPreviewProps> = props => {
+	return <Preview
+		bordered={false}
+		size={"small"}
+		width={120}
+		{...props}
+	/>;
+};
