@@ -4,8 +4,8 @@ import axios, {AxiosRequestConfig} from "axios";
 export function usePutPromise<TQuery extends IQueryParams, TRequest, TResponse>(link: string, query?: TQuery, request?: TRequest, config?: AxiosRequestConfig): IHookPromise<TRequest, TResponse> {
 	const linkContext = useLinkContext();
 	const discoveryContext = useOptionalDiscoveryContext();
-	return (req: TRequest | undefined = request) => new Promise<TResponse>((resolve, reject) => {
-		axios.put<TResponse>(linkContext.link(link, query, discoveryContext), req, config)
+	return (req?: TRequest) => new Promise<TResponse>((resolve, reject) => {
+		axios.put<TResponse>(linkContext.link(link, query, discoveryContext), request || req, config)
 			.then(result => resolve(result.data))
 			.catch(reject);
 	});
@@ -14,8 +14,8 @@ export function usePutPromise<TQuery extends IQueryParams, TRequest, TResponse>(
 export function usePatchPromise<TQuery extends IQueryParams, TRequest, TResponse>(link: string, query?: TQuery, request?: TRequest, config?: AxiosRequestConfig): IHookPromise<TRequest, TResponse> {
 	const linkContext = useLinkContext();
 	const discoveryContext = useOptionalDiscoveryContext();
-	return (req: TRequest | undefined = request) => new Promise<TResponse>((resolve, reject) => {
-		axios.patch<TResponse>(linkContext.link(link, query, discoveryContext), req, config)
+	return (req?: TRequest) => new Promise<TResponse>((resolve, reject) => {
+		axios.patch<TResponse>(linkContext.link(link, query, discoveryContext), request || req, config)
 			.then(result => resolve(result.data))
 			.catch(reject);
 	});
@@ -24,8 +24,8 @@ export function usePatchPromise<TQuery extends IQueryParams, TRequest, TResponse
 export function usePostPromise<TQuery extends IQueryParams, TRequest, TResponse>(link: string, query?: TQuery, request?: TRequest, config?: AxiosRequestConfig): IHookPromise<TRequest, TResponse> {
 	const linkContext = useLinkContext();
 	const discoveryContext = useOptionalDiscoveryContext();
-	return (req: TRequest | undefined = request) => new Promise<TResponse>((resolve, reject) => {
-		axios.post<TResponse>(linkContext.link(link, query, discoveryContext), req, config)
+	return (req?: TRequest) => new Promise<TResponse>((resolve, reject) => {
+		axios.post<TResponse>(linkContext.link(link, query, discoveryContext), request || req, config)
 			.then(result => resolve(result.data))
 			.catch(reject);
 	});
