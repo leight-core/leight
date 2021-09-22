@@ -56,7 +56,7 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 	});
 	useEffect(() => {
 		sourceContext.setFilter({fulltext: value} as any);
-	}, []);
+	}, [value]);
 	useEffect(() => {
 		if (useFirst && sourceContext.result.isSuccess && sourceContext.result.data.items.length > 0 && !(formItemContext && formItemContext.getValue())) {
 			// formItemContext && formItemContext.setValue(sourceContext.result.data.items[0].value);
