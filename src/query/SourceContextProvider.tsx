@@ -1,4 +1,4 @@
-import {IQuery, IQueryHookCallback, IQueryParams, IQueryResult, SourceContext} from "@leight-core/leight";
+import {IQuery, IQueryHookCallback, IQueryOptions, IQueryParams, IQueryResult, SourceContext} from "@leight-core/leight";
 import {PropsWithChildren, useEffect, useState} from "react";
 
 export interface ISourceContextProviderProps<TQuery extends IQueryParams = IQueryParams, TResponse = any, TOrderBy = any, TFilter = any> {
@@ -9,6 +9,7 @@ export interface ISourceContextProviderProps<TQuery extends IQueryParams = IQuer
 	defaultOrderBy?: TOrderBy | null;
 	defaultFilter?: TFilter | null;
 	defaultQuery?: TQuery;
+	options?: IQueryOptions<IQueryResult<TResponse>>;
 }
 
 export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams, TResponse = any, TOrderBy = any, TFilter = any>(
@@ -20,6 +21,7 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 		defaultOrderBy,
 		defaultFilter,
 		defaultQuery,
+		options,
 		children,
 	}: PropsWithChildren<ISourceContextProviderProps<TQuery, TResponse, TOrderBy, TFilter>>
 ) => {
@@ -50,7 +52,7 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 		page,
 		filter,
 		orderBy,
-	}, query, {
+	}, query, options || {
 		keepPreviousData: true,
 		refetchInterval: live,
 	});

@@ -12,6 +12,11 @@ export interface IQuerySourceSelectProps<TQuery extends IQueryParams, TResponse,
 	 * Use label as placeholder for the select.
 	 */
 	usePlaceholder?: boolean;
+	disableOnEmpty?: boolean;
+	/**
+	 * Debounce interval in ms.
+	 */
+	debounce?: number;
 }
 
 export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrderBy, TFilter extends IFulltextFilter>(
@@ -21,10 +26,13 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 		 * Value extracted from props for to prevent showing it in the placeholder Select.
 		 */
 		value,
+		debounce = 350,
 		usePlaceholder,
+		disableOnEmpty,
 		...props
 	}: PropsWithChildren<IQuerySourceSelectProps<TQuery, TResponse, TOrderBy, TFilter>>) => {
 	const first = useRef(true);
+	const tid = useRef<any>();
 	const {t} = useTranslation();
 	const sourceContext = useSourceContext<TQuery, TResponse, TOrderBy, IFulltextFilter>();
 	const formContext = useOptionalFormContext();
@@ -36,27 +44,31 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 			 * Keep it this way, because this has soft dependency on form; formItemContext.setValue requires
 			 * form.
 			 */
-			!first.current && formItemContext && formContext && formContext.form.setFields([
-				{name: formItemContext.field, value: undefined},
-			]);
-			first.current = false;
+			// !first.current && formItemContext && formContext && formContext.form.setFields([
+			// 	{name: formItemContext.field, value: undefined},
+			// ]);
+			// first.current = false;
 		}
 	}, [sourceContext.result.data]);
 	return sourceContext.result.isSuccess ? <Select
 		options={sourceContext.result.data.items.map(toOption)}
-		filterOption={() => true}
 		showSearch={true}
+		loading={sourceContext.result.isFetching}
+		filterOption={() => true}
 		notFoundContent={t("common.nothing-found")}
 		onSearch={fulltext => {
-			sourceContext.setFilter({fulltext});
+			clearTimeout(tid.current);
+			tid.current = setTimeout(() => {
+				sourceContext.setFilter({fulltext});
+			}, debounce);
 		}}
-		loading={sourceContext.result.isFetching}
-		disabled={sourceContext.result.isFetching}
+		disabled={disableOnEmpty && !sourceContext.result.data}
 		value={value}
 		{...props}
 	/> : <Select
 		showSearch={true}
 		loading={sourceContext.result.isLoading}
+		disabled={disableOnEmpty}
 		{...props}
 	/>;
 };
