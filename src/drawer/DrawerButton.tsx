@@ -15,7 +15,7 @@ export interface IDrawerButtonProps extends Partial<ButtonProps> {
 /**
  * Default Antd button without any preset; just the drawer is shown on click.
  */
-export const DrawerButton: FC<IDrawerButtonProps> = ({children, label, title, tooltip, width, ...props}) => {
+export const DrawerButton: FC<IDrawerButtonProps> = ({children, label, title, width, ...props}) => {
 	const drawerContext = useDrawerContext();
 	const {t} = useTranslation();
 	return <Button
