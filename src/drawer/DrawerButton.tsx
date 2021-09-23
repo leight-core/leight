@@ -10,7 +10,6 @@ export interface IDrawerButtonProps extends Partial<ButtonProps> {
 	 * Optional drawer width.
 	 */
 	width?: number;
-	tooltip?: string;
 }
 
 /**
