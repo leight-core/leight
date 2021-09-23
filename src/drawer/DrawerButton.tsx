@@ -1,12 +1,8 @@
 import {useDrawerContext} from "@leight-core/leight";
 import {Button, ButtonProps} from "antd";
-import {FC, ReactNode} from "react";
+import {FC} from "react";
 
 export interface IDrawerButtonProps extends Partial<ButtonProps> {
-	/**
-	 * Content to show.
-	 */
-	content: ReactNode;
 	/**
 	 * Optional drawer width.
 	 */
@@ -16,10 +12,10 @@ export interface IDrawerButtonProps extends Partial<ButtonProps> {
 /**
  * Default Antd button without any preset; just the drawer is shown on click.
  */
-export const DrawerButton: FC<IDrawerButtonProps> = ({content, width, ...props}) => {
+export const DrawerButton: FC<IDrawerButtonProps> = ({children, width, ...props}) => {
 	const drawerContext = useDrawerContext();
 	return <Button
-		onClick={() => drawerContext.display(content, width)}
+		onClick={() => drawerContext.display(children, width)}
 		{...props}
 	/>;
 };
