@@ -79,13 +79,13 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 	});
 
 	useEffect(() => {
-		setFilter(props.filter);
+		props.filter && setFilter(props.filter);
 	}, [props.filter]);
 	useEffect(() => {
-		setOrderBy(props.orderBy);
+		props.orderBy && setOrderBy(props.orderBy);
 	}, [props.orderBy]);
 	useEffect(() => {
-		setQuery(props.query);
+		props.query && setQuery(props.query);
 	}, [props.query]);
 
 	return <SourceContext.Provider

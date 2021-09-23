@@ -36,9 +36,10 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 		 */
 		value,
 		debounce = 100,
-		clearOn,
+		clearOn = false,
 		usePlaceholder,
 		useFirst,
+		showSearch = false,
 		disableOnEmpty = true,
 		...props
 	}: PropsWithChildren<IQuerySourceSelectProps<TQuery, TResponse, TOrderBy, TFilter>>) => {
@@ -50,7 +51,7 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
 
 	useUpdate([clearOn], () => {
-		formItemContext && formContext && formContext.form.setFields([
+		clearOn !== false && formItemContext && formContext && formContext.form.setFields([
 			{name: formItemContext.field, value: undefined},
 		]);
 	});
@@ -65,22 +66,23 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 	}, []);
 	return sourceContext.result.isSuccess ? <Select
 		options={sourceContext.result.data.items.map(toOption)}
-		showSearch={true}
 		loading={sourceContext.result.isFetching}
 		filterOption={() => true}
+		showSearch={showSearch}
 		notFoundContent={<Empty description={t("common.nothing-found")}/>}
-		onSearch={fulltext => {
+		onSearch={showSearch ? fulltext => {
 			clearTimeout(tid.current);
 			tid.current = setTimeout(() => {
+				console.log("on search", fulltext);
 				sourceContext.setFilter({fulltext} as any);
 			}, debounce);
-		}}
+		} : undefined}
 		onClear={() => sourceContext.setFilter()}
-		disabled={props.showSearch !== undefined && !props.showSearch && disableOnEmpty && sourceContext.result.data && !sourceContext.result.data.count}
+		disabled={!showSearch && disableOnEmpty && sourceContext.result.data && !sourceContext.result.data.count}
 		value={value}
 		{...props}
 	/> : <Select
-		showSearch={true}
+		showSearch={showSearch}
 		loading={sourceContext.result.isLoading}
 		disabled={disableOnEmpty}
 		{...props}
