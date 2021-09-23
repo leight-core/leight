@@ -76,7 +76,7 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 			}, debounce);
 		}}
 		onClear={() => sourceContext.setFilter()}
-		disabled={props.showSearch && disableOnEmpty && sourceContext.result.data && !sourceContext.result.data.count}
+		disabled={props.showSearch !== undefined && !props.showSearch && disableOnEmpty && sourceContext.result.data && !sourceContext.result.data.count}
 		value={value}
 		{...props}
 	/> : <Select
