@@ -1,5 +1,5 @@
 import {IQuery, IQueryHookCallback, IQueryOptions, IQueryParams, IQueryResult, merge, SourceContext} from "@leight-core/leight";
-import {PropsWithChildren, useState} from "react";
+import {PropsWithChildren, useEffect, useState} from "react";
 
 export interface ISourceContextProviderProps<TQuery extends IQueryParams = IQueryParams, TResponse = any, TOrderBy = any, TFilter = any> {
 	/**
@@ -41,7 +41,7 @@ export interface ISourceContextProviderProps<TQuery extends IQueryParams = IQuer
 	/**
 	 * Hard order by - all changes are merged with this one.
 	 */
-	orderBy?: TFilter
+	orderBy?: TOrderBy
 	/**
 	 * Hard query - all changes are merge with this one.
 	 */
@@ -77,6 +77,16 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 		keepPreviousData: true,
 		refetchInterval: live,
 	});
+
+	useEffect(() => {
+		setFilter(props.filter);
+	}, [props.filter]);
+	useEffect(() => {
+		setOrderBy(props.orderBy);
+	}, [props.orderBy]);
+	useEffect(() => {
+		setQuery(props.query);
+	}, [props.query]);
 
 	return <SourceContext.Provider
 		value={{
