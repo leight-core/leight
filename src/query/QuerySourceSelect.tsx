@@ -54,7 +54,6 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 	const formContext = useOptionalFormContext();
 	const formItemContext = useOptionalFormItemContext();
 	formItemContext && usePlaceholder && (props.placeholder = formItemContext.label);
-
 	useUpdate([clearOn], () => {
 		clearOn !== false && formItemContext && formContext && formContext.form.setFields([
 			{name: formItemContext.field, value: undefined},
