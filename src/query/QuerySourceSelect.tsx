@@ -21,6 +21,10 @@ export interface IQuerySourceSelectProps<TQuery extends IQueryParams, TResponse,
 	 * clear this input on change.
 	 */
 	clearOn?: any;
+	/**
+	 * When se to true, select will filter values set.
+	 */
+	filter?: boolean;
 	disableOnEmpty?: boolean;
 	/**
 	 * Debounce interval in ms.
@@ -40,6 +44,7 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 		usePlaceholder,
 		useFirst,
 		showSearch = false,
+		filter = !showSearch,
 		disableOnEmpty = true,
 		...props
 	}: PropsWithChildren<IQuerySourceSelectProps<TQuery, TResponse, TOrderBy, TFilter>>) => {
@@ -56,7 +61,7 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 		]);
 	});
 	useEffect(() => {
-		sourceContext.setFilter({fulltext: value} as any);
+		filter && sourceContext.setFilter({fulltext: value} as any);
 	}, [value]);
 	useEffect(() => {
 		if (useFirst && sourceContext.result.isSuccess && sourceContext.result.data.items.length > 0 && !(formItemContext && formItemContext.getValue())) {
