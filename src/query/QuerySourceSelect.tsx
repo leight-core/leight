@@ -44,7 +44,7 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 		usePlaceholder,
 		useFirst,
 		showSearch = false,
-		filter = !showSearch,
+		filter = showSearch,
 		disableOnEmpty = true,
 		...props
 	}: PropsWithChildren<IQuerySourceSelectProps<TQuery, TResponse, TOrderBy, TFilter>>) => {
@@ -77,7 +77,6 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 		onSearch={showSearch ? fulltext => {
 			clearTimeout(tid.current);
 			tid.current = setTimeout(() => {
-				console.log("on search", fulltext);
 				sourceContext.setFilter({fulltext} as any);
 			}, debounce);
 		} : undefined}
