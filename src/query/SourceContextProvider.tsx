@@ -63,9 +63,9 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 	}: PropsWithChildren<ISourceContextProviderProps<TQuery, TResponse, TOrderBy, TFilter>>
 ) => {
 	const [page, setPage] = useState<number>(defaultPage);
-	const [orderBy, setOrderBy] = useState<TOrderBy | null | undefined>(defaultOrderBy);
-	const [filter, setFilter] = useState<TFilter | null | undefined>(defaultFilter);
-	const [query, setQuery] = useState<TQuery | undefined>(defaultQuery);
+	const [orderBy, setOrderBy] = useState<TOrderBy | null | undefined>(merge<TOrderBy, TOrderBy>(defaultOrderBy || {}, props.orderBy || {}));
+	const [filter, setFilter] = useState<TFilter | null | undefined>(merge<TFilter, TFilter>(defaultFilter || {}, props.filter || {}));
+	const [query, setQuery] = useState<TQuery | undefined>(merge<TQuery, TQuery>(defaultQuery || {}, props.query || {}));
 	const [size, setSize] = useState<number>(defaultSize);
 
 	const result = useQuery({
