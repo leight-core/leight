@@ -19,7 +19,12 @@ export const FingerprintContextProvider: FC<IFingerprintContextProviderProps> = 
 				.then(result => done(result.visitorId))
 				.catch(() => done("unknown")))
 			.catch(() => done("unknown"));
-	}));
+	}), {
+		/**
+		 * Should be fresh for 60 minutes
+		 */
+		staleTime: 1000 * 60 * 60 * 60,
+	});
 
 	return <FingerprintContext.Provider
 		value={{
