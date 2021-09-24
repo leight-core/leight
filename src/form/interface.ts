@@ -1,4 +1,4 @@
-import {IBlockContext, INavigate, IQuery, IQueryParams} from "@leight-core/leight";
+import {IBlockContext, INavigate, IQueryParams} from "@leight-core/leight";
 import {FormInstance} from "antd";
 import {NamePath} from "rc-field-form/lib/interface";
 
@@ -73,10 +73,6 @@ export interface IFormContext<TValues = any> {
 	readonly blockContext: IBlockContext;
 }
 
-export interface IToQueryMapper<TOrderBy, TFilter> {
-	(search?: string): IQuery<TOrderBy, TFilter>;
-}
-
 export interface IToOptionMapper<TItem> {
 	(item: TItem): IBaseSelectOption;
 }
@@ -89,12 +85,24 @@ export interface IFormInitialMapper<TFormValues> {
 	(): TFormValues;
 }
 
-export interface IFormOnSuccess<TFormValues, TResponse, TQuery extends IQueryParams = IQueryParams> {
-	(navigate: INavigate<TQuery>, values: TFormValues, data: TResponse): void;
+export interface IFormSuccess<TFormValues, TResponse, TQuery extends IQueryParams = IQueryParams> {
+	navigate: INavigate<TQuery>;
+	values: TFormValues;
+	data: TResponse;
+	formContext: IFormContext<TFormValues>;
 }
 
-export interface IFormOnFailure {
-	(error: string, formContext: IFormContext): void;
+export interface IFormOnSuccess<TFormValues, TResponse, TQuery extends IQueryParams = IQueryParams> {
+	(success: IFormSuccess<TFormValues, TResponse, TQuery>): void;
+}
+
+export interface IFormFailure<TFormValues> {
+	error: string;
+	formContext: IFormContext<TFormValues>;
+}
+
+export interface IFormOnFailure<TFormValues> {
+	(failure: IFormFailure<TFormValues>): void;
 }
 
 export type IBaseSelectItem = any;

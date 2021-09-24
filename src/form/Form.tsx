@@ -39,11 +39,11 @@ export interface IFormProps<TQuery extends IQueryParams, TRequest, TResponse> ex
 	/**
 	 * Called when a form is successfully committed.
 	 */
-	onSuccess?: IFormOnSuccess<any, TResponse>;
+	onSuccess?: IFormOnSuccess<any, TResponse, TQuery>;
 	/**
 	 * Called when an error occurs.
 	 */
-	onFailure?: IFormOnFailure;
+	onFailure?: IFormOnFailure<any>;
 	/**
 	 * Map error from outside to a state in the form (like a general error or a field error).
 	 */
@@ -92,7 +92,7 @@ const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 		(handle as IFormErrorHandler)(error, formContext);
 	}
 
-	onFailure = onFailure || ((error, formContext) => {
+	onFailure = onFailure || (({error, formContext}) => {
 		const map = toError(error, formContext);
 		const formError = map[error];
 		const general = map["general"];
@@ -109,8 +109,8 @@ const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 			blockContext.block();
 			formBlockContext.block();
 			mutation.mutate(toMutation(values), {
-				onSuccess: data => onSuccess(navigate, values, data),
-				onError: error => onFailure && onFailure((error && error.response && error.response.data) || error, formContext),
+				onSuccess: data => onSuccess({navigate, values, data, formContext}),
+				onError: error => onFailure && onFailure({error: (error && error.response && error.response.data) || error, formContext}),
 			});
 		}}
 		labelCol={{span: 8}}
