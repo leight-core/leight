@@ -17,12 +17,17 @@ export interface IFormError {
 	error: string;
 }
 
-export interface IFormErrorHandler {
-	(error: any, formContext: IFormContext): void;
+export interface IErrorHandler<TError, TFormValues> {
+	error: TError;
+	formContext: IFormContext<TFormValues>;
 }
 
-export interface IFormErrorMap {
-	[index: string]: IFormError | IFormErrorHandler;
+export interface IFormErrorHandler<TError, TFormValues> {
+	(error: IErrorHandler<TError, TFormValues>): void;
+}
+
+export interface IFormErrorMap<TError, TFormValues> {
+	[index: string]: IFormError | IFormErrorHandler<any, TFormValues>;
 }
 
 export interface IFormErrors {

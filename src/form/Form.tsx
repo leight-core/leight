@@ -48,7 +48,7 @@ export interface IFormProps<TQuery extends IQueryParams, TRequest, TResponse> ex
 	/**
 	 * Map error from outside to a state in the form (like a general error or a field error).
 	 */
-	toError?: (error: IToError<any, any>) => IFormErrorMap;
+	toError?: (error: IToError<any, any>) => IFormErrorMap<any, any>;
 }
 
 const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
@@ -81,7 +81,7 @@ const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 		doNavigate(href, query);
 	};
 
-	function handleError(formError: IFormError | IFormErrorHandler, error: any, formContext: IFormContext) {
+	function handleError(formError: IFormError | IFormErrorHandler<any, any>, error: any, formContext: IFormContext) {
 		let handle = formError;
 		if (!isCallable(handle)) {
 			handle = () => formContext.setErrors({
@@ -90,7 +90,7 @@ const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 				],
 			});
 		}
-		(handle as IFormErrorHandler)(error, formContext);
+		(handle as IFormErrorHandler<any, any>)({error, formContext});
 	}
 
 	onFailure = onFailure || (({error, formContext}) => {
