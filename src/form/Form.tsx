@@ -109,7 +109,7 @@ const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 			blockContext.block();
 			formBlockContext.block();
 			mutation.mutate(toMutation(values), {
-				onSuccess: data => onSuccess({navigate, values, data, formContext}),
+				onSuccess: response => onSuccess({navigate, values, response, formContext}),
 				onError: error => onFailure && onFailure({error: (error && error.response && error.response.data) || error, formContext}),
 			});
 		}}

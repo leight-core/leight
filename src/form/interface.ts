@@ -88,7 +88,7 @@ export interface IFormInitialMapper<TFormValues> {
 export interface IFormSuccess<TFormValues, TResponse> {
 	navigate: INavigate;
 	values: TFormValues;
-	data: TResponse;
+	response: TResponse;
 	formContext: IFormContext<TFormValues>;
 }
 
