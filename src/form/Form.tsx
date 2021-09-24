@@ -39,7 +39,7 @@ export interface IFormProps<TQuery extends IQueryParams, TRequest, TResponse> ex
 	/**
 	 * Called when a form is successfully committed.
 	 */
-	onSuccess?: IFormOnSuccess<any, TResponse, TQuery>;
+	onSuccess?: IFormOnSuccess<any, TResponse>;
 	/**
 	 * Called when an error occurs.
 	 */
