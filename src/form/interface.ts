@@ -105,5 +105,10 @@ export interface IFormOnFailure<TFormValues> {
 	(failure: IFormFailure<TFormValues>): void;
 }
 
+export interface IToError<TError, TFormValues> {
+	error: TError;
+	formContext: IFormContext<TFormValues>;
+}
+
 export type IBaseSelectItem = any;
 export type IBaseSelectOption = { value: IBaseSelectItem, label: IBaseSelectItem };

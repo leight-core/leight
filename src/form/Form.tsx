@@ -11,6 +11,7 @@ import {
 	IMutationHookCallback,
 	INavigate,
 	IQueryParams,
+	IToError,
 	LoaderIcon,
 	useBlockContext,
 	useFormBlockContext,
@@ -47,7 +48,7 @@ export interface IFormProps<TQuery extends IQueryParams, TRequest, TResponse> ex
 	/**
 	 * Map error from outside to a state in the form (like a general error or a field error).
 	 */
-	toError?: (error: any, formContext: IFormContext) => IFormErrorMap;
+	toError?: (error: IToError<any, any>) => IFormErrorMap;
 }
 
 const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
@@ -93,7 +94,7 @@ const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 	}
 
 	onFailure = onFailure || (({error, formContext}) => {
-		const map = toError(error, formContext);
+		const map = toError({error, formContext});
 		const formError = map[error];
 		const general = map["general"];
 		formError && handleError(formError, error, formContext);
