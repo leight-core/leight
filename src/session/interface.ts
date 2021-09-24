@@ -15,6 +15,7 @@ export interface IRole {
  * just roles to enable automagic checks on Pages
  */
 export interface IUser {
+	readonly id: string;
 	readonly roles: IRole[];
 	/**
 	 * Current site an user is logged in (even public).
