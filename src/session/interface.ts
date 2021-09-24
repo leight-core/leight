@@ -23,6 +23,8 @@ export interface IUser {
 	readonly site: string;
 }
 
+export type ICurrentUser = Omit<IUser, "id"> & { id: string };
+
 export interface ISession {
 	/**
 	 * Default simple user with a bare minimum needed to run the library.
