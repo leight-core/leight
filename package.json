@@ -1,6 +1,6 @@
 {
-	"name": "@leight-core/leight",
 	"version": "0.11.23",
+	"name": "@leight-core/leight",
 	"description": "A component library for Next.js and Ant Design.",
 	"license": "MIT",
 	"repository": {
@@ -19,9 +19,9 @@
 		"test:watch": "jest src --watchAll"
 	},
 	"dependencies": {
-		"@ant-design/icons": "^4.6.4",
+		"@ant-design/icons": "^4.7.0",
 		"@fingerprintjs/fingerprintjs": "^3.3.0",
-		"antd": "^4.17.0-alpha.3",
+		"antd": "^4.17.0-alpha.4",
 		"axios": "^0.21.4",
 		"cancelable-promise": "^4.2.1",
 		"dayjs": "^1.10.7",
@@ -45,10 +45,10 @@
 		"@types/filesize": "^5.0.0",
 		"@types/is-callable": "^1.1.0",
 		"@types/jest": "^27.0.2",
-		"@types/node": "^16.9.6",
+		"@types/node": "^16.10.1",
 		"@types/react": "^17.0.24",
 		"axios-mock-adapter": "^1.20.0",
-		"jest": "^27.2.1",
+		"jest": "^27.2.3",
 		"ts-jest": "^27.0.5",
 		"typescript": "^4.4.3"
 	}
