@@ -1,5 +1,6 @@
 export * from "./CopyText";
 export * from "./formatBytes";
+export * from "./isArray";
 export * from "./isCallable";
 export * from "./isEqual";
 export * from "./isString";

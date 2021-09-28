@@ -31,6 +31,7 @@
 		"i18next": "^20.6.1",
 		"is-callable": "^1.2.4",
 		"is-string": "^1.0.7",
+		"isarray": "^2.0.5",
 		"next": "^11.1.2",
 		"path-to-regexp": "^6.2.0",
 		"react": "^17.0.2",
