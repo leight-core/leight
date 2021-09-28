@@ -1,16 +1,16 @@
-import {IQueryParams, IRecordItem, isArray, isCallable, ISourceContext, ITableChildrenCallback, LoaderIcon, useSourceContext} from "@leight-core/leight";
+import {IQueryParams, isArray, isCallable, ISourceContext, ITableChildrenCallback, LoaderIcon, useSourceContext} from "@leight-core/leight";
 import {Table as CoolTable, TablePaginationConfig, TableProps} from "antd";
 import {ColumnProps} from "antd/lib/table";
 import {FilterValue, SorterResult} from "antd/lib/table/interface";
 import {ReactNode} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface ITableProps<TQuery extends IQueryParams, TResponse extends IRecordItem, TOrderBy, TFilter> extends TableProps<any> {
+export interface ITableProps<TQuery extends IQueryParams, TResponse, TOrderBy, TFilter> extends TableProps<any> {
 	header?: (sourceContext: ISourceContext<TQuery, TResponse, TOrderBy, TFilter>) => ReactNode;
 	children?: ITableChildrenCallback<TResponse> | ReactNode;
 }
 
-export const Table = <TQuery extends IQueryParams, TResponse extends IRecordItem, TOrderBy, TFilter>(
+export const Table = <TQuery extends IQueryParams, TResponse, TOrderBy, TFilter>(
 	{
 		children,
 		header,
@@ -23,7 +23,7 @@ export const Table = <TQuery extends IQueryParams, TResponse extends IRecordItem
 	}
 	return <CoolTable
 		style={{minHeight: "50vh"}}
-		dataSource={sourceContext.result.isSuccess ? sourceContext.result.data.items : []}
+		dataSource={sourceContext.result.isSuccess ? sourceContext.result.data.items : [] as any}
 		rowKey={(record: any) => record.id}
 		loading={{
 			spinning: sourceContext.result.isLoading,
