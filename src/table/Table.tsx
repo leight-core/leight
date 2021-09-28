@@ -5,7 +5,7 @@ import {ReactNode} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface ITableProps<TQuery extends IQueryParams, TResponse extends IRecordItem, TOrderBy, TFilter> extends TableProps<TResponse> {
-	header?: (sourceContext?: ISourceContext<TQuery, TResponse, TOrderBy, TFilter>) => ReactNode;
+	header?: (sourceContext: ISourceContext<TQuery, TResponse, TOrderBy, TFilter>) => ReactNode;
 	children?: ITableChildrenCallback<TResponse> | ReactNode;
 }
 
