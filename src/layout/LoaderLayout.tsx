@@ -43,6 +43,6 @@ export const LoaderLayout: FC<ILoaderLayoutProps> = ({logo, icon, queryResult = 
 				</Col>
 			</Row>
 		</Layout>}
-		{queryResult.isSuccess && children}
+		{!isLoading && queryResult.isSuccess && children}
 	</>;
 };
