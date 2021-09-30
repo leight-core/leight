@@ -8,14 +8,17 @@ import {UseQueryResult} from "react-query";
 export interface ILoaderLayoutProps extends Partial<LayoutProps> {
 	logo?: ReactNode;
 	icon: ReactNode;
-	queryResult?: UseQueryResult;
+	queryResult: UseQueryResult;
+	loading?: boolean;
 	errorText?: string;
 }
 
-export const LoaderLayout: FC<ILoaderLayoutProps> = ({logo, icon, queryResult, errorText, children, ...props}) => {
+export const LoaderLayout: FC<ILoaderLayoutProps> = ({logo, icon, queryResult, errorText, loading, children, ...props}) => {
 	const {t} = useTranslation();
+	const isLoading = loading !== undefined ? loading : queryResult && queryResult.isLoading;
+
 	return <>
-		{queryResult && (queryResult.isLoading || queryResult.isError) && <Layout style={{height: "100vh"}} {...props}>
+		{(isLoading || queryResult.isError) && <Layout style={{height: "100vh"}} {...props}>
 			<Row justify={"center"} align={"middle"}>
 				<Col span={24}>
 					<Card
@@ -23,7 +26,7 @@ export const LoaderLayout: FC<ILoaderLayoutProps> = ({logo, icon, queryResult, e
 						headStyle={{textAlign: "center", padding: "2em 0"}}
 					>
 						<Centered>
-							{queryResult.isLoading && !queryResult.isError && <Result
+							{isLoading && !queryResult.isError && <Result
 								icon={<LoaderIcon/>}
 							/>}
 							{queryResult.isError && <Result
@@ -40,6 +43,6 @@ export const LoaderLayout: FC<ILoaderLayoutProps> = ({logo, icon, queryResult, e
 				</Col>
 			</Row>
 		</Layout>}
-		{queryResult && queryResult.isSuccess && children}
+		{queryResult.isSuccess && children}
 	</>;
 };
