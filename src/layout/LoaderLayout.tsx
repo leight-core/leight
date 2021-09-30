@@ -8,12 +8,12 @@ import {UseQueryResult} from "react-query";
 export interface ILoaderLayoutProps extends Partial<LayoutProps> {
 	logo?: ReactNode;
 	icon: ReactNode;
-	queryResult: UseQueryResult;
+	queryResult?: UseQueryResult;
 	loading?: boolean;
 	errorText?: string;
 }
 
-export const LoaderLayout: FC<ILoaderLayoutProps> = ({logo, icon, queryResult, errorText, loading, children, ...props}) => {
+export const LoaderLayout: FC<ILoaderLayoutProps> = ({logo, icon, queryResult = {isError: false, isLoading: true}, errorText, loading, children, ...props}) => {
 	const {t} = useTranslation();
 	const isLoading = loading !== undefined ? loading : queryResult && queryResult.isLoading;
 
