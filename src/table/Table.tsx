@@ -25,6 +25,7 @@ export const Table = <TQuery extends IQueryParams, TResponse, TOrderBy, TFilter>
 		style={{minHeight: "50vh"}}
 		dataSource={sourceContext.result.isSuccess ? sourceContext.result.data.items : [] as any[]}
 		rowKey={(record: any) => record.id}
+		expandRowByClick
 		loading={{
 			spinning: sourceContext.result.isLoading,
 			indicator: <LoaderIcon/>,
