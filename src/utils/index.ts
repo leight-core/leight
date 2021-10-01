@@ -1,4 +1,5 @@
 export * from "./CopyText";
+export * from "./duration";
 export * from "./formatBytes";
 export * from "./isArray";
 export * from "./isCallable";
