@@ -6,6 +6,7 @@ const humanizer = humanizeDuration.humanizer({
 	fallbacks: ["en"],
 	largest: 3,
 	round: true,
+	maxDecimalPoints: 2,
 });
 
 export const miliDuration = (milis: number | string, options: Options) => {
