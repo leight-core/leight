@@ -100,7 +100,7 @@ const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 		const general = map["general"];
 		formError && handleError(formError, error, formContext);
 		!formError && general && handleError(general, error, formContext);
-		!formError && !general && message.error(t(error));
+		message.error(t("error." + error));
 	});
 
 	return <CoolForm
