@@ -82,7 +82,6 @@ const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 	};
 
 	function handleError(formError: IFormError | IFormErrorHandler<any, any>, error: any, formContext: IFormContext) {
-		console.error("Form error", error);
 		let handle = formError;
 		if (!isCallable(handle)) {
 			handle = () => formContext.setErrors({
