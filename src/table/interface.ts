@@ -7,7 +7,7 @@ export interface ITableColumnProps<TItem> extends Omit<ColumnProps<TItem>, "data
 }
 
 export interface IITableChildren<TQuery extends IQueryParams, TResponse, TOrderBy, TFilter> {
-	column: (props: ITableColumnProps<TQuery>) => ReactNode;
+	column: (props: ITableColumnProps<TResponse>) => ReactNode;
 	sourceContext: ISourceContext<TQuery, TResponse, TOrderBy, TFilter>;
 }
 
