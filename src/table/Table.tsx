@@ -1,13 +1,12 @@
 import {IQueryParams, IRecordItem, isArray, isCallable, ISourceContext, ITableChildrenCallback, LoaderIcon, useSourceContext} from "@leight-core/leight";
 import {Empty, Table as CoolTable, TablePaginationConfig, TableProps} from "antd";
-import {ColumnProps} from "antd/lib/table";
 import {FilterValue, SorterResult} from "antd/lib/table/interface";
 import React, {ReactNode} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface ITableProps<TQuery extends IQueryParams, TResponse, TOrderBy, TFilter> extends TableProps<TResponse> {
 	header?: (sourceContext: ISourceContext<TQuery, TResponse, TOrderBy, TFilter>) => ReactNode;
-	children?: ITableChildrenCallback<TResponse> | ReactNode;
+	children?: ITableChildrenCallback<TQuery, TResponse, TOrderBy, TFilter> | ReactNode;
 }
 
 export const Table = <TQuery extends IQueryParams, TResponse extends object, TOrderBy, TFilter>(
@@ -42,11 +41,14 @@ export const Table = <TQuery extends IQueryParams, TResponse extends object, TOr
 		}) as any}
 		{...props}
 	>
-		{isCallable(children) ? (children as ITableChildrenCallback<any>)(props => {
-			if (props.title) {
-				props.title = t(props.title as string);
-			}
-			return <CoolTable.Column<any> {...(props as ColumnProps<any>)}/>;
+		{isCallable(children) ? (children as ITableChildrenCallback<TQuery, TResponse, TOrderBy, TFilter>)({
+			column: (props: any) => {
+				if (props.title) {
+					props.title = t(props.title as string);
+				}
+				return <CoolTable.Column {...props}/>;
+			},
+			sourceContext,
 		}) : children}
 	</CoolTable>;
 };
