@@ -79,13 +79,13 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 	}, options || {}));
 
 	useEffect(() => {
-		props.filter && setFilter(props.filter);
+		props.filter && setFilter(merge<TFilter, TFilter>(defaultFilter || {}, props.filter));
 	}, [props.filter]);
 	useEffect(() => {
-		props.orderBy && setOrderBy(props.orderBy);
+		props.orderBy && setOrderBy(merge<TOrderBy, TOrderBy>(defaultOrderBy || {}, props.orderBy));
 	}, [props.orderBy]);
 	useEffect(() => {
-		props.query && setQuery(props.query);
+		props.query && setQuery(merge<TQuery, TQuery>(defaultQuery || {}, props.query));
 	}, [props.query]);
 
 	return <SourceContext.Provider
