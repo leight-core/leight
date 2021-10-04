@@ -1,4 +1,4 @@
-import {IQueryParams, IRecordItem, isArray, isCallable, ISourceContext, ITableChildrenCallback, LoaderIcon, useSourceContext} from "@leight-core/leight";
+import {IndexOf, IQueryParams, IRecordItem, isArray, isCallable, ISourceContext, ITableChildrenCallback, LoaderIcon, useSourceContext} from "@leight-core/leight";
 import {Empty, Table as CoolTable, TablePaginationConfig, TableProps} from "antd";
 import {FilterValue, SorterResult} from "antd/lib/table/interface";
 import React, {ReactNode} from "react";
@@ -7,7 +7,7 @@ import {useTranslation} from "react-i18next";
 export interface ITableProps<TQuery extends IQueryParams, TResponse, TOrderBy, TFilter> extends TableProps<TResponse> {
 	header?: (sourceContext: ISourceContext<TQuery, TResponse, TOrderBy, TFilter>) => ReactNode;
 	children?: ITableChildrenCallback<TQuery, TResponse, TOrderBy, TFilter> | ReactNode;
-	toFilter?: (filters: Record<string, FilterValue | null>) => TFilter | null;
+	toFilter?: (filters: Record<keyof TResponse, FilterValue | null>) => TFilter | null;
 }
 
 export const Table = <TQuery extends IQueryParams, TResponse extends object, TOrderBy, TFilter>(
@@ -34,9 +34,9 @@ export const Table = <TQuery extends IQueryParams, TResponse extends object, TOr
 		size={"large"}
 		locale={{emptyText: <Empty description={t("common.nothing-found")}/>}}
 		pagination={sourceContext.pagination()}
-		onChange={((pagination: TablePaginationConfig, filters: Record<string, FilterValue | null>, sorter: SorterResult<any> | SorterResult<any>[]) => {
-			const orderBy: { [index: string]: any } = {};
-			((isArray(sorter) ? sorter : [sorter]) as SorterResult<any>[]).forEach(sorter => {
+		onChange={((pagination: TablePaginationConfig, filters: Record<keyof TResponse, FilterValue | null>, sorter: SorterResult<TResponse> | SorterResult<TResponse>[]) => {
+			const orderBy: IndexOf<any> = {};
+			((isArray(sorter) ? sorter : [sorter]) as SorterResult<TResponse>[]).forEach(sorter => {
 				orderBy[sorter.columnKey as string] = (sorter.column === undefined ? undefined : sorter.order === "ascend") as any;
 			});
 			sourceContext.setOrderBy(orderBy as TOrderBy);
