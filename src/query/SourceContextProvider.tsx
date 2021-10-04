@@ -106,6 +106,7 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 			setQuery: query => setQuery(merge<TQuery, TQuery>(query, props.query || {})),
 			pagination: function () {
 				return result.isSuccess ? {
+					current: page + 1,
 					total: result.data.total,
 					pageSize: result.data.size,
 					defaultPageSize: result.data.size,
