@@ -7,14 +7,14 @@ import {useTranslation} from "react-i18next";
 export interface ITableProps<TQuery extends IQueryParams, TResponse, TOrderBy, TFilter> extends TableProps<TResponse> {
 	header?: (sourceContext: ISourceContext<TQuery, TResponse, TOrderBy, TFilter>) => ReactNode;
 	children?: ITableChildrenCallback<TQuery, TResponse, TOrderBy, TFilter> | ReactNode;
-	toFilter?: (filters: Record<string, FilterValue | null>) => TFilter;
+	toFilter?: (filters: Record<string, FilterValue | null>) => TFilter | null;
 }
 
 export const Table = <TQuery extends IQueryParams, TResponse extends object, TOrderBy, TFilter>(
 	{
 		children,
 		header,
-		toFilter = () => undefined as unknown as TFilter,
+		toFilter = () => null,
 		...props
 	}: ITableProps<TQuery, TResponse, TOrderBy, TFilter>) => {
 	const {t} = useTranslation();
