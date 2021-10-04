@@ -7,12 +7,14 @@ import {useTranslation} from "react-i18next";
 export interface ITableProps<TQuery extends IQueryParams, TResponse, TOrderBy, TFilter> extends TableProps<TResponse> {
 	header?: (sourceContext: ISourceContext<TQuery, TResponse, TOrderBy, TFilter>) => ReactNode;
 	children?: ITableChildrenCallback<TQuery, TResponse, TOrderBy, TFilter> | ReactNode;
+	toFilter?: (filters: Record<string, FilterValue | null>) => TFilter;
 }
 
 export const Table = <TQuery extends IQueryParams, TResponse extends object, TOrderBy, TFilter>(
 	{
 		children,
 		header,
+		toFilter = () => undefined as unknown as TFilter,
 		...props
 	}: ITableProps<TQuery, TResponse, TOrderBy, TFilter>) => {
 	const {t} = useTranslation();
@@ -38,6 +40,7 @@ export const Table = <TQuery extends IQueryParams, TResponse extends object, TOr
 				orderBy[sorter.columnKey as string] = (sorter.column === undefined ? undefined : sorter.order === "ascend") as any;
 			});
 			sourceContext.setOrderBy(orderBy as TOrderBy);
+			sourceContext.setFilter(toFilter(filters));
 		}) as any}
 		{...props}
 	>
