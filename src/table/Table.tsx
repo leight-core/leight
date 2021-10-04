@@ -1,4 +1,4 @@
-import {IndexOf, IQueryParams, IRecordItem, isArray, isCallable, ISourceContext, ITableChildrenCallback, LoaderIcon, useSourceContext} from "@leight-core/leight";
+import {IndexOf, IQueryParams, IRecordItem, isArray, isCallable, ISourceContext, ITableChildrenCallback, ITableToFilterCallback, LoaderIcon, merge, useSourceContext} from "@leight-core/leight";
 import {Empty, Table as CoolTable, TablePaginationConfig, TableProps} from "antd";
 import {FilterValue, SorterResult} from "antd/lib/table/interface";
 import React, {ReactNode} from "react";
@@ -7,7 +7,7 @@ import {useTranslation} from "react-i18next";
 export interface ITableProps<TQuery extends IQueryParams, TResponse, TOrderBy, TFilter> extends TableProps<TResponse> {
 	header?: (sourceContext: ISourceContext<TQuery, TResponse, TOrderBy, TFilter>) => ReactNode;
 	children?: ITableChildrenCallback<TQuery, TResponse, TOrderBy, TFilter> | ReactNode;
-	toFilter?: (filters: Record<keyof TResponse, FilterValue | null>) => TFilter | null;
+	toFilter?: ITableToFilterCallback<TResponse, TFilter>;
 }
 
 export const Table = <TQuery extends IQueryParams, TResponse extends object, TOrderBy, TFilter>(
@@ -40,7 +40,7 @@ export const Table = <TQuery extends IQueryParams, TResponse extends object, TOr
 				orderBy[sorter.columnKey as string] = (sorter.column === undefined ? undefined : sorter.order === "ascend") as any;
 			});
 			sourceContext.setOrderBy(orderBy as TOrderBy);
-			sourceContext.setFilter(toFilter(filters));
+			sourceContext.setFilter(merge<TFilter, TFilter>(sourceContext.filter || {}, toFilter({filters, current: sourceContext.filter}) || {}));
 		}) as any}
 		{...props}
 	>
