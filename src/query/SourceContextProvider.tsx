@@ -73,10 +73,10 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 		page,
 		filter,
 		orderBy,
-	}, query, options || {
+	}, query, merge({
 		keepPreviousData: true,
 		refetchInterval: live,
-	});
+	}, options || {}));
 
 	useEffect(() => {
 		props.filter && setFilter(props.filter);
