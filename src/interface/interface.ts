@@ -4,3 +4,7 @@
 export interface IRecordItem {
 	id: string;
 }
+
+export interface IndexOf<T> {
+	[index: string]: T;
+}
