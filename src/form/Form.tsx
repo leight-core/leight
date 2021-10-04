@@ -22,12 +22,13 @@ import {Form as CoolForm, FormProps, message, Spin} from "antd";
 import isCallable from "is-callable";
 import React, {PropsWithChildren} from "react";
 import {useTranslation} from "react-i18next";
+import {useMutation} from "react-query";
 
 export interface IFormProps<TQuery extends IQueryParams, TRequest, TResponse> extends Partial<FormProps> {
 	/**
 	 * What to do on form submit.
 	 */
-	useMutation: IMutationHookCallback<TQuery, TRequest, TResponse>;
+	useMutation?: IMutationHookCallback<TQuery, TRequest, TResponse>;
 	mutationQuery?: TQuery;
 	/**
 	 * Map form data to mutation data.
@@ -51,9 +52,13 @@ export interface IFormProps<TQuery extends IQueryParams, TRequest, TResponse> ex
 	toError?: (error: IToError<any, any>) => IFormErrorMap<any, any>;
 }
 
+const usePassThroughMutation = () => useMutation<any, any, any, any>(values => {
+	return new Promise(resolve => resolve(values));
+});
+
 const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 	{
-		useMutation,
+		useMutation = usePassThroughMutation,
 		mutationQuery,
 		toMutation = values => values,
 		toForm = () => null as any,
@@ -110,7 +115,11 @@ const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 			blockContext.block();
 			formBlockContext.block();
 			mutation.mutate(toMutation(values), {
-				onSuccess: response => onSuccess({navigate, values, response, formContext}),
+				onSuccess: response => {
+					blockContext.unblock();
+					formBlockContext.unblock();
+					onSuccess({navigate, values, response, formContext});
+				},
 				onError: error => onFailure && onFailure({error: (error && error.response && error.response.data) || error, formContext}),
 			});
 		}}
