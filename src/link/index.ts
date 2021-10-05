@@ -3,7 +3,7 @@ import axios from "axios";
 /**
  * Constant used to set default server request timeout.
  */
-export const RequestTimeout = 1000 * 10;
+export const RequestTimeout = 1000 * 60;
 
 axios.defaults.timeout = RequestTimeout;
 
