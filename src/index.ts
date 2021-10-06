@@ -1,3 +1,5 @@
+import "./bootstrap";
+
 export * from "./app";
 export * from "./block";
 export * from "./button";
