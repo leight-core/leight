@@ -1,4 +1,4 @@
-import {IndexOf, IQueryParams, IRecordItem, isArray, isCallable, ISourceContext, ITableChildrenCallback, ITableToFilterCallback, LoaderIcon, merge, useSourceContext} from "@leight-core/leight";
+import {IndexOf, IQueryParams, IRecordItem, isArray, isCallable, ISourceContext, isString, ITableChildrenCallback, ITableToFilterCallback, LoaderIcon, merge, useSourceContext} from "@leight-core/leight";
 import {Empty, Table as CoolTable, TablePaginationConfig, TableProps} from "antd";
 import {FilterValue, SorterResult} from "antd/lib/table/interface";
 import React, {ReactNode} from "react";
@@ -46,7 +46,7 @@ export const Table = <TQuery extends IQueryParams, TResponse extends object, TOr
 	>
 		{isCallable(children) ? (children as ITableChildrenCallback<TQuery, TResponse, TOrderBy, TFilter>)({
 			column: (props: any) => {
-				if (props.title) {
+				if (isString(props.title)) {
 					props.title = t(props.title as string);
 				}
 				return <CoolTable.Column {...props}/>;
