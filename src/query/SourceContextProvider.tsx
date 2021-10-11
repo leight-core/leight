@@ -100,10 +100,13 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 			setSize,
 			orderBy,
 			setOrderBy: orderBy => setOrderBy(merge<TOrderBy, TOrderBy>(orderBy, props.orderBy || {})),
+			mergeOrderBy: input => setOrderBy(merge<TOrderBy, TOrderBy>(orderBy || {}, merge<TOrderBy, TOrderBy>(input, props.orderBy || {}))),
 			filter,
 			setFilter: filter => setFilter(merge<TFilter, TFilter>(filter, props.filter || {})),
+			mergeFilter: input => setFilter(merge<TFilter, TFilter>(filter || {}, merge<TFilter, TFilter>(input, props.filter || {}))),
 			query,
 			setQuery: query => setQuery(merge<TQuery, TQuery>(query, props.query || {})),
+			mergeQuery: input => setQuery(merge<TQuery, TQuery>(query || {}, merge<TQuery, TQuery>(input, props.query || {}))),
 			pagination: function () {
 				return result.isSuccess ? {
 					current: page + 1,

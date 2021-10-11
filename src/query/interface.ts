@@ -90,8 +90,16 @@ export interface ISourceContext<TQuery extends IQueryParams, TResponse, TOrderBy
 	 * Set new order by.
 	 */
 	setOrderBy: (orderBy?: TOrderBy | null) => void;
+	/**
+	 * Merge the given orders with current state.
+	 */
+	mergeOrderBy: (orderBy?: TOrderBy | null) => void;
 	readonly filter?: TFilter | null;
 	setFilter: (filter?: TFilter | null) => void;
+	/**
+	 * Merge current filters with the given one.
+	 */
+	mergeFilter: (filter?: TFilter | null) => void;
 	/**
 	 * Access to current query used to fetch a page.
 	 */
@@ -100,5 +108,9 @@ export interface ISourceContext<TQuery extends IQueryParams, TResponse, TOrderBy
 	 * Set a new query.
 	 */
 	setQuery: (query?: TQuery) => void;
+	/**
+	 * Merge queries with the given one.
+	 */
+	mergeQuery: (query?: TQuery) => void;
 	pagination: () => (TablePaginationConfig & PaginationConfig) | false | undefined;
 }
