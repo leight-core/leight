@@ -3,6 +3,7 @@ export * from "./BulletCard";
 export * from "./CancelOrderButton";
 export * from "./ButtonLink";
 export * from "./IconText";
+export * from "./ModalButton";
 export * from "./OrderButton";
 export * from "./OrderButtonBar";
 export * from "./Placeholder";
