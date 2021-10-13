@@ -11,14 +11,14 @@ export interface IModalButtonProps extends Omit<Partial<ModalProps>, "onOk"> {
 export const ModalButton: FC<IModalButtonProps> = ({button, onOk, ...props}) => {
 	const {t} = useTranslation();
 	const [show, setShow] = useState(false);
-	if (button && isString(button?.children)) {
-		button.children = t(button?.children as string);
+	if (button && isString(button.children)) {
+		button.children = t(button.children as string);
 	}
-	if (isString(props?.title)) {
-		props.title = t(props?.title as string);
+	if (props && isString(props.title)) {
+		props.title = t(props.title as string);
 	}
-	if (isString(props?.children)) {
-		props.children = t(props?.children as string);
+	if (props && isString(props.children)) {
+		props.children = t(props.children as string);
 	}
 	return <>
 		<Button
