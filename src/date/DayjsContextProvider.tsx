@@ -1,5 +1,5 @@
+import {DayjsContext} from "@leight-core/leight";
 import {FC} from "react";
-import {DayjsContext} from "./DayjsContext";
 
 export interface IDayjsContextProviderProps {
 	dayjs: any;

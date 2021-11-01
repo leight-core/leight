@@ -12,7 +12,7 @@ export interface IFingerprintContextProviderProps {
 export const FingerprintContextProvider: FC<IFingerprintContextProviderProps> = ({logo, children}) => {
 	const fingerprint = useQuery("fingerprint", () => new Promise<string>((resolve) => {
 		const done = (fingerprint: string) => {
-			resolve(axios.defaults.headers["X-Client-Hash"] = fingerprint);
+			resolve((axios.defaults.headers as any)["X-Client-Hash"] = fingerprint);
 		};
 		FingerprintJS.load()
 			.then(agent => agent.get()

@@ -1,6 +1,6 @@
 import {useDayjsContext, useOptionalFormItemContext} from "@leight-core/leight";
 import generatePicker, {PickerProps} from "antd/lib/date-picker/generatePicker";
-import "antd/lib/date-picker/style/index";
+// import "antd/lib/date-picker/style/index";
 import {Dayjs} from "dayjs";
 import dayjsGenerateConfig from "rc-picker/lib/generate/dayjs";
 import React from "react";
