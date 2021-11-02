@@ -1,4 +1,4 @@
-import "./bootstrap";
+import "./bootstrap/index.js";
 
 export * from "./app";
 export * from "./block";
