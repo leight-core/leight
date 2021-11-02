@@ -49,7 +49,7 @@ export interface IFormProps<TQuery extends IQueryParams, TRequest, TResponse> ex
 	/**
 	 * Map error from outside to a state in the form (like a general error or a field error).
 	 */
-	toError?: (error: IToError<any, any>) => IFormErrorMap<any, any>;
+	toError?: (error: IToError<any, any>) => IFormErrorMap<any>;
 }
 
 const usePassThroughMutation = () => useMutation<any, any, any, any>(values => {

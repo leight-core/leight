@@ -26,7 +26,7 @@ export interface IFormErrorHandler<TError, TFormValues> {
 	(error: IErrorHandler<TError, TFormValues>): void;
 }
 
-export interface IFormErrorMap<TError, TFormValues> {
+export interface IFormErrorMap<TFormValues> {
 	[index: string]: IFormError | IFormErrorHandler<any, TFormValues>;
 }
 

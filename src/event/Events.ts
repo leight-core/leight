@@ -12,7 +12,7 @@ class EventsClass<TEventTypes extends IBaseEventTypes, TEventHandlers extends IE
 	chains: IEvents<any, any>[] = [];
 	binds: { [index: string]: IEvents<any, any> } = {};
 	requires: TEventTypes[] = [];
-	dismissed: boolean = false;
+	dismissed = false;
 
 	on<T extends TEventTypes>(event: T, callback: TEventHandlers[T], priority = 100): IEvents<TEventTypes, TEventHandlers> {
 		(this.events[event] = this.events[event] || []).push({
@@ -39,7 +39,7 @@ class EventsClass<TEventTypes extends IBaseEventTypes, TEventHandlers extends IE
 		}) as any;
 	}
 
-	dismiss(dismiss: boolean = true): IEvents<TEventTypes, TEventHandlers> {
+	dismiss(dismiss = true): IEvents<TEventTypes, TEventHandlers> {
 		this.dismissed = dismiss;
 		return this;
 	}

@@ -25,7 +25,7 @@ export const FormUtils = {
 	 */
 	required: function (form: FormInstance): CancelablePromise<IFormFields[]> {
 		return new CancelablePromise((resolve: ICancelableResolveCallback) => this.fields(form).then((fields: IFormFields[]) => {
-			resolve(fields.filter(([_, item]) => {
+			resolve(fields.filter(([, item]) => {
 				if (!item) {
 					return false;
 				}
@@ -45,7 +45,7 @@ export const FormUtils = {
 	 */
 	hasMissingValues: function (form: FormInstance): CancelablePromise<boolean> {
 		return new CancelablePromise((resolve: ICancelableResolveCallback) => this.required(form).then((required: IFormFields[]) => {
-			resolve(!!required.map(([name, _]) => name).map(name => form.getFieldValue(name)).filter(value => !value).length);
+			resolve(!!required.map(([name]) => name).map(name => form.getFieldValue(name)).filter(value => !value).length);
 		}));
 	},
 	/**

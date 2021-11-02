@@ -16,7 +16,7 @@ export class BlockContextClass implements IBlockContext {
 		return this.countState[0];
 	}
 
-	public block(temp: boolean = false): void {
+	public block(temp = false): void {
 		if (temp) {
 			return this.lockState[1](true);
 		}
@@ -27,7 +27,7 @@ export class BlockContextClass implements IBlockContext {
 		return this.countState[0] > 0 || this.lock;
 	}
 
-	public unblock(unlock: boolean = false): void {
+	public unblock(unlock = false): void {
 		this.lock && this.lockState[1](false);
 		this.countState[1](unlock ? 0 : prev => Math.max(0, prev - 1));
 	}

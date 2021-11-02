@@ -1,10 +1,10 @@
 import dayjs, {ConfigType} from "dayjs";
 
-export const toLocalDate = (input?: ConfigType | null, fallback: string = "-"): string => {
+export const toLocalDate = (input?: ConfigType | null, fallback = "-"): string => {
 	return input ? dayjs(input).format("L") : fallback;
 };
 
-export const toLocalDateTime = (input?: ConfigType | null, fallback: string = "-"): string => {
+export const toLocalDateTime = (input?: ConfigType | null, fallback = "-"): string => {
 	return input ? dayjs(input).format("L LTS") : fallback;
 };
 
