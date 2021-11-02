@@ -9,10 +9,10 @@ jobs:
             -   uses: actions/checkout@master
             -   uses: actions/setup-node@master
                 with:
-                    node-version: 12
+                    node-version: 16
                     registry-url: https://registry.npmjs.org
                     scope: 'leight-core'
-            -   run: npm ci
+            -   run: npm install
             -   run: npm test
             -   run: npm run build
             -   run: npm publish --access public
