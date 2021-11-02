@@ -1,5 +1,4 @@
-import {Events} from "./Events";
-import {IEventHandlers, IEventResult} from "./interface";
+import {Events, IEventHandlers, IEventResult} from "@leight-core/leight";
 
 interface ITestEventHandlers extends IEventHandlers {
 	test: () => IEventResult;
