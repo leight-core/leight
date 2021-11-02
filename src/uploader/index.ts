@@ -1,3 +1,3 @@
-export * from "./interface";
-export * from "./Uploader";
-export * from "./UploaderEvents";
+export * from "./interface.js";
+export * from "./Uploader.js";
+export * from "./UploaderEvents.js";

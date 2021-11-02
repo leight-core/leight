@@ -1,2 +1,2 @@
-export * from "./Events";
-export * from "./interface";
+export * from "./Events.js";
+export * from "./interface.js";

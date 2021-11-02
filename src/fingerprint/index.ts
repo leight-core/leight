@@ -1,3 +1,3 @@
-export * from "./FingerprintContext";
-export * from "./FingerprintContextProvider";
-export * from "./interface";
+export * from "./FingerprintContext.js";
+export * from "./FingerprintContextProvider.js";
+export * from "./interface.js";

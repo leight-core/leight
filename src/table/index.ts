@@ -1,3 +1,3 @@
-export * from "./Table";
-export * from "./interface";
-export * from "./utils";
+export * from "./Table.js";
+export * from "./interface.js";
+export * from "./utils.js";
