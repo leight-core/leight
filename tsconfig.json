@@ -16,7 +16,7 @@
 		"composite": true,
 		"removeComments": false,
 		"moduleResolution": "Node",
-		"jsx": "preserve",
+		"jsx": "react-jsx",
 		"rootDir": "src",
 		"outDir": "dist",
 		"lib": [
