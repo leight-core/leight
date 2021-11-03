@@ -21,7 +21,7 @@ export interface IPlaceholderProps<TData = any> {
 	skeleton?: SkeletonInputProps;
 }
 
-export const Placeholder = <TData extends unknown = any>(
+export const Placeholder = <TData, >(
 	{
 		data,
 		children,

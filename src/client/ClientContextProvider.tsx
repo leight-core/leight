@@ -11,7 +11,7 @@ export const ClientContextProvider: FC<IClientContextProviderProps> = ({logo, li
 	const result = useClientConfigQuery(link || "/client.json");
 	return <ClientContext.Provider
 		value={{
-			client: result.data!!,
+			client: result.data!,
 		}}
 	>
 		<LoaderLayout

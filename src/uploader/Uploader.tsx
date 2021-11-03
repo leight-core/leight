@@ -37,7 +37,7 @@ export const Uploader: FC<IUploaderProps> = ({name, limit, events, translation, 
 	const [status, setStatus] = useState<any>("active");
 	const [progress, setProgress] = useState(0);
 	const {t} = useTranslation();
-	const onBeforeUpload = (file: RcFile, FileList: RcFile[]): boolean => {
+	const onBeforeUpload = (file: RcFile): boolean => {
 		const hasValidSize = file.size / 1024 / 1024 < limit;
 		if (!hasValidSize) {
 			message.error(t([translation + ".file-too-large", "common.error.file-too-large"], {size: formatBytes(file.size), limit: formatBytes(limit * 1024 * 1024)}));

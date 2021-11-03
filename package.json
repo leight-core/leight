@@ -10,27 +10,13 @@
 	"engines": {
 		"node": "^12.20.0 || ^14.13.1 || >=16.0.0"
 	},
-	"type": "commonjs",
-	"exports": {
-		".": "./dist/index.js",
-		"./*": "./dist/*.js"
-	},
-	"typesVersions": {
-		"*": {
-			"dist/index.d.ts": [
-				"./dist/index.d.ts"
-			],
-			"*": [
-				"dist/*",
-				"dist/*/index.d.ts"
-			]
-		}
-	},
+	"main": "dist/index.js",
+	"types": "dist/index.d.js",
 	"files": [
 		"dist"
 	],
 	"scripts": {
-		"lint": "eslint . --ext .ts",
+		"lint": "eslint src",
 		"build": "npm run lint && tsc -p tsconfig.json",
 		"build:watch": "tsc -w -p tsconfig.json",
 		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest src",

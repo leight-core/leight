@@ -1,8 +1,8 @@
 import {UserOutlined} from "@ant-design/icons";
-import {ISession, LoaderLayout, SessionContext, useSessionTicketQuery} from "@leight-core/leight";
+import {LoaderLayout, SessionContext, useSessionTicketQuery} from "@leight-core/leight";
 import {FC, ReactNode} from "react";
 
-export interface ISessionContextProviderProps<TSession extends ISession = ISession> {
+export interface ISessionContextProviderProps {
 	logo?: ReactNode;
 	/**
 	 * Discovery Index link id to fetch session from.

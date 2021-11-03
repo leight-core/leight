@@ -6,7 +6,7 @@ export interface IListProps<TItem> extends Partial<ListProps<TItem>> {
 	children: (item: TItem, index: number) => ReactNode;
 }
 
-export const List = <TItem extends Object = IRecordItem>(
+export const List = <TItem extends Record<string, unknown> = IRecordItem>(
 	{
 		children,
 		...props

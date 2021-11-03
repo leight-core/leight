@@ -28,7 +28,7 @@ export const FingerprintContextProvider: FC<IFingerprintContextProviderProps> = 
 
 	return <FingerprintContext.Provider
 		value={{
-			fingerprint: fingerprint.data!!,
+			fingerprint: fingerprint.data!,
 		}}
 	>
 		<LoaderLayout
