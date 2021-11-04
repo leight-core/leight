@@ -1,7 +1,7 @@
 import {EmptyPage, IEmptyPageProps, useLayoutContext} from "@leight-core/leight";
 import {Card, CardProps, Divider, Space, Typography} from "antd";
 import {useRouter} from "next/router";
-import {FC} from "react";
+import {FC, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface IPageProps extends IEmptyPageProps {
@@ -10,9 +10,10 @@ export interface IPageProps extends IEmptyPageProps {
 	 */
 	h1?: string;
 	card?: Partial<CardProps>;
+	header?: ReactNode;
 }
 
-export const Page: FC<IPageProps> = ({h1, card, ...props}) => {
+export const Page: FC<IPageProps> = ({h1, header, card, ...props}) => {
 	const {t} = useTranslation();
 	const router = useRouter();
 	const layoutContext = useLayoutContext();
@@ -21,7 +22,7 @@ export const Page: FC<IPageProps> = ({h1, card, ...props}) => {
 			title={
 				<Space align={"baseline"} split={<Divider type={"vertical"}/>} size={"small"}>
 					<Typography.Title level={3}>{t(h1 ? h1 : props.name + ".title")}</Typography.Title>
-					{layoutContext.pageHeader}
+					{header || layoutContext.pageHeader}
 				</Space>
 			}
 			{...props}
