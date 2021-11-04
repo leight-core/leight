@@ -12,6 +12,16 @@
 	},
 	"main": "dist/index.js",
 	"types": "dist/index.d.js",
+	"exports": {
+		"import": "./dist/index.js"
+	},
+	"typesVersions": {
+		"*": {
+			"index.d.ts": [
+				"dist/index.d.ts"
+			]
+		}
+	},
 	"files": [
 		"dist"
 	],
