@@ -1,4 +1,4 @@
-import {BlockContextProvider, ScrollToTop, UpdatePageHeader, useBlockContext, useLayoutBlockContext, useLayoutContext, useMenuContext} from "@leight-core/leight";
+import {BlockContextProvider, ScrollToTop, useBlockContext, useLayoutBlockContext, useLayoutContext, useMenuContext} from "@leight-core/leight";
 import {Spin} from "antd";
 import Head from "next/head";
 import {FC, ReactNode, useEffect} from "react";
@@ -9,10 +9,6 @@ export interface IEmptyPageProps {
 	 * Name (and title) of this page.
 	 */
 	name: string;
-	/**
-	 * Optional header (if used, UpdateHeader component will be executed).
-	 */
-	header?: ReactNode;
 	/**
 	 * If provided, page title will be updated (tab name). Must be explicitly provided to change a title.
 	 */
@@ -62,7 +58,6 @@ export const EmptyPage: FC<IEmptyPageProps> = (
 		name,
 		menu,
 		menuItems,
-		header,
 		title,
 		blocked = false,
 		fullwidth = false,
@@ -80,9 +75,6 @@ export const EmptyPage: FC<IEmptyPageProps> = (
 		blockContext.unblock(true);
 	}, []);
 	return <>
-		{header && <UpdatePageHeader>
-			{header}
-		</UpdatePageHeader>}
 		{title && <Head><title key={"title"}>{title ? t(title + ".title") : (name ? t(name + ".title") : title)}</title></Head>}
 		<ScrollToTop/>
 		<BlockContextProvider locked={blocked}>

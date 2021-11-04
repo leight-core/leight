@@ -1,5 +1,5 @@
 import {Drawer, DrawerContextProvider, HeaderPlaceholder, LayoutBlockContextProvider, LayoutContext, LoaderIcon, MenuContextProvider, PlaceholderPage, useLayoutBlockContext, useLayoutContext, useMenuContext} from "@leight-core/leight";
-import {Layout, PageHeader, Spin} from "antd";
+import {Layout, Spin} from "antd";
 import React, {CSSProperties, FC, ReactNode, Suspense, useEffect, useState} from "react";
 
 const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer, contentStyle, headerStyle, children}) => {
@@ -25,8 +25,7 @@ const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer,
 					</Layout.Sider>
 				}
 				<Layout>
-					<Layout.Content style={{minHeight: "100vh", padding: "0em 1.5em", ...contentStyle}}>
-						<PageHeader style={{padding: 0}} title={layoutContext.pageHeader}/>
+					<Layout.Content style={{minHeight: "100vh", padding: "1.5em", ...contentStyle}}>
 						<Suspense fallback={<PlaceholderPage/>}>
 							{children}
 						</Suspense>

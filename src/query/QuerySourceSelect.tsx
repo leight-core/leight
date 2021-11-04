@@ -3,7 +3,7 @@ import {Empty, Select, SelectProps} from "antd";
 import React, {PropsWithChildren, useEffect, useRef} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface IQuerySourceSelectProps<TQuery extends IQueryParams, TResponse, TOrderBy, TFilter> extends Partial<SelectProps<any>> {
+export interface IQuerySourceSelectProps<TResponse> extends Partial<SelectProps<any>> {
 	/**
 	 * Map requested data into Select's options.
 	 */
@@ -47,7 +47,7 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 		filter = showSearch,
 		disableOnEmpty = true,
 		...props
-	}: PropsWithChildren<IQuerySourceSelectProps<TQuery, TResponse, TOrderBy, TFilter>>) => {
+	}: PropsWithChildren<IQuerySourceSelectProps<TResponse>>) => {
 	const tid = useRef<any>();
 	const {t} = useTranslation();
 	const sourceContext = useSourceContext<TQuery, TResponse, TOrderBy, TFilter>();
