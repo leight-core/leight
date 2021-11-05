@@ -1,4 +1,4 @@
-import {BlockContextProvider, ScrollToTop, useBlockContext, useLayoutBlockContext, useLayoutContext, useMenuContext} from "@leight-core/leight";
+import {BlockContextProvider, isCallable, ScrollToTop, useBlockContext, useLayoutBlockContext, useLayoutContext, useMenuContext} from "@leight-core/leight";
 import {Spin} from "antd";
 import Head from "next/head";
 import {FC, ReactNode, useEffect} from "react";
@@ -68,7 +68,7 @@ export const EmptyPage: FC<IEmptyPageProps> = (
 	const menuContext = useMenuContext();
 	const layoutContext = useLayoutContext();
 	const blockContext = useLayoutBlockContext();
-	menuContext.useMenu(menu, name);
+	menuContext.useMenu(isCallable(menu) ? (menu as any)() : menu, name);
 	menuContext.useSelect(menuItems || [name]);
 	layoutContext.useEnableFullwidth(fullwidth, restore);
 	useEffect(() => {
