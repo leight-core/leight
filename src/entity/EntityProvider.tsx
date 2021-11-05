@@ -9,6 +9,7 @@ export const EntityProvider = <TEntity, >({defaultEntity, children}: PropsWithCh
 	const [entity, update] = useState<TEntity | undefined | null>(defaultEntity);
 	return <EntityContext.Provider
 		value={{
+			entity,
 			optional: () => entity,
 			required: () => {
 				if (!entity) {

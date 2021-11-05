@@ -2,6 +2,7 @@ import "./bootstrap";
 
 export * from "./app";
 export * from "./block";
+export * from "./breadcrumb";
 export * from "./button";
 export * from "./client";
 export * from "./component";

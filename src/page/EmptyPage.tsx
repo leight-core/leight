@@ -1,4 +1,4 @@
-import {BlockContextProvider, isCallable, ScrollToTop, useBlockContext, useLayoutBlockContext, useLayoutContext, useMenuContext} from "@leight-core/leight";
+import {BlockContextProvider, isCallable, PageProvider, ScrollToTop, useBlockContext, useLayoutBlockContext, useLayoutContext, useMenuContext} from "@leight-core/leight";
 import {Spin} from "antd";
 import Head from "next/head";
 import {FC, ReactNode, useEffect} from "react";
@@ -74,7 +74,7 @@ export const EmptyPage: FC<IEmptyPageProps> = (
 	useEffect(() => {
 		blockContext.unblock(true);
 	}, []);
-	return <>
+	return <PageProvider>
 		{title && <Head><title key={"title"}>{title ? t(title + ".title") : (name ? t(name + ".title") : title)}</title></Head>}
 		<ScrollToTop/>
 		<BlockContextProvider locked={blocked}>
@@ -82,5 +82,5 @@ export const EmptyPage: FC<IEmptyPageProps> = (
 				{children}
 			</EmptyPageInternal>
 		</BlockContextProvider>
-	</>;
+	</PageProvider>;
 };
