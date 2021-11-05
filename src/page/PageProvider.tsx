@@ -1,15 +1,15 @@
 import {PageContext} from "@leight-core/leight";
-import {FC, useRef} from "react";
+import {FC, useState} from "react";
 
 export interface IPageProviderProps {
 }
 
 export const PageProvider: FC<IPageProviderProps> = ({children}) => {
-	const headerRef = useRef();
-
+	const [headerEl, setHeaderEl] = useState<Element | null>(null);
 	return <PageContext.Provider
 		value={{
-			headerRef,
+			headerEl,
+			setHeaderEl,
 		}}
 	>
 		{children}
