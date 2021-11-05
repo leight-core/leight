@@ -2,7 +2,7 @@ import {Col, Row} from "antd";
 import React, {FC} from "react";
 
 export interface IPushRightProps {
-	span?: number
+	span?: number;
 }
 
 export const PushRight: FC<IPushRightProps> = (
@@ -11,7 +11,7 @@ export const PushRight: FC<IPushRightProps> = (
 		span
 	}) => {
 	return (
-		<Row justify={"end"}>
+		<Row align={"middle"} justify={"end"}>
 			<Col span={span}>
 				{children}
 			</Col>

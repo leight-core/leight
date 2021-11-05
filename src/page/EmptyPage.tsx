@@ -1,7 +1,7 @@
-import {BlockContextProvider, isCallable, PageProvider, ScrollToTop, useBlockContext, useLayoutBlockContext, useLayoutContext, useMenuContext} from "@leight-core/leight";
+import {BlockContextProvider, PageProvider, ScrollToTop, useBlockContext, useLayoutBlockContext, useLayoutContext} from "@leight-core/leight";
 import {Spin} from "antd";
 import Head from "next/head";
-import {FC, ReactNode, useEffect} from "react";
+import {FC, useEffect} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface IEmptyPageProps {
@@ -13,14 +13,6 @@ export interface IEmptyPageProps {
 	 * If provided, page title will be updated (tab name). Must be explicitly provided to change a title.
 	 */
 	title?: string;
-	/**
-	 * Menu for this view.
-	 */
-	menu?: ReactNode | (() => ReactNode);
-	/**
-	 * Currently selected menu items (if any).
-	 */
-	menuItems?: string[];
 	/**
 	 * Is the given view in a "fullscreen" mode - means menu is disabled, page header
 	 * is displayed.
@@ -56,8 +48,6 @@ const EmptyPageInternal: FC = ({children}) => {
 export const EmptyPage: FC<IEmptyPageProps> = (
 	{
 		name,
-		menu,
-		menuItems,
 		title,
 		blocked = false,
 		fullwidth = false,
@@ -65,11 +55,8 @@ export const EmptyPage: FC<IEmptyPageProps> = (
 		children,
 	}) => {
 	const {t} = useTranslation();
-	const menuContext = useMenuContext();
 	const layoutContext = useLayoutContext();
 	const blockContext = useLayoutBlockContext();
-	menuContext.useMenu(isCallable(menu) ? (menu as any)() : menu, name);
-	menuContext.useSelect(menuItems || [name]);
 	layoutContext.useEnableFullwidth(fullwidth, restore);
 	useEffect(() => {
 		blockContext.unblock(true);

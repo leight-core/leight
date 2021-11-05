@@ -1,6 +1,5 @@
-import {EmptyPage, IEmptyPageProps, PageHeader} from "@leight-core/leight";
-import {Card, CardProps, Divider, Space, Typography} from "antd";
-import {useRouter} from "next/router";
+import {EmptyPage, IEmptyPageProps, PageBreadcrumb, PageMenu, PushRight} from "@leight-core/leight";
+import {Card, CardProps, Col, Row, Space, Typography} from "antd";
 import {FC, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
 
@@ -10,19 +9,36 @@ export interface IPageProps extends IEmptyPageProps {
 	 */
 	h1?: string;
 	card?: Partial<CardProps>;
-	header?: () => ReactNode;
+	breadcrumb?: (() => ReactNode) | null;
+	menu?: (() => ReactNode) | null;
 }
 
-export const Page: FC<IPageProps> = ({h1, header = () => <PageHeader/>, card, ...props}) => {
+export const Page: FC<IPageProps> = (
+	{
+		h1,
+		breadcrumb = () => <PageBreadcrumb/>,
+		menu = () => <PageMenu/>,
+		card,
+		...props
+	}) => {
 	const {t} = useTranslation();
-	const router = useRouter();
-	return <EmptyPage menuItems={[router.route]} title={props.name} {...props}>
+	return <EmptyPage title={props.name} {...props}>
 		<Card
 			title={
-				<Space align={"baseline"} split={<Divider type={"vertical"}/>} size={"small"}>
-					<Typography.Title level={3}>{t(h1 ? h1 : props.name + ".title")}</Typography.Title>
-					{header()}
-				</Space>
+				<Row align={"middle"}>
+					<Col span={8}>
+						{breadcrumb && <Space direction={"vertical"}>
+							<Typography.Title className={"page-title"} level={4}>{t(h1 ? h1 : props.name + ".title")}</Typography.Title>
+							{breadcrumb()}
+						</Space>}
+						{!breadcrumb && <Typography.Title className={"page-title"} level={4}>{t(h1 ? h1 : props.name + ".title")}</Typography.Title>}
+					</Col>
+					<Col span={16}>
+						{menu && <PushRight>
+							{menu()}
+						</PushRight>}
+					</Col>
+				</Row>
 			}
 			{...props}
 			{...card}

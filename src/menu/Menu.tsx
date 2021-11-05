@@ -13,7 +13,7 @@ export const Menu: FC<IMenuProps> = ({extraOpenKeys = [], ...props}) => {
 	return <CoolMenu
 		mode={"inline"}
 		selectable={true}
-		selectedKeys={menuContext.current}
+		selectedKeys={menuContext.current.concat([router.route])}
 		defaultOpenKeys={(() => {
 			if (menuContext.collapsed) {
 				return [];

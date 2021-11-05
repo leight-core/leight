@@ -1,4 +1,4 @@
-import {Drawer, DrawerContextProvider, LayoutBlockContextProvider, LayoutContext, LoaderIcon, MenuContextProvider, PlaceholderPage, useLayoutBlockContext, useLayoutContext, useMenuContext} from "@leight-core/leight";
+import {Drawer, DrawerContextProvider, LayoutBlockContextProvider, LayoutContext, LoaderIcon, MenuContextProvider, MenuPlaceholder, PlaceholderPage, useLayoutBlockContext, useLayoutContext, useMenuContext} from "@leight-core/leight";
 import {Layout, Spin} from "antd";
 import React, {CSSProperties, FC, ReactNode, Suspense, useEffect, useState} from "react";
 
@@ -21,7 +21,7 @@ const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer,
 						collapsed={menuContext.collapsed}
 						width={layoutContext.siderSize}
 					>
-						{menuContext.menu}
+						<MenuPlaceholder/>
 					</Layout.Sider>
 				}
 				<Layout>

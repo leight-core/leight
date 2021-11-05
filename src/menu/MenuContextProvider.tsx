@@ -1,14 +1,13 @@
-import {isCallable, isEqual, MenuContext} from "@leight-core/leight";
-import {FC, ReactNode, useEffect, useRef, useState} from "react";
+import {isEqual, MenuContext} from "@leight-core/leight";
+import {FC, useEffect, useState} from "react";
 
 export interface IMenuContextProviderProps {
 }
 
 export const MenuContextProvider: FC<IMenuContextProviderProps> = ({children}) => {
 	const [current, setCurrent] = useState<string[]>([]);
-	const [menu, setMenu] = useState<ReactNode>(null);
 	const [collapsed, setCollapse] = useState<boolean>(false);
-	const menuKey = useRef<string | undefined>();
+	const [element, setElement] = useState<Element | undefined | null>(null);
 	return <MenuContext.Provider
 		value={{
 			collapsed,
@@ -21,29 +20,13 @@ export const MenuContextProvider: FC<IMenuContextProviderProps> = ({children}) =
 					};
 				}, [collapse]);
 			},
-			menu,
 			current,
 			useSelect: select => useEffect(() => {
 				const id = setTimeout(() => !isEqual(select, current) && setCurrent(select), 0);
 				return () => clearTimeout(id);
 			}, []),
-			useMenu: (menu, name) => useEffect(() => {
-				if (!menu) {
-					return;
-				}
-				if (!name) {
-					setMenu(isCallable(menu) ? (menu as any)() : menu);
-					menuKey.current = undefined;
-				}
-				if (name && menuKey.current !== name) {
-					setMenu(isCallable(menu) ? (menu as any)() : menu);
-					menuKey.current = name;
-				}
-			}, [name]),
-			setMenu: menu => {
-				setMenu(menu);
-				menuKey.current = undefined;
-			},
+			element,
+			setElement,
 		}}
 	>
 		{children}

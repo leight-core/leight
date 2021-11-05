@@ -1,5 +1,3 @@
-import {ReactNode} from "react";
-
 export interface IMenuContext {
 	/**
 	 * Currently selected menu items.
@@ -12,10 +10,6 @@ export interface IMenuContext {
 	 */
 	useSelect: (select: string[]) => void;
 	/**
-	 * Current menu.
-	 */
-	readonly menu: ReactNode;
-	/**
 	 * Is menu collapsed (if applicable for the current layout).
 	 */
 	readonly collapsed: boolean;
@@ -27,17 +21,6 @@ export interface IMenuContext {
 	 * Direct state change for menu collapse.
 	 */
 	setCollapse: (collapse: boolean) => void;
-	/**
-	 * Use the selected menu
-	 *
-	 * @param menu use the given menu
-	 * @param name optional menu name used to prevent redraws when a same menu (by name) is used
-	 */
-	useMenu: (menu?: ReactNode | (() => ReactNode), name?: string) => void;
-	/**
-	 * Directly set current menu.
-	 *
-	 * @param menu
-	 */
-	setMenu: (menu: ReactNode) => void;
+	readonly element?: Element | null;
+	setElement: (element?: Element | null) => void;
 }

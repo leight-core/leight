@@ -5,11 +5,14 @@ export interface IPageProviderProps {
 }
 
 export const PageProvider: FC<IPageProviderProps> = ({children}) => {
-	const [headerEl, setHeaderEl] = useState<Element | null>(null);
+	const [breadcrumbEl, setBreadcrumbEl] = useState<Element | null>(null);
+	const [menuEl, setMenuEl] = useState<Element | null>(null);
 	return <PageContext.Provider
 		value={{
-			headerEl,
-			setHeaderEl,
+			breadcrumbEl,
+			setBreadcrumbEl,
+			menuEl,
+			setMenuEl,
 		}}
 	>
 		{children}
