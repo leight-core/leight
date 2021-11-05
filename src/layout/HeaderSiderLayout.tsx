@@ -1,4 +1,4 @@
-import {Drawer, DrawerContextProvider, HeaderPlaceholder, LayoutBlockContextProvider, LayoutContext, LoaderIcon, MenuContextProvider, PlaceholderPage, useLayoutBlockContext, useLayoutContext, useMenuContext} from "@leight-core/leight";
+import {Drawer, DrawerContextProvider, LayoutBlockContextProvider, LayoutContext, LoaderIcon, MenuContextProvider, PlaceholderPage, useLayoutBlockContext, useLayoutContext, useMenuContext} from "@leight-core/leight";
 import {Layout, Spin} from "antd";
 import React, {CSSProperties, FC, ReactNode, Suspense, useEffect, useState} from "react";
 
@@ -71,7 +71,6 @@ export const HeaderSiderLayout: FC<IHeaderSiderLayoutProps> = (
 	}) => {
 	const [fullwidth, setFullwidth] = useState<boolean>(false);
 	const [siderSize, setSiderSize] = useState<number>(235);
-	const [pageHeader, setPageHeader] = useState<ReactNode>(<HeaderPlaceholder/>);
 	return <LayoutBlockContextProvider>
 		<MenuContextProvider>
 			<DrawerContextProvider>
@@ -84,8 +83,6 @@ export const HeaderSiderLayout: FC<IHeaderSiderLayoutProps> = (
 							setFullwidth(enable);
 							return () => setFullwidth(!restore);
 						}, []),
-						pageHeader,
-						setPageHeader,
 					}}
 				>
 					<HeaderSiderLayoutInternal

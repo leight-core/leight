@@ -1,2 +1,2 @@
-export * from "./useNavigate.js";
-export * from "./useParams.js";
+export * from "./useNavigate";
+export * from "./useParams";

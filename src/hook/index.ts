@@ -1,2 +1,2 @@
-export * from "./useForceUpdate.js";
-export * from "./useUpdate.js";
+export * from "./useForceUpdate";
+export * from "./useUpdate";

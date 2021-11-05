@@ -12,7 +12,7 @@ export const toUtcDateTime = (input ?: ConfigType | null, fallback: string | nul
 	try {
 		return input ? (dayjs(input) as any).utc().format() : fallback;
 	} catch (e) {
-		console.error("Dayjs does not have registered utc() plugin!", "https://day.js.org/docs/en/plugin/utc", e);
+		console.error("Dayjs does not have registered utc() plugin!", "https://day.org/docs/en/plugin/utc", e);
 		return fallback;
 	}
 };

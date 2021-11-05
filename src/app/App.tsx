@@ -9,7 +9,7 @@ const defaultQueryClient = new QueryClient();
 export interface IAppProps {
 	logo?: ReactNode;
 	/**
-	 * Url from where a client get it's configuration, for example "/client.json".
+	 * Url from where a client get its configuration, for example "/client.json".
 	 *
 	 * Defaults to **`process.env.REACT_APP_CLIENT`**.
 	 */

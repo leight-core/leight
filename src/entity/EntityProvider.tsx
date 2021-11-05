@@ -6,10 +6,16 @@ export interface IEntityProviderProps<TEntity> {
 }
 
 export const EntityProvider = <TEntity, >({defaultEntity, children}: PropsWithChildren<IEntityProviderProps<TEntity>>) => {
-	const [entity, update] = useState<TEntity | undefined>(defaultEntity);
+	const [entity, update] = useState<TEntity | undefined | null>(defaultEntity);
 	return <EntityContext.Provider
 		value={{
-			entity,
+			optional: () => entity,
+			required: () => {
+				if (!entity) {
+					throw new Error("Requested an Entity which is not set.");
+				}
+				return entity;
+			},
 			update,
 		}}
 	>

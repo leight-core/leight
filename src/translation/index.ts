@@ -1,2 +1,2 @@
-export * from "./interface.js";
-export * from "./TranslationLoader.js";
+export * from "./interface";
+export * from "./TranslationLoader";

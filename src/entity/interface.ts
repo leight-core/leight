@@ -1,4 +1,5 @@
 export interface IEntityContext<TEntity> {
-	readonly entity: TEntity;
-	update: (entity?: TEntity) => void;
+	optional: () => TEntity | undefined | null;
+	required: () => TEntity;
+	update: (entity?: TEntity | null) => void;
 }

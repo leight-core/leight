@@ -1,3 +1,3 @@
-export * from "./ButtonContext.js";
-export * from "./ButtonContextProvider.js";
-export * from "./interface.js";
+export * from "./ButtonContext";
+export * from "./ButtonContextProvider";
+export * from "./interface";

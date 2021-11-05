@@ -1,4 +1,4 @@
-import {EmptyPage, IEmptyPageProps, useLayoutContext} from "@leight-core/leight";
+import {EmptyPage, IEmptyPageProps} from "@leight-core/leight";
 import {Card, CardProps, Divider, Space, Typography} from "antd";
 import {useRouter} from "next/router";
 import {FC, ReactNode} from "react";
@@ -16,13 +16,12 @@ export interface IPageProps extends IEmptyPageProps {
 export const Page: FC<IPageProps> = ({h1, header, card, ...props}) => {
 	const {t} = useTranslation();
 	const router = useRouter();
-	const layoutContext = useLayoutContext();
 	return <EmptyPage menuItems={[router.route]} title={props.name} {...props}>
 		<Card
 			title={
 				<Space align={"baseline"} split={<Divider type={"vertical"}/>} size={"small"}>
 					<Typography.Title level={3}>{t(h1 ? h1 : props.name + ".title")}</Typography.Title>
-					{header || layoutContext.pageHeader}
+					{header}
 				</Space>
 			}
 			{...props}
