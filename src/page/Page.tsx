@@ -26,14 +26,14 @@ export const Page: FC<IPageProps> = (
 		<Card
 			title={
 				<Row align={"middle"}>
-					<Col span={8}>
+					<Col span={12}>
 						{breadcrumb && <Space direction={"vertical"}>
 							<Typography.Title className={"page-title"} level={4}>{t(h1 ? h1 : props.name + ".title")}</Typography.Title>
 							{breadcrumb()}
 						</Space>}
 						{!breadcrumb && <Typography.Title className={"page-title"} level={4}>{t(h1 ? h1 : props.name + ".title")}</Typography.Title>}
 					</Col>
-					<Col span={16}>
+					<Col span={12}>
 						{menu && menu()}
 					</Col>
 				</Row>
