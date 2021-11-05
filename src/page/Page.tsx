@@ -1,4 +1,4 @@
-import {EmptyPage, IEmptyPageProps, PageBreadcrumb, PageMenu, PushRight} from "@leight-core/leight";
+import {EmptyPage, IEmptyPageProps, PageBreadcrumb, PageMenu} from "@leight-core/leight";
 import {Card, CardProps, Col, Row, Space, Typography} from "antd";
 import {FC, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
@@ -34,9 +34,7 @@ export const Page: FC<IPageProps> = (
 						{!breadcrumb && <Typography.Title className={"page-title"} level={4}>{t(h1 ? h1 : props.name + ".title")}</Typography.Title>}
 					</Col>
 					<Col span={16}>
-						{menu && <PushRight>
-							{menu()}
-						</PushRight>}
+						{menu && menu()}
 					</Col>
 				</Row>
 			}

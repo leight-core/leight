@@ -10,22 +10,23 @@ export interface IMenuProps extends Partial<MenuProps> {
 export const Menu: FC<IMenuProps> = ({extraOpenKeys = [], ...props}) => {
 	const menuContext = useMenuContext();
 	const router = useRouter();
+
+	const keys = (() => {
+		const current: string[] = [];
+		const items: string[] = [];
+		router.route.substr(1).split("/").forEach(item => {
+			current.push(item);
+			items.push(current.join("."));
+			items.push("/" + current.join("/"));
+		});
+		return items.sort();
+	})();
+
 	return <CoolMenu
 		mode={"inline"}
 		selectable={true}
-		selectedKeys={menuContext.current.concat([router.route])}
-		defaultOpenKeys={(() => {
-			if (menuContext.collapsed) {
-				return [];
-			}
-			const current: string[] = [];
-			const items: string[] = [];
-			router.route.substr(1).split("/").forEach(item => {
-				current.push(item);
-				items.push(current.join("."));
-			});
-			return items.concat(extraOpenKeys);
-		})()}
+		selectedKeys={[router.route].concat(menuContext.current)}
+		defaultOpenKeys={keys.concat(extraOpenKeys)}
 		subMenuCloseDelay={0.35}
 		{...props}
 	/>;
