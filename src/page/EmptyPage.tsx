@@ -16,7 +16,7 @@ export interface IEmptyPageProps {
 	/**
 	 * Menu for this view.
 	 */
-	menu?: () => ReactNode;
+	menu?: ReactNode | (() => ReactNode);
 	/**
 	 * Currently selected menu items (if any).
 	 */

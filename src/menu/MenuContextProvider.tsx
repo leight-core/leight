@@ -1,4 +1,4 @@
-import {isEqual, MenuContext} from "@leight-core/leight";
+import {isCallable, isEqual, MenuContext} from "@leight-core/leight";
 import {FC, ReactNode, useEffect, useRef, useState} from "react";
 
 export interface IMenuContextProviderProps {
@@ -32,11 +32,11 @@ export const MenuContextProvider: FC<IMenuContextProviderProps> = ({children}) =
 					return;
 				}
 				if (!name) {
-					setMenu(menu());
+					setMenu(isCallable(menu) ? (menu as any)() : menu);
 					menuKey.current = undefined;
 				}
 				if (name && menuKey.current !== name) {
-					setMenu(menu());
+					setMenu(isCallable(menu) ? (menu as any)() : menu);
 					menuKey.current = name;
 				}
 			}, [name]),
