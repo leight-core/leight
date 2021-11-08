@@ -7,5 +7,6 @@ export * from "./MenuItem";
 export * from "./MenuPlaceholder";
 export * from "./MenuPortal";
 export * from "./MenuContextProvider";
+export * from "./QuickMenu";
 export * from "./SimpleMenuItem";
 export * from "./SubMenu";

@@ -1,5 +1,5 @@
 import {CloseCircleOutlined} from "@ant-design/icons";
 import {IIconProps} from "@leight-core/leight";
-import React, {FC} from "react";
+import {FC} from "react";
 
-export const ErrorIcon: FC<IIconProps> = props => <CloseCircleOutlined {...props}/>;
+export const ErrorIcon: FC<IIconProps> = CloseCircleOutlined;

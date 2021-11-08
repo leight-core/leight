@@ -1,5 +1,6 @@
 export * from "./BackIcon";
 export * from "./CancelIcon";
+export * from "./ContextMenuIcon";
 export * from "./ContinueIcon";
 export * from "./CreateIcon";
 export * from "./CreateItemIcon";
@@ -20,3 +21,4 @@ export * from "./SignUpIcon";
 export * from "./Spinner";
 export * from "./SubmitDisabledIcon";
 export * from "./SubmitIcon";
+export * from "./TableToolIcon";
