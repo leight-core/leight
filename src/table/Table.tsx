@@ -24,6 +24,7 @@ export const Table = <TQuery extends IQueryParams, TResponse extends object, TOr
 	}
 	return <CoolTable
 		style={{minHeight: "50vh"}}
+		showSorterTooltip={false}
 		dataSource={sourceContext.result.isSuccess ? sourceContext.result.data.items : []}
 		rowKey={((record: IRecordItem) => record.id) as any}
 		loading={{
