@@ -1,5 +1,5 @@
 import {SyncOutlined} from "@ant-design/icons";
+import {IIconProps} from "@leight-core/leight";
 import {FC} from "react";
-import {IIconProps} from "./interface";
 
-export const LoaderIcon: FC<IIconProps> = SyncOutlined;
+export const LoaderIcon: FC<IIconProps> = props => <SyncOutlined spin {...props}/>;
