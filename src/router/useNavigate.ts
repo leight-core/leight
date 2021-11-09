@@ -8,6 +8,9 @@ export interface INavigate<TQuery extends IQueryParams = IQueryParams> {
 export const useNavigate = <TQuery extends IQueryParams = IQueryParams>(): INavigate<TQuery> => {
 	const router = useRouter();
 	return (href: string, query?: TQuery) => {
-		router.push({pathname: href, query: query || undefined});
+		router
+			.push({pathname: href, query: query || undefined})
+			.then(() => console.log("yahoo!"))
+			.catch(e => console.error(e));
 	};
 };
