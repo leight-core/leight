@@ -10,7 +10,6 @@ export const useNavigate = <TQuery extends IQueryParams = IQueryParams>(): INavi
 	return (href: string, query?: TQuery) => {
 		router
 			.push({pathname: href, query: query || undefined})
-			.then(() => console.log("yahoo!"))
 			.catch(e => console.error(e));
 	};
 };
