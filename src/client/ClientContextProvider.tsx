@@ -4,11 +4,11 @@ import {FC, ReactNode} from "react";
 
 export interface IClientContextProviderProps {
 	logo?: ReactNode;
-	link?: string;
+	link: string;
 }
 
 export const ClientContextProvider: FC<IClientContextProviderProps> = ({logo, link, children}) => {
-	const result = useClientConfigQuery(link || "/clienton");
+	const result = useClientConfigQuery(link);
 	return <ClientContext.Provider
 		value={{
 			client: result.data!,

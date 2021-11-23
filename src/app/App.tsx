@@ -10,15 +10,13 @@ export interface IAppProps {
 	logo?: ReactNode;
 	/**
 	 * Url from where a client get its configuration, for example "/client.json".
-	 *
-	 * Defaults to **`process.env.REACT_APP_CLIENT`**.
 	 */
-	clientLink?: string;
+	clientLink: string;
 	/**
 	 * Optional href to obtain user ticket (user session) when app starts; defaults to "public.user.user-ticket".
 	 */
-	sessionLink?: string;
-	translationLink?: string;
+	sessionLink: string;
+	translationLink: string;
 	queryClient?: QueryClient;
 }
 
@@ -33,7 +31,7 @@ export interface IAppProps {
 export const App: FC<IAppProps> = (
 	{
 		logo,
-		clientLink = process.env.NEXT_PUBLIC_CLIENT,
+		clientLink,
 		translationLink,
 		sessionLink,
 		queryClient,
