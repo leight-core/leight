@@ -1,6 +1,6 @@
 import {AntDesignOutlined} from "@ant-design/icons";
 import {Centered, LoaderIcon} from "@leight-core/leight";
-import {Card, Col, Divider, Layout, LayoutProps, Result, Row} from "antd";
+import {Card, Col, Divider, Layout, LayoutProps, Result, Row, Typography} from "antd";
 import {FC, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
 import {UseQueryResult} from "react-query";
@@ -36,7 +36,7 @@ export const LoaderLayout: FC<ILoaderLayoutProps> = ({logo, icon, queryResult = 
 						</Centered>
 						<Divider/>
 						<Centered>
-							v[{process.env.NEXT_PUBLIC_VERSION}]
+							<Typography.Text type={"secondary"}>v[{process.env.NEXT_PUBLIC_VERSION}]</Typography.Text>
 						</Centered>
 					</Card>
 				</Col>
