@@ -13,10 +13,9 @@ export interface ILoaderLayoutProps extends Partial<LayoutProps> {
 	errorText?: string;
 }
 
-export const LoaderLayout: FC<ILoaderLayoutProps> = ({logo, icon, queryResult = {isError: false, isLoading: true}, errorText, loading, children, ...props}) => {
+export const LoaderLayout: FC<ILoaderLayoutProps> = ({logo, icon, queryResult = {isError: false, isSuccess: true, isLoading: true}, errorText, loading, children, ...props}) => {
 	const {t} = useTranslation();
 	const isLoading = loading !== undefined ? loading : queryResult && queryResult.isLoading;
-
 	return <>
 		{(isLoading || queryResult.isError) && <Layout style={{height: "100vh"}} {...props}>
 			<Row justify={"center"} align={"middle"}>
