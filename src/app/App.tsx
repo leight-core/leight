@@ -4,8 +4,6 @@ import {CookiesProvider} from "react-cookie";
 import {QueryClient, QueryClientProvider} from "react-query";
 import {ReactQueryDevtools} from "react-query/devtools";
 
-const defaultQueryClient = new QueryClient();
-
 export interface IAppProps {
 	logo?: ReactNode;
 	/**
@@ -17,7 +15,7 @@ export interface IAppProps {
 	 */
 	sessionLink: string;
 	translationLink: string;
-	queryClient?: QueryClient;
+	queryClient: QueryClient;
 }
 
 /**
@@ -37,7 +35,7 @@ export const App: FC<IAppProps> = (
 		queryClient,
 		children,
 	}) => {
-	return <QueryClientProvider client={queryClient ? queryClient : defaultQueryClient}>
+	return <QueryClientProvider client={queryClient}>
 		<LinkContextProvider>
 			<CookiesProvider>
 				<FingerprintContextProvider logo={logo}>
