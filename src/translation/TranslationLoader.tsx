@@ -18,7 +18,7 @@ export const TranslationLoader: FC<ITranslationLoaderProps> = ({logo, link, chil
 	useEffect(() => {
 		result.isSuccess && result.data.translations.forEach(translation => i18next.addResource(translation.language, "translation", translation.label, translation.text));
 		setIsLoading(false);
-	}, [result.data]);
+	}, [result.isSuccess, result.data]);
 	return <LoaderLayout
 		logo={logo}
 		icon={<TranslationOutlined/>}
