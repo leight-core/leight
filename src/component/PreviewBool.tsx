@@ -6,5 +6,5 @@ export interface IPreviewBoolProps {
 }
 
 export const PreviewBool: FC<IPreviewBoolProps> = ({bool}) => {
-	return <>{bool ? <Checkbox disabled value={bool}/> : "-"}</>;
+	return <>{bool !== undefined ? <Checkbox disabled checked={bool}/> : "-"}</>;
 };
