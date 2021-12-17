@@ -38,6 +38,11 @@ export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) =
 				resetErrors,
 				refresh: () => form.validateFields().then(() => resetErrors(), () => resetErrors()),
 				blockContext: formBlockContext,
+				canSubmit: (then?: (canSubmit: boolean) => void) => {
+					const promise = FormUtils.canSubmit(form);
+					then && promise.then(then);
+					return promise;
+				},
 			}}
 		>
 			{children}

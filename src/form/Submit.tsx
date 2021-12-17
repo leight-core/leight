@@ -1,4 +1,4 @@
-import {FormUtils, useFormContext} from "@leight-core/leight";
+import {useFormContext} from "@leight-core/leight";
 import {Button, ButtonProps, Form} from "antd";
 import React, {FC, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
@@ -39,7 +39,7 @@ export interface ISubmitProps extends Partial<ButtonProps> {
  * - https://ant.design/components/form/#API
  */
 export const Submit: FC<ISubmitProps> = ({noStyle, label, ...props}) => {
-	const [disabled, setDisabled] = useState(true);
+	const [canSubmit, setCanSubmit] = useState(false);
 	const formContext = useFormContext();
 
 	const Internal = () => {
@@ -48,13 +48,13 @@ export const Submit: FC<ISubmitProps> = ({noStyle, label, ...props}) => {
 			/**
 			 * Because we need to ensure all item forms are created, "canSubmit" works asynchronously.
 			 */
-			const promise = FormUtils.canSubmit(formContext.form).then(enabled => setDisabled(!enabled));
+			const promise = formContext.canSubmit(setCanSubmit);
 			return () => promise.cancel();
 		});
 		return <Button
 			htmlType={"submit"}
 			type={"primary"}
-			disabled={disabled}
+			disabled={!canSubmit}
 			children={t(label)}
 			{...props}
 		/>;

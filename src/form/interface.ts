@@ -1,5 +1,6 @@
 import {IBlockContext, INavigate} from "@leight-core/leight";
 import {FormInstance} from "antd";
+import CancelablePromise from "cancelable-promise";
 import {NamePath} from "rc-field-form/lib/interface";
 
 export interface IFormItemContext {
@@ -76,6 +77,10 @@ export interface IFormContext<TValues = any> {
 	 * Quick access to form's blocking context.
 	 */
 	readonly blockContext: IBlockContext;
+	/**
+	 * Resolve with true or false.
+	 */
+	canSubmit: (then?: (canSubmit: boolean) => void) => CancelablePromise<boolean>;
 }
 
 export interface IToOptionMapper<TItem> {
