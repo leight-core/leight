@@ -8,6 +8,7 @@ export * from "./OrderButton";
 export * from "./OrderButtonBar";
 export * from "./Placeholder";
 export * from "./Preview";
+export * from "./PreviewBool";
 export * from "./ResultSpinner";
 export * from "./ScrollToTop";
 export * from "./TabTitle";
