@@ -1,5 +1,35 @@
 import {IMutationHookCallback, IMutationOptions, IPromiseMutationCallback, IPromiseQueryCallback, IQueryHookCallback, IQueryOptions, IQueryParams} from "@leight-core/leight";
-import {useMutation, useQuery} from "react-query";
+import {useEffect} from "react";
+import {QueryClient, useMutation, useQuery} from "react-query";
+import {broadcastQueryClient} from "react-query/broadcastQueryClient-experimental";
+import {createWebStoragePersistor} from "react-query/createWebStoragePersistor-experimental";
+import {persistQueryClient} from "react-query/persistQueryClient-experimental";
+
+/**
+ * @param cacheTime cache time in hours
+ */
+export function createQueryClient(cacheTime: number = 24): QueryClient {
+	return new QueryClient({
+		defaultOptions: {
+			queries: {
+				cacheTime: 1000 * 60 * 60 * cacheTime,
+			}
+		}
+	});
+}
+
+export function useQueryPersistence(queryClient: QueryClient, name: string, buster?: string) {
+	useEffect(() => {
+		persistQueryClient({
+			queryClient,
+			persistor: createWebStoragePersistor({storage: window.sessionStorage}),
+			buster: buster || process.env.BUILD_ID,
+		}).then(() => broadcastQueryClient({
+			queryClient,
+			broadcastChannel: name,
+		}));
+	}, []);
+}
 
 export function wrapQuery<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(link: string, promise: IPromiseQueryCallback<TQuery, TRequest, TResponse>): IQueryHookCallback<TQuery, TRequest, TResponse> {
 	return (request?: TRequest, query?: TQuery, options?: IQueryOptions<TResponse>) => {
