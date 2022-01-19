@@ -17,7 +17,7 @@ export interface IBulletCardProps extends ResultProps {
 	 * Optional icon (used in Result under the hood).
 	 */
 	icon: boolean | ReactNode;
-	bullet: (() => ReactNode) | undefined;
+	bullet?: () => ReactNode;
 }
 
 /**
