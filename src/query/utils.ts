@@ -8,7 +8,7 @@ import {persistQueryClient} from "react-query/persistQueryClient-experimental";
 /**
  * @param cacheTime cache time in hours
  */
-export function createQueryClient(cacheTime: number = 24): QueryClient {
+export function createQueryClient(cacheTime = 24): QueryClient {
 	return new QueryClient({
 		defaultOptions: {
 			queries: {
