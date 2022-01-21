@@ -1,4 +1,4 @@
-import {Drawer, DrawerContextProvider, LayoutBlockContextProvider, LayoutContext, LoaderIcon, MenuContextProvider, MenuPlaceholder, PlaceholderPage, useLayoutBlockContext, useLayoutContext, useMenuContext} from "@leight-core/leight";
+import {Drawer, LayoutBlockContextProvider, LayoutContext, LoaderIcon, MenuContextProvider, MenuPlaceholder, PlaceholderPage, useLayoutBlockContext, useLayoutContext, useMenuContext} from "@leight-core/leight";
 import {Layout, Spin} from "antd";
 import React, {CSSProperties, FC, ReactNode, Suspense, useEffect, useState} from "react";
 
@@ -73,28 +73,26 @@ export const HeaderSiderLayout: FC<IHeaderSiderLayoutProps> = (
 	const [siderSize, setSiderSize] = useState<number>(235);
 	return <LayoutBlockContextProvider>
 		<MenuContextProvider>
-			<DrawerContextProvider>
-				<LayoutContext.Provider
-					value={{
-						siderSize,
-						setSiderSize,
-						fullwidth,
-						useEnableFullwidth: (enable = true, restore = true) => useEffect(() => {
-							setFullwidth(enable);
-							return () => setFullwidth(!restore);
-						}, []),
-					}}
+			<LayoutContext.Provider
+				value={{
+					siderSize,
+					setSiderSize,
+					fullwidth,
+					useEnableFullwidth: (enable = true, restore = true) => useEffect(() => {
+						setFullwidth(enable);
+						return () => setFullwidth(!restore);
+					}, []),
+				}}
+			>
+				<HeaderSiderLayoutInternal
+					header={header}
+					footer={footer}
+					contentStyle={contentStyle}
+					headerStyle={headerStyle}
 				>
-					<HeaderSiderLayoutInternal
-						header={header}
-						footer={footer}
-						contentStyle={contentStyle}
-						headerStyle={headerStyle}
-					>
-						{children}
-					</HeaderSiderLayoutInternal>
-				</LayoutContext.Provider>
-			</DrawerContextProvider>
+					{children}
+				</HeaderSiderLayoutInternal>
+			</LayoutContext.Provider>
 		</MenuContextProvider>
 	</LayoutBlockContextProvider>;
 };
