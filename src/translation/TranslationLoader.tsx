@@ -1,7 +1,6 @@
 import {TranslationOutlined} from "@ant-design/icons";
-import {LoaderLayout, useI18NextContext} from "@leight-core/leight";
+import {LoaderLayout, useI18NextContext, useTranslationQuery} from "@leight-core/leight";
 import {FC, ReactNode, useEffect, useState} from "react";
-import {useTranslationQuery} from "./useTranslationQuery";
 
 export interface ITranslationLoaderProps {
 	logo?: ReactNode;
