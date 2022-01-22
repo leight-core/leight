@@ -28,6 +28,7 @@ export const Menu: FC<IMenuProps> = ({extraOpenKeys = [], ...props}) => {
 		selectedKeys={[router.route].concat(menuContext.current)}
 		defaultOpenKeys={keys.concat(extraOpenKeys)}
 		subMenuCloseDelay={0.35}
+		inlineCollapsed={menuContext.collapsed}
 		{...props}
 	/>;
 };
