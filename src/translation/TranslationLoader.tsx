@@ -15,8 +15,13 @@ export const TranslationLoader: FC<ITranslationLoaderProps> = ({logo, link, chil
 	const {i18next} = useI18NextContext();
 	const [isLoading, setIsLoading] = useState(true);
 	useEffect(() => {
-		result.isSuccess && result.data.translations.forEach(translation => i18next.addResource(translation.language, "translation", translation.label, translation.text));
-		setIsLoading(false);
+		if (result.isSuccess) {
+			result.data.translations.forEach(translation => {
+				i18next.addResource(translation.language, "translation", translation.label, translation.text);
+				console.log("adding translation", translation);
+			});
+			setIsLoading(false);
+		}
 	}, [result.isSuccess, result.data]);
 	return <LoaderLayout
 		logo={logo}
