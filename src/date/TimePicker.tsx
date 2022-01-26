@@ -1,5 +1,5 @@
 import {DatePicker} from "@leight-core/leight";
-import {PickerTimeProps} from "antd/es/date-picker/generatePicker";
+import {PickerTimeProps} from "antd/lib/date-picker/generatePicker";
 import {Dayjs} from "dayjs";
 import React, {forwardRef} from "react";
 
