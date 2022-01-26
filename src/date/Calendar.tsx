@@ -1,5 +1,9 @@
-import generateCalendar from "antd/lib/calendar/generateCalendar";
-import {Dayjs} from "dayjs";
-import dayjsGenerateConfig from "rc-picker/lib/generate/dayjs";
+import {Calendar as CoolCalendar, CalendarProps as CoolCalendarProps} from "antd";
+import {Moment} from "moment";
+import {FC} from "react";
 
-export const Calendar = generateCalendar<Dayjs>(dayjsGenerateConfig);
+export const Calendar: FC<CoolCalendarProps<Moment>> = props => {
+	return <CoolCalendar
+		{...props}
+	/>;
+};
