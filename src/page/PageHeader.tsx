@@ -1,40 +1,17 @@
-import {Centered, PushRight} from "@leight-core/leight";
-import {Col, Row, Space, Typography} from "antd";
+import {isString} from "@leight-core/leight";
+import {PageHeader as CoolPageHeader, PageHeaderProps as CoolPageHeaderProps, Space} from "antd";
 import {FC, ReactNode} from "react";
-import {isMobile} from "react-device-detect";
 import {useTranslation} from "react-i18next";
 
-export interface IPageHeaderProps {
-	title?: string;
-	left?: ReactNode;
-	right?: ReactNode;
+export interface IPageHeaderProps extends Partial<CoolPageHeaderProps> {
+	icon?: ReactNode;
 }
 
-export const PageHeader: FC<IPageHeaderProps> = ({left, right, title}) => {
+export const PageHeader: FC<IPageHeaderProps> = ({title, icon, ...props}) => {
 	const {t} = useTranslation();
-	return isMobile ?
-		<Row>
-			<Col span={8}>
-				{left}
-			</Col>
-			<Col span={8}>
-				<Centered>
-					<Typography.Text>{t(title + ".title")}</Typography.Text>
-				</Centered>
-			</Col>
-			<Col span={8}>
-				<PushRight>
-					{right}
-				</PushRight>
-			</Col>
-		</Row> :
-		<>
-			<Space>
-				{left}
-				<Typography.Text>{t(title + ".title")}</Typography.Text>
-			</Space>
-			<PushRight>
-				{right}
-			</PushRight>
-		</>;
+	const _title = isString(title) ? <span>{t(title + ".title")}</span> : title;
+	return <CoolPageHeader
+		title={icon ? <Space>{icon}{_title}</Space> : _title}
+		{...props}
+	/>;
 };

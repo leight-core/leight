@@ -12,7 +12,7 @@ export interface IPlaceholderPageProps {
  */
 export const PlaceholderPage: FC<IPlaceholderPageProps> = ({children}) => {
 	const {t} = useTranslation();
-	return <EmptyPage name={"common.placeholder.title"}>
+	return <EmptyPage title={"common.placeholder"}>
 		<Card style={{minHeight: "65vh"}}>
 			<Result
 				icon={<LoaderIcon/>}

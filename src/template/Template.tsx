@@ -10,10 +10,11 @@ export interface ITemplateProps extends Partial<ResultProps> {
 	isMobile?: boolean;
 }
 
-export const Template: FC<ITemplateProps> = ({icon, label, title, subTitle, span = 16, isMobile = false, children, ...props}) => {
+export const Template: FC<ITemplateProps> = ({icon, label, title, subTitle, span = 16, isMobile = true, children, ...props}) => {
 	const {t} = useTranslation();
 	return <>
 		{(isBrowser || isMobile) && <Result
+			style={{padding: 0}}
 			icon={icon}
 			title={(title || title === false) ? title : (label ? t(label + ".title") : label)}
 			subTitle={(subTitle || subTitle === false) ? subTitle : (label ? t(label + ".subtitle") : label)}

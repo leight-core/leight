@@ -2,6 +2,7 @@ import {IndexOf, IQueryParams, IRecordItem, isArray, isCallable, ISourceContext,
 import {Empty, Table as CoolTable, TablePaginationConfig, TableProps} from "antd";
 import {FilterValue, SorterResult} from "antd/lib/table/interface";
 import React, {ReactNode} from "react";
+import {isBrowser} from "react-device-detect";
 import {useTranslation} from "react-i18next";
 
 export interface ITableProps<TQuery extends IQueryParams, TResponse, TOrderBy, TFilter> extends TableProps<TResponse> {
@@ -22,7 +23,7 @@ export const Table = <TQuery extends IQueryParams, TResponse extends object, TOr
 	if (header && !props.title) {
 		props.title = () => header(sourceContext);
 	}
-	return <CoolTable
+	return isBrowser && <CoolTable
 		style={{minHeight: "50vh"}}
 		showSorterTooltip={false}
 		dataSource={sourceContext.result.isSuccess ? sourceContext.result.data.items : []}

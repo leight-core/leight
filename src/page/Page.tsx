@@ -1,45 +1,44 @@
-import {EmptyPage, IEmptyPageProps, PageBreadcrumb, PageMenu} from "@leight-core/leight";
-import {Card, CardProps, Col, Row, Space, Typography} from "antd";
+import {EmptyPage, IEmptyPageProps, INavigate, IPageHeaderProps, PageHeader, useNavigate} from "@leight-core/leight";
+import {BreadcrumbProps, Card, CardProps} from "antd";
 import {FC, ReactNode} from "react";
-import {useTranslation} from "react-i18next";
 
 export interface IPageProps extends IEmptyPageProps {
-	/**
-	 * The page title (main title); it goes through translation.
-	 */
-	h1?: string;
+	onBack?: (navigate: INavigate) => void;
 	card?: Partial<CardProps>;
-	breadcrumb?: (() => ReactNode) | null;
-	menu?: (() => ReactNode) | null;
+	breadcrumbProps?: BreadcrumbProps;
+	icon?: ReactNode;
+	extra?: ReactNode;
+	header?: ReactNode;
+	cardProps?: CardProps;
+	headerProps?: IPageHeaderProps;
 }
 
-export const Page: FC<IPageProps & CardProps> = (
+export const Page: FC<IPageProps> = (
 	{
-		h1,
-		breadcrumb = () => <PageBreadcrumb/>,
-		menu = () => <PageMenu/>,
-		card,
+		breadcrumbProps,
+		icon,
+		extra,
+		cardProps,
+		header,
+		headerProps,
+		children,
+		title,
+		onBack,
 		...props
 	}) => {
-	const {t} = useTranslation();
-	return <EmptyPage title={props.name} {...props}>
-		<Card
-			title={
-				<Row align={"middle"}>
-					<Col span={12}>
-						{breadcrumb && <Space direction={"vertical"}>
-							<Typography.Title className={"page-title"} level={4}>{t(h1 ? h1 : props.name + ".title")}</Typography.Title>
-							{breadcrumb()}
-						</Space>}
-						{!breadcrumb && <Typography.Title className={"page-title"} level={4}>{t(h1 ? h1 : props.name + ".title")}</Typography.Title>}
-					</Col>
-					<Col span={12}>
-						{menu && menu()}
-					</Col>
-				</Row>
-			}
-			{...props}
-			{...card}
-		/>
+	const navigate = useNavigate();
+	return <EmptyPage title={title} {...props}>
+		{header || <PageHeader
+			onBack={onBack ? () => onBack(navigate) : undefined}
+			title={title}
+			icon={icon}
+			extra={extra}
+			ghost={false}
+			breadcrumb={breadcrumbProps}
+			{...headerProps}
+		/>}
+		<Card {...cardProps}>
+			{children}
+		</Card>
 	</EmptyPage>;
 };

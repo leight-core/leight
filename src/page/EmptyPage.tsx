@@ -6,10 +6,6 @@ import {useTranslation} from "react-i18next";
 
 export interface IEmptyPageProps {
 	/**
-	 * Name (and title) of this page.
-	 */
-	name: string;
-	/**
 	 * If provided, page title will be updated (tab name). Must be explicitly provided to change a title.
 	 */
 	title?: string;
@@ -51,7 +47,6 @@ const EmptyPageInternal: FC = ({children}) => {
  */
 export const EmptyPage: FC<IEmptyPageProps> = (
 	{
-		name,
 		title,
 		blocked = false,
 		fullwidth = false,
@@ -68,7 +63,7 @@ export const EmptyPage: FC<IEmptyPageProps> = (
 		blockContext.unblock(true);
 	}, []);
 	return <PageProvider>
-		{title && <Head><title key={"title"}>{title ? t(title + ".title") : (name ? t(name + ".title") : title)}</title></Head>}
+		{title && <Head><title key={"title"}>{t(title + ".title")}</title></Head>}
 		<ScrollToTop/>
 		<BlockContextProvider locked={blocked}>
 			<EmptyPageInternal>
