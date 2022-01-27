@@ -15,7 +15,7 @@ export const Menu: FC<IMenuProps> = ({extraOpenKeys = [], ...props}) => {
 	const keys = (() => {
 		const current: string[] = [];
 		const items: string[] = [];
-		router.route.substr(1).split("/").forEach(item => {
+		router.route.substring(1).split("/").forEach(item => {
 			current.push(item);
 			items.push(current.join("."));
 			items.push("/" + current.join("/"));
