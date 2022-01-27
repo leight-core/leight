@@ -38,9 +38,13 @@ const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer,
 				</Layout>
 			</BrowserView>
 			<MobileView>
-				<Suspense fallback={<PlaceholderPage/>}>
-					{children}
-				</Suspense>
+				<Layout>
+					<Layout.Content style={{minHeight: "100vh", padding: "1.5em", ...contentStyle}}>
+						<Suspense fallback={<PlaceholderPage/>}>
+							{children}
+						</Suspense>
+					</Layout.Content>
+				</Layout>
 			</MobileView>
 		</Spin>
 	</Layout>;
