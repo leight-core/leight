@@ -19,7 +19,7 @@ export const PageHeader: FC<IPageHeaderProps> = ({left, right, title}) => {
 			</Col>
 			<Col span={8}>
 				<Centered>
-					<Typography.Title level={1}>{t(title + ".title")}</Typography.Title>
+					<Typography.Text>{t(title + ".title")}</Typography.Text>
 				</Centered>
 			</Col>
 			<Col span={8}>
@@ -31,7 +31,7 @@ export const PageHeader: FC<IPageHeaderProps> = ({left, right, title}) => {
 		<>
 			<Space>
 				{left}
-				<Typography.Title level={1}>{t(title + ".title")}</Typography.Title>
+				<Typography.Text>{t(title + ".title")}</Typography.Text>
 			</Space>
 			<PushRight>
 				{right}

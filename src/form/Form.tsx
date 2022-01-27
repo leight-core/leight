@@ -21,6 +21,7 @@ import {
 import {Form as CoolForm, FormProps, message, Spin} from "antd";
 import isCallable from "is-callable";
 import React, {PropsWithChildren} from "react";
+import {isMobile} from "react-device-detect";
 import {useTranslation} from "react-i18next";
 import {useMutation} from "react-query";
 
@@ -110,7 +111,7 @@ const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 	return <CoolForm
 		form={formContext.form}
 		colon={false}
-		size={"large"}
+		size={isMobile ? "small" : "large"}
 		onFinish={values => {
 			blockContext.block();
 			formBlockContext.block();
