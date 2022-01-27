@@ -7,11 +7,12 @@ export interface IPreviewProps extends Partial<DescriptionsProps> {
 	width?: number;
 	translation?: string;
 	children: { [index in string]: ReactNode };
+	vertical?: boolean;
 }
 
-export const Preview: FC<IPreviewProps> = ({width = 220, translation, children, ...props}) => {
+export const Preview: FC<IPreviewProps> = ({width = 220, translation, vertical = true, children, ...props}) => {
 	const {t} = useTranslation();
-	return isBrowser ? <Descriptions
+	return (isBrowser || !vertical) ? <Descriptions
 		bordered
 		size={"small"}
 		column={1}
