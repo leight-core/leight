@@ -1,6 +1,7 @@
 import {Centered} from "@leight-core/leight";
 import {Divider, Result, ResultProps} from "antd";
 import {FC} from "react";
+import {isMobile} from "react-device-detect";
 import {useTranslation} from "react-i18next";
 
 export interface ITemplateProps extends Partial<ResultProps> {
@@ -18,7 +19,7 @@ export const Template: FC<ITemplateProps> = ({icon, label, title, subTitle, span
 			extra={<Divider/>}
 			{...props}
 		/>
-		<Centered span={span}>
+		<Centered span={isMobile ? 24 : span}>
 			{children}
 		</Centered>
 	</>;

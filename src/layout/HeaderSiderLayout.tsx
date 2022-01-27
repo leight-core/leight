@@ -1,6 +1,7 @@
 import {LayoutBlockContextProvider, LayoutContext, LoaderIcon, MenuContextProvider, MenuPlaceholder, PlaceholderPage, useLayoutBlockContext, useLayoutContext, useMenuContext} from "@leight-core/leight";
 import {Layout, Spin} from "antd";
 import React, {CSSProperties, FC, ReactNode, Suspense, useEffect, useState} from "react";
+import {BrowserView, MobileView} from "react-device-detect";
 
 const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer, contentStyle, headerStyle, children}) => {
 	const menuContext = useMenuContext();
@@ -8,32 +9,39 @@ const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer,
 	const layoutBlockContext = useLayoutBlockContext();
 	return <Layout>
 		<Spin indicator={<LoaderIcon/>} spinning={layoutBlockContext.isBlocked()}>
-			{header && <Layout.Header style={{backgroundColor: "#fff", padding: 0, ...headerStyle}}>
-				{header}
-			</Layout.Header>}
-			<Layout>
-				{layoutContext.fullwidth ? null :
-					<Layout.Sider
-						theme={"light"}
-						collapsible
-						onCollapse={menuContext.setCollapse}
-						collapsed={menuContext.collapsed}
-						width={layoutContext.siderSize}
-					>
-						<MenuPlaceholder/>
-					</Layout.Sider>
-				}
+			<BrowserView>
+				{header && <Layout.Header style={{backgroundColor: "#fff", padding: 0, ...headerStyle}}>
+					{header}
+				</Layout.Header>}
 				<Layout>
-					<Layout.Content style={{minHeight: "100vh", padding: "1.5em", ...contentStyle}}>
-						<Suspense fallback={<PlaceholderPage/>}>
-							{children}
-						</Suspense>
-						{footer && <Layout.Footer>
-							{footer}
-						</Layout.Footer>}
-					</Layout.Content>
+					{layoutContext.fullwidth ? null :
+						<Layout.Sider
+							theme={"light"}
+							collapsible
+							onCollapse={menuContext.setCollapse}
+							collapsed={menuContext.collapsed}
+							width={layoutContext.siderSize}
+						>
+							<MenuPlaceholder/>
+						</Layout.Sider>
+					}
+					<Layout>
+						<Layout.Content style={{minHeight: "100vh", padding: "1.5em", ...contentStyle}}>
+							<Suspense fallback={<PlaceholderPage/>}>
+								{children}
+							</Suspense>
+							{footer && <Layout.Footer>
+								{footer}
+							</Layout.Footer>}
+						</Layout.Content>
+					</Layout>
 				</Layout>
-			</Layout>
+			</BrowserView>
+			<MobileView>
+				<Suspense fallback={<PlaceholderPage/>}>
+					{children}
+				</Suspense>
+			</MobileView>
 		</Spin>
 	</Layout>;
 };

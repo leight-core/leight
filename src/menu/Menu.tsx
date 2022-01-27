@@ -2,6 +2,7 @@ import {useMenuContext} from "@leight-core/leight";
 import {Menu as CoolMenu, MenuProps} from "antd";
 import {useRouter} from "next/router";
 import React, {FC} from "react";
+import {isMobile} from "react-device-detect";
 
 export interface IMenuProps extends Partial<MenuProps> {
 	extraOpenKeys?: string[];
@@ -25,7 +26,7 @@ export const Menu: FC<IMenuProps> = ({extraOpenKeys = [], ...props}) => {
 	return <CoolMenu
 		mode={"inline"}
 		selectable={true}
-		selectedKeys={[router.route].concat(menuContext.current)}
+		selectedKeys={isMobile ? [] : [router.route].concat(menuContext.current)}
 		defaultOpenKeys={keys.concat(extraOpenKeys)}
 		subMenuCloseDelay={0.35}
 		inlineCollapsed={menuContext.collapsed}
