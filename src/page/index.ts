@@ -4,5 +4,6 @@ export * from "./interface";
 export * from "./LoadingPage";
 export * from "./Page";
 export * from "./PageContext";
+export * from "./PageHeader";
 export * from "./PageProvider";
 export * from "./PlaceholderPage";
