@@ -7,7 +7,7 @@ export type IDatePickerProps = {
 
 export const DatePicker: FC<DatePickerProps & IDatePickerProps> = ({format = "LLL", ...props}) => {
 	return <CoolDatePicker
-		format={date => date.format("LLL")}
+		format={date => date.format(format)}
 		size={"large"}
 		style={{width: "100%"}}
 		{...props}
