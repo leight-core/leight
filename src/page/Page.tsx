@@ -13,7 +13,7 @@ export interface IPageProps extends IEmptyPageProps {
 	menu?: (() => ReactNode) | null;
 }
 
-export const Page: FC<IPageProps> = (
+export const Page: FC<IPageProps & CardProps> = (
 	{
 		h1,
 		breadcrumb = () => <PageBreadcrumb/>,
