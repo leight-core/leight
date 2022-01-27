@@ -1,5 +1,6 @@
-import {Descriptions, DescriptionsProps} from "antd";
+import {Descriptions, DescriptionsProps, List} from "antd";
 import {FC, ReactNode} from "react";
+import {isBrowser} from "react-device-detect";
 import {useTranslation} from "react-i18next";
 
 export interface IPreviewProps extends Partial<DescriptionsProps> {
@@ -10,7 +11,7 @@ export interface IPreviewProps extends Partial<DescriptionsProps> {
 
 export const Preview: FC<IPreviewProps> = ({width = 220, translation, children, ...props}) => {
 	const {t} = useTranslation();
-	return <Descriptions
+	return isBrowser ? <Descriptions
 		bordered
 		size={"small"}
 		column={1}
@@ -20,7 +21,16 @@ export const Preview: FC<IPreviewProps> = ({width = 220, translation, children, 
 		{Object.entries(children).map(([key, item]) => <Descriptions.Item key={key} label={t(translation ? (translation + "." + key) : key)}>
 			{item ? item : "-"}
 		</Descriptions.Item>)}
-	</Descriptions>;
+	</Descriptions> : <List>
+		{Object.entries(children).map(([key, item]) => <List.Item
+			key={key}
+		>
+			<List.Item.Meta
+				title={t(translation ? (translation + "." + key) : key)}
+				description={item ? item : "-"}
+			/>
+		</List.Item>)}
+	</List>;
 };
 
 export interface ISmallPreviewProps extends IPreviewProps {

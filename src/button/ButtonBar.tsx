@@ -1,17 +1,18 @@
 import {Centered} from "@leight-core/leight";
 import {Divider, Space} from "antd";
 import {FC} from "react";
-import {isMobile} from "react-device-detect";
+import {isBrowser} from "react-device-detect";
 
 export interface IButtonBarProps {
+	inline?: boolean;
 }
 
-export const ButtonBar: FC<IButtonBarProps> = ({children}) => {
+export const ButtonBar: FC<IButtonBarProps> = ({inline = true, children}) => {
 	return <Centered>
 		<Space
 			align={"center"}
-			direction={isMobile ? "vertical" : "horizontal"}
-			split={isMobile ? null : <Divider type={"vertical"}/>}
+			direction={(isBrowser || inline) ? "horizontal" : "vertical"}
+			split={(isBrowser || inline) ? <Divider type={"vertical"}/> : null}
 		>
 			{children}
 		</Space>

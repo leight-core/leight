@@ -1,6 +1,7 @@
 import {EmptyPage, IEmptyPageProps, INavigate, IPageHeaderProps, PageHeader, useNavigate} from "@leight-core/leight";
 import {BreadcrumbProps, Card, CardProps} from "antd";
 import {FC, ReactNode} from "react";
+import {isMobile} from "react-device-detect";
 
 export interface IPageProps extends IEmptyPageProps {
 	onBack?: (navigate: INavigate) => void;
@@ -37,7 +38,10 @@ export const Page: FC<IPageProps> = (
 			breadcrumb={breadcrumbProps}
 			{...headerProps}
 		/>}
-		<Card {...cardProps}>
+		<Card
+			bodyStyle={isMobile ? {padding: "8px"} : undefined}
+			{...cardProps}
+		>
 			{children}
 		</Card>
 	</EmptyPage>;
