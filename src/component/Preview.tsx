@@ -1,4 +1,4 @@
-import {Descriptions, DescriptionsProps, List, ListProps} from "antd";
+import {Descriptions, DescriptionsProps, List, ListProps, Space, Typography} from "antd";
 import {FC, ReactNode} from "react";
 import {isBrowser} from "react-device-detect";
 import {useTranslation} from "react-i18next";
@@ -35,14 +35,17 @@ export const Preview: FC<IPreviewProps> = ({width = 220, translation, listProps,
 	</List>;
 };
 
-export interface ISmallPreviewProps extends IPreviewProps {
+export interface ISmallPreviewProps {
+	children: { [index in string]: ReactNode };
+	translation?: string;
 }
 
-export const SmallPreview: FC<ISmallPreviewProps> = props => {
-	return <Preview
-		bordered={false}
-		size={"small"}
-		width={120}
-		{...props}
-	/>;
+export const SmallPreview: FC<ISmallPreviewProps> = ({translation, children}) => {
+	const {t} = useTranslation();
+	return <Space direction={"vertical"} size={"small"}>
+		{Object.entries(children).map(([key, item]) => <Space key={key} direction={"vertical"} size={"small"}>
+			<Typography.Text type={"secondary"}>{t(translation ? (translation + "." + key) : key)}</Typography.Text>
+			<span>{item ? item : "-"}</span>
+		</Space>)}
+	</Space>;
 };
