@@ -1,4 +1,4 @@
-import {EmptyPage, IEmptyPageProps, INavigate, IPageHeaderProps, PageHeader, useNavigate} from "@leight-core/leight";
+import {EmptyPage, IEmptyPageProps, INavigate, IPageHeaderProps, PageHeader, PageMenu, useNavigate} from "@leight-core/leight";
 import {BreadcrumbProps, Card, CardProps} from "antd";
 import {FC, ReactNode} from "react";
 import {isMobile} from "react-device-detect";
@@ -33,7 +33,7 @@ export const Page: FC<IPageProps> = (
 			onBack={onBack ? () => onBack(navigate) : undefined}
 			title={title}
 			icon={icon}
-			extra={extra}
+			extra={extra ?? <PageMenu/>}
 			ghost={false}
 			breadcrumb={breadcrumbProps}
 			{...headerProps}
