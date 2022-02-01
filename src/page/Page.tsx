@@ -1,12 +1,14 @@
 import {EmptyPage, IEmptyPageProps, INavigate, IPageHeaderProps, PageHeader, PageMenu, useNavigate} from "@leight-core/leight";
 import {BreadcrumbProps, Card, CardProps} from "antd";
+import Breadcrumb from "antd/lib/breadcrumb";
+import * as React from "react";
 import {FC, ReactNode} from "react";
 import {isMobile} from "react-device-detect";
 
 export interface IPageProps extends IEmptyPageProps {
 	onBack?: (navigate: INavigate) => void;
 	card?: Partial<CardProps>;
-	breadcrumbProps?: BreadcrumbProps;
+	breadcrumbProps?: BreadcrumbProps | React.ReactElement<typeof Breadcrumb>;
 	icon?: ReactNode;
 	extra?: ReactNode;
 	header?: ReactNode;
