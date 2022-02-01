@@ -15,7 +15,7 @@ export const QuickMenu: FC<IQuickMenuProps> = ({icon = <MoreOutlined/>, buttonPr
 		{...props}
 	>
 		<Button
-			size={"large"}
+			size={"middle"}
 			type={"link"}
 			icon={icon}
 			{...buttonProps}
