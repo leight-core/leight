@@ -36,6 +36,7 @@ export const Page: FC<IPageProps> = (
 			extra={extra ?? <PageMenu/>}
 			ghost={false}
 			breadcrumb={breadcrumbProps}
+			style={isMobile ? {padding: "4px 0 0 12px"} : undefined}
 			{...headerProps}
 		/>}
 		<Card
