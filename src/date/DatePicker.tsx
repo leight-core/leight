@@ -13,7 +13,7 @@ export const DatePicker: FC<DatePickerProps & IDatePickerProps> = ({format = "LL
 		format={date => date.format(format)}
 		size={"large"}
 		style={{width: "100%"}}
-		placeholder={formItemContext && (props as any).usePlaceholder ? formItemContext.label : undefined}
+		placeholder={formItemContext && usePlaceholder ? formItemContext.label : undefined}
 		{...props}
 	/>;
 };

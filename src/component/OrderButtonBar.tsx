@@ -8,7 +8,7 @@ export interface IOrderButtonBarProps<TOrderBy> extends Partial<SpaceProps> {
 }
 
 export const OrderButtonBar = <TOrderBy, >({showCancelButton = true, buttons, prefix, ...props}: IOrderButtonBarProps<TOrderBy>) => {
-	return <Space split={<Divider type={"vertical"}/>} size={"small"} {...props}>
+	return <Space split={<Divider type={"vertical"}/>} size={1} {...props}>
 		{buttons.map(item => <OrderButton<TOrderBy> prefix={prefix} key={item as string} orderBy={item}/>)}
 		{showCancelButton && <CancelOrderButton/>}
 	</Space>;
