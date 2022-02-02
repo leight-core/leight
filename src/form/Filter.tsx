@@ -49,33 +49,45 @@ export interface IFilterProps<TFilter = any> {
 export type IFilterWithoutTranslationProps<TFilter = any> = Omit<IFilterProps<TFilter>, "translation">;
 
 export function Filter<TFilter = any, >({filter, translation, onFilter, onClear, drawerButtonProps, formProps, ...props}: PropsWithChildren<IFilterProps<TFilter>>): JSX.Element {
-	return <DrawerButton
-		icon={<SearchOutlined/>}
-		type={"link"}
-		size={"small"}
-		title={translation + ".filter.title"}
-		label={translation + ".filter.title"}
-		width={600}
-		{...drawerButtonProps}
-	>
-		<DrawerContext.Consumer>
-			{drawerContext => <Form<any, TFilter, TFilter>
-				toForm={() => filter}
-				onSuccess={({response}) => {
-					onFilter(response);
-					drawerContext.setVisible(false);
-				}}
-				{...formProps}
-			>
-				<FilterInternal
-					onFilter={onFilter}
-					onClear={() => {
-						drawerContext && drawerContext.setVisible(false);
-						onClear && onClear();
+	const {t} = useTranslation();
+	return <Space align={"baseline"} split={<Divider type={"vertical"}/>}>
+		<DrawerButton
+			icon={<SearchOutlined/>}
+			type={"link"}
+			size={"small"}
+			title={translation + ".filter.title"}
+			label={translation + ".filter.title"}
+			width={600}
+			{...drawerButtonProps}
+		>
+			<DrawerContext.Consumer>
+				{drawerContext => <Form<any, TFilter, TFilter>
+					toForm={() => filter}
+					onSuccess={({response}) => {
+						onFilter(response);
+						drawerContext.setVisible(false);
 					}}
-					{...props}
-				/>
-			</Form>}
-		</DrawerContext.Consumer>
-	</DrawerButton>;
+					{...formProps}
+				>
+					<FilterInternal
+						onFilter={onFilter}
+						onClear={() => {
+							drawerContext && drawerContext.setVisible(false);
+							onClear && onClear();
+						}}
+						{...props}
+					/>
+				</Form>}
+			</DrawerContext.Consumer>
+		</DrawerButton>
+		<Button
+			size={"small"}
+			onClick={() => {
+				onClear && onClear();
+			}}
+			icon={<CloseCircleOutlined/>}
+		>
+			{t("common.filter.clear")}
+		</Button>
+	</Space>;
 }
