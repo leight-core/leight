@@ -41,7 +41,7 @@ export interface IFilterProps<TFilter = any> {
 	filter?: TFilter;
 	translation: string;
 	onFilter: (filter?: TFilter) => void;
-	onClear: () => void;
+	onClear?: () => void;
 	drawerButtonProps?: IDrawerButtonProps;
 	formProps?: IFormProps<any, TFilter, TFilter>;
 }
