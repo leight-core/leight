@@ -5,10 +5,11 @@ import {FC, PropsWithChildren} from "react";
 import {useTranslation} from "react-i18next";
 
 interface IFilterInternalProps {
+	onFilter: (filter?: any) => void;
 	onClear: () => void;
 }
 
-const FilterInternal: FC<IFilterInternalProps> = ({onClear, children}) => {
+const FilterInternal: FC<IFilterInternalProps> = ({onFilter, onClear, children}) => {
 	const {t} = useTranslation();
 	const formContext = useFormContext();
 	return <>
@@ -20,6 +21,7 @@ const FilterInternal: FC<IFilterInternalProps> = ({onClear, children}) => {
 					size={"middle"}
 					onClick={() => {
 						formContext.reset();
+						onFilter(undefined);
 						onClear();
 					}}
 					icon={<CloseCircleOutlined/>}
@@ -36,9 +38,9 @@ const FilterInternal: FC<IFilterInternalProps> = ({onClear, children}) => {
 };
 
 export interface IFilterProps<TFilter = any> {
-	filter: TFilter;
+	filter?: TFilter;
 	translation: string;
-	onFilter: (filter: TFilter) => void;
+	onFilter: (filter?: TFilter) => void;
 	onClear: () => void;
 	drawerButtonProps?: IDrawerButtonProps;
 	formProps?: IFormProps<any, TFilter, TFilter>;
@@ -66,6 +68,7 @@ export function Filter<TFilter = any, >({filter, translation, onFilter, onClear,
 				{...formProps}
 			>
 				<FilterInternal
+					onFilter={onFilter}
 					onClear={() => {
 						drawerContext && drawerContext.setVisible(false);
 						onClear && onClear();
