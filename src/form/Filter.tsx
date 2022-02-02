@@ -84,6 +84,7 @@ export function Filter<TFilter = any, >({filter, translation, onFilter, onClear,
 			type={"link"}
 			size={"small"}
 			onClick={() => {
+				onFilter({} as any);
 				onClear && onClear();
 			}}
 			icon={<CloseCircleOutlined/>}
