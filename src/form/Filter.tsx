@@ -81,6 +81,7 @@ export function Filter<TFilter = any, >({filter, translation, onFilter, onClear,
 			</DrawerContext.Consumer>
 		</DrawerButton>
 		<Button
+			type={"link"}
 			size={"small"}
 			onClick={() => {
 				onClear && onClear();
