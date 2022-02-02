@@ -21,7 +21,7 @@ const FilterInternal: FC<IFilterInternalProps> = ({onFilter, onClear, children})
 					size={"middle"}
 					onClick={() => {
 						formContext.reset();
-						onFilter(undefined);
+						onFilter({});
 						onClear();
 					}}
 					icon={<CloseCircleOutlined/>}
