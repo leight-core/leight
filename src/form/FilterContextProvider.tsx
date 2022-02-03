@@ -2,7 +2,7 @@ import {PropsWithChildren, useState} from "react";
 import {FilterContext} from "./FilterContext";
 
 export interface IFilterContextProviderProps<TFilter = any> {
-	defaultFilter: TFilter;
+	defaultFilter?: TFilter;
 }
 
 export function FilterContextProvider<TFilter, >({defaultFilter, ...props}: PropsWithChildren<IFilterContextProviderProps<TFilter>>) {
