@@ -5,8 +5,9 @@ import React, {ReactNode} from "react";
 import {isBrowser} from "react-device-detect";
 import {useTranslation} from "react-i18next";
 
-export interface ITableProps<TQuery extends IQueryParams, TResponse, TOrderBy, TFilter> extends TableProps<TResponse> {
+export interface ITableProps<TQuery extends IQueryParams, TResponse, TOrderBy, TFilter> extends Omit<TableProps<TResponse>, "footer"> {
 	header?: (sourceContext: ISourceContext<TQuery, TResponse, TOrderBy, TFilter>) => ReactNode;
+	footer?: (sourceContext: ISourceContext<TQuery, TResponse, TOrderBy, TFilter>) => ReactNode;
 	children?: ITableChildrenCallback<TQuery, TResponse, TOrderBy, TFilter> | ReactNode;
 	toFilter?: ITableToFilterCallback<TResponse, TFilter>;
 	listItemRender?: (item: TResponse) => ReactNode;
@@ -17,6 +18,7 @@ export const Table = <TQuery extends IQueryParams, TResponse extends object, TOr
 	{
 		children,
 		header,
+		footer,
 		toFilter = () => null,
 		listItemRender,
 		listProps,
@@ -48,6 +50,7 @@ export const Table = <TQuery extends IQueryParams, TResponse extends object, TOr
 				sourceContext.setOrderBy(orderBy as TOrderBy);
 				sourceContext.setFilter(merge<TFilter, TFilter>(sourceContext.filter || {}, toFilter({filters, current: sourceContext.filter}) || {}));
 			}) as any}
+			footer={() => footer ? footer(sourceContext) : undefined}
 			{...props}
 		>
 			{isCallable(children) ? (children as ITableChildrenCallback<TQuery, TResponse, TOrderBy, TFilter>)({
@@ -61,6 +64,8 @@ export const Table = <TQuery extends IQueryParams, TResponse extends object, TOr
 			}) : children}
 		</CoolTable> :
 		<List
+			header={() => header ? header(sourceContext) : undefined}
+			footer={() => footer ? footer(sourceContext) : undefined}
 			dataSource={sourceContext.result.isSuccess ? sourceContext.result.data.items : []}
 			rowKey={((record: IRecordItem) => record.id) as any}
 			loading={{
