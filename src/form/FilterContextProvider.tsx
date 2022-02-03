@@ -10,7 +10,7 @@ export function FilterContextProvider<TFilter, >({defaultFilter, ...props}: Prop
 	return <FilterContext.Provider
 		value={{
 			filter,
-			setFilter,
+			setFilter: filter => setFilter({...filter, ...defaultFilter}),
 		}}
 		{...props}
 	/>;
