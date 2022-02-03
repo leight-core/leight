@@ -122,3 +122,8 @@ export interface IToError<TError, TFormValues> {
 
 export type IBaseSelectItem = any;
 export type IBaseSelectOption = { value: IBaseSelectItem, label: IBaseSelectItem };
+
+export interface IFilterContext<TFilter = any> {
+	filter: TFilter;
+	setFilter: (filter?: TFilter) => void;
+}
