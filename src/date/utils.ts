@@ -25,3 +25,8 @@ export const asDayjs = (input?: ConfigType | null, fallback: ConfigType | null =
 export const asMoment = (input?: MomentInput, fallback: MomentInput | null = null): Moment | null => {
 	return input ? moment(input) : (fallback ? moment(fallback) : null);
 };
+
+export const durationOf = (date: ConfigType): string => {
+	// @ts-ignore
+	return dayjs.duration(dayjs().diff(date)).humanize();
+};
