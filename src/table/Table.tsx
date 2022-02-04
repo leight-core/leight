@@ -37,7 +37,7 @@ export const Table = <TQuery extends IQueryParams, TResponse extends object, TOr
 			loading={{
 				spinning: sourceContext.result.isLoading,
 				indicator: <LoaderIcon/>,
-				delay: 100,
+				delay: 50,
 			}}
 			size={"large"}
 			locale={{emptyText: <Empty description={t("common.nothing-found")}/>}}
@@ -71,7 +71,7 @@ export const Table = <TQuery extends IQueryParams, TResponse extends object, TOr
 			loading={{
 				spinning: sourceContext.result.isLoading,
 				indicator: <LoaderIcon/>,
-				delay: 100,
+				delay: 50,
 			}}
 			renderItem={listItemRender}
 			pagination={sourceContext.pagination()}
