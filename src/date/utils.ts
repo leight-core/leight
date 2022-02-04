@@ -1,4 +1,5 @@
 import dayjs, {ConfigType} from "dayjs";
+import {Duration, DurationUnitType} from "dayjs/plugin/duration";
 import moment, {Moment, MomentInput} from "moment";
 
 export const toLocalDate = (input?: ConfigType | null, fallback = "-"): string => {
@@ -26,7 +27,6 @@ export const asMoment = (input?: MomentInput, fallback: MomentInput | null = nul
 	return input ? moment(input) : (fallback ? moment(fallback) : null);
 };
 
-export const durationOf = (date: ConfigType): string => {
-	// @ts-ignore
-	return dayjs.duration(dayjs().diff(date)).humanize();
+export const durationOf = (date: ConfigType, from?: ConfigType, unit?: DurationUnitType): Duration => {
+	return dayjs.duration(dayjs(from).diff(date), unit);
 };
