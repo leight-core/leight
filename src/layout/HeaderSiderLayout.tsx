@@ -3,7 +3,7 @@ import {Layout, Spin} from "antd";
 import React, {CSSProperties, FC, ReactNode, Suspense, useEffect, useState} from "react";
 import {BrowserView, MobileView} from "react-device-detect";
 
-const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer, contentStyle, headerStyle, children}) => {
+const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer, menu, contentStyle, headerStyle, children}) => {
 	const menuContext = useMenuContext();
 	const layoutContext = useLayoutContext();
 	const layoutBlockContext = useLayoutBlockContext();
@@ -22,7 +22,7 @@ const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer,
 							collapsed={menuContext.collapsed}
 							width={layoutContext.siderSize}
 						>
-							<MenuPlaceholder/>
+							{menu || <MenuPlaceholder/>}
 						</Layout.Sider>
 					}
 					<Layout>
@@ -62,6 +62,7 @@ export interface IHeaderSiderLayoutProps {
 	 * Page (common layout) footer.
 	 */
 	footer: ReactNode;
+	menu?: ReactNode;
 	/**
 	 * Optional styling of layout content.
 	 */
@@ -80,6 +81,7 @@ export const HeaderSiderLayout: FC<IHeaderSiderLayoutProps> = (
 		header,
 		children,
 		footer,
+		menu,
 		contentStyle,
 		headerStyle,
 	}) => {
@@ -101,6 +103,7 @@ export const HeaderSiderLayout: FC<IHeaderSiderLayoutProps> = (
 				<HeaderSiderLayoutInternal
 					header={header}
 					footer={footer}
+					menu={menu}
 					contentStyle={contentStyle}
 					headerStyle={headerStyle}
 				>
