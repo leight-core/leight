@@ -1,6 +1,6 @@
 import {ClientContextProvider, DayjsContextProvider, DiscoveryContextProvider, FingerprintContextProvider, I18NextProvider, LinkContextProvider, SessionContextProvider, TranslationLoader} from "@leight-core/leight";
 import {i18n} from "i18next";
-import {FC, ReactNode, useEffect} from "react";
+import {FC, ReactNode} from "react";
 import {CookiesProvider} from "react-cookie";
 import {QueryClient, QueryClientProvider} from "react-query";
 import {ReactQueryDevtools} from "react-query/devtools";
@@ -40,9 +40,6 @@ export const App: FC<IAppProps> = (
 		queryClient,
 		children,
 	}) => {
-	useEffect(() => {
-		console.info("Redrawing App (effect)");
-	}, []);
 	return <QueryClientProvider client={queryClient}>
 		<DayjsContextProvider dayjs={dayjs}>
 			<I18NextProvider i18next={i18next}>
