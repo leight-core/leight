@@ -5,11 +5,11 @@ import axios from "axios";
 import {FC, ReactNode} from "react";
 import {useQuery} from "react-query";
 
-export interface IFingerprintContextProviderProps {
+export interface IFingerprintProviderProps {
 	logo?: ReactNode;
 }
 
-export const FingerprintContextProvider: FC<IFingerprintContextProviderProps> = ({logo, children}) => {
+export const FingerprintProvider: FC<IFingerprintProviderProps> = ({logo, children}) => {
 	const fingerprint = useQuery("fingerprint", () => new Promise<string>((resolve) => {
 		const done = (fingerprint: string) => {
 			resolve((axios.defaults.headers as any)["X-Client-Hash"] = fingerprint);

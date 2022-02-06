@@ -1,10 +1,10 @@
 import {
-	ClientContextProvider,
-	DayjsContextProvider,
-	DiscoveryContextProvider,
-	FingerprintContextProvider,
+	ClientProvider,
+	DayjsProvider,
+	DiscoveryProvider,
+	FingerprintProvider,
 	I18NextProvider,
-	LayoutBlockContextProvider,
+	LayoutBlockProvider,
 	LinkContextProvider,
 	MenuCollapseProvider,
 	MenuElementProvider,
@@ -54,33 +54,33 @@ export const App: FC<IAppProps> = (
 		children,
 	}) => {
 	return <QueryClientProvider client={queryClient}>
-		<DayjsContextProvider dayjs={dayjs}>
+		<DayjsProvider dayjs={dayjs}>
 			<I18NextProvider i18next={i18next}>
 				<LinkContextProvider>
 					<CookiesProvider>
-						<FingerprintContextProvider logo={logo}>
-							<ClientContextProvider link={clientLink} logo={logo}>
-								<DiscoveryContextProvider logo={logo}>
+						<FingerprintProvider logo={logo}>
+							<ClientProvider link={clientLink} logo={logo}>
+								<DiscoveryProvider logo={logo}>
 									<TranslationLoader link={translationLink} logo={logo}>
 										<SessionContextProvider link={sessionLink} logo={logo}>
 											<MenuCollapseProvider>
 												<MenuSelectionProvider>
 													<MenuElementProvider>
-														<LayoutBlockContextProvider>
+														<LayoutBlockProvider>
 															{children}
-														</LayoutBlockContextProvider>
+														</LayoutBlockProvider>
 													</MenuElementProvider>
 												</MenuSelectionProvider>
 											</MenuCollapseProvider>
 										</SessionContextProvider>
 									</TranslationLoader>
-								</DiscoveryContextProvider>
-							</ClientContextProvider>
-						</FingerprintContextProvider>
+								</DiscoveryProvider>
+							</ClientProvider>
+						</FingerprintProvider>
 					</CookiesProvider>
 				</LinkContextProvider>
 			</I18NextProvider>
-		</DayjsContextProvider>
+		</DayjsProvider>
 		<ReactQueryDevtools initialIsOpen={false}/>
 	</QueryClientProvider>;
 };

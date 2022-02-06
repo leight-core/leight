@@ -1,6 +1,5 @@
+import {IBlockContext, useContext} from "@leight-core/leight";
 import {createContext} from "react";
-import {IBlockContext} from "../block/interface";
-import {useContext} from "../utils/useContext";
 
 export const LayoutBlockContext = createContext<IBlockContext>(null as unknown as IBlockContext);
 

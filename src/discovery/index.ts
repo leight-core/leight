@@ -1,4 +1,4 @@
 export * from "./DiscoveryContext";
-export * from "./DiscoveryContextProvider";
+export * from "./DiscoveryProvider";
 export * from "./interface";
 export * from "./useDiscoveryQuery";

@@ -2,11 +2,11 @@ import {CompassOutlined} from "@ant-design/icons";
 import {DiscoveryContext, IQueryParams, LoaderLayout, useClientContext, useDiscoveryQuery, useLinkContext} from "@leight-core/leight";
 import {FC, ReactNode} from "react";
 
-export interface IDiscoveryContextProviderProps {
+export interface IDiscoveryProviderProps {
 	logo?: ReactNode;
 }
 
-export const DiscoveryContextProvider: FC<IDiscoveryContextProviderProps> = ({logo, children}) => {
+export const DiscoveryProvider: FC<IDiscoveryProviderProps> = ({logo, children}) => {
 	const clientContext = useClientContext();
 	const linkContext = useLinkContext();
 	const result = useDiscoveryQuery(clientContext.client.discovery);

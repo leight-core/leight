@@ -1,4 +1,4 @@
-import {BlockContextProvider, PageProvider, ScrollToTop, useBlockContext, useLayoutBlockContext, useLayoutContext, useMenuSelectionContext} from "@leight-core/leight";
+import {BlockProvider, PageProvider, ScrollToTop, useBlockContext, useLayoutBlockContext, useLayoutContext, useMenuSelectionContext} from "@leight-core/leight";
 import {Spin} from "antd";
 import Head from "next/head";
 import {FC, useEffect} from "react";
@@ -65,10 +65,10 @@ export const EmptyPage: FC<IEmptyPageProps> = (
 	return <PageProvider>
 		{title && <Head><title key={"title"}>{t(title + ".title")}</title></Head>}
 		<ScrollToTop/>
-		<BlockContextProvider locked={blocked}>
+		<BlockProvider locked={blocked}>
 			<EmptyPageInternal>
 				{children}
 			</EmptyPageInternal>
-		</BlockContextProvider>
+		</BlockProvider>
 	</PageProvider>;
 };

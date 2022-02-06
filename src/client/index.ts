@@ -1,4 +1,4 @@
 export * from "./ClientContext";
-export * from "./ClientContextProvider";
+export * from "./ClientProvider";
 export * from "./interface";
 export * from "./useClientConfigQuery";

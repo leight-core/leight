@@ -1,12 +1,12 @@
 import {ButtonContext, IButtonContext, IButtonIndex} from "@leight-core/leight";
 import {ReactNode, useEffect, useState} from "react";
 
-export interface IButtonContextProviderProps<TButtons extends string> {
+export interface IButtonProviderProps<TButtons extends string> {
 	defaultDisabled?: IButtonIndex<TButtons>;
 	children?: ReactNode;
 }
 
-export const ButtonContextProvider = <TButtons extends string>({children, defaultDisabled}: IButtonContextProviderProps<TButtons>) => {
+export const ButtonProvider = <TButtons extends string>({children, defaultDisabled}: IButtonProviderProps<TButtons>) => {
 	const [disabled, setDisabled] = useState<IButtonIndex<TButtons>>((defaultDisabled || {}) as any);
 	return <ButtonContext.Provider
 		value={{

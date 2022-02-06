@@ -1,4 +1,4 @@
-import {Drawer, DrawerContext, DrawerContextProvider} from "@leight-core/leight";
+import {Drawer, DrawerContext, DrawerProvider} from "@leight-core/leight";
 import {Button, ButtonProps} from "antd";
 import {FC, ReactNode} from "react";
 import {isMobile} from "react-device-detect";
@@ -18,7 +18,7 @@ export interface IDrawerButtonProps extends Partial<ButtonProps> {
  */
 export const DrawerButton: FC<IDrawerButtonProps> = ({children, label, title, width, ...props}) => {
 	const {t} = useTranslation();
-	return <DrawerContextProvider>
+	return <DrawerProvider>
 		<DrawerContext.Consumer>
 			{drawerContext => <>
 				<Drawer
@@ -35,5 +35,5 @@ export const DrawerButton: FC<IDrawerButtonProps> = ({children, label, title, wi
 				</Button>
 			</>}
 		</DrawerContext.Consumer>
-	</DrawerContextProvider>;
+	</DrawerProvider>;
 };
