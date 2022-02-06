@@ -1,4 +1,17 @@
-import {ClientContextProvider, DayjsContextProvider, DiscoveryContextProvider, FingerprintContextProvider, I18NextProvider, LinkContextProvider, SessionContextProvider, TranslationLoader} from "@leight-core/leight";
+import {
+	ClientContextProvider,
+	DayjsContextProvider,
+	DiscoveryContextProvider,
+	FingerprintContextProvider,
+	I18NextProvider,
+	LayoutBlockContextProvider,
+	LinkContextProvider,
+	MenuCollapseProvider,
+	MenuElementProvider,
+	MenuSelectionProvider,
+	SessionContextProvider,
+	TranslationLoader
+} from "@leight-core/leight";
 import {i18n} from "i18next";
 import {FC, ReactNode} from "react";
 import {CookiesProvider} from "react-cookie";
@@ -50,7 +63,15 @@ export const App: FC<IAppProps> = (
 								<DiscoveryContextProvider logo={logo}>
 									<TranslationLoader link={translationLink} logo={logo}>
 										<SessionContextProvider link={sessionLink} logo={logo}>
-											{children}
+											<MenuCollapseProvider>
+												<MenuSelectionProvider>
+													<MenuElementProvider>
+														<LayoutBlockContextProvider>
+															{children}
+														</LayoutBlockContextProvider>
+													</MenuElementProvider>
+												</MenuSelectionProvider>
+											</MenuCollapseProvider>
 										</SessionContextProvider>
 									</TranslationLoader>
 								</DiscoveryContextProvider>

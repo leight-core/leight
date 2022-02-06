@@ -1,16 +1,4 @@
-import {
-	LayoutBlockContextProvider,
-	LayoutContext,
-	LoaderIcon,
-	MenuCollapseProvider,
-	MenuElementProvider,
-	MenuPlaceholder,
-	MenuSelectionProvider,
-	PlaceholderPage,
-	useLayoutBlockContext,
-	useLayoutContext,
-	useMenuCollapseContext
-} from "@leight-core/leight";
+import {LayoutContext, LoaderIcon, MenuPlaceholder, PlaceholderPage, useLayoutBlockContext, useLayoutContext, useMenuCollapseContext} from "@leight-core/leight";
 import {Layout, Spin} from "antd";
 import React, {CSSProperties, FC, ReactNode, Suspense, useEffect, useState} from "react";
 import {BrowserView, MobileView} from "react-device-detect";
@@ -43,23 +31,17 @@ const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer,
 					{header}
 				</Layout.Header>}
 				<Layout>
-					<MenuCollapseProvider>
-						<MenuSelectionProvider>
-							<MenuElementProvider>
-								<LayoutSider menu={menu}/>
-								<Layout>
-									<Layout.Content style={{minHeight: "100vh", padding: "1.5em", ...contentStyle}}>
-										<Suspense fallback={<PlaceholderPage/>}>
-											{children}
-										</Suspense>
-										{footer && <Layout.Footer>
-											{footer}
-										</Layout.Footer>}
-									</Layout.Content>
-								</Layout>
-							</MenuElementProvider>
-						</MenuSelectionProvider>
-					</MenuCollapseProvider>
+					<LayoutSider menu={menu}/>
+					<Layout>
+						<Layout.Content style={{minHeight: "100vh", padding: "1.5em", ...contentStyle}}>
+							<Suspense fallback={<PlaceholderPage/>}>
+								{children}
+							</Suspense>
+							{footer && <Layout.Footer>
+								{footer}
+							</Layout.Footer>}
+						</Layout.Content>
+					</Layout>
 				</Layout>
 			</BrowserView>
 			<MobileView>
@@ -104,19 +86,17 @@ export interface IHeaderSiderLayoutProps {
 export const HeaderSiderLayout: FC<IHeaderSiderLayoutProps> = props => {
 	const [fullwidth, setFullwidth] = useState<boolean>(false);
 	const [siderSize, setSiderSize] = useState<number>(235);
-	return <LayoutBlockContextProvider>
-		<LayoutContext.Provider
-			value={{
-				siderSize,
-				setSiderSize,
-				fullwidth,
-				useEnableFullwidth: (enable = true, restore = true) => useEffect(() => {
-					setFullwidth(enable);
-					return () => setFullwidth(!restore);
-				}, []),
-			}}
-		>
-			<HeaderSiderLayoutInternal {...props}/>
-		</LayoutContext.Provider>
-	</LayoutBlockContextProvider>;
+	return <LayoutContext.Provider
+		value={{
+			siderSize,
+			setSiderSize,
+			fullwidth,
+			useEnableFullwidth: (enable = true, restore = true) => useEffect(() => {
+				setFullwidth(enable);
+				return () => setFullwidth(!restore);
+			}, []),
+		}}
+	>
+		<HeaderSiderLayoutInternal {...props}/>
+	</LayoutContext.Provider>;
 };
