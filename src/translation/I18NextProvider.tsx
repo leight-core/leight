@@ -6,8 +6,6 @@ export interface II18NextProviderProps {
 	i18next: i18n;
 }
 
-export const I18NextProvider: FC<II18NextProviderProps> = ({i18next, children}) => {
-	return <I18NextContext.Provider value={{i18next}}>
-		{children}
-	</I18NextContext.Provider>;
+export const I18NextProvider: FC<II18NextProviderProps> = ({i18next, ...props}) => {
+	return <I18NextContext.Provider value={{i18next}} {...props}/>;
 };

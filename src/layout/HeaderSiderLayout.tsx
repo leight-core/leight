@@ -15,9 +15,26 @@ import {Layout, Spin} from "antd";
 import React, {CSSProperties, FC, ReactNode, Suspense, useEffect, useState} from "react";
 import {BrowserView, MobileView} from "react-device-detect";
 
-const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer, menu, contentStyle, headerStyle, children}) => {
+interface ILayoutSiderProps {
+	menu?: ReactNode;
+}
+
+const LayoutSider: FC<ILayoutSiderProps> = ({menu}) => {
 	const menuCollapseContext = useMenuCollapseContext();
 	const layoutContext = useLayoutContext();
+	return <Layout.Sider
+		hidden={layoutContext.fullwidth}
+		theme={"light"}
+		collapsible
+		onCollapse={menuCollapseContext.setCollapsed}
+		collapsed={menuCollapseContext.collapsed}
+		width={layoutContext.siderSize}
+	>
+		<MenuPlaceholder menu={menu}/>
+	</Layout.Sider>;
+};
+
+const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer, menu, contentStyle, headerStyle, children}) => {
 	const layoutBlockContext = useLayoutBlockContext();
 	return <Layout>
 		<Spin indicator={<LoaderIcon/>} spinning={layoutBlockContext.isBlocked()}>
@@ -26,27 +43,23 @@ const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer,
 					{header}
 				</Layout.Header>}
 				<Layout>
-					{layoutContext.fullwidth ? null :
-						<Layout.Sider
-							theme={"light"}
-							collapsible
-							onCollapse={menuCollapseContext.setCollapsed}
-							collapsed={menuCollapseContext.collapsed}
-							width={layoutContext.siderSize}
-						>
-							{menu || <MenuPlaceholder/>}
-						</Layout.Sider>
-					}
-					<Layout>
-						<Layout.Content style={{minHeight: "100vh", padding: "1.5em", ...contentStyle}}>
-							<Suspense fallback={<PlaceholderPage/>}>
-								{children}
-							</Suspense>
-							{footer && <Layout.Footer>
-								{footer}
-							</Layout.Footer>}
-						</Layout.Content>
-					</Layout>
+					<MenuCollapseProvider>
+						<MenuSelectionProvider>
+							<MenuElementProvider>
+								<LayoutSider menu={menu}/>
+								<Layout>
+									<Layout.Content style={{minHeight: "100vh", padding: "1.5em", ...contentStyle}}>
+										<Suspense fallback={<PlaceholderPage/>}>
+											{children}
+										</Suspense>
+										{footer && <Layout.Footer>
+											{footer}
+										</Layout.Footer>}
+									</Layout.Content>
+								</Layout>
+							</MenuElementProvider>
+						</MenuSelectionProvider>
+					</MenuCollapseProvider>
 				</Layout>
 			</BrowserView>
 			<MobileView>
@@ -88,44 +101,22 @@ export interface IHeaderSiderLayoutProps {
 /**
  * Layout with a common header space, left-sided main menu and content. Packed with some interesting features.
  */
-export const HeaderSiderLayout: FC<IHeaderSiderLayoutProps> = (
-	{
-		header,
-		children,
-		footer,
-		menu,
-		contentStyle,
-		headerStyle,
-	}) => {
+export const HeaderSiderLayout: FC<IHeaderSiderLayoutProps> = props => {
 	const [fullwidth, setFullwidth] = useState<boolean>(false);
 	const [siderSize, setSiderSize] = useState<number>(235);
 	return <LayoutBlockContextProvider>
-		<MenuElementProvider>
-			<MenuSelectionProvider>
-				<MenuCollapseProvider>
-					<LayoutContext.Provider
-						value={{
-							siderSize,
-							setSiderSize,
-							fullwidth,
-							useEnableFullwidth: (enable = true, restore = true) => useEffect(() => {
-								setFullwidth(enable);
-								return () => setFullwidth(!restore);
-							}, []),
-						}}
-					>
-						<HeaderSiderLayoutInternal
-							header={header}
-							footer={footer}
-							menu={menu}
-							contentStyle={contentStyle}
-							headerStyle={headerStyle}
-						>
-							{children}
-						</HeaderSiderLayoutInternal>
-					</LayoutContext.Provider>
-				</MenuCollapseProvider>
-			</MenuSelectionProvider>
-		</MenuElementProvider>
+		<LayoutContext.Provider
+			value={{
+				siderSize,
+				setSiderSize,
+				fullwidth,
+				useEnableFullwidth: (enable = true, restore = true) => useEffect(() => {
+					setFullwidth(enable);
+					return () => setFullwidth(!restore);
+				}, []),
+			}}
+		>
+			<HeaderSiderLayoutInternal {...props}/>
+		</LayoutContext.Provider>
 	</LayoutBlockContextProvider>;
 };

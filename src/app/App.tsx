@@ -1,5 +1,6 @@
-import {ClientContextProvider, DiscoveryContextProvider, FingerprintContextProvider, LinkContextProvider, SessionContextProvider, TranslationLoader} from "@leight-core/leight";
-import {FC, ReactNode} from "react";
+import {ClientContextProvider, DayjsContextProvider, DiscoveryContextProvider, FingerprintContextProvider, I18NextProvider, LinkContextProvider, SessionContextProvider, TranslationLoader} from "@leight-core/leight";
+import {i18n} from "i18next";
+import {FC, ReactNode, useEffect} from "react";
 import {CookiesProvider} from "react-cookie";
 import {QueryClient, QueryClientProvider} from "react-query";
 import {ReactQueryDevtools} from "react-query/devtools";
@@ -13,9 +14,11 @@ export interface IAppProps {
 	/**
 	 * Optional href to obtain user ticket (user session) when app starts; defaults to "public.user.user-ticket".
 	 */
-	sessionLink: string;
-	translationLink: string;
+	sessionLink?: string;
+	translationLink?: string;
 	queryClient: QueryClient;
+	dayjs: any;
+	i18next: i18n;
 }
 
 /**
@@ -30,27 +33,36 @@ export const App: FC<IAppProps> = (
 	{
 		logo,
 		clientLink,
-		translationLink,
-		sessionLink,
+		translationLink = "Edde.Shared.Translation",
+		sessionLink = "Edde.Shared.User.Ticket",
+		dayjs,
+		i18next,
 		queryClient,
 		children,
 	}) => {
+	useEffect(() => {
+		console.info("Redrawing App (effect)");
+	}, []);
 	return <QueryClientProvider client={queryClient}>
-		<LinkContextProvider>
-			<CookiesProvider>
-				<FingerprintContextProvider logo={logo}>
-					<ClientContextProvider link={clientLink} logo={logo}>
-						<DiscoveryContextProvider logo={logo}>
-							<TranslationLoader link={translationLink} logo={logo}>
-								<SessionContextProvider link={sessionLink} logo={logo}>
-									{children}
-								</SessionContextProvider>
-							</TranslationLoader>
-						</DiscoveryContextProvider>
-					</ClientContextProvider>
-				</FingerprintContextProvider>
-			</CookiesProvider>
-		</LinkContextProvider>
+		<DayjsContextProvider dayjs={dayjs}>
+			<I18NextProvider i18next={i18next}>
+				<LinkContextProvider>
+					<CookiesProvider>
+						<FingerprintContextProvider logo={logo}>
+							<ClientContextProvider link={clientLink} logo={logo}>
+								<DiscoveryContextProvider logo={logo}>
+									<TranslationLoader link={translationLink} logo={logo}>
+										<SessionContextProvider link={sessionLink} logo={logo}>
+											{children}
+										</SessionContextProvider>
+									</TranslationLoader>
+								</DiscoveryContextProvider>
+							</ClientContextProvider>
+						</FingerprintContextProvider>
+					</CookiesProvider>
+				</LinkContextProvider>
+			</I18NextProvider>
+		</DayjsContextProvider>
 		<ReactQueryDevtools initialIsOpen={false}/>
 	</QueryClientProvider>;
 };

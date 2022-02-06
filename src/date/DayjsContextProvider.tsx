@@ -5,8 +5,6 @@ export interface IDayjsContextProviderProps {
 	dayjs: any;
 }
 
-export const DayjsContextProvider: FC<IDayjsContextProviderProps> = ({dayjs, children}) => {
-	return <DayjsContext.Provider value={{dayjs}}>
-		{children}
-	</DayjsContext.Provider>;
+export const DayjsContextProvider: FC<IDayjsContextProviderProps> = ({dayjs, ...props}) => {
+	return <DayjsContext.Provider value={{dayjs}} {...props}/>;
 };

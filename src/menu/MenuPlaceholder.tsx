@@ -1,9 +1,11 @@
-import {FC} from "react";
+import {FC, ReactNode} from "react";
 import {useMenuElementContext} from "./MenuContext";
 
 export interface IMenuPlaceholderProps {
+	menu?: ReactNode;
 }
 
-export const MenuPlaceholder: FC<IMenuPlaceholderProps> = () => {
-	return <div ref={useMenuElementContext().setElement}/>;
+export const MenuPlaceholder: FC<IMenuPlaceholderProps> = ({menu}) => {
+	const menuElementContext = useMenuElementContext();
+	return <>{menu}</> || <div ref={menuElementContext.setElement}/>;
 };
