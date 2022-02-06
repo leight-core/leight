@@ -1,4 +1,4 @@
-import {useMenuContext} from "@leight-core/leight";
+import {useMenuCollapseContext, useMenuSelectionContext} from "@leight-core/leight";
 import {Menu as CoolMenu, MenuProps} from "antd";
 import {useRouter} from "next/router";
 import React, {FC} from "react";
@@ -9,7 +9,8 @@ export interface IMenuProps extends Partial<MenuProps> {
 }
 
 export const Menu: FC<IMenuProps> = ({extraOpenKeys = [], ...props}) => {
-	const menuContext = useMenuContext();
+	const menuSelectionContext = useMenuSelectionContext();
+	const menuCollapseContext = useMenuCollapseContext();
 	const router = useRouter();
 
 	const keys = (() => {
@@ -26,10 +27,10 @@ export const Menu: FC<IMenuProps> = ({extraOpenKeys = [], ...props}) => {
 	return <CoolMenu
 		mode={"inline"}
 		selectable={true}
-		selectedKeys={isMobile ? [] : [router.route].concat(menuContext.current)}
+		selectedKeys={isMobile ? [] : [router.route].concat(menuSelectionContext.selection)}
 		defaultOpenKeys={keys.concat(extraOpenKeys)}
 		subMenuCloseDelay={0.35}
-		inlineCollapsed={menuContext.collapsed}
+		inlineCollapsed={menuCollapseContext.collapsed}
 		{...props}
 	/>;
 };

@@ -1,34 +1,60 @@
-import {isEqual, MenuContext} from "@leight-core/leight";
+import {MenuCollapseContext, MenuElementContext, MenuSelectionContext} from "@leight-core/leight";
 import {FC, useEffect, useState} from "react";
 
-export interface IMenuContextProviderProps {
+export interface IMenuElementProviderProps {
+	defaultElement?: Element;
 }
 
-export const MenuContextProvider: FC<IMenuContextProviderProps> = ({children}) => {
-	const [current, setCurrent] = useState<string[]>([]);
-	const [collapsed, setCollapse] = useState<boolean>(false);
-	const [element, setElement] = useState<Element | undefined | null>(null);
-	return <MenuContext.Provider
+export const MenuElementProvider: FC<IMenuElementProviderProps> = ({defaultElement, ...props}) => {
+	const [element, setElement] = useState<Element | undefined | null>(defaultElement);
+	return <MenuElementContext.Provider
 		value={{
-			collapsed,
-			setCollapse,
-			useCollapse: (collapse, restore = false) => {
-				useEffect(() => {
-					setCollapse(collapse);
-					return () => {
-						restore && setCollapse(!collapse);
-					};
-				}, [collapse]);
-			},
-			current,
-			useSelect: select => useEffect(() => {
-				const id = setTimeout(() => !isEqual(select, current) && setCurrent(select), 0);
-				return () => clearTimeout(id);
-			}, []),
 			element,
 			setElement,
 		}}
-	>
-		{children}
-	</MenuContext.Provider>;
+		{...props}
+	/>;
+};
+
+export interface IMenuSelectionProviderProps {
+	defaultSelection?: string[];
+}
+
+export const MenuSelectionProvider: FC<IMenuSelectionProviderProps> = ({defaultSelection = [], ...props}) => {
+	const [selection, setSelection] = useState<string[]>(defaultSelection);
+	return <MenuSelectionContext.Provider
+		value={{
+			selection,
+			useSelection: selection => {
+				useEffect(() => {
+					const id = setTimeout(() => setSelection(selection), 0);
+					return () => clearTimeout(id);
+				}, [selection]);
+			}
+		}}
+		{...props}
+	/>;
+};
+
+export interface IMenuCollapseProviderProps {
+	defaultCollapsed?: boolean;
+}
+
+export const MenuCollapseProvider: FC<IMenuCollapseProviderProps> = ({defaultCollapsed = false, ...props}) => {
+	const [collapsed, setCollapsed] = useState<boolean>(defaultCollapsed);
+	return <MenuCollapseContext.Provider
+		value={{
+			collapsed,
+			useCollapse: (collapsed, restore) => {
+				useEffect(() => {
+					setCollapsed(collapsed);
+					return () => {
+						restore && setCollapsed(!collapsed);
+					};
+				}, [collapsed]);
+			},
+			setCollapsed,
+		}}
+		{...props}
+	/>;
 };

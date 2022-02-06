@@ -1,14 +1,22 @@
-export interface IMenuContext {
+export interface IMenuElementContext {
+	readonly element?: Element | null;
+	setElement: (element?: Element | null) => void;
+}
+
+export interface IMenuSelectionContext {
 	/**
 	 * Currently selected menu items.
 	 */
-	readonly current: string[];
+	readonly selection: string[];
 	/**
 	 * An effect to select menu item.
 	 *
 	 * @param select
 	 */
-	useSelect: (select: string[]) => void;
+	useSelection: (selection: string[]) => void;
+}
+
+export interface IMenuCollapseContext {
 	/**
 	 * Is menu collapsed (if applicable for the current layout).
 	 */
@@ -16,11 +24,9 @@ export interface IMenuContext {
 	/**
 	 * Hook for collapsing a menu.
 	 */
-	useCollapse: (collapse: boolean, restore?: boolean) => void;
+	useCollapse: (collapsed: boolean, restore?: boolean) => void;
 	/**
 	 * Direct state change for menu collapse.
 	 */
-	setCollapse: (collapse: boolean) => void;
-	readonly element?: Element | null;
-	setElement: (element?: Element | null) => void;
+	setCollapsed: (collapsed: boolean) => void;
 }

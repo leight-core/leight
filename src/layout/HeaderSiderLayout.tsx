@@ -1,10 +1,22 @@
-import {LayoutBlockContextProvider, LayoutContext, LoaderIcon, MenuContextProvider, MenuPlaceholder, PlaceholderPage, useLayoutBlockContext, useLayoutContext, useMenuContext} from "@leight-core/leight";
+import {
+	LayoutBlockContextProvider,
+	LayoutContext,
+	LoaderIcon,
+	MenuCollapseProvider,
+	MenuElementProvider,
+	MenuPlaceholder,
+	MenuSelectionProvider,
+	PlaceholderPage,
+	useLayoutBlockContext,
+	useLayoutContext,
+	useMenuCollapseContext
+} from "@leight-core/leight";
 import {Layout, Spin} from "antd";
 import React, {CSSProperties, FC, ReactNode, Suspense, useEffect, useState} from "react";
 import {BrowserView, MobileView} from "react-device-detect";
 
 const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer, menu, contentStyle, headerStyle, children}) => {
-	const menuContext = useMenuContext();
+	const menuCollapseContext = useMenuCollapseContext();
 	const layoutContext = useLayoutContext();
 	const layoutBlockContext = useLayoutBlockContext();
 	return <Layout>
@@ -18,8 +30,8 @@ const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer,
 						<Layout.Sider
 							theme={"light"}
 							collapsible
-							onCollapse={menuContext.setCollapse}
-							collapsed={menuContext.collapsed}
+							onCollapse={menuCollapseContext.setCollapsed}
+							collapsed={menuCollapseContext.collapsed}
 							width={layoutContext.siderSize}
 						>
 							{menu || <MenuPlaceholder/>}
@@ -88,28 +100,32 @@ export const HeaderSiderLayout: FC<IHeaderSiderLayoutProps> = (
 	const [fullwidth, setFullwidth] = useState<boolean>(false);
 	const [siderSize, setSiderSize] = useState<number>(235);
 	return <LayoutBlockContextProvider>
-		<MenuContextProvider>
-			<LayoutContext.Provider
-				value={{
-					siderSize,
-					setSiderSize,
-					fullwidth,
-					useEnableFullwidth: (enable = true, restore = true) => useEffect(() => {
-						setFullwidth(enable);
-						return () => setFullwidth(!restore);
-					}, []),
-				}}
-			>
-				<HeaderSiderLayoutInternal
-					header={header}
-					footer={footer}
-					menu={menu}
-					contentStyle={contentStyle}
-					headerStyle={headerStyle}
-				>
-					{children}
-				</HeaderSiderLayoutInternal>
-			</LayoutContext.Provider>
-		</MenuContextProvider>
+		<MenuElementProvider>
+			<MenuSelectionProvider>
+				<MenuCollapseProvider>
+					<LayoutContext.Provider
+						value={{
+							siderSize,
+							setSiderSize,
+							fullwidth,
+							useEnableFullwidth: (enable = true, restore = true) => useEffect(() => {
+								setFullwidth(enable);
+								return () => setFullwidth(!restore);
+							}, []),
+						}}
+					>
+						<HeaderSiderLayoutInternal
+							header={header}
+							footer={footer}
+							menu={menu}
+							contentStyle={contentStyle}
+							headerStyle={headerStyle}
+						>
+							{children}
+						</HeaderSiderLayoutInternal>
+					</LayoutContext.Provider>
+				</MenuCollapseProvider>
+			</MenuSelectionProvider>
+		</MenuElementProvider>
 	</LayoutBlockContextProvider>;
 };

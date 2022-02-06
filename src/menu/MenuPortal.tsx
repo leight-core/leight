@@ -1,11 +1,11 @@
 import {FC} from "react";
 import {createPortal} from "react-dom";
-import {useMenuContext} from "./MenuContext";
+import {useMenuElementContext} from "./MenuContext";
 
 export interface IMenuPortalProps {
 }
 
 export const MenuPortal: FC<IMenuPortalProps> = ({children}) => {
-	const menuContext = useMenuContext();
-	return menuContext.element ? createPortal(children, menuContext.element) : null;
+	const menuElementContext = useMenuElementContext();
+	return menuElementContext.element ? createPortal(children, menuElementContext.element) : null;
 };

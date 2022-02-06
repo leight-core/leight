@@ -1,4 +1,4 @@
-import {BlockContextProvider, PageProvider, ScrollToTop, useBlockContext, useLayoutBlockContext, useLayoutContext, useMenuContext} from "@leight-core/leight";
+import {BlockContextProvider, PageProvider, ScrollToTop, useBlockContext, useLayoutBlockContext, useLayoutContext, useMenuSelectionContext} from "@leight-core/leight";
 import {Spin} from "antd";
 import Head from "next/head";
 import {FC, useEffect} from "react";
@@ -31,7 +31,7 @@ export interface IEmptyPageProps {
 	/**
 	 * Selected menu items.
 	 */
-	selected?: string[];
+	menuSelection?: string[];
 }
 
 const EmptyPageInternal: FC = ({children}) => {
@@ -51,13 +51,13 @@ export const EmptyPage: FC<IEmptyPageProps> = (
 		blocked = false,
 		fullwidth = false,
 		restore = true,
-		selected = [],
+		menuSelection = [],
 		children,
 	}) => {
 	const {t} = useTranslation();
 	const layoutContext = useLayoutContext();
 	const blockContext = useLayoutBlockContext();
-	useMenuContext().useSelect(selected);
+	useMenuSelectionContext().useSelection(menuSelection);
 	layoutContext.useEnableFullwidth(fullwidth, restore);
 	useEffect(() => {
 		blockContext.unblock(true);
