@@ -7,5 +7,7 @@ export interface IMenuPlaceholderProps {
 
 export const MenuPlaceholder: FC<IMenuPlaceholderProps> = ({menu}) => {
 	const menuElementContext = useMenuElementContext();
-	return <>{menu}</> || <div ref={menuElementContext.setElement}/>;
+	return <>
+		{menu ? menu : <div ref={menuElementContext.setElement}/>}
+	</>;
 };
