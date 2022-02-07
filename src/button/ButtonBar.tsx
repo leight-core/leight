@@ -10,9 +10,10 @@ export interface IButtonBarProps {
 export const ButtonBar: FC<IButtonBarProps> = ({inline = true, children}) => {
 	return <Centered>
 		<Space
+			size={"small"}
 			align={"center"}
-			direction={(isBrowser || inline) ? "horizontal" : "vertical"}
-			split={(isBrowser || inline) ? <Divider type={"vertical"}/> : null}
+			direction={(isBrowser && inline) ? "horizontal" : "vertical"}
+			split={(isBrowser && inline) ? <Divider type={"vertical"}/> : null}
 		>
 			{children}
 		</Space>
