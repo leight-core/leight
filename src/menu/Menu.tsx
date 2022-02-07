@@ -12,7 +12,7 @@ export const Menu: FC<IMenuProps> = ({extraOpenKeys = [], ...props}) => {
 	const menuCollapseContext = useSiderCollapseContext();
 	return <CoolMenu
 		mode={"inline"}
-		selectable={true}
+		// selectable={true}
 		selectedKeys={isMobile ? [] : menuSelectionContext.selection}
 		defaultOpenKeys={extraOpenKeys}
 		subMenuCloseDelay={0.35}

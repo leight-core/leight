@@ -27,7 +27,8 @@ export const MenuSelectionProvider: FC<IMenuSelectionProviderProps> = ({defaultS
 			selection,
 			useSelection: selection => {
 				useEffect(() => {
-					setSelection(selection);
+					const id = setTimeout(() => setSelection(selection), 0);
+					return () => clearTimeout(id);
 				}, selection);
 			}
 		}}
