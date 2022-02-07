@@ -1,4 +1,4 @@
-import {ILayoutContext, useContext} from "@leight-core/leight";
+import {ILayoutContext, ISiderCollapseContext, useContext} from "@leight-core/leight";
 import {createContext} from "react";
 
 /**
@@ -10,3 +10,7 @@ export const LayoutContext = createContext<ILayoutContext>(null as unknown as IL
  * Access to the current Layout context.
  */
 export const useLayoutContext = () => useContext<ILayoutContext>(LayoutContext, "LayoutContext");
+
+export const SiderCollapseContext = createContext<ISiderCollapseContext>(null as unknown as ISiderCollapseContext);
+
+export const useSiderCollapseContext = () => useContext<ISiderCollapseContext>(SiderCollapseContext, "SiderCollapseContext");

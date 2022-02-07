@@ -7,3 +7,4 @@ export * from "./LayoutBlockProvider";
 export * from "./LayoutContext";
 export * from "./LoaderLayout";
 export * from "./PushRight";
+export * from "./SiderCollapseProvider";

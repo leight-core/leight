@@ -1,4 +1,4 @@
-import {MenuCollapseContext, MenuElementContext, MenuSelectionContext} from "@leight-core/leight";
+import {MenuElementContext, MenuSelectionContext} from "@leight-core/leight";
 import {FC, useEffect, useState} from "react";
 
 export interface IMenuElementProviderProps {
@@ -30,29 +30,6 @@ export const MenuSelectionProvider: FC<IMenuSelectionProviderProps> = ({defaultS
 					setSelection(selection);
 				}, selection);
 			}
-		}}
-		{...props}
-	/>;
-};
-
-export interface IMenuCollapseProviderProps {
-	defaultCollapsed?: boolean;
-}
-
-export const MenuCollapseProvider: FC<IMenuCollapseProviderProps> = ({defaultCollapsed = false, ...props}) => {
-	const [collapsed, setCollapsed] = useState<boolean>(defaultCollapsed);
-	return <MenuCollapseContext.Provider
-		value={{
-			collapsed,
-			useCollapse: (collapsed, restore) => {
-				useEffect(() => {
-					setCollapsed(collapsed);
-					return () => {
-						restore && setCollapsed(!collapsed);
-					};
-				}, [collapsed]);
-			},
-			setCollapsed,
 		}}
 		{...props}
 	/>;

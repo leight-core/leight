@@ -1,4 +1,4 @@
-import {LayoutContext, LoaderIcon, MenuPlaceholder, PlaceholderPage, useLayoutBlockContext, useLayoutContext, useMenuCollapseContext} from "@leight-core/leight";
+import {LayoutContext, LoaderIcon, MenuPlaceholder, PlaceholderPage, useLayoutBlockContext, useLayoutContext, useSiderCollapseContext} from "@leight-core/leight";
 import {Layout, Spin} from "antd";
 import React, {CSSProperties, FC, ReactNode, Suspense, useEffect, useState} from "react";
 import {BrowserView, MobileView} from "react-device-detect";
@@ -8,7 +8,7 @@ interface ILayoutSiderProps {
 }
 
 const LayoutSider: FC<ILayoutSiderProps> = ({menu}) => {
-	const menuCollapseContext = useMenuCollapseContext();
+	const menuCollapseContext = useSiderCollapseContext();
 	const layoutContext = useLayoutContext();
 	return <Layout.Sider
 		hidden={layoutContext.fullwidth}

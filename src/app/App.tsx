@@ -6,10 +6,10 @@ import {
 	I18NextProvider,
 	LayoutBlockProvider,
 	LinkContextProvider,
-	MenuCollapseProvider,
 	MenuElementProvider,
 	MenuSelectionProvider,
 	SessionContextProvider,
+	SiderCollapseProvider,
 	TranslationLoader
 } from "@leight-core/leight";
 import {i18n} from "i18next";
@@ -63,7 +63,7 @@ export const App: FC<IAppProps> = (
 								<DiscoveryProvider logo={logo}>
 									<TranslationLoader link={translationLink} logo={logo}>
 										<SessionContextProvider link={sessionLink} logo={logo}>
-											<MenuCollapseProvider>
+											<SiderCollapseProvider>
 												<MenuSelectionProvider>
 													<MenuElementProvider>
 														<LayoutBlockProvider>
@@ -71,7 +71,7 @@ export const App: FC<IAppProps> = (
 														</LayoutBlockProvider>
 													</MenuElementProvider>
 												</MenuSelectionProvider>
-											</MenuCollapseProvider>
+											</SiderCollapseProvider>
 										</SessionContextProvider>
 									</TranslationLoader>
 								</DiscoveryProvider>
