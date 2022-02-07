@@ -16,14 +16,15 @@ export interface IDrawerButtonProps extends Partial<ButtonProps> {
 /**
  * Default Antd button without any preset; just the drawer is shown on click.
  */
-export const DrawerButton: FC<IDrawerButtonProps> = ({children, label, title, width, ...props}) => {
+export const DrawerButton: FC<IDrawerButtonProps> = ({children, label, title, width = 600, ...props}) => {
 	const {t} = useTranslation();
 	return <DrawerProvider>
 		<DrawerContext.Consumer>
 			{drawerContext => <>
 				<Drawer
 					title={title ? t(title) : null}
-					width={isMobile ? "100vw" : (width || 450)}
+					width={isMobile ? "100vw" : width}
+					bodyStyle={{overflowY: "scroll"}}
 				>
 					{children}
 				</Drawer>
