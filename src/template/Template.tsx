@@ -18,7 +18,7 @@ export const Template: FC<ITemplateProps> = ({icon, forceIcon = false, browserEx
 	return <>
 		{(isBrowser || isMobile) && <Result
 			style={{padding: 0}}
-			icon={(isBrowser || forceIcon) ? icon : <></>}
+			icon={icon ? (isBrowser || forceIcon) ? icon : <></> : <></>}
 			title={(title || title === false) ? title : (label ? t(label + ".title") : label)}
 			subTitle={(subTitle || subTitle === false) ? subTitle : (label ? t(label + ".subtitle") : label)}
 			extra={isBrowser ? browserExtra : mobileExtra}
