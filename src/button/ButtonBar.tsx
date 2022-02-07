@@ -12,7 +12,7 @@ export const ButtonBar: FC<IButtonBarProps> = ({inline = true, ...props}) => {
 		<Space
 			size={0}
 			align={"center"}
-			direction={(isBrowser && inline) ? "horizontal" : "vertical"}
+			direction={(isBrowser || inline) ? "horizontal" : "vertical"}
 			{...props}
 		/>
 	</Centered>;

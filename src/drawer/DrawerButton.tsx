@@ -25,7 +25,7 @@ export const DrawerButton: FC<IDrawerButtonProps> = ({children, label, title, wi
 				<Drawer
 					title={title ? t(title) : null}
 					width={isMobile ? "100vw" : width}
-					bodyStyle={{overflowY: "scroll"}}
+					bodyStyle={{overflowY: "scroll", padding: isMobile ? "4px" : undefined}}
 					{...drawerProps}
 				>
 					{children}
