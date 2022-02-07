@@ -12,6 +12,7 @@ export interface ITableProps<TQuery extends IQueryParams, TResponse, TOrderBy, T
 	toFilter?: ITableToFilterCallback<TResponse, TFilter>;
 	listItemRender?: (item: TResponse) => ReactNode;
 	listProps?: ListProps<TResponse>;
+	forceList?: boolean;
 }
 
 export const Table = <TQuery extends IQueryParams, TResponse extends object, TOrderBy, TFilter>(
@@ -19,6 +20,7 @@ export const Table = <TQuery extends IQueryParams, TResponse extends object, TOr
 		children,
 		header,
 		footer,
+		forceList = false,
 		toFilter = () => null,
 		listItemRender,
 		listProps,
@@ -29,7 +31,7 @@ export const Table = <TQuery extends IQueryParams, TResponse extends object, TOr
 	if (header && !props.title) {
 		props.title = () => header(sourceContext);
 	}
-	return isBrowser ? <CoolTable
+	return (isBrowser && !forceList) ? <CoolTable
 			style={{minHeight: "50vh"}}
 			showSorterTooltip={false}
 			dataSource={sourceContext.result.isSuccess ? sourceContext.result.data.items : []}
