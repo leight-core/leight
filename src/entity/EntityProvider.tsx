@@ -5,7 +5,7 @@ export interface IEntityProviderProps<TEntity> {
 	defaultEntity?: TEntity;
 }
 
-export const EntityProvider = <TEntity, >({defaultEntity, children}: PropsWithChildren<IEntityProviderProps<TEntity>>) => {
+export const EntityProvider = <TEntity, >({defaultEntity, ...props}: PropsWithChildren<IEntityProviderProps<TEntity>>) => {
 	const [entity, update] = useState<TEntity | undefined | null>(defaultEntity);
 	return <EntityContext.Provider
 		value={{
@@ -19,7 +19,6 @@ export const EntityProvider = <TEntity, >({defaultEntity, children}: PropsWithCh
 			},
 			update,
 		}}
-	>
-		{children}
-	</EntityContext.Provider>;
+		{...props}
+	/>;
 };
