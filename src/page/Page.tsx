@@ -5,12 +5,18 @@ import * as React from "react";
 import {FC, ReactNode} from "react";
 import {isMobile} from "react-device-detect";
 
+export type IPageBreadcrumb = BreadcrumbProps | React.ReactElement<typeof Breadcrumb>;
+
 export interface IPageProps extends IEmptyPageProps {
 	onBack?: (navigate: INavigate) => void;
 	card?: Partial<CardProps>;
-	breadcrumbProps?: BreadcrumbProps | React.ReactElement<typeof Breadcrumb>;
+	breadcrumbProps?: IPageBreadcrumb;
+	breadcrumbMobileProps?: IPageBreadcrumb;
+	breadcrumbBrowserProps?: IPageBreadcrumb;
 	icon?: ReactNode;
 	extra?: ReactNode;
+	extraMobile?: ReactNode;
+	extraBrowser?: ReactNode;
 	header?: ReactNode;
 	cardProps?: CardProps;
 	headerProps?: IPageHeaderProps;
@@ -19,8 +25,12 @@ export interface IPageProps extends IEmptyPageProps {
 export const Page: FC<IPageProps> = (
 	{
 		breadcrumbProps,
+		breadcrumbMobileProps,
+		breadcrumbBrowserProps,
 		icon,
 		extra,
+		extraMobile,
+		extraBrowser,
 		cardProps,
 		header,
 		headerProps,
@@ -30,6 +40,8 @@ export const Page: FC<IPageProps> = (
 		...props
 	}) => {
 	const navigate = useNavigate();
+	extra = extra || (isMobile ? extraMobile : extraBrowser);
+	breadcrumbProps = breadcrumbProps || (isMobile ? breadcrumbMobileProps : breadcrumbBrowserProps);
 	return <EmptyPage title={title} {...props}>
 		{header || <PageHeader
 			onBack={onBack ? () => onBack(navigate) : undefined}
