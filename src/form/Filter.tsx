@@ -61,6 +61,7 @@ export function Filter<TFilter = any, >({translation, onClear, drawerButtonProps
 		>
 			<DrawerContext.Consumer>
 				{drawerContext => <Form<any, TFilter, TFilter>
+					layout={"vertical"}
 					toForm={() => filterContext.filter}
 					onSuccess={({response}) => {
 						filterContext.setFilter(response);
