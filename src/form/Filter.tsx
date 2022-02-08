@@ -56,7 +56,7 @@ export function Filter<TFilter = any, >({translation, onClear, drawerButtonProps
 			size={"small"}
 			title={translation + ".filter.title"}
 			label={translation + ".filter.title"}
-			width={600}
+			width={750}
 			{...drawerButtonProps}
 		>
 			<DrawerContext.Consumer>
