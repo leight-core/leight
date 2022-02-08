@@ -1,3 +1,4 @@
+export * from "./DrawerMenu";
 export * from "./Menu";
 export * from "./interface";
 export * from "./MenuContext";
