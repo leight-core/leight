@@ -21,7 +21,7 @@ export interface IFormItemProps extends Partial<FormItemProps> {
 	 * Disable default Antd Form.Item margin.
 	 */
 	noMargin?: boolean;
-	labels?: string[];
+	labels?: string[] | string;
 	onNormalize?: (value: any, formItemContext: IFormItemContext) => void,
 }
 
@@ -45,6 +45,7 @@ export const FormItem: FC<IFormItemProps> = (
 	field = ([] as (string | number)[]).concat(itemGroupContext ? itemGroupContext.prefix : [], Array.isArray(field) ? field : [field]);
 	const fieldName = Array.isArray(field) ? field.join(".") : field;
 	const rules: Rule[] = [];
+	labels = Array.isArray(labels) ? labels : [labels];
 	if (required) {
 		rules.push({
 			required: true,
