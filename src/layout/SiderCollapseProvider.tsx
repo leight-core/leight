@@ -12,6 +12,9 @@ export const SiderCollapseProvider: FC<ISiderCollapseProviderProps> = ({defaultC
 			collapsed,
 			useCollapse: (collapsed, restore) => {
 				useEffect(() => {
+					if (collapsed === undefined) {
+						return;
+					}
 					setCollapsed(collapsed);
 					return () => {
 						restore && setCollapsed(!collapsed);

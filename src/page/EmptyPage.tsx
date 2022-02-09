@@ -1,4 +1,4 @@
-import {BlockProvider, PageProvider, ScrollToTop, useBlockContext, useLayoutBlockContext, useLayoutContext, useMenuSelectionContext} from "@leight-core/leight";
+import {BlockProvider, PageProvider, ScrollToTop, useBlockContext, useLayoutBlockContext, useLayoutContext, useMenuSelectionContext, useSiderCollapseContext} from "@leight-core/leight";
 import {Spin} from "antd";
 import Head from "next/head";
 import {FC, useEffect} from "react";
@@ -17,6 +17,10 @@ export interface IEmptyPageProps {
 	 */
 	fullwidth?: boolean;
 	/**
+	 * Should the sider be collapsed?
+	 */
+	collapsed?: boolean;
+	/**
 	 * Restore the original fullscreen mode when a view is left.
 	 *
 	 * Defaults to `true`.
@@ -34,12 +38,10 @@ export interface IEmptyPageProps {
 	menuSelection?: string[];
 }
 
-const EmptyPageInternal: FC = ({children}) => {
+const EmptyPageInternal: FC = props => {
 	const {t} = useTranslation();
 	const blockContext = useBlockContext();
-	return <Spin spinning={blockContext.isBlocked()} indicator={null as any} tip={t("common.loading") as string}>
-		{children}
-	</Spin>;
+	return <Spin spinning={blockContext.isBlocked()} indicator={null as any} tip={t("common.loading") as string} {...props}/>;
 };
 
 /**
@@ -50,6 +52,7 @@ export const EmptyPage: FC<IEmptyPageProps> = (
 		title,
 		blocked = false,
 		fullwidth = false,
+		collapsed,
 		restore = true,
 		menuSelection = [],
 		children,
@@ -59,6 +62,7 @@ export const EmptyPage: FC<IEmptyPageProps> = (
 	const blockContext = useLayoutBlockContext();
 	useMenuSelectionContext().useSelection(menuSelection);
 	layoutContext.useEnableFullwidth(fullwidth, restore);
+	useSiderCollapseContext().useCollapse(collapsed, true);
 	useEffect(() => {
 		blockContext.unblock(true);
 	}, []);

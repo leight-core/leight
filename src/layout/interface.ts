@@ -28,7 +28,7 @@ export interface ISiderCollapseContext {
 	/**
 	 * Hook for collapsing a menu.
 	 */
-	useCollapse: (collapsed: boolean, restore?: boolean) => void;
+	useCollapse: (collapsed?: boolean, restore?: boolean) => void;
 	/**
 	 * Direct state change for menu collapse.
 	 */
