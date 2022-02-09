@@ -138,6 +138,8 @@ const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 
 export function Form<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(props: PropsWithChildren<IFormProps<TQuery, TRequest, TResponse>>): JSX.Element {
 	return <FormContextProvider>
-		<FormInternal<TQuery, TRequest, TResponse> {...props}/>
+		<ItemGroupContextProvider prefix={[]}>
+			<FormInternal<TQuery, TRequest, TResponse> {...props}/>
+		</ItemGroupContextProvider>
 	</FormContextProvider>;
 }
