@@ -109,12 +109,13 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 			mergeQuery: input => setQuery({...query, ...input, ...props.query}),
 			pagination: function () {
 				return result.isSuccess ? {
+					size: "small",
 					current: page + 1,
 					total: result.data.total,
 					pageSize: result.data.size,
 					defaultPageSize: result.data.size,
-					showQuickJumper: true,
-					hideOnSinglePage: true,
+					showQuickJumper: false,
+					hideOnSinglePage: false,
 					onChange: (current, size) => this.setPage(current - 1, size),
 				} : undefined;
 			}
