@@ -9,7 +9,6 @@ export type IPageBreadcrumb = BreadcrumbProps | React.ReactElement<typeof Breadc
 
 export interface IPageProps extends IEmptyPageProps {
 	onBack?: (navigate: INavigate) => void;
-	card?: Partial<CardProps>;
 	breadcrumbProps?: IPageBreadcrumb;
 	breadcrumbMobileProps?: IPageBreadcrumb;
 	breadcrumbBrowserProps?: IPageBreadcrumb;
@@ -18,7 +17,7 @@ export interface IPageProps extends IEmptyPageProps {
 	extraMobile?: ReactNode;
 	extraBrowser?: ReactNode;
 	header?: ReactNode;
-	cardProps?: CardProps;
+	cardProps?: Partial<CardProps>;
 	headerProps?: IPageHeaderProps;
 }
 
@@ -54,7 +53,7 @@ export const Page: FC<IPageProps> = (
 			{...headerProps}
 		/>}
 		<Card
-			bodyStyle={isMobile ? {padding: "8px"} : {padding: "0 18px"}}
+			bodyStyle={isMobile ? {padding: "8px"} : {padding: "18px 8px"}}
 			{...cardProps}
 		>
 			{children}
