@@ -110,6 +110,7 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 			pagination: function () {
 				return result.isSuccess ? {
 					size: "small",
+					responsive: true,
 					current: page + 1,
 					total: result.data.total,
 					pageSize: result.data.size,
