@@ -123,7 +123,6 @@ const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 				onSuccess: response => {
 					blockContext.unblock();
 					formBlockContext.unblock();
-					console.log("closeDrawer", closeDrawer, "drawerContext", drawerContext);
 					closeDrawer && drawerContext?.hide();
 					onSuccess({navigate, values, response, formContext});
 				},
