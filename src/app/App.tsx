@@ -1,4 +1,5 @@
 import {
+	BrowserDetectionContext,
 	BrowserDetectionProvider,
 	ClientProvider,
 	DayjsProvider,
@@ -52,7 +53,6 @@ export const App: FC<IAppProps> = (
 		clientLink,
 		translationLink = "Edde.Shared.Translation",
 		sessionLink = "Edde.Shared.User.Ticket",
-		defaultCollapsed = false,
 		dayjs,
 		i18next,
 		queryClient,
@@ -70,15 +70,17 @@ export const App: FC<IAppProps> = (
 									<DiscoveryProvider logo={logo}>
 										<TranslationLoader link={translationLink} logo={logo}>
 											<SessionContextProvider link={sessionLink} logo={logo}>
-												<SiderCollapseProvider defaultCollapsed={defaultCollapsed}>
-													<MenuSelectionProvider>
-														<MenuElementProvider>
-															<LayoutBlockProvider>
-																{children}
-															</LayoutBlockProvider>
-														</MenuElementProvider>
-													</MenuSelectionProvider>
-												</SiderCollapseProvider>
+												<BrowserDetectionContext.Consumer>
+													{browserContext => <SiderCollapseProvider defaultCollapsed={!browserContext.isMobile()}>
+														<MenuSelectionProvider>
+															<MenuElementProvider>
+																<LayoutBlockProvider>
+																	{children}
+																</LayoutBlockProvider>
+															</MenuElementProvider>
+														</MenuSelectionProvider>
+													</SiderCollapseProvider>}
+												</BrowserDetectionContext.Consumer>
 											</SessionContextProvider>
 										</TranslationLoader>
 									</DiscoveryProvider>
