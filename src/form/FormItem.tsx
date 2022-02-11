@@ -62,7 +62,7 @@ export const FormItem: FC<IFormItemProps> = (
 	 */
 	rules.push(() => ({validator: () => Promise.resolve()}));
 	props.tooltip = props.tooltip ? t("" + props.tooltip) : props.tooltip;
-	formContext.translation && hasTooltip && (props.tooltip = formContext.translation + "." + fieldName + ".label.tooltip");
+	formContext.translation && hasTooltip && (props.tooltip = t(formContext.translation + "." + fieldName + ".label.tooltip"));
 	const context: IFormItemContext = {
 		field,
 		label: t(["form-item." + fieldName + ".label"].concat(labels)) as string,

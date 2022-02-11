@@ -62,7 +62,6 @@ const usePassThroughMutation = () => useMutation<any, any, any, any>(values => {
 
 const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 	{
-		translation,
 		useMutation = usePassThroughMutation,
 		mutationQuery,
 		toMutation = values => values,
