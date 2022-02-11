@@ -22,6 +22,7 @@ export interface IFormItemProps extends Partial<FormItemProps> {
 	 */
 	noMargin?: boolean;
 	labels?: string[] | string;
+	hasTooltip?: boolean;
 	onNormalize?: (value: any, formItemContext: IFormItemContext) => void,
 }
 
@@ -33,6 +34,7 @@ export const FormItem: FC<IFormItemProps> = (
 		noMargin = false,
 		children = <Input/>,
 		labels = [],
+		hasTooltip = false,
 		onNormalize,
 		...props
 	}) => {
@@ -46,6 +48,7 @@ export const FormItem: FC<IFormItemProps> = (
 	const fieldName = Array.isArray(field) ? field.join(".") : field;
 	const rules: Rule[] = [];
 	labels = Array.isArray(labels) ? labels : [labels];
+	formContext.translation && labels.push(formContext.translation + "." + fieldName + ".label");
 	if (required) {
 		rules.push({
 			required: true,
@@ -59,6 +62,7 @@ export const FormItem: FC<IFormItemProps> = (
 	 */
 	rules.push(() => ({validator: () => Promise.resolve()}));
 	props.tooltip = props.tooltip ? t("" + props.tooltip) : props.tooltip;
+	formContext.translation && hasTooltip && (props.tooltip = formContext.translation + "." + fieldName + ".label.tooltip");
 	const context: IFormItemContext = {
 		field,
 		label: t(["form-item." + fieldName + ".label"].concat(labels)) as string,

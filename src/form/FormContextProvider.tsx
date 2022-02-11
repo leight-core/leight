@@ -4,9 +4,10 @@ import React, {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface IFormContextProviderProps {
+	translation?: string;
 }
 
-export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) => {
+export const FormContextProvider: FC<IFormContextProviderProps> = ({translation, ...props}) => {
 	const {t} = useTranslation();
 	const [errors, setErrors] = useState<IFormErrors>();
 	const [form] = CoolForm.useForm();
@@ -29,6 +30,7 @@ export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) =
 	>
 		<FormContext.Provider
 			value={{
+				translation,
 				form,
 				errors: errors as IFormErrors,
 				setErrors: setErrorsInternal,
@@ -36,7 +38,7 @@ export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) =
 				reset: () => form.resetFields(),
 				values: form.getFieldsValue,
 				resetErrors,
-				refresh: () => form.validateFields().then(() => resetErrors(), () => resetErrors()),
+				refresh: () => form.validateFields().then(resetErrors, resetErrors),
 				blockContext: formBlockContext,
 				canSubmit: (then?: (canSubmit: boolean) => void) => {
 					const promise = FormUtils.canSubmit(form);
@@ -44,8 +46,7 @@ export const FormContextProvider: FC<IFormContextProviderProps> = ({children}) =
 					return promise;
 				},
 			}}
-		>
-			{children}
-		</FormContext.Provider>
+			{...props}
+		/>
 	</FormBlockContext.Provider>;
 };

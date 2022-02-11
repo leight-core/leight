@@ -37,6 +37,7 @@ export interface IFormErrors {
 }
 
 export interface IFormContext<TValues = any> {
+	readonly translation?: string;
 	/**
 	 * Antd form instance.
 	 */
