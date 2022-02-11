@@ -49,6 +49,7 @@ export const FormItem: FC<IFormItemProps> = (
 	const rules: Rule[] = [];
 	labels = Array.isArray(labels) ? labels : [labels];
 	formContext.translation && labels.push(formContext.translation + "." + fieldName + ".label");
+	itemGroupContext?.translation && labels.push(itemGroupContext.translation + "." + fieldName + ".label");
 	if (required) {
 		rules.push({
 			required: true,
@@ -63,6 +64,7 @@ export const FormItem: FC<IFormItemProps> = (
 	rules.push(() => ({validator: () => Promise.resolve()}));
 	props.tooltip = props.tooltip ? t("" + props.tooltip) : props.tooltip;
 	formContext.translation && hasTooltip && (props.tooltip = t(formContext.translation + "." + fieldName + ".label.tooltip"));
+	itemGroupContext?.translation && hasTooltip && (props.tooltip = t(itemGroupContext.translation + "." + fieldName + ".label.tooltip"));
 	const context: IFormItemContext = {
 		field,
 		label: t(["form-item." + fieldName + ".label"].concat(labels)) as string,

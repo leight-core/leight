@@ -4,6 +4,7 @@ import {FC} from "react";
 
 export interface IItemGroupProps {
 	prefix: NamePath;
+	translation?: string;
 }
 
 /**
@@ -13,10 +14,8 @@ export interface IItemGroupProps {
  *
  * Also, do no not use some kind of "global" item group.
  */
-export const ItemGroup: FC<IItemGroupProps> = ({prefix, children}) => {
+export const ItemGroup: FC<IItemGroupProps> = ({prefix, ...props}) => {
 	const itemGroupContext = useOptionalItemGroupContext();
 	const name = ([] as (string | number)[]).concat(itemGroupContext ? itemGroupContext.prefix : [], Array.isArray(prefix) ? prefix : [prefix]);
-	return (
-		<ItemGroupContextProvider prefix={name} children={children}/>
-	);
+	return <ItemGroupContextProvider prefix={name} {...props}/>;
 };
