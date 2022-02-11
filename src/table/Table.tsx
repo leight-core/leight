@@ -1,8 +1,7 @@
-import {IndexOf, IQueryParams, IRecordItem, isArray, isCallable, ISourceContext, isString, ITableChildrenCallback, ITableToFilterCallback, LoaderIcon, merge, useSourceContext} from "@leight-core/leight";
+import {IndexOf, IQueryParams, IRecordItem, isArray, isCallable, ISourceContext, isString, ITableChildrenCallback, ITableToFilterCallback, LoaderIcon, merge, useIsMobile, useSourceContext} from "@leight-core/leight";
 import {Empty, List, ListProps, Table as CoolTable, TablePaginationConfig, TableProps} from "antd";
 import {FilterValue, SorterResult} from "antd/lib/table/interface";
 import React, {ReactNode} from "react";
-import {isBrowser} from "react-device-detect";
 import {useTranslation} from "react-i18next";
 
 export interface ITableProps<TQuery extends IQueryParams, TResponse, TOrderBy, TFilter> extends Omit<TableProps<TResponse>, "footer"> {
@@ -27,11 +26,12 @@ export const Table = <TQuery extends IQueryParams, TResponse extends object, TOr
 		...props
 	}: ITableProps<TQuery, TResponse, TOrderBy, TFilter>) => {
 	const {t} = useTranslation();
+	const isMobile = useIsMobile();
 	const sourceContext = useSourceContext<TQuery, TResponse, TOrderBy, TFilter>();
 	if (header && !props.title) {
 		props.title = () => header(sourceContext);
 	}
-	return (isBrowser && !forceList) ? <CoolTable
+	return (!isMobile && !forceList) ? <CoolTable
 			style={{minHeight: "50vh"}}
 			showSorterTooltip={false}
 			dataSource={sourceContext.result.isSuccess ? sourceContext.result.data.items : []}

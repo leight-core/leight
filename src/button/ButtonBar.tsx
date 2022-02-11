@@ -1,18 +1,18 @@
-import {Centered} from "@leight-core/leight";
+import {Centered, useIsMobile} from "@leight-core/leight";
 import {Space, SpaceProps} from "antd";
 import {FC} from "react";
-import {isBrowser} from "react-device-detect";
 
 export interface IButtonBarProps extends Partial<SpaceProps> {
 	inline?: boolean;
 }
 
 export const ButtonBar: FC<IButtonBarProps> = ({inline = true, ...props}) => {
+	const isMobile = useIsMobile();
 	return <Centered>
 		<Space
 			size={0}
 			align={"center"}
-			direction={(isBrowser || inline) ? "horizontal" : "vertical"}
+			direction={(!isMobile || inline) ? "horizontal" : "vertical"}
 			{...props}
 		/>
 	</Centered>;

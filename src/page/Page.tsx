@@ -1,9 +1,8 @@
-import {EmptyPage, IEmptyPageProps, INavigate, IPageHeaderProps, PageHeader, PageMenu, useNavigate} from "@leight-core/leight";
+import {EmptyPage, IEmptyPageProps, INavigate, IPageHeaderProps, PageHeader, PageMenu, useIsMobile, useNavigate} from "@leight-core/leight";
 import {BreadcrumbProps, Card, CardProps, Divider} from "antd";
 import Breadcrumb from "antd/lib/breadcrumb";
 import * as React from "react";
 import {FC, ReactNode} from "react";
-import {isMobile} from "react-device-detect";
 
 export type IPageBreadcrumb = BreadcrumbProps | React.ReactElement<typeof Breadcrumb>;
 
@@ -38,6 +37,7 @@ export const Page: FC<IPageProps> = (
 		onBack,
 		...props
 	}) => {
+	const isMobile = useIsMobile();
 	const navigate = useNavigate();
 	extra = extra || (isMobile ? extraMobile : extraBrowser);
 	breadcrumbProps = breadcrumbProps || (isMobile ? breadcrumbMobileProps : breadcrumbBrowserProps);
