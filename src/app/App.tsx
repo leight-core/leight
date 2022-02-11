@@ -32,6 +32,7 @@ export interface IAppProps {
 	queryClient: QueryClient;
 	dayjs: any;
 	i18next: i18n;
+	defaultCollapsed?: boolean;
 }
 
 /**
@@ -48,6 +49,7 @@ export const App: FC<IAppProps> = (
 		clientLink,
 		translationLink = "Edde.Shared.Translation",
 		sessionLink = "Edde.Shared.User.Ticket",
+		defaultCollapsed = false,
 		dayjs,
 		i18next,
 		queryClient,
@@ -63,7 +65,7 @@ export const App: FC<IAppProps> = (
 								<DiscoveryProvider logo={logo}>
 									<TranslationLoader link={translationLink} logo={logo}>
 										<SessionContextProvider link={sessionLink} logo={logo}>
-											<SiderCollapseProvider>
+											<SiderCollapseProvider defaultCollapsed={defaultCollapsed}>
 												<MenuSelectionProvider>
 													<MenuElementProvider>
 														<LayoutBlockProvider>
