@@ -10,7 +10,7 @@ export interface IBrowserDetectionProviderProps {
 
 export const BrowserDetectionProvider: FC<IBrowserDetectionProviderProps> = ({isBrowser, isMobile, isTablet, ...props}) => {
 	isBrowser = isBrowser || (() => isCoolBrowser || isCoolTablet);
-	isMobile = isMobile || (() => isCoolMobile);
+	isMobile = isMobile || (() => isCoolMobile || !isCoolTablet);
 	isTablet = isTablet || (() => isCoolTablet);
 	return <BrowserDetectionContext.Provider
 		value={{
