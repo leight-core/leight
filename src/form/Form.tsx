@@ -27,6 +27,7 @@ import {useTranslation} from "react-i18next";
 import {useMutation} from "react-query";
 
 export interface IFormProps<TQuery extends IQueryParams, TRequest, TResponse> extends Partial<FormProps> {
+	translation?: string;
 	/**
 	 * What to do on form submit.
 	 */
@@ -61,6 +62,7 @@ const usePassThroughMutation = () => useMutation<any, any, any, any>(values => {
 
 const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 	{
+		translation,
 		useMutation = usePassThroughMutation,
 		mutationQuery,
 		toMutation = values => values,
@@ -142,8 +144,8 @@ const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 	</CoolForm>;
 };
 
-export function Form<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(props: PropsWithChildren<IFormProps<TQuery, TRequest, TResponse>>): JSX.Element {
-	return <FormContextProvider>
+export function Form<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>({translation, ...props}: PropsWithChildren<IFormProps<TQuery, TRequest, TResponse>>): JSX.Element {
+	return <FormContextProvider translation={translation}>
 		<ItemGroupContextProvider prefix={[]}>
 			<FormInternal<TQuery, TRequest, TResponse> {...props}/>
 		</ItemGroupContextProvider>
