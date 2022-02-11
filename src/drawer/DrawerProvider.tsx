@@ -10,6 +10,7 @@ export const DrawerProvider: FC<IDrawerProviderProps> = props => {
 		value={{
 			visible,
 			setVisible,
+			hide: () => setVisible(false),
 		}}
 		{...props}
 	/>;

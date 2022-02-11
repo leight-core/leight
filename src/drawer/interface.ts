@@ -9,4 +9,6 @@ export interface IDrawerContext {
 	 * @param visible
 	 */
 	setVisible: (visible: boolean) => void;
+
+	hide: () => void;
 }

@@ -17,7 +17,8 @@ import {
 	useBlockContext,
 	useFormBlockContext,
 	useFormContext,
-	useNavigate
+	useNavigate,
+	useOptionalDrawerContext
 } from "@leight-core/leight";
 import {Form as CoolForm, FormProps, message, Spin} from "antd";
 import isCallable from "is-callable";
@@ -51,6 +52,7 @@ export interface IFormProps<TQuery extends IQueryParams, TRequest, TResponse> ex
 	 * Map error from outside to a state in the form (like a general error or a field error).
 	 */
 	toError?: (error: IToError<any, any>) => IFormErrorMap<any>;
+	closeDrawer?: boolean;
 }
 
 const usePassThroughMutation = () => useMutation<any, any, any, any>(values => {
@@ -66,12 +68,14 @@ const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 		onSuccess = () => null,
 		toError = () => ({}),
 		onFailure,
+		closeDrawer = false,
 		children,
 		...props
 	}: PropsWithChildren<IFormProps<TQuery, TRequest, TResponse>>) => {
 	const formContext = useFormContext();
 	const blockContext = useBlockContext();
 	const formBlockContext = useFormBlockContext();
+	const drawerContext = useOptionalDrawerContext();
 	const doNavigate = useNavigate();
 	const {t} = useTranslation();
 
@@ -119,6 +123,7 @@ const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 				onSuccess: response => {
 					blockContext.unblock();
 					formBlockContext.unblock();
+					closeDrawer && drawerContext?.hide();
 					onSuccess({navigate, values, response, formContext});
 				},
 				onError: error => onFailure && onFailure({error: (error && error.response && error.response.data) || error, formContext}),
