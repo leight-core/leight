@@ -14,6 +14,31 @@ export interface ISubmitProps extends Partial<ButtonProps> {
 	label: string | string[];
 }
 
+interface IInternalProps {
+	label: string | string[];
+}
+
+const Internal: FC<IInternalProps> = ({label, ...props}) => {
+	const [canSubmit, setCanSubmit] = useState(false);
+	const formContext = useFormContext();
+
+	const {t} = useTranslation();
+	useEffect(() => {
+		/**
+		 * Because we need to ensure all item forms are created, "canSubmit" works asynchronously.
+		 */
+		const promise = formContext.canSubmit(setCanSubmit);
+		return () => promise.cancel();
+	});
+	return <Button
+		htmlType={"submit"}
+		type={"primary"}
+		disabled={!canSubmit}
+		children={t(formContext.translation ? formContext.translation + "." + label : label)}
+		{...props}
+	/>;
+};
+
 /**
  * Button used to submit a form in any way. All fields must be valid to enable this button.
  *
@@ -39,31 +64,10 @@ export interface ISubmitProps extends Partial<ButtonProps> {
  * - https://ant.design/components/form/#API
  */
 export const Submit: FC<ISubmitProps> = ({noStyle, label, ...props}) => {
-	const [canSubmit, setCanSubmit] = useState(false);
-	const formContext = useFormContext();
-
-	const Internal = () => {
-		const {t} = useTranslation();
-		useEffect(() => {
-			/**
-			 * Because we need to ensure all item forms are created, "canSubmit" works asynchronously.
-			 */
-			const promise = formContext.canSubmit(setCanSubmit);
-			return () => promise.cancel();
-		});
-		return <Button
-			htmlType={"submit"}
-			type={"primary"}
-			disabled={!canSubmit}
-			children={t(label)}
-			{...props}
-		/>;
-	};
-
 	return <Form.Item
 		shouldUpdate
 		noStyle={noStyle}
 	>
-		{() => <Internal/>}
+		{() => <Internal label={label} {...props}/>}
 	</Form.Item>;
 };
