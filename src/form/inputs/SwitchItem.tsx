@@ -10,7 +10,6 @@ export interface ISwitchItemProps extends Partial<IFormItemProps> {
 	 * - https://ant.design/components/form/#NamePath
 	 */
 	field: NamePath;
-	labels?: string[];
 	switchProps?: Partial<SwitchProps>;
 }
 
@@ -26,9 +25,7 @@ export interface ISwitchItemProps extends Partial<IFormItemProps> {
 export const SwitchItem: FC<ISwitchItemProps> = ({field, labels = [], switchProps, ...props}) => {
 	return <FormItem
 		field={field}
-		initialValue={false}
 		valuePropName={"checked"}
-		labels={labels}
 		{...props}
 		children={<CoolSwitch defaultChecked={false} {...switchProps}/>}
 	/>;
