@@ -130,4 +130,6 @@ export interface ISourceContext<TQuery extends IQueryParams, TResponse, TOrderBy
 	hasData(): boolean;
 
 	map(mapper: (item: TResponse) => any): any;
+
+	data(): IQueryResult<TResponse>;
 }

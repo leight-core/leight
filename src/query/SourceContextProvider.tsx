@@ -121,6 +121,7 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 			},
 			hasData: () => result.isSuccess && result.data.count > 0,
 			map: mapper => result.isSuccess ? result.data.items.map(mapper) : [],
+			data: () => result.isSuccess ? result.data : {items: [], size: 0, count: 0, total: 0, pages: 0},
 		}}
 		{...props}
 	/>;
