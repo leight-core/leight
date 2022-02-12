@@ -2,9 +2,9 @@
  * Basic record must have an ID, thus all records must be extended from this type.
  */
 export interface IRecordItem {
-	[index: string]: any;
+	readonly [index: string]: any;
 
-	id: string;
+	readonly id: string;
 }
 
 export interface IndexOf<T> {

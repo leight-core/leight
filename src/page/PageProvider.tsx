@@ -4,7 +4,7 @@ import {FC, useState} from "react";
 export interface IPageProviderProps {
 }
 
-export const PageProvider: FC<IPageProviderProps> = ({children}) => {
+export const PageProvider: FC<IPageProviderProps> = props => {
 	const [breadcrumbEl, setBreadcrumbEl] = useState<Element | null>(null);
 	const [menuEl, setMenuEl] = useState<Element | null>(null);
 	return <PageContext.Provider
@@ -14,7 +14,6 @@ export const PageProvider: FC<IPageProviderProps> = ({children}) => {
 			menuEl,
 			setMenuEl,
 		}}
-	>
-		{children}
-	</PageContext.Provider>;
+		{...props}
+	/>;
 };

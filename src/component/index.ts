@@ -2,6 +2,7 @@ export * from "./BackLink";
 export * from "./BulletCard";
 export * from "./CancelOrderButton";
 export * from "./Card";
+export * from "./CopyText";
 export * from "./ButtonLink";
 export * from "./IconText";
 export * from "./ModalButton";

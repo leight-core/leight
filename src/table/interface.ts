@@ -4,12 +4,13 @@ import {ReactNode} from "react";
 import {IQueryParams, ISourceContext} from "../query";
 
 export interface ITableColumnProps<TItem> extends Omit<ColumnProps<TItem>, "dataIndex"> {
-	dataIndex?: keyof TItem;
+	readonly dataIndex?: keyof TItem;
 }
 
 export interface IITableChildren<TQuery extends IQueryParams, TResponse, TOrderBy, TFilter> {
-	column: (props: ITableColumnProps<TResponse>) => ReactNode;
-	sourceContext: ISourceContext<TQuery, TResponse, TOrderBy, TFilter>;
+	column(props: ITableColumnProps<TResponse>): ReactNode;
+
+	readonly sourceContext: ISourceContext<TQuery, TResponse, TOrderBy, TFilter>;
 }
 
 export interface ITableChildrenCallback<TQuery extends IQueryParams, TResponse, TOrderBy, TFilter> {
@@ -17,8 +18,8 @@ export interface ITableChildrenCallback<TQuery extends IQueryParams, TResponse, 
 }
 
 export interface ITableToFilter<TResponse, TFilter> {
-	filters: Record<keyof TResponse, FilterValue | null>;
-	current?: TFilter | null;
+	readonly filters: Record<keyof TResponse, FilterValue | null>;
+	readonly current?: TFilter | null;
 }
 
 export interface ITableToFilterCallback<TResponse, TFilter> {

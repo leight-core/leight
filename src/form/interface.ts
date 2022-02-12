@@ -4,23 +4,26 @@ import CancelablePromise from "cancelable-promise";
 import {NamePath} from "rc-field-form/lib/interface";
 
 export interface IFormItemContext {
-	field: NamePath;
-	label: string;
-	setValue: (value: any) => void;
-	getValue: () => any;
-	setErrors: (errors: string[]) => void;
+	readonly field: NamePath;
+	readonly label: string;
+
+	setValue(value: any): void;
+
+	getValue(): any;
+
+	setErrors(errors: string[]): void;
 }
 
 export type IFormFields = [NamePath, any];
 
 export interface IFormError {
-	id: NamePath;
-	error: string;
+	readonly id: NamePath;
+	readonly error: string;
 }
 
 export interface IErrorHandler<TError, TFormValues> {
-	error: TError;
-	formContext: IFormContext<TFormValues>;
+	readonly error: TError;
+	readonly formContext: IFormContext<TFormValues>;
 }
 
 export interface IFormErrorHandler<TError, TFormValues> {
@@ -28,12 +31,12 @@ export interface IFormErrorHandler<TError, TFormValues> {
 }
 
 export interface IFormErrorMap<TFormValues> {
-	[index: string]: IFormError | IFormErrorHandler<any, TFormValues>;
+	readonly [index: string]: IFormError | IFormErrorHandler<any, TFormValues>;
 }
 
 export interface IFormErrors {
-	message?: string;
-	errors: IFormError[];
+	readonly message?: string;
+	readonly errors: IFormError[];
 }
 
 export interface IFormContext<TValues = any> {
@@ -46,42 +49,50 @@ export interface IFormContext<TValues = any> {
 	 * Current form errors.
 	 */
 	readonly errors: IFormErrors;
+
 	/**
 	 * Set field errors.
 	 *
 	 * @param errors
 	 */
-	setErrors: (errors: IFormErrors) => void;
+	setErrors(errors: IFormErrors): void;
+
 	/**
 	 * Set form values
 	 *
 	 * @param values values being set
 	 */
-	setValues: (values: TValues) => void;
+	setValues(values: TValues): void;
+
 	/**
 	 * Reset form to the initial state.
 	 */
-	reset: () => void;
+	reset(): void;
+
 	/**
 	 * Return current form values.
 	 */
-	values: () => any;
+	values(): any;
+
 	/**
 	 * Throw away all error messages of all fields.
 	 */
-	resetErrors: () => void;
+	resetErrors(): void;
+
 	/**
 	 * Force form refresh (just revalidate and reset fields to get current sync with visible fields).
 	 */
-	refresh: () => void;
+	refresh(): void;
+
 	/**
 	 * Quick access to form's blocking context.
 	 */
 	readonly blockContext: IBlockContext;
+
 	/**
 	 * Resolve with true or false.
 	 */
-	canSubmit: (then?: (canSubmit: boolean) => void) => CancelablePromise<boolean>;
+	canSubmit(then?: (canSubmit: boolean) => void): CancelablePromise<boolean>;
 }
 
 export interface IToOptionMapper<TItem> {
@@ -97,10 +108,10 @@ export interface IFormInitialMapper<TFormValues> {
 }
 
 export interface IFormSuccess<TFormValues, TResponse> {
-	navigate: INavigate;
-	values: TFormValues;
-	response: TResponse;
-	formContext: IFormContext<TFormValues>;
+	readonly navigate: INavigate;
+	readonly values: TFormValues;
+	readonly response: TResponse;
+	readonly formContext: IFormContext<TFormValues>;
 }
 
 export interface IFormOnSuccess<TFormValues, TResponse> {
@@ -108,8 +119,8 @@ export interface IFormOnSuccess<TFormValues, TResponse> {
 }
 
 export interface IFormFailure<TFormValues> {
-	error: string;
-	formContext: IFormContext<TFormValues>;
+	readonly error: string;
+	readonly formContext: IFormContext<TFormValues>;
 }
 
 export interface IFormOnFailure<TFormValues> {
@@ -117,14 +128,15 @@ export interface IFormOnFailure<TFormValues> {
 }
 
 export interface IToError<TError, TFormValues> {
-	error: TError;
-	formContext: IFormContext<TFormValues>;
+	readonly error: TError;
+	readonly formContext: IFormContext<TFormValues>;
 }
 
 export type IBaseSelectItem = any;
 export type IBaseSelectOption = { value: IBaseSelectItem, label: IBaseSelectItem };
 
 export interface IFilterContext<TFilter = any> {
-	filter: TFilter;
-	setFilter: (filter?: TFilter) => void;
+	readonly filter: TFilter;
+
+	setFilter(filter?: TFilter): void;
 }

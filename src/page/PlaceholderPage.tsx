@@ -1,24 +1,21 @@
-import {EmptyPage, LoaderIcon} from "@leight-core/leight";
-import {Card, Result} from "antd";
+import {EmptyPage, ITemplateProps, LoaderIcon, Template} from "@leight-core/leight";
+import {Card} from "antd";
 import {FC} from "react";
-import {useTranslation} from "react-i18next";
 
-export interface IPlaceholderPageProps {
+export interface IPlaceholderPageProps extends Partial<ITemplateProps> {
 }
 
 /**
  * Placeholder view is useful when there are views loaded lazily (by a suspense), thus it's necessary
  * to show at least "something".
  */
-export const PlaceholderPage: FC<IPlaceholderPageProps> = ({children}) => {
-	const {t} = useTranslation();
+export const PlaceholderPage: FC<IPlaceholderPageProps> = props => {
 	return <EmptyPage title={"common.placeholder"}>
 		<Card style={{minHeight: "65vh"}}>
-			<Result
+			<Template
 				icon={<LoaderIcon/>}
-				title={t("common.placeholder.title")}
-				subTitle={t("common.placeholder.subtitle")}
-				children={children}
+				label={"common.placeholder"}
+				{...props}
 			/>
 		</Card>
 	</EmptyPage>;

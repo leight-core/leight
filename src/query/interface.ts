@@ -70,47 +70,62 @@ export interface ISourceContext<TQuery extends IQueryParams, TResponse, TOrderBy
 	 * Current page
 	 */
 	readonly page: number;
+
 	/**
 	 * Set a new page (and eventually size).
 	 */
-	setPage: (page: number, pageSize?: number) => void;
+	setPage(page: number, pageSize?: number): void;
+
 	/**
 	 * Page size
 	 */
 	readonly size: number;
+
 	/**
 	 * Set a new page size
 	 */
-	setSize: (size: number) => void;
+	setSize(size: number): void;
+
 	/**
 	 * Current order by.
 	 */
 	readonly orderBy?: TOrderBy | null;
+
 	/**
 	 * Set new order by.
 	 */
-	setOrderBy: (orderBy?: TOrderBy | null) => void;
+	setOrderBy(orderBy?: TOrderBy | null): void;
+
 	/**
 	 * Merge the given orders with current state.
 	 */
-	mergeOrderBy: (orderBy?: TOrderBy | null) => void;
+	mergeOrderBy(orderBy?: TOrderBy | null): void;
+
 	readonly filter?: TFilter | null;
-	setFilter: (filter?: TFilter | null) => void;
+
+	setFilter(filter?: TFilter | null): void;
+
 	/**
 	 * Merge current filters with the given one.
 	 */
-	mergeFilter: (filter?: TFilter | null) => void;
+	mergeFilter(filter?: TFilter | null): void;
+
 	/**
 	 * Access to current query used to fetch a page.
 	 */
 	readonly query: TQuery;
+
 	/**
 	 * Set a new query.
 	 */
-	setQuery: (query?: TQuery) => void;
+	setQuery(query?: TQuery): void;
+
 	/**
 	 * Merge queries with the given one.
 	 */
-	mergeQuery: (query?: TQuery) => void;
-	pagination: () => (TablePaginationConfig & PaginationConfig) | false | undefined;
+	mergeQuery(query?: TQuery): void;
+
+	pagination(): (TablePaginationConfig & PaginationConfig) | false | undefined;
+
+	hasData(): boolean;
 }

@@ -5,36 +5,36 @@ export interface IDiscoveryContext {
 	 * Generate link from the given discovery index ID. Or throws an error if
 	 * the ID does not exist.
 	 */
-	link: (id: string, params ?: IQueryParams) => string;
+	link(id: string, params ?: IQueryParams): string;
 }
 
 export interface IDiscoveryItem {
 	/**
 	 * ID of this discovery item; should be simply rememberable.
 	 */
-	id: string;
+	readonly id: string;
 	/**
 	 * Link on the server side (thus discovery index id is an interface between the
 	 * client application and remote application).
 	 */
-	link: string;
+	readonly link: string;
 	/**
 	 * Just an URL part of the link.
 	 */
-	url: string;
+	readonly url: string;
 	/**
 	 * Optional description of an endpoint.
 	 */
-	description: string | null;
+	readonly description: string | null;
 }
 
 export interface IDiscoveryIndex {
-	[index: string]: IDiscoveryItem;
+	readonly [index: string]: IDiscoveryItem;
 }
 
 /**
  * Discovery index. Simple map of discovery index id and discovery item.
  */
 export interface IDiscovery {
-	index: IDiscoveryIndex;
+	readonly index: IDiscoveryIndex;
 }

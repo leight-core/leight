@@ -14,8 +14,8 @@ export interface IEventCallback {
  * Internal event structure.
  */
 export interface IEvent {
-	priority: number;
-	callback: IEventCallback;
+	readonly priority: number;
+	readonly callback: IEventCallback;
 }
 
 export type IBaseEventTypes = "dismiss" | string;
@@ -27,8 +27,8 @@ export type IEventIndex<TEventTypes extends IBaseEventTypes> = { [index in TEven
  * to keep types on track (aligned to what IEvents expects).
  */
 export type IEventHandlers<T extends IBaseEventTypes = IBaseEventTypes> = {
-	[index in T]: IEventCallback
-}
+	readonly [index in T]: IEventCallback;
+};
 
 /**
  * Simple EventBus nicely typed to keep all the things in the right way.

@@ -5,9 +5,10 @@ import {BrowserView, MobileView} from "react-device-detect";
 
 interface ILayoutSiderProps {
 	menu?: ReactNode;
+	sizeSize?: number;
 }
 
-const LayoutSider: FC<ILayoutSiderProps> = ({menu}) => {
+const LayoutSider: FC<ILayoutSiderProps> = ({menu, sizeSize = 235}) => {
 	const menuCollapseContext = useSiderCollapseContext();
 	const layoutContext = useLayoutContext();
 	return <Layout.Sider
@@ -16,13 +17,13 @@ const LayoutSider: FC<ILayoutSiderProps> = ({menu}) => {
 		collapsible
 		onCollapse={menuCollapseContext.setCollapsed}
 		collapsed={menuCollapseContext.collapsed}
-		width={layoutContext.siderSize}
+		width={sizeSize}
 	>
 		<MenuPlaceholder menu={menu}/>
 	</Layout.Sider>;
 };
 
-const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer, menu, contentStyle, headerStyle, children}) => {
+const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer, menu, siderSize, contentStyle, headerStyle, children}) => {
 	const layoutBlockContext = useLayoutBlockContext();
 	return <Layout>
 		<Spin indicator={<LoaderIcon/>} spinning={layoutBlockContext.isBlocked()}>
@@ -31,7 +32,7 @@ const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer,
 					{header}
 				</Layout.Header>}
 				<Layout>
-					<LayoutSider menu={menu}/>
+					<LayoutSider sizeSize={siderSize} menu={menu}/>
 					<Layout>
 						<Layout.Content style={{minHeight: "100vh", padding: "1.5em", ...contentStyle}}>
 							<Suspense fallback={<PlaceholderPage/>}>
@@ -78,6 +79,7 @@ export interface IHeaderSiderLayoutProps {
 	 * Optional style for the header.
 	 */
 	headerStyle?: CSSProperties;
+	siderSize?: number;
 }
 
 /**
@@ -85,11 +87,8 @@ export interface IHeaderSiderLayoutProps {
  */
 export const HeaderSiderLayout: FC<IHeaderSiderLayoutProps> = props => {
 	const [fullwidth, setFullwidth] = useState<boolean>(false);
-	const [siderSize, setSiderSize] = useState<number>(235);
 	return <LayoutContext.Provider
 		value={{
-			siderSize,
-			setSiderSize,
 			fullwidth,
 			useEnableFullwidth: (enable = true, restore = true) => useEffect(() => {
 				setFullwidth(enable);
