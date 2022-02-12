@@ -58,7 +58,6 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 		defaultFilter,
 		defaultQuery,
 		options,
-		children,
 		...props
 	}: PropsWithChildren<ISourceContextProviderProps<TQuery, TResponse, TOrderBy, TFilter>>
 ) => {
@@ -119,9 +118,9 @@ export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams
 					hideOnSinglePage: false,
 					onChange: (current, size) => this.setPage(current - 1, size),
 				} : undefined;
-			}
+			},
+			hasData: () => result.isSuccess && result.data.count > 0,
 		}}
-	>
-		{children}
-	</SourceContext.Provider>;
+		{...props}
+	/>;
 };
