@@ -128,4 +128,6 @@ export interface ISourceContext<TQuery extends IQueryParams, TResponse, TOrderBy
 	pagination(): (TablePaginationConfig & PaginationConfig) | false | undefined;
 
 	hasData(): boolean;
+
+	map(mapper: (item: TResponse) => any): any;
 }
