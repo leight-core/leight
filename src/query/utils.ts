@@ -18,7 +18,10 @@ export function createQueryClient(cacheTime = 24): QueryClient {
 	});
 }
 
-export function useQueryPersistence(queryClient: QueryClient, name: string, buster?: string) {
+export function useQueryPersistence(queryClient: QueryClient, name: string, buster?: string, enable: boolean = process.env.NEXT_PUBLIC_CACHE === "true"): boolean {
+	if (!enable) {
+		return enable;
+	}
 	useEffect(() => {
 		persistQueryClient({
 			queryClient,
@@ -29,6 +32,7 @@ export function useQueryPersistence(queryClient: QueryClient, name: string, bust
 			broadcastChannel: name,
 		}));
 	}, []);
+	return enable;
 }
 
 export function wrapQuery<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(link: string, promise: IPromiseQueryCallback<TQuery, TRequest, TResponse>): IQueryHookCallback<TQuery, TRequest, TResponse> {
