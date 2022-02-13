@@ -57,6 +57,7 @@ export const App: FC<IAppProps> = (
 		i18next,
 		queryClient,
 		browserDetectionProps,
+		defaultCollapsed,
 		children,
 	}) => {
 	return <QueryClientProvider client={queryClient}>
@@ -71,7 +72,7 @@ export const App: FC<IAppProps> = (
 										<TranslationLoader link={translationLink} logo={logo}>
 											<SessionContextProvider link={sessionLink} logo={logo}>
 												<BrowserDetectionContext.Consumer>
-													{browserContext => <SiderCollapseProvider defaultCollapsed={!browserContext.isMobile()}>
+													{browserContext => <SiderCollapseProvider defaultCollapsed={defaultCollapsed !== undefined ? defaultCollapsed : !browserContext.isMobile()}>
 														<MenuSelectionProvider>
 															<MenuElementProvider>
 																<LayoutBlockProvider>
