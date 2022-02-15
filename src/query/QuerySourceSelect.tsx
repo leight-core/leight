@@ -1,9 +1,13 @@
-import {IQueryParams, IToOptionMapper, useOptionalFormContext, useOptionalFormItemContext, useSourceContext, useUpdate} from "@leight-core/leight";
+import {IBaseSelectOption, IQueryParams, IToOptionMapper, useOptionalFormContext, useOptionalFormItemContext, useSourceContext, useUpdate} from "@leight-core/leight";
 import {Empty, Select, SelectProps} from "antd";
 import React, {PropsWithChildren, useEffect, useRef} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface IQuerySourceSelectProps<TResponse> extends Partial<SelectProps<any>> {
+export interface IQuerySourceValue<TResponse> extends IBaseSelectOption {
+	entity: TResponse;
+}
+
+export interface IQuerySourceSelectProps<TResponse> extends Partial<Omit<SelectProps<string, IQuerySourceValue<TResponse>>, "onSelect">> {
 	/**
 	 * Map requested data into Select's options.
 	 */
@@ -30,6 +34,7 @@ export interface IQuerySourceSelectProps<TResponse> extends Partial<SelectProps<
 	 * Debounce interval in ms.
 	 */
 	debounce?: number;
+	onSelect?: (value: IQuerySourceValue<TResponse>) => void;
 }
 
 export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrderBy, TFilter>(
@@ -46,6 +51,7 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 		showSearch = false,
 		filter = showSearch,
 		disableOnEmpty = true,
+		onSelect,
 		...props
 	}: PropsWithChildren<IQuerySourceSelectProps<TResponse>>) => {
 	const tid = useRef<any>();
@@ -68,8 +74,17 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 			// props.onChange && props.onChange(options[0].value, options[0]);
 		}
 	}, []);
-	return sourceContext.result.isSuccess ? <Select
-		options={sourceContext.result.data.items.map(toOption)}
+
+	const _onSelect: any = (value: string, option: IQuerySourceValue<TResponse>) => {
+		onSelect?.(option);
+	};
+
+	return sourceContext.result.isSuccess ? <Select<string, IQuerySourceValue<TResponse>>
+		options={sourceContext.result.data.items.map(entity => ({
+			...toOption(entity),
+			entity,
+		}))}
+		onSelect={_onSelect}
 		loading={sourceContext.result.isFetching}
 		filterOption={() => true}
 		showSearch={showSearch}
@@ -84,10 +99,11 @@ export const QuerySourceSelect = <TQuery extends IQueryParams, TResponse, TOrder
 		disabled={!showSearch && disableOnEmpty && sourceContext.result.data && !sourceContext.result.data.count}
 		value={value}
 		{...props}
-	/> : <Select
+	/> : <Select<string, IQuerySourceValue<TResponse>>
 		showSearch={showSearch}
 		loading={sourceContext.result.isLoading}
 		disabled={disableOnEmpty}
+		onSelect={_onSelect}
 		{...props}
 	/>;
 };

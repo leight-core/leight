@@ -133,7 +133,11 @@ export interface IToError<TError, TFormValues> {
 }
 
 export type IBaseSelectItem = any;
-export type IBaseSelectOption = { value: IBaseSelectItem, label: IBaseSelectItem };
+
+export interface IBaseSelectOption {
+	value: IBaseSelectItem;
+	label: IBaseSelectItem;
+}
 
 export interface IFilterContext<TFilter = any> {
 	readonly filter: TFilter;
