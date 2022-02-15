@@ -1,3 +1,7 @@
+import {List, ListProps} from "antd";
+import {FC, ReactNode} from "react";
+import {useTranslation} from "react-i18next";
+
 export interface IPreviewProps extends Partial<ListProps<any>> {
 	translation?: string;
 	children: { [index in string]: ReactNode };
