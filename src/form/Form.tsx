@@ -114,6 +114,7 @@ const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 	});
 
 	return <CoolForm
+		layout={"vertical"}
 		form={formContext.form}
 		colon={false}
 		size={"large"}
