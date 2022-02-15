@@ -130,9 +130,7 @@ const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 				onError: error => onFailure && onFailure({error: (error && error.response && error.response.data) || error, formContext}),
 			});
 		}}
-		labelCol={{span: 8}}
 		labelAlign={"left"}
-		wrapperCol={{span: 24}}
 		scrollToFirstError
 		initialValues={toForm()}
 		{...props}
