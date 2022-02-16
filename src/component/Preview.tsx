@@ -8,7 +8,7 @@ export interface IPreviewProps extends Partial<ListProps<any>> {
 	children: { [index in string]: ReactNode };
 }
 
-export const Preview: FC<IPreviewProps> = ({translation, hideEmpty = true, children, ...props}) => {
+export const Preview: FC<IPreviewProps> = ({translation, hideEmpty = false, children, ...props}) => {
 	const {t} = useTranslation();
 	return <List
 		itemLayout={"vertical"}
