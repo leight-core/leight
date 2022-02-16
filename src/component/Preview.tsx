@@ -4,17 +4,18 @@ import {useTranslation} from "react-i18next";
 
 export interface IPreviewProps extends Partial<ListProps<any>> {
 	translation?: string;
+	hideEmpty?: boolean;
 	children: { [index in string]: ReactNode };
 }
 
-export const Preview: FC<IPreviewProps> = ({translation, children, ...props}) => {
+export const Preview: FC<IPreviewProps> = ({translation, hideEmpty = true, children, ...props}) => {
 	const {t} = useTranslation();
 	return <List
 		itemLayout={"vertical"}
 		size={"small"}
 		{...props}
 	>
-		{Object.entries(children).map(([key, item]) => <List.Item
+		{Object.entries(children).map(([key, item]) => (item || (!item && !hideEmpty)) && <List.Item
 			key={key}
 		>
 			<List.Item.Meta
