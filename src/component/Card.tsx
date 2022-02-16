@@ -14,6 +14,7 @@ export const Card: FC<ICardProps> = ({title, ...props}) => {
 		bodyStyle={isMobile ? {padding: "8px"} : undefined}
 		headStyle={isMobile ? {minHeight: "32px"} : undefined}
 		title={isString(title) ? t(title as string) : title}
+		bordered={false}
 		{...props}
 	/>;
 };
