@@ -8,6 +8,7 @@ import {
 	IFormMutationMapper,
 	IFormOnFailure,
 	IFormOnSuccess,
+	IFormOnValuesChanged,
 	IMutationHookCallback,
 	INavigate,
 	IQueryParams,
@@ -26,7 +27,7 @@ import React, {PropsWithChildren} from "react";
 import {useTranslation} from "react-i18next";
 import {useMutation} from "react-query";
 
-export interface IFormProps<TQuery extends IQueryParams, TRequest, TResponse> extends Partial<FormProps> {
+export interface IFormProps<TQuery extends IQueryParams, TRequest, TResponse> extends Partial<Omit<FormProps, "onValuesChange">> {
 	translation?: string;
 	/**
 	 * What to do on form submit.
@@ -54,6 +55,7 @@ export interface IFormProps<TQuery extends IQueryParams, TRequest, TResponse> ex
 	 */
 	toError?: (error: IToError<any, any>) => IFormErrorMap<any>;
 	closeDrawer?: boolean;
+	onValuesChange?: IFormOnValuesChanged;
 }
 
 const usePassThroughMutation = () => useMutation<any, any, any, any>(values => {
@@ -70,6 +72,7 @@ const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 		toError = () => ({}),
 		onFailure,
 		closeDrawer = true,
+		onValuesChange,
 		children,
 		...props
 	}: PropsWithChildren<IFormProps<TQuery, TRequest, TResponse>>) => {
@@ -134,6 +137,7 @@ const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 		labelAlign={"left"}
 		scrollToFirstError
 		initialValues={toForm()}
+		onValuesChange={(changed, values) => onValuesChange?.({values, changed, formContext})}
 		{...props}
 	>
 		<Spin indicator={<LoaderIcon/>} spinning={formBlockContext.isBlocked()}>

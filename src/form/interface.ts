@@ -107,6 +107,16 @@ export interface IFormInitialMapper<TFormValues> {
 	(): TFormValues;
 }
 
+export interface IFormOnValuesChanged<TFormValues = any> {
+	(success: IFormValuesChanged<TFormValues>): void;
+}
+
+export interface IFormValuesChanged<TFormValues> {
+	readonly values: TFormValues;
+	readonly formContext: IFormContext<TFormValues>;
+	readonly changed: Partial<TFormValues>;
+}
+
 export interface IFormSuccess<TFormValues, TResponse> {
 	readonly navigate: INavigate;
 	readonly values: TFormValues;
