@@ -12,7 +12,7 @@ export const Menu: FC<IMenuProps> = ({extraOpenKeys = [], ...props}) => {
 	return <CoolMenu
 		mode={"inline"}
 		selectedKeys={menuSelectionContext.selection}
-		defaultOpenKeys={extraOpenKeys}
+		defaultOpenKeys={menuCollapseContext.collapsed ? [] : extraOpenKeys}
 		subMenuCloseDelay={0.35}
 		inlineCollapsed={menuCollapseContext.collapsed}
 		{...props}
