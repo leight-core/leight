@@ -17,6 +17,7 @@ export interface IQueryProps<TQuery extends IQueryParams = IQueryParams, TReques
 	 */
 	placeholder?: () => ReactNode;
 	context?: IEntityContext<TResponse> | null;
+	onUpdate?: (entity: TResponse) => void;
 }
 
 export const Query = <TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any>(
@@ -27,11 +28,13 @@ export const Query = <TQuery extends IQueryParams = IQueryParams, TRequest = any
 		options,
 		children = () => null,
 		context,
+		onUpdate,
 		placeholder = () => <ResultSpinner/>,
 	}: PropsWithChildren<IQueryProps<TQuery, TRequest, TResponse>>) => {
 	const result = useQuery(request, query, options);
 	useEffect(() => {
 		context && result.data && context.update(result.data);
+		result.data && onUpdate?.(result.data);
 	}, [result.data]);
 	return <>
 		{context ?
