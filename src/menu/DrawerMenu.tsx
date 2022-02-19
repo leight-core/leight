@@ -10,7 +10,7 @@ export interface IDrawerMenuProps extends Partial<IDrawerButtonProps> {
 	push?: boolean | PushState;
 }
 
-export const DrawerMenu: FC<IDrawerMenuProps> = ({children, header, placement = "left", push, ...props}) => {
+export const DrawerMenu: FC<IDrawerMenuProps> = ({children, header, placement = "left", push = false, ...props}) => {
 	const isMobile = useIsMobile();
 	return <DrawerButton
 		type={"text"}
