@@ -21,7 +21,7 @@ export interface IDrawerButtonProps extends Partial<ButtonProps> {
 /**
  * Default Antd button without any preset; just the drawer is shown on click.
  */
-export const DrawerButton: FC<IDrawerButtonProps> = ({children, label, title, width = 600, height, placement = "left", push = false, fullscreen = false, drawerProps, ...props}) => {
+export const DrawerButton: FC<IDrawerButtonProps> = ({children, onClick, label, title, width = 600, height, placement = "left", push = false, fullscreen = false, drawerProps, ...props}) => {
 	const {t} = useTranslation();
 	const isMobile = useIsMobile();
 	fullscreen && (width = "100vw") && (height = "100vh");
@@ -41,7 +41,10 @@ export const DrawerButton: FC<IDrawerButtonProps> = ({children, label, title, wi
 					{children}
 				</Drawer>
 				<Button
-					onClick={() => drawerContext.setVisible(true)}
+					onClick={event => {
+						drawerContext.setVisible(true);
+						onClick?.(event);
+					}}
 					{...props}
 				>
 					{title ? t(title) : label}
