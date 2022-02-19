@@ -13,3 +13,6 @@ export interface IDrawerContext {
 
 	hide(): void;
 }
+
+export declare const PlacementTypes: ["top", "right", "bottom", "left"];
+export declare type PlacementType = typeof PlacementTypes[number];

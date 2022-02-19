@@ -1,4 +1,4 @@
-import {Drawer, DrawerContext, DrawerProvider, useIsMobile} from "@leight-core/leight";
+import {Drawer, DrawerContext, DrawerProvider, PlacementType, useIsMobile} from "@leight-core/leight";
 import {Button, ButtonProps, DrawerProps} from "antd";
 import {FC, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
@@ -11,12 +11,13 @@ export interface IDrawerButtonProps extends Partial<ButtonProps> {
 	 */
 	width?: number;
 	drawerProps?: DrawerProps;
+	placement?: PlacementType;
 }
 
 /**
  * Default Antd button without any preset; just the drawer is shown on click.
  */
-export const DrawerButton: FC<IDrawerButtonProps> = ({children, label, title, width = 600, drawerProps, ...props}) => {
+export const DrawerButton: FC<IDrawerButtonProps> = ({children, label, title, width = 600, placement, drawerProps, ...props}) => {
 	const {t} = useTranslation();
 	const isMobile = useIsMobile();
 	return <DrawerProvider>
@@ -27,6 +28,7 @@ export const DrawerButton: FC<IDrawerButtonProps> = ({children, label, title, wi
 					width={isMobile ? "100vw" : width}
 					headerStyle={isMobile ? {padding: "8px 4px"} : undefined}
 					bodyStyle={{overflowY: "scroll", padding: isMobile ? "4px" : undefined}}
+					placement={placement}
 					{...drawerProps}
 				>
 					{children}

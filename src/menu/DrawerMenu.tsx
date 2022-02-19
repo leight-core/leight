@@ -1,14 +1,11 @@
 import {MenuOutlined} from "@ant-design/icons";
-import {DrawerButton, IDrawerButtonProps, useIsMobile} from "@leight-core/leight";
+import {DrawerButton, IDrawerButtonProps, PlacementType, useIsMobile} from "@leight-core/leight";
 import {Menu} from "antd";
 import {FC, ReactNode} from "react";
 
-declare const PlacementTypes: ["top", "right", "bottom", "left"];
-declare type placementType = typeof PlacementTypes[number];
-
 export interface IDrawerMenuProps extends Partial<IDrawerButtonProps> {
 	header?: ReactNode;
-	placement?: placementType;
+	placement?: PlacementType;
 }
 
 export const DrawerMenu: FC<IDrawerMenuProps> = ({children, header, placement, ...props}) => {
