@@ -11,7 +11,7 @@ export interface IDrawerButtonProps extends Partial<ButtonProps> {
 	 * Optional drawer width.
 	 */
 	width?: string | number;
-	height?: number | number;
+	height?: string | number;
 	drawerProps?: DrawerProps;
 	placement?: PlacementType;
 	push?: boolean | PushState;
