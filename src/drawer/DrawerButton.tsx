@@ -10,7 +10,8 @@ export interface IDrawerButtonProps extends Partial<ButtonProps> {
 	/**
 	 * Optional drawer width.
 	 */
-	width?: number;
+	width?: string | number;
+	height?: number | number;
 	drawerProps?: DrawerProps;
 	placement?: PlacementType;
 	push?: boolean | PushState;
@@ -19,7 +20,7 @@ export interface IDrawerButtonProps extends Partial<ButtonProps> {
 /**
  * Default Antd button without any preset; just the drawer is shown on click.
  */
-export const DrawerButton: FC<IDrawerButtonProps> = ({children, label, title, width = 600, placement, push, drawerProps, ...props}) => {
+export const DrawerButton: FC<IDrawerButtonProps> = ({children, label, title, width = 600, height, placement, push, drawerProps, ...props}) => {
 	const {t} = useTranslation();
 	const isMobile = useIsMobile();
 	return <DrawerProvider>
@@ -28,6 +29,7 @@ export const DrawerButton: FC<IDrawerButtonProps> = ({children, label, title, wi
 				<Drawer
 					title={title ? t(title) : null}
 					width={isMobile ? "100vw" : width}
+					height={height}
 					headerStyle={isMobile ? {padding: "8px 4px"} : undefined}
 					bodyStyle={{overflowY: "scroll", padding: isMobile ? "4px" : undefined}}
 					placement={placement}
