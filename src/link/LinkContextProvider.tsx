@@ -32,7 +32,6 @@ export const LinkContextProvider: FC<ILinkContextProviderProps> = ({children}) =
 				try {
 					return generate(discoveryContext ? discoveryContext.link(href, query) : generate(href, query));
 				} catch (e) {
-					console.error(e);
 					return generate(href, query);
 				}
 			}
