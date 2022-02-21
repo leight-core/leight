@@ -1,7 +1,5 @@
+import {IEntityContext, IQueryHookCallback, IQueryOptions, IQueryParams, ResultSpinner} from "@leight-core/leight";
 import {PropsWithChildren, ReactNode, useEffect} from "react";
-import {ResultSpinner} from "../component";
-import {IEntityContext} from "../entity";
-import {IQueryHookCallback, IQueryOptions, IQueryParams} from "./interface";
 
 export interface IQueryProps<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any> {
 	useQuery: IQueryHookCallback<TQuery, TRequest, TResponse>;

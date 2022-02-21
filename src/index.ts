@@ -10,6 +10,7 @@ export * from "./component";
 export * from "./date";
 export * from "./discovery";
 export * from "./drawer";
+export * from "./endpoint";
 export * from "./entity";
 export * from "./event";
 export * from "./form";

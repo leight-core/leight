@@ -1,9 +1,8 @@
+import {IQueryParams} from "@leight-core/leight";
 import {TablePaginationConfig} from "antd";
 import {PaginationConfig} from "antd/es/pagination";
 import {UseMutationResult, UseQueryResult} from "react-query";
 import {UseMutationOptions, UseQueryOptions} from "react-query/types/react/types";
-
-export type IQueryParams = NodeJS.Dict<string | number | boolean | ReadonlyArray<string> | ReadonlyArray<number> | ReadonlyArray<boolean> | null> | undefined | void;
 
 export type IQueryOptions<TResponse> = Omit<UseQueryOptions<TResponse, any, TResponse, any>, "queryKey" | "queryFn">
 export type IMutationOptions<TResponse, TError = any, TVariables = any, TContext = unknown> = Omit<UseMutationOptions<TResponse, TError, TVariables, TContext>, "mutationKey" | "mutationFn">

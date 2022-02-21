@@ -1,5 +1,5 @@
+import {usePageContext} from "@leight-core/leight";
 import {FC} from "react";
-import {usePageContext} from "../PageContext";
 
 export interface IPageBreadcrumbProps {
 }

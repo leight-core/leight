@@ -1,7 +1,7 @@
+import {IQueryParams, ISourceContext} from "@leight-core/leight";
 import {ColumnProps} from "antd/lib/table";
 import {FilterValue} from "antd/lib/table/interface";
 import {ReactNode} from "react";
-import {IQueryParams, ISourceContext} from "../query";
 
 export interface ITableColumnProps<TItem> extends Omit<ColumnProps<TItem>, "dataIndex"> {
 	readonly dataIndex?: keyof TItem;

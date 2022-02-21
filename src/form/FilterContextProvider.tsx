@@ -1,5 +1,5 @@
+import {FilterContext} from "@leight-core/leight";
 import {PropsWithChildren, useState} from "react";
-import {FilterContext} from "./FilterContext";
 
 export interface IFilterContextProviderProps<TFilter = any> {
 	defaultFilter?: TFilter;

@@ -1,5 +1,5 @@
+import {useMenuElementContext} from "@leight-core/leight";
 import {FC, ReactNode} from "react";
-import {useMenuElementContext} from "./MenuContext";
 
 export interface IMenuPlaceholderProps {
 	menu?: ReactNode;

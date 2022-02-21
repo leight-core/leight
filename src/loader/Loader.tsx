@@ -1,7 +1,7 @@
+import {LoaderIcon} from "@leight-core/leight";
 import {Result} from "antd";
 import {FC, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
-import {LoaderIcon} from "../icon";
 
 export interface ILoaderProps {
 	icon: ReactNode;

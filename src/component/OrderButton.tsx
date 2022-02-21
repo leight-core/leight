@@ -1,7 +1,7 @@
 import {ArrowDownOutlined, ArrowUpOutlined, DashOutlined} from "@ant-design/icons";
+import {useSourceContext} from "@leight-core/leight";
 import {Button, Space, Tooltip} from "antd";
 import {useTranslation} from "react-i18next";
-import {useSourceContext} from "../query";
 
 export interface IOrderButtonProps<TOrderBy> {
 	orderBy: keyof TOrderBy;
@@ -25,8 +25,8 @@ export const OrderButton = <TOrderBy, >({orderBy, prefix}: IOrderButtonProps<TOr
 			onClick={() => sourceContext.setOrderBy({[orderBy]: !order})}
 		>
 			{(order === undefined && <Tooltip title={t("common.order.undefined.tooltip")}>{label}</Tooltip>) ||
-			(order === true && <Tooltip title={t("common.order.ascending.tooltip")}>{label}</Tooltip>) ||
-			(order === false && <Tooltip title={t("common.order.descending.tooltip")}>{label}</Tooltip>)}
+				(order === true && <Tooltip title={t("common.order.ascending.tooltip")}>{label}</Tooltip>) ||
+				(order === false && <Tooltip title={t("common.order.descending.tooltip")}>{label}</Tooltip>)}
 		</Button>
 	</Space>;
 };
