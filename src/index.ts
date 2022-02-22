@@ -28,5 +28,6 @@ export * from "./session";
 export * from "./table";
 export * from "./template";
 export * from "./translation";
+export * from "./ts";
 export * from "./uploader";
 export * from "./utils";
