@@ -10,14 +10,14 @@
 	"engines": {
 		"node": "^12.20.0 || ^14.13.1 || >=16.0.0"
 	},
-	"main": "dist/index.js",
-	"types": "dist/index.d.js",
+	"main": "lib/cjs/index.js",
+	"module": "lib/esm/index.js",
 	"files": [
-		"dist"
+		"lib"
 	],
 	"scripts": {
 		"lint": "eslint src",
-		"build": "npm run lint && tsc -p tsconfig.json",
+		"build": "npm run lint && tsc -p tsconfig.json && tsc -p tsconfig.json -m es6 --outDir lib/esm",
 		"build:watch": "tsc -w -p tsconfig.json",
 		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest src",
 		"test:watch": "jest src --watchAll"
