@@ -1,4 +1,4 @@
-import {IEndpointReflection, IInterfaceReflection, isExport, pickNode, pickNodes, requireNode, toNode} from "@leight-core/leight";
+import {IEndpointReflection, IGenerators, IInterfaceReflection, isExport, pickNode, pickNodes, requireNode, toNode} from "@leight-core/leight";
 import type ts from "typescript";
 
 export function exportInterface(node: ts.Node, sourceFile: ts.SourceFile): IInterfaceReflection | false {
@@ -12,7 +12,7 @@ export function exportInterface(node: ts.Node, sourceFile: ts.SourceFile): IInte
 	};
 }
 
-export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile): IEndpointReflection | false {
+export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile, generators: IGenerators): IEndpointReflection | false {
 	const source = node.getText(sourceFile);
 	const withExport = isExport(node, sourceFile);
 
@@ -41,19 +41,8 @@ export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile): IEndpo
 		return false;
 	}
 
-	const accept = [
-		"IEndpoint",
-		"IFetchEndpoint",
-		"IListEndpoint",
-		"IMutationEndpoint",
-		"ICreateEndpoint",
-		"IPatchEndpoint",
-		"IQueryEndpoint",
-		"IDeleteEndpoint",
-	];
-
 	const type = toNode(nodes[1] as ts.Node, sourceFile).source;
-	if (!accept.includes(type)) {
+	if (!Object.keys(generators).includes(type)) {
 		console.info(`- unknown endpoint type [${type}]\n`);
 		return false;
 	}

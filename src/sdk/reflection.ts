@@ -1,15 +1,15 @@
-import {exportEndpoint, exportInterface, IEndpointReflection, IInterfaceReflection, ISdk, pickNodes} from "@leight-core/leight";
+import {exportEndpoint, exportInterface, IEndpointReflection, IGenerators, IInterfaceReflection, ISdk, pickNodes} from "@leight-core/leight";
 import fs from "fs";
 import {glob} from "glob";
 
-export function toSdk(endpoint: string): ISdk | undefined {
+export function toSdk(endpoint: string, generators: IGenerators): ISdk | undefined {
 	const ts = require("typescript");
 	const interfaces: (IInterfaceReflection | false)[] = [];
 	const endpoints: (IEndpointReflection | false)[] = [];
 	const root = ts.createSourceFile(endpoint, fs.readFileSync(endpoint, "utf8"), ts.ScriptTarget.Latest);
 
 	pickNodes(["*", "InterfaceDeclaration"], root, root).forEach(node => interfaces.push(exportInterface(node, root)));
-	pickNodes(["*", "FirstStatement"], root, root).forEach(node => endpoints.push(exportEndpoint(node, root)));
+	pickNodes(["*", "FirstStatement"], root, root).forEach(node => endpoints.push(exportEndpoint(node, root, generators)));
 
 	const _endpoint = endpoints.filter(item => item).map<IEndpointReflection>(item => item as IEndpointReflection)?.[0];
 
@@ -24,6 +24,6 @@ export function toSdk(endpoint: string): ISdk | undefined {
 	};
 }
 
-export function toSdks(path: string): ISdk[] {
-	return glob.sync(path).map(toSdk).filter(sdk => sdk) as ISdk[];
+export function toSdks(path: string, generators: IGenerators): ISdk[] {
+	return glob.sync(path).map(endpoint => toSdk(endpoint, generators)).filter(sdk => sdk) as ISdk[];
 }

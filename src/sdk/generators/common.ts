@@ -14,7 +14,7 @@ export async function generateSdkFor(path: string, generators?: IGenerators): Pr
 	};
 	const exported: string[] = [];
 	await remove("src/sdk");
-	toSdks(path).forEach(sdk => {
+	toSdks(path, _generators).forEach(sdk => {
 		console.log(`Exporting [${sdk.file}]`, sdk);
 		outputFile(sdk.file, toSource(sdk, _generators));
 	});
