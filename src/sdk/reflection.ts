@@ -23,7 +23,7 @@ export function toSdk(endpoint: string, generators: IGenerators): ISdk | undefin
 	}
 
 	return {
-		file: root.fileName.replace("/pages", "/sdk"),
+		file: root.fileName.replace("/pages", "/sdk").replace(".ts", ".tsx"),
 		imports: imports.filter(Boolean) as IImportReflection[],
 		interfaces: interfaces.filter(Boolean) as IInterfaceReflection[],
 		endpoint: _endpoint,

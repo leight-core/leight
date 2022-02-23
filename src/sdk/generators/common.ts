@@ -1,4 +1,4 @@
-import {generateIEndpoint, IGenerators, ISdk, toSdks} from "@leight-core/leight";
+import {generateIMutationEndpoint, IGenerators, ISdk, toSdks} from "@leight-core/leight";
 import {outputFile, remove} from "fs-extra";
 
 export function toSource(sdk: ISdk, generators: IGenerators): string {
@@ -9,7 +9,7 @@ export function toSource(sdk: ISdk, generators: IGenerators): string {
 
 export async function generateSdkFor(path: string, generators?: IGenerators): Promise<string[]> {
 	const _generators = generators || {
-		"IEndpoint": generateIEndpoint,
+		"IMutationEndpoint": generateIMutationEndpoint,
 	};
 	const exported: string[] = [];
 	await remove("src/sdk");
