@@ -1,5 +1,5 @@
 {
-	"version": "0.12.155",
+	"version": "0.12.156",
 	"name": "@leight-core/leight",
 	"description": "A component library for Next.js and Ant Design.",
 	"license": "MIT",
@@ -10,13 +10,14 @@
 	"engines": {
 		"node": "^12.20.0 || ^14.13.1 || >=16.0.0"
 	},
+	"main": "lib/cjs/index.js",
 	"module": "lib/esm/index.js",
 	"files": [
 		"lib"
 	],
 	"scripts": {
 		"lint": "eslint src",
-		"build": "npm run lint && tsc -p tsconfig.json -m es6 --outDir lib/esm",
+		"build": "npm run lint && tsc -p tsconfig.json && tsc -p tsconfig.json -m es6 --outDir lib/esm",
 		"build:watch": "tsc -w -p tsconfig.json",
 		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest src",
 		"test:watch": "jest src --watchAll"
