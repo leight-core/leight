@@ -38,6 +38,13 @@ export function pickNode(path: string[], root: ts.Node, sourceFile: ts.SourceFil
 	return pickNodes(path, root, sourceFile)?.[0];
 }
 
+export function requireNode(path: string[], root: ts.Node, sourceFile: ts.SourceFile): ts.Node {
+	return pickNode(path, root, sourceFile) || (() => {
+		const node = toNode(root, sourceFile);
+		throw new Error(`Cannot find node by path [${path}] in root [${node.source}].`);
+	})();
+}
+
 export function toPrintNode(node: ts.Node, sourceFile: ts.SourceFile, indentLevel = 0) {
 	const indentation = "    ".repeat(indentLevel);
 	const _node = toNode(node, sourceFile);
