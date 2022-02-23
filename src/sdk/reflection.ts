@@ -1,13 +1,18 @@
-import {exportEndpoint, exportInterface, IEndpointReflection, IGenerators, IInterfaceReflection, ISdk, pickNodes} from "@leight-core/leight";
+import {exportEndpoint, exportImport, exportInterface, IEndpointReflection, IGenerators, IInterfaceReflection, ISdk, pickNodes} from "@leight-core/leight";
 import {readFileSync} from "fs-extra";
 import {glob} from "glob";
 
 export function toSdk(endpoint: string, generators: IGenerators): ISdk | undefined {
 	const ts = require("typescript");
 	const interfaces: (IInterfaceReflection | false)[] = [];
+	const imports: (IInterfaceReflection | false)[] = [];
 	const endpoints: (IEndpointReflection | false)[] = [];
 	const root = ts.createSourceFile(endpoint, readFileSync(endpoint, "utf8"), ts.ScriptTarget.Latest);
 
+	console.log(`${"-".repeat(16)} Parsing ${"-".repeat(16)}\n${endpoint}\n--------------------------------`);
+	// toPrintNode(root, root);
+
+	pickNodes(["*", "ImportDeclaration"], root, root).forEach(node => imports.push(exportImport(node, root)));
 	pickNodes(["*", "InterfaceDeclaration"], root, root).forEach(node => interfaces.push(exportInterface(node, root)));
 	pickNodes(["*", "FirstStatement"], root, root).forEach(node => endpoints.push(exportEndpoint(node, root, generators)));
 

@@ -1,3 +1,8 @@
+export interface IImportReflection {
+	name: string;
+	source: string;
+}
+
 export interface IInterfaceReflection {
 	name: string;
 	source: string;
@@ -6,6 +11,7 @@ export interface IInterfaceReflection {
 export interface IEndpointReflection {
 	name: string;
 	type: string;
+	api: string;
 	generics: string[];
 }
 

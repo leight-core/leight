@@ -3,7 +3,6 @@ import {outputFile, remove} from "fs-extra";
 
 export function toSource(sdk: ISdk, generators: IGenerators): string {
 	const source: string[] = [];
-	source.push(...sdk.interfaces.map(item => item.source));
 	source.push(generators[sdk.endpoint.type]?.(sdk) || "");
 	return source.join("\n");
 }

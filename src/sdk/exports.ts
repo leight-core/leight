@@ -1,5 +1,11 @@
-import {IEndpointReflection, IGenerators, IInterfaceReflection, isExport, pickNode, pickNodes, requireNode, toNode} from "@leight-core/leight";
+import {IEndpointReflection, IGenerators, IImportReflection, IInterfaceReflection, isExport, pickNode, pickNodes, requireNode, toNode, toPrintNode} from "@leight-core/leight";
 import type ts from "typescript";
+
+export function exportImport(node: ts.Node, sourceFile: ts.SourceFile): IImportReflection | false {
+	console.log("So, it's time to export imports");
+	toPrintNode(node, sourceFile);
+	return false;
+}
 
 export function exportInterface(node: ts.Node, sourceFile: ts.SourceFile): IInterfaceReflection | false {
 	const source = node.getText(sourceFile);
@@ -15,6 +21,7 @@ export function exportInterface(node: ts.Node, sourceFile: ts.SourceFile): IInte
 export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile, generators: IGenerators): IEndpointReflection | false {
 	const source = node.getText(sourceFile);
 	const withExport = isExport(node, sourceFile);
+	const api = ("/" + sourceFile.fileName.replace("src/", "").replace("pages/", "").replace(".ts", "")).replace("//", "/");
 
 	console.info(`=== Checking Endpoint Node ===\n${source}`);
 
@@ -51,6 +58,7 @@ export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile, generat
 
 	return {
 		name: toNode(nodes[0] as ts.Node, sourceFile).source,
+		api,
 		type,
 		generics: pickNodes(["+(TypeReference|UnionType|VoidKeyword|UndefinedKeyword|TypeLiteral)"], nodes[2] as ts.Node, sourceFile).map(node => toNode(node, sourceFile).source),
 	};
