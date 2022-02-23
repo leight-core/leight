@@ -1,8 +1,9 @@
+import {IForeachNodeCallback, INode, INodePath} from "@leight-core/leight";
 import minimatch from "minimatch";
-import ts from "typescript";
-import {IForeachNodeCallback, INode, INodePath} from "./interface";
+import type ts from "typescript";
 
 export function toNode(node: ts.Node, sourceFile: ts.SourceFile): INode {
+	const ts = require("typescript");
 	return {
 		node,
 		sourceFile,
@@ -12,13 +13,14 @@ export function toNode(node: ts.Node, sourceFile: ts.SourceFile): INode {
 }
 
 export function toNodePaths(root: ts.Node, sourceFile: ts.SourceFile, path: string[] = []): INodePath[] {
+	const _root = toNode(root, sourceFile);
 	const paths = [
 		{
-			path: [...path, ts.SyntaxKind[root.kind]].join("/"),
+			path: [...path, _root.syntaxKind].join("/"),
 			node: root,
 		}
 	];
-	root.getChildren(sourceFile).forEach(node => paths.push(...toNodePaths(node, sourceFile, [...path, ts.SyntaxKind[root.kind]])));
+	root.getChildren(sourceFile).forEach(node => paths.push(...toNodePaths(node, sourceFile, [...path, _root.syntaxKind])));
 	return paths;
 }
 
@@ -38,8 +40,7 @@ export function pickNode(path: string[], root: ts.Node, sourceFile: ts.SourceFil
 
 export function toPrintNode(node: ts.Node, sourceFile: ts.SourceFile, indentLevel = 0) {
 	const indentation = "    ".repeat(indentLevel);
-	const syntaxKind = ts.SyntaxKind[node.kind];
-	const nodeText = node.getText(sourceFile);
-	console.log(`${indentation}${syntaxKind}: ${nodeText}`);
+	const _node = toNode(node, sourceFile);
+	console.log(`${indentation}${_node.syntaxKind}: ${_node.source}`);
 	node.getChildren(sourceFile).forEach(child => toPrintNode(child, sourceFile, indentLevel + 1));
 }
