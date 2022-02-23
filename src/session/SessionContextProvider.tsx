@@ -7,7 +7,7 @@ export interface ISessionContextProviderProps {
 	/**
 	 * Discovery Index link id to fetch session from.
 	 */
-	link: string;
+	link: string | false;
 }
 
 export const SessionContextProvider: FC<ISessionContextProviderProps> = (
@@ -16,6 +16,9 @@ export const SessionContextProvider: FC<ISessionContextProviderProps> = (
 		link,
 		children,
 	}) => {
+	if (link === false) {
+		return <>{children}</>;
+	}
 	const result = useSessionTicketQuery(link);
 	return <SessionContext.Provider
 		value={{

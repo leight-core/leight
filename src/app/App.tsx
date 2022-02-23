@@ -30,7 +30,7 @@ export interface IAppProps {
 	/**
 	 * Optional href to obtain user ticket (user session) when app starts; defaults to "public.user.user-ticket".
 	 */
-	sessionLink?: string;
+	sessionLink?: string | false;
 	translationLink?: string;
 	queryClient: QueryClient;
 	dayjs: any;
