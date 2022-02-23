@@ -16,11 +16,11 @@ export type IEndpoint<TRequest, TResponse, TQuery extends IQueryParams = void> =
 /**
  * When fetching an individual item, done by GET.
  */
-export type IFetchEndpoint<TResponse, TQuery extends IQueryParams> = IEndpoint<void, TResponse, TQuery>
+export type IFetchEndpoint<TResponse, TQuery extends IQueryParams = void> = IEndpoint<void, TResponse, TQuery>
 /**
  * When fetching a list of items (arrayed by default), done by GET.
  */
-export type IListEndpoint<TResponse, TQuery extends IQueryParams> = IEndpoint<void, TResponse, TQuery>
+export type IListEndpoint<TResponse, TQuery extends IQueryParams = void> = IEndpoint<void, TResponse, TQuery>
 
 /**
  * Mutation endpoint is a general endpoint used to do some server-side effect (some updated data or so).
