@@ -46,19 +46,13 @@
 		"react-cookie": "^4.1.1",
 		"react-dom": "^17.0.2",
 		"react-i18next": "^11.15.3",
-		"react-query": "^3.34.11",
-		"minimatch": "^5.0.0",
-		"fs-extra": "^10.0.0",
-		"glob": "^7.2.0"
+		"react-query": "^3.34.11"
 	},
 	"devDependencies": {
 		"@types/humanize-duration": "^3.27.0",
-		"@types/minimatch": "^3.0.5",
 		"@types/is-callable": "^1.1.0",
 		"@types/is-string": "^1.0.0",
 		"@types/jest": "^27.0.3",
-		"@types/fs-extra": "^9.0.13",
-		"@types/glob": "^7.2.0",
 		"@types/node": "^16.11.9",
 		"@types/react": "^17.0.36",
 		"@types/react-dom": "^17.0.11",
