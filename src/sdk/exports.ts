@@ -1,10 +1,14 @@
-import {IEndpointReflection, IGenerators, IImportReflection, IInterfaceReflection, isExport, pickNode, pickNodes, requireNode, toNode, toPrintNode} from "@leight-core/leight";
+import {IEndpointReflection, IGenerators, IImportReflection, IInterfaceReflection, isExport, pickNode, pickNodes, requireNode, toNode} from "@leight-core/leight";
 import type ts from "typescript";
 
 export function exportImport(node: ts.Node, sourceFile: ts.SourceFile): IImportReflection | false {
-	console.log("So, it's time to export imports");
-	toPrintNode(node, sourceFile);
-	return false;
+	const imports = pickNodes(["ImportClause", "NamedImports", "**", "Identifier"], node, sourceFile).map(node => toNode(node, sourceFile).source);
+	const _from = pickNode(["StringLiteral"], node, sourceFile);
+	const from = _from && toNode(_from, sourceFile).source;
+	return from ? {
+		imports,
+		from,
+	} : false;
 }
 
 export function exportInterface(node: ts.Node, sourceFile: ts.SourceFile): IInterfaceReflection | false {

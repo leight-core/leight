@@ -1,6 +1,6 @@
 export interface IImportReflection {
-	name: string;
-	source: string;
+	imports: string[];
+	from: string;
 }
 
 export interface IInterfaceReflection {
@@ -17,6 +17,7 @@ export interface IEndpointReflection {
 
 export interface ISdk {
 	file: string;
+	imports: IImportReflection[];
 	interfaces: IInterfaceReflection[];
 	endpoint: IEndpointReflection;
 }
