@@ -1,5 +1,5 @@
 {
-	"version": "0.12.169",
+	"version": "0.12.170",
 	"name": "@leight-core/leight",
 	"description": "A component library for Next.js and Ant Design.",
 	"license": "MIT",
@@ -38,13 +38,13 @@
 		"is-callable": "^1.2.4",
 		"is-string": "^1.0.7",
 		"isarray": "^2.0.5",
-		"next": "^12.1.0",
+		"next": "^12.1.4",
 		"path-to-regexp": "^6.2.0",
 		"react": "^17.0.2",
 		"react-cookie": "^4.1.1",
 		"react-dom": "^17.0.2",
 		"react-i18next": "^11.16.1",
-		"react-query": "^3.34.16"
+		"react-query": "^3.34.19"
 	},
 	"devDependencies": {
 		"@types/humanize-duration": "^3.27.0",

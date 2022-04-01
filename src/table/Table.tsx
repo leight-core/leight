@@ -37,9 +37,9 @@ export const Table = <TQuery extends IQueryParams, TResponse extends object, TOr
 			dataSource={sourceContext.result.isSuccess ? sourceContext.result.data.items : []}
 			rowKey={((record: IRecordItem) => record.id) as any}
 			loading={{
-				spinning: sourceContext.result.isLoading,
+				spinning: sourceContext.result.isFetching,
 				indicator: <LoaderIcon/>,
-				delay: 50,
+				delay: 100,
 			}}
 			size={"large"}
 			locale={{emptyText: <Empty description={t("common.nothing-found")}/>}}
