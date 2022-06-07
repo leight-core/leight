@@ -1,9 +1,9 @@
 import {useFormContext} from "@leight-core/leight";
-import {Button, ButtonProps, Form} from "antd";
-import React, {FC, useEffect, useState} from "react";
+import {Button, Form} from "antd";
+import React, {ComponentProps, FC} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface ISubmitProps extends Partial<ButtonProps> {
+export interface ISubmitProps extends Partial<ComponentProps<typeof Button>> {
 	/**
 	 * Disable Form.Item styling.
 	 */
@@ -19,22 +19,12 @@ interface IInternalProps {
 }
 
 const Internal: FC<IInternalProps> = ({label, ...props}) => {
-	const [canSubmit, setCanSubmit] = useState(false);
-	const formContext = useFormContext();
-
 	const {t} = useTranslation();
-	useEffect(() => {
-		/**
-		 * Because we need to ensure all item forms are created, "canSubmit" works asynchronously.
-		 */
-		const promise = formContext.canSubmit(setCanSubmit);
-		return () => promise.cancel();
-	});
+	const formContext = useFormContext();
 	return <Button
 		htmlType={"submit"}
 		type={"primary"}
-		disabled={!canSubmit}
-		children={t(formContext.translation ? formContext.translation + "." + label : label)}
+		children={t(formContext.translation ? formContext.translation + "." + label : label, label)}
 		{...props}
 	/>;
 };
@@ -63,11 +53,11 @@ const Internal: FC<IInternalProps> = ({label, ...props}) => {
  * - https://ant.design/components/button/
  * - https://ant.design/components/form/#API
  */
-export const Submit: FC<ISubmitProps> = ({noStyle, label, ...props}) => {
+export const Submit: FC<ISubmitProps> = ({noStyle, ...props}) => {
 	return <Form.Item
 		shouldUpdate
 		noStyle={noStyle}
 	>
-		{() => <Internal label={label} {...props}/>}
+		{() => <Internal {...props}/>}
 	</Form.Item>;
 };

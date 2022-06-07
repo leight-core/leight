@@ -1,5 +1,5 @@
 {
-	"version": "0.12.173",
+	"version": "0.12.174",
 	"name": "@leight-core/leight",
 	"description": "A component library for Next.js and Ant Design.",
 	"license": "MIT",
@@ -22,10 +22,10 @@
 	},
 	"dependencies": {
 		"@fingerprintjs/fingerprintjs": "^3.3.3",
-		"antd": "4.19.5",
+		"antd": "^4.21.0",
 		"@ant-design/icons": "^4.7.0",
 		"react-device-detect": "^2.1.2",
-		"axios": "0.26.1",
+		"axios": "^0.27.2",
 		"axios-retry": "^3.2.4",
 		"cancelable-promise": "^4.3.0",
 		"moment": "^2.29.3",
@@ -40,9 +40,9 @@
 		"isarray": "^2.0.5",
 		"next": "^12.1.5",
 		"path-to-regexp": "^6.2.0",
-		"react": "17.0.2",
+		"react": "^18.1.0",
 		"react-cookie": "^4.1.1",
-		"react-dom": "17.0.2",
+		"react-dom": "^18.1.0",
 		"react-i18next": "^11.16.1",
 		"react-query": "^3.38.0"
 	},

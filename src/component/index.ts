@@ -6,8 +6,6 @@ export * from "./CopyText";
 export * from "./ButtonLink";
 export * from "./IconText";
 export * from "./ModalButton";
-export * from "./OrderButton";
-export * from "./OrderButtonBar";
 export * from "./Placeholder";
 export * from "./Preview";
 export * from "./BoolInline";
