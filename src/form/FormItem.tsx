@@ -1,8 +1,9 @@
-import {FormItemContext, IFormItemContext, useFormContext, useOptionalItemGroupContext} from "@leight-core/leight";
+import {FormItemContext, IFormItemContext, useFormContext} from "@leight-core/leight";
 import {Form, FormItemProps, Input} from "antd";
 import {NamePath, Rule} from "rc-field-form/lib/interface";
 import {cloneElement, FC} from "react";
 import {useTranslation} from "react-i18next";
+import {useOptionalItemGroupContext} from "./group";
 
 export interface IFormItemProps extends Partial<FormItemProps> {
 	/**
@@ -23,7 +24,8 @@ export interface IFormItemProps extends Partial<FormItemProps> {
 	noMargin?: boolean;
 	labels?: string[] | string;
 	hasTooltip?: boolean;
-	onNormalize?: (value: any, formItemContext: IFormItemContext) => void,
+
+	onNormalize?(value: any, formItemContext: IFormItemContext): void,
 }
 
 export const FormItem: FC<IFormItemProps> = (
@@ -50,12 +52,10 @@ export const FormItem: FC<IFormItemProps> = (
 	labels = Array.isArray(labels) ? labels : [labels];
 	formContext.translation && labels.push(formContext.translation + "." + fieldName + ".label");
 	itemGroupContext?.translation && labels.push(itemGroupContext.translation + "." + fieldName + ".label");
-	if (required) {
-		rules.push({
-			required: true,
-			message: t(["form-item." + fieldName + ".required"].concat(labels.map(item => item + ".required"))) as string,
-		});
-	}
+	required && rules.push({
+		required: true,
+		message: t(["form-item." + fieldName + ".required"].concat(labels.map(item => item + ".required"))) as string,
+	});
 	/**
 	 * This is... a hack I really don't understand! But it works.
 	 *
@@ -77,16 +77,14 @@ export const FormItem: FC<IFormItemProps> = (
 		},
 	};
 	onNormalize && !props.normalize && (props.normalize = value => onNormalize(value, context));
-	return (
-		<FormItemContext.Provider value={context}>
-			<Form.Item
-				name={field}
-				label={showLabel === false ? null : t(["form-item." + fieldName + ".label"].concat(labels))}
-				rules={rules}
-				{...props}
-			>
-				{children ? cloneElement(children as any, {["data-required"]: required}) : null}
-			</Form.Item>
-		</FormItemContext.Provider>
-	);
+	return <FormItemContext.Provider value={context}>
+		<Form.Item
+			name={field}
+			label={showLabel === false ? null : t(["form-item." + fieldName + ".label"].concat(labels))}
+			rules={rules}
+			{...props}
+		>
+			{children ? cloneElement(children as any, {["data-required"]: required}) : null}
+		</Form.Item>
+	</FormItemContext.Provider>;
 };
