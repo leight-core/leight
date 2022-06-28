@@ -1,7 +1,7 @@
 import {IQuery, IQueryHookCallback, IQueryOptions, IQueryParams, IQueryResult, merge, SourceContext} from "@leight-core/leight";
 import {PropsWithChildren, useEffect, useState} from "react";
 
-export interface ISourceContextProviderProps<TQuery extends IQueryParams = IQueryParams, TResponse = any, TOrderBy = any, TFilter = any> {
+export type ISourceContextProviderProps<TQuery extends IQueryParams = IQueryParams, TResponse = any, TOrderBy = any, TFilter = any> = PropsWithChildren<{
 	/**
 	 * Source of the query
 	 */
@@ -46,7 +46,7 @@ export interface ISourceContextProviderProps<TQuery extends IQueryParams = IQuer
 	 * Hard query - all changes are merge with this one.
 	 */
 	query?: TQuery
-}
+}>;
 
 export const SourceContextProvider = <TQuery extends IQueryParams = IQueryParams, TResponse = any, TOrderBy = any, TFilter = any>(
 	{
