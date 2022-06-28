@@ -1,16 +1,16 @@
 import {LoaderIcon} from "@leight-core/leight";
 import {Result} from "antd";
-import {FC, ReactNode} from "react";
+import {FC, PropsWithChildren, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface ILoaderProps {
+export type ILoaderProps = PropsWithChildren<{
 	icon: ReactNode;
 	loading: boolean;
 	error: boolean;
 	errorText?: string;
-}
+}>;
 
-export const Loader: FC<ILoaderProps> = ({icon, loading, error, errorText, children}) => {
+export const Loader: FC<ILoaderProps> = ({icon, loading, error, errorText, ...props}) => {
 	const {t} = useTranslation();
 
 	return <>
@@ -22,6 +22,6 @@ export const Loader: FC<ILoaderProps> = ({icon, loading, error, errorText, child
 			status={"error"}
 			title={errorText ? t(errorText) : null}
 		/>}
-		{!loading && !error && children}
+		{!loading && !error && props.children}
 	</>;
 };

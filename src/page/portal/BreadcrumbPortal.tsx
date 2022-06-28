@@ -1,9 +1,8 @@
 import {usePageContext} from "@leight-core/leight";
-import {FC} from "react";
+import {FC, PropsWithChildren} from "react";
 import {createPortal} from "react-dom";
 
-export interface IBreadcrumbPortalProps {
-}
+export type IBreadcrumbPortalProps = PropsWithChildren;
 
 export const BreadcrumbPortal: FC<IBreadcrumbPortalProps> = ({children}) => {
 	const pageContext = usePageContext();

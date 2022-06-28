@@ -1,9 +1,9 @@
 import {Col, Row} from "antd";
-import React, {FC} from "react";
+import React, {FC, PropsWithChildren} from "react";
 
-export interface ICenteredProps {
+export type ICenteredProps = PropsWithChildren<{
 	span?: number;
-}
+}>;
 
 export const Centered: FC<ICenteredProps> = (
 	{

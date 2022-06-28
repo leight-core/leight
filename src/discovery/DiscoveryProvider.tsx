@@ -1,12 +1,12 @@
 import {CompassOutlined} from "@ant-design/icons";
 import {DiscoveryContext, IQueryParams, LoaderLayout, useClientContext, useDiscoveryQuery, useLinkContext} from "@leight-core/leight";
-import {FC, ReactNode} from "react";
+import {FC, PropsWithChildren, ReactNode} from "react";
 
-export interface IDiscoveryProviderProps {
+export type IDiscoveryProviderProps = PropsWithChildren<{
 	logo?: ReactNode;
-}
+}>
 
-export const DiscoveryProvider: FC<IDiscoveryProviderProps> = ({logo, children}) => {
+export const DiscoveryProvider: FC<IDiscoveryProviderProps> = ({logo, ...props}) => {
 	const clientContext = useClientContext();
 	const linkContext = useLinkContext();
 	const result = useDiscoveryQuery(clientContext.client.discovery);
@@ -46,8 +46,7 @@ export const DiscoveryProvider: FC<IDiscoveryProviderProps> = ({logo, children})
 			icon={<CompassOutlined/>}
 			queryResult={result}
 			errorText={"Discovery Failed."}
-		>
-			{children}
-		</LoaderLayout>
+			{...props}
+		/>
 	</DiscoveryContext.Provider>;
 };

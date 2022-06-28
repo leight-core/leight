@@ -1,6 +1,6 @@
 import {LayoutContext, LoaderIcon, MenuPlaceholder, PlaceholderPage, useLayoutBlockContext, useLayoutContext, useSiderCollapseContext} from "@leight-core/leight";
 import {Layout, Spin} from "antd";
-import React, {CSSProperties, FC, ReactNode, Suspense, useEffect, useState} from "react";
+import React, {CSSProperties, FC, PropsWithChildren, ReactNode, Suspense, useEffect, useState} from "react";
 import {BrowserView, MobileView} from "react-device-detect";
 
 interface ILayoutSiderProps {
@@ -61,7 +61,7 @@ const HeaderSiderLayoutInternal: FC<IHeaderSiderLayoutProps> = ({header, footer,
 	</Layout>;
 };
 
-export interface IHeaderSiderLayoutProps {
+export type IHeaderSiderLayoutProps = PropsWithChildren<{
 	/**
 	 * Page (common layout) header.
 	 */
@@ -80,7 +80,7 @@ export interface IHeaderSiderLayoutProps {
 	 */
 	headerStyle?: CSSProperties;
 	siderSize?: number;
-}
+}>
 
 /**
  * Layout with a common header space, left-sided main menu and content. Packed with some interesting features.

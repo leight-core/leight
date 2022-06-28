@@ -2,14 +2,14 @@ import {GlobalOutlined} from "@ant-design/icons";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import {FingerprintContext, LoaderLayout} from "@leight-core/leight";
 import axios from "axios";
-import {FC, ReactNode} from "react";
+import {FC, PropsWithChildren, ReactNode} from "react";
 import {useQuery} from "react-query";
 
-export interface IFingerprintProviderProps {
+export type IFingerprintProviderProps = PropsWithChildren<{
 	logo?: ReactNode;
-}
+}>
 
-export const FingerprintProvider: FC<IFingerprintProviderProps> = ({logo, children}) => {
+export const FingerprintProvider: FC<IFingerprintProviderProps> = ({logo, ...props}) => {
 	const fingerprint = useQuery("fingerprint", () => new Promise<string>((resolve) => {
 		const done = (fingerprint: string) => {
 			resolve((axios.defaults.headers as any)["X-Client-Hash"] = fingerprint);
@@ -36,8 +36,7 @@ export const FingerprintProvider: FC<IFingerprintProviderProps> = ({logo, childr
 			icon={<GlobalOutlined/>}
 			queryResult={fingerprint}
 			errorText={"Fingerprint detection failed."}
-		>
-			{children}
-		</LoaderLayout>
+			{...props}
+		/>
 	</FingerprintContext.Provider>;
 };

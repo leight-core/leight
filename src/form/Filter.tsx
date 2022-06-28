@@ -4,16 +4,16 @@ import {Button, Divider, Space} from "antd";
 import {FC, PropsWithChildren} from "react";
 import {useTranslation} from "react-i18next";
 
-interface IFilterInternalProps {
+type IFilterInternalProps = PropsWithChildren<{
 	onClear: () => void;
-}
+}>
 
-const FilterInternal: FC<IFilterInternalProps> = ({onClear, children}) => {
+const FilterInternal: FC<IFilterInternalProps> = ({onClear, ...props}) => {
 	const {t} = useTranslation();
 	const formContext = useFormContext();
 	const filterContext = useFilterContext();
 	return <>
-		{children}
+		{props.children}
 		<Divider/>
 		<Centered>
 			<Space align={"baseline"} split={<Divider type={"vertical"}/>}>

@@ -16,12 +16,12 @@ import {
 	TranslationLoader
 } from "@leight-core/leight";
 import {i18n} from "i18next";
-import {FC, ReactNode} from "react";
+import {FC, PropsWithChildren, ReactNode} from "react";
 import {CookiesProvider} from "react-cookie";
 import {QueryClient, QueryClientProvider} from "react-query";
 import {ReactQueryDevtools} from "react-query/devtools";
 
-export interface IAppProps {
+export type IAppProps = PropsWithChildren<{
 	logo?: ReactNode;
 	/**
 	 * Url from where a client get its configuration, for example "/client.json".
@@ -37,7 +37,7 @@ export interface IAppProps {
 	i18next: i18n;
 	defaultCollapsed?: boolean;
 	browserDetectionProps?: IBrowserDetectionProviderProps;
-}
+}>
 
 /**
  * Common default Application:

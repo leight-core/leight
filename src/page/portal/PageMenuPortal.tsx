@@ -1,9 +1,8 @@
 import {usePageContext} from "@leight-core/leight";
-import {FC} from "react";
+import {FC, PropsWithChildren} from "react";
 import {createPortal} from "react-dom";
 
-export interface IPageMenuPortalProps {
-}
+export type IPageMenuPortalProps = PropsWithChildren;
 
 export const PageMenuPortal: FC<IPageMenuPortalProps> = ({children}) => {
 	const pageContext = usePageContext();

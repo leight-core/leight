@@ -1,10 +1,10 @@
 import {ItemGroupContext} from "@leight-core/leight";
-import {FC} from "react";
+import {FC, PropsWithChildren} from "react";
 
-export interface IItemGroupContextProviderProps {
+export type IItemGroupContextProviderProps = PropsWithChildren<{
 	prefix: (string | number)[];
 	translation?: string;
-}
+}>;
 
 export const ItemGroupContextProvider: FC<IItemGroupContextProviderProps> = ({prefix, translation, ...props}) => {
 	return <ItemGroupContext.Provider

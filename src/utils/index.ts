@@ -9,4 +9,3 @@ export * from "./NumberRange";
 export * from "./Random";
 export * from "./toHumanNumber";
 export * from "./useContext";
-export * from "./useInterval";

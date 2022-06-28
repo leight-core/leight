@@ -1,9 +1,8 @@
 import {useMenuElementContext} from "@leight-core/leight";
-import {FC} from "react";
+import {FC, PropsWithChildren} from "react";
 import {createPortal} from "react-dom";
 
-export interface IMenuPortalProps {
-}
+export type IMenuPortalProps = PropsWithChildren;
 
 export const MenuPortal: FC<IMenuPortalProps> = ({children}) => {
 	const menuElementContext = useMenuElementContext();

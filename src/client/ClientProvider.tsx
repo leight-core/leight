@@ -1,13 +1,13 @@
 import {CloudDownloadOutlined} from "@ant-design/icons";
 import {ClientContext, LoaderLayout, useClientConfigQuery} from "@leight-core/leight";
-import {FC, ReactNode} from "react";
+import {FC, PropsWithChildren, ReactNode} from "react";
 
-export interface IClientProviderProps {
+export type IClientProviderProps = PropsWithChildren<{
 	logo?: ReactNode;
 	link: string;
-}
+}>
 
-export const ClientProvider: FC<IClientProviderProps> = ({logo, link, children}) => {
+export const ClientProvider: FC<IClientProviderProps> = ({logo, link, ...props}) => {
 	const result = useClientConfigQuery(link);
 	return <ClientContext.Provider
 		value={{
@@ -19,8 +19,7 @@ export const ClientProvider: FC<IClientProviderProps> = ({logo, link, children})
 			icon={<CloudDownloadOutlined/>}
 			queryResult={result}
 			errorText={"Client config failed."}
-		>
-			{children}
-		</LoaderLayout>
+			{...props}
+		/>
 	</ClientContext.Provider>;
 };

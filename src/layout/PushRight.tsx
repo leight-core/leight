@@ -1,9 +1,9 @@
 import {Col, Row} from "antd";
-import React, {FC} from "react";
+import React, {FC, PropsWithChildren} from "react";
 
-export interface IPushRightProps {
+export type IPushRightProps = PropsWithChildren<{
 	span?: number;
-}
+}>;
 
 export const PushRight: FC<IPushRightProps> = (
 	{

@@ -1,11 +1,10 @@
 import {IDiscoveryContext, IQueryParams, LinkContext} from "@leight-core/leight";
 import {compile} from "path-to-regexp";
-import {FC, useRef} from "react";
+import {FC, PropsWithChildren, useRef} from "react";
 
-export interface ILinkContextProviderProps {
-}
+export type ILinkContextProviderProps = PropsWithChildren;
 
-export const LinkContextProvider: FC<ILinkContextProviderProps> = ({children}) => {
+export const LinkContextProvider: FC<ILinkContextProviderProps> = props => {
 	const cache = useRef<{ [index: string]: any }>({});
 	const count = useRef<number>(0);
 	const limit = 10000;
@@ -37,6 +36,6 @@ export const LinkContextProvider: FC<ILinkContextProviderProps> = ({children}) =
 			}
 		}}
 	>
-		{children}
+		{props.children}
 	</LinkContext.Provider>;
 };

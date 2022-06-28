@@ -4,7 +4,7 @@ import {FilterValue, SorterResult} from "antd/lib/table/interface";
 import React, {ReactNode} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface ITableProps<TQuery extends IQueryParams, TResponse, TOrderBy, TFilter> extends Omit<TableProps<TResponse>, "footer"> {
+export interface ITableProps<TQuery extends IQueryParams, TResponse, TOrderBy, TFilter> extends Omit<TableProps<TResponse>, "header" | "footer" | "children"> {
 	header?: (sourceContext: ISourceContext<TQuery, TResponse, TOrderBy, TFilter>) => ReactNode;
 	footer?: (sourceContext: ISourceContext<TQuery, TResponse, TOrderBy, TFilter>) => ReactNode;
 	children?: ITableChildrenCallback<TQuery, TResponse, TOrderBy, TFilter> | ReactNode;
@@ -52,7 +52,7 @@ export const Table = <TQuery extends IQueryParams, TResponse extends object, TOr
 				sourceContext.setOrderBy(orderBy as TOrderBy);
 				sourceContext.setFilter(merge<TFilter, TFilter>(sourceContext.filter || {}, toFilter({filters, current: sourceContext.filter}) || {}));
 			}) as any}
-			footer={() => footer ? footer(sourceContext) : undefined}
+			footer={() => footer?.(sourceContext)}
 			{...props}
 		>
 			{isCallable(children) ? (children as ITableChildrenCallback<TQuery, TResponse, TOrderBy, TFilter>)({
@@ -63,11 +63,11 @@ export const Table = <TQuery extends IQueryParams, TResponse extends object, TOr
 					return <CoolTable.Column {...props}/>;
 				},
 				sourceContext,
-			}) : children}
+			}) : children as any}
 		</CoolTable> :
 		<List
-			header={() => header ? header(sourceContext) : undefined}
-			footer={() => footer ? footer(sourceContext) : undefined}
+			header={header?.(sourceContext)}
+			footer={footer?.(sourceContext)}
 			dataSource={sourceContext.result.isSuccess ? sourceContext.result.data.items : []}
 			rowKey={((record: IRecordItem) => record.id) as any}
 			loading={{

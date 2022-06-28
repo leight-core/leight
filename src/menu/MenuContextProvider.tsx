@@ -1,9 +1,9 @@
 import {MenuElementContext, MenuSelectionContext} from "@leight-core/leight";
-import {FC, useEffect, useState} from "react";
+import {FC, PropsWithChildren, useEffect, useState} from "react";
 
-export interface IMenuElementProviderProps {
+export type IMenuElementProviderProps = PropsWithChildren<{
 	defaultElement?: Element;
-}
+}>
 
 export const MenuElementProvider: FC<IMenuElementProviderProps> = ({defaultElement, ...props}) => {
 	const [element, setElement] = useState<Element | undefined | null>(defaultElement);
@@ -16,9 +16,9 @@ export const MenuElementProvider: FC<IMenuElementProviderProps> = ({defaultEleme
 	/>;
 };
 
-export interface IMenuSelectionProviderProps {
+export type IMenuSelectionProviderProps = PropsWithChildren<{
 	defaultSelection?: string[];
-}
+}>
 
 export const MenuSelectionProvider: FC<IMenuSelectionProviderProps> = ({defaultSelection = [], ...props}) => {
 	const [selection, setSelection] = useState<string[]>(defaultSelection);

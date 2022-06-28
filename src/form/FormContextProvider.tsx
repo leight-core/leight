@@ -1,11 +1,11 @@
 import {BlockContextClass, FormBlockContext, FormContext, FormUtils, IFormErrors, IFormFields} from "@leight-core/leight";
 import {Form as CoolForm, message} from "antd";
-import React, {FC, useState} from "react";
+import React, {FC, PropsWithChildren, useState} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface IFormContextProviderProps {
+export type IFormContextProviderProps = PropsWithChildren<{
 	translation?: string;
-}
+}>;
 
 export const FormContextProvider: FC<IFormContextProviderProps> = ({translation, ...props}) => {
 	const {t} = useTranslation();

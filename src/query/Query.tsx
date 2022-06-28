@@ -1,5 +1,5 @@
 import {IEntityContext, IQueryHookCallback, IQueryOptions, IQueryParams, ResultSpinner} from "@leight-core/leight";
-import {PropsWithChildren, ReactNode, useEffect} from "react";
+import {ReactNode, useEffect} from "react";
 
 export interface IQueryProps<TQuery extends IQueryParams = IQueryParams, TRequest = any, TResponse = any> {
 	useQuery: IQueryHookCallback<TQuery, TRequest, TResponse>;
@@ -28,7 +28,7 @@ export const Query = <TQuery extends IQueryParams = IQueryParams, TRequest = any
 		context,
 		onUpdate,
 		placeholder = () => <ResultSpinner/>,
-	}: PropsWithChildren<IQueryProps<TQuery, TRequest, TResponse>>) => {
+	}: IQueryProps<TQuery, TRequest, TResponse>) => {
 	const result = useQuery(request, query, options);
 	useEffect(() => {
 		context && result.data && context.update(result.data);
