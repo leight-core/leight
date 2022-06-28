@@ -27,7 +27,7 @@ import React, {PropsWithChildren} from "react";
 import {useTranslation} from "react-i18next";
 import {useMutation} from "react-query";
 
-export interface IFormProps<TQuery extends IQueryParams, TRequest, TResponse> extends Partial<Omit<FormProps, "onValuesChange">> {
+export type IFormProps<TQuery extends IQueryParams, TRequest, TResponse> = PropsWithChildren<Partial<Omit<FormProps, "onValuesChange" | "children">> & {
 	translation?: string;
 	/**
 	 * What to do on form submit.
@@ -56,7 +56,7 @@ export interface IFormProps<TQuery extends IQueryParams, TRequest, TResponse> ex
 	toError?: (error: IToError<any, any>) => IFormErrorMap<any>;
 	closeDrawer?: boolean;
 	onValuesChange?: IFormOnValuesChanged;
-}
+}>;
 
 const usePassThroughMutation = () => useMutation<any, any, any, any>(values => {
 	return new Promise(resolve => resolve(values));
@@ -75,7 +75,7 @@ const FormInternal = <TQuery extends IQueryParams, TRequest, TResponse>(
 		onValuesChange,
 		children,
 		...props
-	}: PropsWithChildren<IFormProps<TQuery, TRequest, TResponse>>) => {
+	}: IFormProps<TQuery, TRequest, TResponse>) => {
 	const formContext = useFormContext();
 	const blockContext = useBlockContext();
 	const formBlockContext = useFormBlockContext();
