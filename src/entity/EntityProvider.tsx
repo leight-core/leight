@@ -1,9 +1,9 @@
 import {EntityContext} from "@leight-core/leight";
 import {PropsWithChildren, useState} from "react";
 
-export interface IEntityProviderProps<TEntity> {
+export type IEntityProviderProps<TEntity> = PropsWithChildren<{
 	defaultEntity?: TEntity;
-}
+}>;
 
 export const EntityProvider = <TEntity, >({defaultEntity, ...props}: PropsWithChildren<IEntityProviderProps<TEntity>>) => {
 	const [entity, update] = useState<TEntity | undefined | null>(defaultEntity);
