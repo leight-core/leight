@@ -7,6 +7,7 @@ export * from "./ButtonLink";
 export * from "./IconText";
 export * from "./ModalButton";
 export * from "./Placeholder";
+export * from "./PlainText";
 export * from "./Preview";
 export * from "./BoolInline";
 export * from "./ResultSpinner";
