@@ -1,8 +1,7 @@
 import {IQueryParams} from "@leight-core/leight";
+import {UseMutationOptions, UseMutationResult, UseQueryOptions, UseQueryResult} from "@tanstack/react-query";
 import {TablePaginationConfig} from "antd";
 import {PaginationConfig} from "antd/es/pagination";
-import {UseMutationResult, UseQueryResult} from "react-query";
-import {UseMutationOptions, UseQueryOptions} from "react-query/types/react/types";
 
 export type IQueryOptions<TResponse> = Omit<UseQueryOptions<TResponse, any, TResponse, any>, "queryKey" | "queryFn">
 export type IMutationOptions<TResponse, TError = any, TVariables = any, TContext = unknown> = Omit<UseMutationOptions<TResponse, TError, TVariables, TContext>, "mutationKey" | "mutationFn">

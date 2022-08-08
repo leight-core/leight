@@ -1,9 +1,8 @@
 import {IMutationHookCallback, IMutationOptions, IPromiseMutationCallback, IPromiseQueryCallback, IQueryHookCallback, IQueryOptions, IQueryParams} from "@leight-core/leight";
+import {createSyncStoragePersister} from "@tanstack/query-sync-storage-persister";
+import {QueryClient, useMutation, useQuery} from "@tanstack/react-query";
+import {persistQueryClient} from "@tanstack/react-query-persist-client";
 import {useEffect} from "react";
-import {QueryClient, useMutation, useQuery} from "react-query";
-import {broadcastQueryClient} from "react-query/broadcastQueryClient-experimental";
-import {createWebStoragePersistor} from "react-query/createWebStoragePersistor-experimental";
-import {persistQueryClient} from "react-query/persistQueryClient-experimental";
 
 /**
  * @param cacheTime cache time in hours
@@ -25,12 +24,9 @@ export function useQueryPersistence(queryClient: QueryClient, name: string, bust
 	useEffect(() => {
 		persistQueryClient({
 			queryClient,
-			persistor: createWebStoragePersistor({storage: window.sessionStorage}),
+			persister: createSyncStoragePersister({storage: window.sessionStorage}),
 			buster: buster || process.env.BUILD_ID,
-		}).then(() => broadcastQueryClient({
-			queryClient,
-			broadcastChannel: name,
-		}));
+		});
 	}, []);
 	return enable;
 }

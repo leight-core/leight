@@ -1,16 +1,16 @@
 import {GlobalOutlined} from "@ant-design/icons";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import {FingerprintContext, LoaderLayout} from "@leight-core/leight";
+import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
 import {FC, PropsWithChildren, ReactNode} from "react";
-import {useQuery} from "react-query";
 
 export type IFingerprintProviderProps = PropsWithChildren<{
 	logo?: ReactNode;
 }>
 
 export const FingerprintProvider: FC<IFingerprintProviderProps> = ({logo, ...props}) => {
-	const fingerprint = useQuery("fingerprint", () => new Promise<string>((resolve) => {
+	const fingerprint = useQuery(["fingerprint"], () => new Promise<string>((resolve) => {
 		const done = (fingerprint: string) => {
 			resolve((axios.defaults.headers as any)["X-Client-Hash"] = fingerprint);
 		};

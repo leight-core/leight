@@ -21,11 +21,11 @@ import {
 	useNavigate,
 	useOptionalDrawerContext
 } from "@leight-core/leight";
+import {useMutation} from "@tanstack/react-query";
 import {Form as CoolForm, FormProps, message, Spin} from "antd";
 import isCallable from "is-callable";
 import React, {PropsWithChildren} from "react";
 import {useTranslation} from "react-i18next";
-import {useMutation} from "react-query";
 
 export type IFormProps<TQuery extends IQueryParams, TRequest, TResponse> = PropsWithChildren<Partial<Omit<FormProps, "onValuesChange" | "children">> & {
 	translation?: string;

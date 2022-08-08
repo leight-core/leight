@@ -15,11 +15,10 @@ import {
 	SiderCollapseProvider,
 	TranslationLoader
 } from "@leight-core/leight";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {i18n} from "i18next";
 import {FC, PropsWithChildren, ReactNode} from "react";
 import {CookiesProvider} from "react-cookie";
-import {QueryClient, QueryClientProvider} from "react-query";
-import {ReactQueryDevtools} from "react-query/devtools";
 
 export type IAppProps = PropsWithChildren<{
 	logo?: ReactNode;
@@ -92,6 +91,5 @@ export const App: FC<IAppProps> = (
 				</I18NextProvider>
 			</DayjsProvider>
 		</BrowserDetectionProvider>
-		<ReactQueryDevtools initialIsOpen={false}/>
 	</QueryClientProvider>;
 };

@@ -1,5 +1,5 @@
 {
-	"version": "0.12.183",
+	"version": "0.12.184",
 	"name": "@leight-core/leight",
 	"description": "A component library for Next.js and Ant Design.",
 	"license": "MIT",
@@ -21,14 +21,15 @@
 		"build:watch": "tsc -w -p tsconfig.json"
 	},
 	"dependencies": {
-		"@fingerprintjs/fingerprintjs": "^3.3.3",
-		"antd": "^4.21.4",
 		"@ant-design/icons": "^4.7.0",
-		"react-device-detect": "^2.2.2",
+		"@fingerprintjs/fingerprintjs": "^3.3.3",
+		"@tanstack/query-sync-storage-persister": "^4.0.10",
+		"@tanstack/react-query": "^4.0.10",
+		"@tanstack/react-query-persist-client": "^4.0.10",
+		"antd": "^4.21.4",
 		"axios": "^0.27.2",
 		"axios-retry": "^3.3.0",
 		"cancelable-promise": "^4.3.0",
-		"moment": "^2.29.3",
 		"dayjs": "^1.11.3",
 		"deepmerge": "^4.2.2",
 		"fast-deep-equal": "^3.1.3",
@@ -38,27 +39,28 @@
 		"is-callable": "^1.2.4",
 		"is-string": "^1.0.7",
 		"isarray": "^2.0.5",
+		"moment": "^2.29.3",
 		"next": "^12.2.0",
 		"path-to-regexp": "^6.2.1",
 		"react": "^18.2.0",
 		"react-cookie": "^4.1.1",
+		"react-device-detect": "^2.2.2",
 		"react-dom": "^18.2.0",
-		"react-i18next": "^11.17.3",
-		"react-query": "^3.39.1"
+		"react-i18next": "^11.17.3"
 	},
 	"devDependencies": {
 		"@types/humanize-duration": "^3.27.1",
 		"@types/is-callable": "^1.1.0",
 		"@types/is-string": "^1.0.0",
+		"@types/isarray": "^2.0.0",
 		"@types/node": "^18.0.0",
 		"@types/react": "^18.0.14",
 		"@types/react-dom": "^18.0.5",
-		"@types/isarray": "^2.0.0",
 		"@typescript-eslint/eslint-plugin": "^5.30.0",
 		"@typescript-eslint/parser": "^5.30.0",
+		"cross-env": "^7.0.3",
 		"eslint": "^8.18.0",
 		"eslint-plugin-unicorn": "^42.0.0",
-		"typescript": "^4.7.4",
-		"cross-env": "^7.0.3"
+		"typescript": "^4.7.4"
 	}
 }

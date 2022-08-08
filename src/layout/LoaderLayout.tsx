@@ -1,9 +1,9 @@
 import {AntDesignOutlined} from "@ant-design/icons";
 import {Centered, LoaderIcon} from "@leight-core/leight";
+import {UseQueryResult} from "@tanstack/react-query";
 import {Card, Col, Divider, Layout, LayoutProps, Result, Row, Typography} from "antd";
 import {FC, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
-import {UseQueryResult} from "react-query";
 
 export interface ILoaderLayoutProps extends Partial<LayoutProps> {
 	logo?: ReactNode;
