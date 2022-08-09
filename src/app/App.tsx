@@ -1,9 +1,7 @@
 import {
 	BrowserDetectionContext,
 	BrowserDetectionProvider,
-	ClientProvider,
 	DayjsProvider,
-	DiscoveryProvider,
 	FingerprintProvider,
 	I18NextProvider,
 	IBrowserDetectionProviderProps,
@@ -22,10 +20,6 @@ import {CookiesProvider} from "react-cookie";
 
 export type IAppProps = PropsWithChildren<{
 	logo?: ReactNode;
-	/**
-	 * Url from where a client get its configuration, for example "/client.json".
-	 */
-	clientLink: string;
 	/**
 	 * Optional href to obtain user ticket (user session) when app starts; defaults to "public.user.user-ticket".
 	 */
@@ -49,9 +43,8 @@ export type IAppProps = PropsWithChildren<{
 export const App: FC<IAppProps> = (
 	{
 		logo,
-		clientLink,
-		translationLink = "Edde.Shared.Translation",
-		sessionLink = "Edde.Shared.User.Ticket",
+		translationLink = "/api/shared/translation",
+		sessionLink = "/api/shared/user/ticket",
 		dayjs,
 		i18next,
 		queryClient,
@@ -66,25 +59,21 @@ export const App: FC<IAppProps> = (
 					<LinkContextProvider>
 						<CookiesProvider>
 							<FingerprintProvider logo={logo}>
-								<ClientProvider link={clientLink} logo={logo}>
-									<DiscoveryProvider logo={logo}>
-										<TranslationLoader link={translationLink} logo={logo}>
-											<SessionContextProvider link={sessionLink} logo={logo}>
-												<BrowserDetectionContext.Consumer>
-													{browserContext => <SiderCollapseProvider defaultCollapsed={defaultCollapsed !== undefined ? defaultCollapsed : !browserContext.isMobile()}>
-														<MenuSelectionProvider>
-															<MenuElementProvider>
-																<LayoutBlockProvider>
-																	{children}
-																</LayoutBlockProvider>
-															</MenuElementProvider>
-														</MenuSelectionProvider>
-													</SiderCollapseProvider>}
-												</BrowserDetectionContext.Consumer>
-											</SessionContextProvider>
-										</TranslationLoader>
-									</DiscoveryProvider>
-								</ClientProvider>
+								<TranslationLoader link={translationLink} logo={logo}>
+									<SessionContextProvider link={sessionLink} logo={logo}>
+										<BrowserDetectionContext.Consumer>
+											{browserContext => <SiderCollapseProvider defaultCollapsed={defaultCollapsed !== undefined ? defaultCollapsed : !browserContext.isMobile()}>
+												<MenuSelectionProvider>
+													<MenuElementProvider>
+														<LayoutBlockProvider>
+															{children}
+														</LayoutBlockProvider>
+													</MenuElementProvider>
+												</MenuSelectionProvider>
+											</SiderCollapseProvider>}
+										</BrowserDetectionContext.Consumer>
+									</SessionContextProvider>
+								</TranslationLoader>
 							</FingerprintProvider>
 						</CookiesProvider>
 					</LinkContextProvider>
