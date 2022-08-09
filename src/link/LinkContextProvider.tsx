@@ -29,9 +29,9 @@ export const LinkContextProvider: FC<ILinkContextProviderProps> = props => {
 			generate,
 			link<TQuery extends IQueryParams = IQueryParams>(href: string, query?: TQuery, discoveryContext?: IDiscoveryContext): string {
 				try {
+					href = href.replaceAll(/{(.*?)}/g, ":$1");
 					return generate(discoveryContext ? discoveryContext.link(href, query) : generate(href, query));
 				} catch (e) {
-					console.warn("Link error", href, query, e);
 					return generate(href, query);
 				}
 			}
