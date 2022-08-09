@@ -43,7 +43,7 @@ export type IAppProps = PropsWithChildren<{
 export const App: FC<IAppProps> = (
 	{
 		logo,
-		translationLink = "/api/shared/translation",
+		translationLink = "/api/shared/translation/translations",
 		sessionLink = "/api/shared/user/ticket",
 		dayjs,
 		i18next,

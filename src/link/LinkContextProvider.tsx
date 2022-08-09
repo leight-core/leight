@@ -31,6 +31,7 @@ export const LinkContextProvider: FC<ILinkContextProviderProps> = props => {
 				try {
 					return generate(discoveryContext ? discoveryContext.link(href, query) : generate(href, query));
 				} catch (e) {
+					console.warn("Link error", href, query, e);
 					return generate(href, query);
 				}
 			}
