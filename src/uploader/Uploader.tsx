@@ -1,4 +1,4 @@
-import {Centered, formatBytes, IQueryParams, IUploaderEvents, useDiscoveryContext} from "@leight-core/leight";
+import {Centered, formatBytes, IQueryParams, IUploaderEvents, useLinkContext} from "@leight-core/leight";
 import {message, Progress, Typography, Upload} from "antd";
 import {DraggerProps, RcFile, UploadChangeParam} from "antd/lib/upload";
 import {FC, useState} from "react";
@@ -32,7 +32,7 @@ export interface IUploaderProps extends Partial<DraggerProps> {
 }
 
 export const Uploader: FC<IUploaderProps> = ({name, limit, events, translation, action, query, ...props}) => {
-	const discoveryContext = useDiscoveryContext();
+	const linkContext = useLinkContext();
 	const [loading, setLoading] = useState(false);
 	const [status, setStatus] = useState<any>("active");
 	const [progress, setProgress] = useState(0);
@@ -74,7 +74,7 @@ export const Uploader: FC<IUploaderProps> = ({name, limit, events, translation, 
 	return <Upload.Dragger
 		name={name}
 		listType={"text"}
-		action={discoveryContext.link(action, query)}
+		action={linkContext.link(action, query)}
 		beforeUpload={onBeforeUpload}
 		onChange={onChange}
 		showUploadList={false}
